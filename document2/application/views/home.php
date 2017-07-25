@@ -5,9 +5,7 @@
 <head>
     <title><?=$title?></title>
 
-
     <?php   @$this->load->view("import");   ?>
-
 
 </head>
 
@@ -62,6 +60,7 @@
 
             </div>
 
+
             <!--
             <div data-options="region:'east'" style="width:100px;padding:10px">
                 Right Content
@@ -76,8 +75,8 @@
                      <!-- ######################### Excellence #######################-->
                      <div id="panel_excellence" class="easyui-panel" title=" เอกสาร รับ/ส่ง , ค้นหา , เพิ่ม "  iconCls="icon-print"  style="width:400px;height:150px;padding:10px;"  close="true" >
                                 <div style="padding:5px 0;">
-                                    <a href="#" class="easyui-linkbutton"  onclick=" javascript: $('#dlg_content_excellence').dialog('open');  "   data-options="iconCls:'icon-large-smartart',size:'large',iconAlign:'top'">ค้นหา</a>
-                                    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-large-chart',size:'large',iconAlign:'top'">เพิ่ม</a>
+                                    <a href="#" class="easyui-linkbutton"  onclick=" javascript: $('#dlg_content_excellence').dialog('open'); $('#to').combogrid('setValue',''); $('#date').datebox('setValue',''); "   data-options="iconCls:'icon-large-smartart',size:'large',iconAlign:'top'">ค้นหา</a>
+                                    <a href="#" class="easyui-linkbutton"  onclick=" javascript: $('#dia_select_excellence').dialog('open');  "   data-options="iconCls:'icon-large-chart',size:'large',iconAlign:'top'">เพิ่ม</a>
                                     <!--
                                     <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-large-shapes',size:'large',iconAlign:'top'">Shapes</a>
                                     <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-large-smartart',size:'large',iconAlign:'top'">SmartArt</a>
@@ -123,15 +122,16 @@ style="width:400px;height:500px;padding:10px">
             </div>
 
 
+<!--  ของ -->
 <div style="margin-bottom:10px">
-        <input class="easyui-combogrid"  labelPosition="left"  style="width:50%;height:60px"
+        <input class="easyui-combogrid"  id="to"  required="true"  name="to"  labelPosition="left"  style="width:80%;height:60px"
                   data-options="
-                     url:'<?=base_url()?>index.php/welcome/json_academic',
+                     url:'<?=base_url()?>index.php/welcome/json_to',
                      method:'post',
                      //valueField:'id_academic',
                      //textField:'firstname_academic',
-                     idField:'id_academic',
-                     textField:'firstname_academic',
+                     idField:'to',
+                     textField:'to',
                      panelHeight:'auto',
                      labelPosition:'top',
                      fitColumns:true,
@@ -139,13 +139,17 @@ style="width:400px;height:500px;padding:10px">
                      labelPosition:'top',
                      columns:[[
                       // { field:'pre_academic',title:'คำนำหน้า',width:'80px'  },
-                       { field:'firstname_academic',title:'ชื่อ',width:'100px' },
-                       { field:'lastname_academic',title:'นามสกุล',width:'100px' },
+                      // { field:'firstname_academic',title:'ชื่อ',width:'100px' },
+                      // { field:'lastname_academic',title:'นามสกุล',width:'100px' },
+                         { field:'to',title:'ชื่อ-นามสกุล',widht:'150px' },
+
                      ]]
 
 
                   " >
  </div>
+
+
 
 
             <div style="margin-bottom:10px">
@@ -174,129 +178,41 @@ style="width:400px;height:500px;padding:10px">
               <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',size:'large',iconAlign:'left' "  onclick="
                  javascript:
 
+               var   type_document= $('#type_document').val() ;
+               var   date=$('#date').val();
+               var   to= $('#to').val();
+
+                  if(   type_document  > 0  &&  to != ''  )    	//type_document  1 เอกสารรับ   2 เอกสารส่ง
+                          {
+                              if(   type_document == 1 )
+                              {
+                                  $('#dia_datagrid_excellence').dialog({ title:'เอกสารรับ'  });
+                              }
+                              else if(    type_document == 2  )
+                              {
+                                  $('#dia_datagrid_excellence').dialog({ title:'เอกสารส่ง'  });
+                               }
+
+                               $('#dia_datagrid_excellence').dialog('open');
+                              // $('#dia_datagrid_excellence').dialog({ title:'test' });
 
 
-                               $.ajax({
+                                  $.ajax({
                                  type:'POST',
                                  data:$('#f_search_excellence').serialize(),
                                  url:'<?=base_url()?>index.php/welcome/search_excellence/',
-                                 dataType:'json',
-                                // contentType:'application/json',
-                                 success:function(data)
-                                 {
-                                        // $('#dia_datagrid_excellence').dialog('open');
-                                        // $('#datagrid_excellence').datagrid('loadData',data);
+                                 dataType:'json'}).done(function(data)
+                                          {
 
+                                              //   $('#dia_datagrid_excellence').dialog('open');
 
-                                        //alert(data);
-                                        $.each(data,function(v,k)
-                                        {
-                                                //alert(k.registration);
-                                                // var  registration=k.registration;
-
-                                                 $('#dia_datagrid_excellence').dialog('open');
-
-
-                                              //   $('#datagrid_excellence').datagrid('loadData',data);
-                                              /*
-                                              $('#datagrid_excellence').datagrid('load',{
-                                                at:k.at,
-
-                                              });
-                                              */
-
-                                               $('#datagrid_excellence').datagrid({
-                                                 columns:[[
-                                                     {  field: k.at , },
-                                                 ]]
-                                               });
-
-
-                                        });
+                                                 $('#datagrid_excellence').datagrid('loadData',data);
+                                           });
 
 
 
 
-
-                                 }
-
-                               });
-
-
-
-
-/*
-
-                          if( $('#type_document').val() == 1  )  	// type_document  1 เอกสารรับ   2 เอกสารส่ง
-                          {
-
-                               $('#datagrid_excellence').datagrid({
-
-                                url:'<?=base_url()?>index.php/welcome/search_excellence/' + $('#type_document').val() + '/'  +  $('#date').val() ,
-                                method:'post',
-
-                                 columns:[[
-                                     { field:'ck',checkbox:true, },
-                                     { field:'registration',title:'เลขรับ',align:'left'  },
-                                     { field:'at',title:'เลขที่เอกสาร',align:'left' },
-                                     { field:'date',title:'วันที่',align:'left' },
-                                     {  field:'from',title:'จาก',align:'left' },
-                                     {  field:'subject',title:'เรื่อง',align:'left' },
-                                 ]]
-                               });
-                           }
-                           else if(   $('#type_document').val() == 2   ) 	// type_document  1 เอกสารรับ   2 เอกสารส่ง
-                           {
-
-                             $('#datagrid_excellence').datagrid({
-                              url:'<?=base_url()?>index.php/welcome/search_excellence/' + $('#type_document').val() + '/'  +  $('#date').val() ,
-                              method:'post',
-
-                               columns:[[
-                                   { field:'ck',checkbox:true, },
-                                   { field:'registration',title:'เลขส่ง',align:'left'  },
-                                   { field:'at',title:'เลขที่เอกสาร',align:'left' },
-                                   { field:'date',title:'วันที่',align:'left' },
-                                   {  field:'from',title:'จาก',align:'left' },
-                                    {  field:'subject',title:'เรื่อง',align:'left' },
-                               ]]
-                             });
-
-                           }
-
-*/
-
-
-
-
-
-/*
-                              var  url = '<?=base_url()?>index.php/welcome/search_excellence/';
-                              $.getJSON(url, $('#f_search_excellence').serialize()  ,
-                              function(data)
-                              {
-                                    var  data=data;
-                                    //alert(data);
-                                    $('#dia_datagrid_excellence').dialog('open');
-
-
-                                    $.each(data,function(v,k){
-                                        //alert(k.registration);
-
-                                          $('#datagrid_excellence').datagrid({
-                                            data:[
-                                               { registration:k.registration  }
-                                            ]
-                                          });
-
-
-                                    });
-
-
-                              }
-                              );
-
-  */
+                          }
 
 
               " >Search(ค้นหา)</a>
@@ -307,37 +223,34 @@ style="width:400px;height:500px;padding:10px">
 
               <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',size:'large',iconAlign:'left'"
                  onclick="javascript:
-                       $('#dlg_content_excellence').dialog('close');
+                        $('#to').combogrid('setValue','');
+                        $('#date').datebox('setValue','');
+                        $('#dlg_content_excellence').dialog('close');
+
 
                         ">Close(ปิด)</a>
 
 
-<!--
-        <input type="submit" class="easyui-linkbutton"  value="Search(ค้นหา)"  ></input>
-      -->
 
-            <!--
-            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">Submit</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">Clear</a>
-          -->
+
+
         </div>
     </div>
 
-    <script>
-          $(function(){
-              //alert('t');
 
-
-          });
-    </script>
 
 
 
 </div>
-<!--  Dialog ศูนย์การดูแล ฯ  And Excellence -->
 
-<!--  Datagrid  ศูนย์การดูแล ฯ  And Excellence   -->
-    <div id="dia_datagrid_excellence"  iconCls="icon-print"  title=" รายการเอกสาร รับ/ส่ง  " class="easyui-dialog"
+
+
+
+
+
+
+<!--  Dialog  การค้นหา  ศูนย์การดูแล ฯ  And Excellence   -->
+    <div id="dia_datagrid_excellence"  iconCls="icon-print"   class="easyui-dialog"
     data-options="
     closed:true,
     maximizable:true,
@@ -349,51 +262,189 @@ style="width:400px;height:500px;padding:10px">
       handler:function()
       {
           //alert('t');
-            $('#dia_datagrid_excellence').dialog('close');
+             // $('#to').combobox('setValue')='';
+             $('#dia_datagrid_excellence').dialog('close');
 
       }
     }]
     "
-    style="width:700px;height:600px;" >
+    style="width:700px;height:400px;" >
 
 
-          <!--
-           <div  id="datagrid_excellence" class="easyui-datagrid" style="width:680px;" accesskey="
+           <div  id="datagrid_excellence"
                  data-options="
-                      url:'<?=base_url()?>index.php/welcome/json_excellence',
-                      method:'post',
-                      columns:[[
-                              {  field:'registration',title:'registration' }
+                 url:'<?=base_url()?>index.php/welcome/json_excellence',
+                 columns:[[
 
-                      ]]
+                                   { field:'ck',checkbox:true, },
+                                   { field:'registration',title:'เลขส่ง',align:'left'  },
+                                   { field:'at',title:'เลขที่เอกสาร',align:'left' },
+                                   { field:'date',title:'วันที่',align:'left' },
+                                   {  field:'from',title:'จาก',align:'left' },
+                                    {  field:'to',title:'ของ', align:'left' },
+                                    {  field:'subject',title:'เรื่อง',align:'left' },
+                 ]],
+                 toolbar:[
+                     //{  text:'Refresh' ,iconCls:'icon-reload',handler:function(){  $('#datagrid_excellence').datagrid('reload');  }   },
+                    {  text:'Export',iconCls:'icon-print',size:'large',handler:function()
+                           {
+                                // alert('t');
+                               //  window.open( '<?=base_url()?>index.php/welcome/export_data/' +  $('#f_search_excellence').serialize()  , 'PopUp', 'width=100,height=100' );
+                                //   window.open( '<?=base_url()?>index.php/welcome/export_data/' +  $('#f_search_excellence').serialize()  );
+                                // type_record =>3,
+                                window.open( '<?=base_url()?>index.php/welcome/export_data/'+  '3'  +  '/'  +  $('#type_document').combobox('getValue')  +  '/'    +    $('#to').combogrid('getValue') + '/' + $('#date').datebox('getValue')   );
+
+
+
+
+                            }
+                     }
+                 ]
+
                  "
-           "  ></div>
-         -->
+                 class="easyui-datagrid"  style="width:680px;height:300px"       />
 
-         <div  id="datagrid_excellence"   />
+    </div>
+<!--  Dialog  การค้นหา  ศูนย์การดูแล ฯ  And Excellence   -->
 
-<!--
-         <table id="datagrid_excellence" class="easyui-datagrid" style="width:600px;height:250px"
-         url="<?=base_url()?>index.php/welcome/json_excellence" toolbar="#tb"
-         title="Load Data" iconCls="icon-save"
-         rownumbers="true" pagination="true">
-     <thead>
-         <tr>
-             <th field="registration" width="80"  width="80" align="right" >Item ID</th>
-             <th field="at" width="80"  width="80" align="right">Product ID</th>
+<!--  Dialog หนังสือรับหรือหนังสือส่ง -->
+<div class="easyui-dialog" data-options="closed:true"  id="dia_select_excellence"  iconCls="icon-search"  title="ประเภทเอกสาร รับ/ส่ง" style="width:400px;height:120px;padding:5px" >
+
+       <div  style="margin-top:5px;margin-left:20px;"  >
+            <input class="easyui-combobox" id="select_excellence" style="width:100px;height:60px;" data-options="
+                 showItemIcon:true,
+                 data:[
+                     { value:'1',text:'รับ',iconCls:'icon-edit',size:'large' },
+                     { value:'2',text:'ส่ง',iconCls:'icon-print',size:'large' },
+                 ],
+                 editable:false,
+                 panelHeight:'auto',
+                 label:'ประเภทของเอกสาร',
+                 labelPosition:'top',
+
+            "   />
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok"  style="margin-left:10px;width:80px;height:40px" onclick="
+               javascript:
+                  // $('#dia_insert_excellence').dialog('open');
+
+                  if( $('#select_excellence').combobox('getValue') == 1   )
+                  {
+                      //alert(   $('#select_excellence').combobox('getValue')  );
+                       $('#dia_insert_excellence').dialog('open');
+                  }
+
+            " >ต่อไป</a>
+
+            <a href="javascript:void(0)" iconCls='icon-cancel' style="margin-left:10px;width:100px;height:40px" class="easyui-linkbutton"  onclick=" javascript: $('#dia_select_excellence').dialog('close');  "  >Close(ปิด)</a>
+
+       </div>
+</div>
+<!--  Dialog หนังสือรับหรือหนังสือส่ง -->
+
+
+<!--  เอกสารรับ   Dialog  การเพิ่ม    ศูนย์การดูแล ฯ  And Excellence   -->
+    <div id="dia_insert_excellence"   style="width:400px;height:720px;padding:5px;margin-top:10px;"  iconCls="icon-print"  title=" รายการเอกสารรับ  " class="easyui-dialog"
+    data-options="
+    closed:true,
+    maximizable:true,
+    resizable:true,
+    modal:true,
+
+    buttons:[
+
+
+       {
+           text:'บันทึก',
+           iconCls:'icon-save',
+           size:'large',
+
+           handler:function(){
+                  //alert('t');
+
+                  $('#f_insert_excellence').form('submit',{
+                    url:'<?=base_url()?>index.php/welcome/insert_tb_main1_3/',
+                    success:function(data)
+                    {
+                          alert(data);
+                    }
+                  });
+
+
+           }
+        },
+
+
+    {
+      text:'Close(ปิด)',
+      iconCls:'icon-cancel',
+      size:'large',
+      handler:function()
+      {
+          //alert('t');
+
+            $('#dia_insert_excellence').dialog('close');
+
+      }
+    },
+
+    ]
+    "
+   >
 
 
 
-         </tr>
-     </thead>
- </table>
--->
 
+
+
+<form id="f_insert_excellence"  method="post" action="<?=base_url()?>index.php/welcome/insert_tb_main1_3" novalidate="novalidate"    enctype="multipart/form-data" >
+
+             <div style="margin-left:10px;margin-top: 10px;">
+                <input class="easyui-textbox"   name="registration_receive21" id="registration_receive21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขรับ'  ,  labelPosition:'top'  ,  required:true, value:'<?=@$number_add?>'    "    />
+            </div>
+
+            <div style="margin-left: 10px;margin-top: 10px; ">
+               <input class="easyui-textbox"   name="at_receive21" id="at_receive21"    style="width:70% ; height: 60px;"   data-options=" label:'เลขที่เอกสาร',  labelPosition:'top'  ,  required:false,    "   />
+            </div>
+
+             <div style="margin-left: 10px;margin-top: 10px; ">
+               <input class="easyui-datebox" label="วันที่รับ "  name="date1_receive21"  id="date1_receive21" labelPosition="top" style="width:70%;height:60px"  data-options=" required:true,  ">
+            </div>
+
+              <div style="margin-left: 10px;margin-top: 10px; ">
+               <input class="easyui-textbox"   name="from_receive21" id="from_receive21"  style="width:70% ; height: 60px;"  data-options=" label:'จาก'  ,  labelPosition:'top'  ,  required:false,    "   />
+            </div>
+
+             <div style="margin-left: 10px;margin-top: 10px; ">
+               <input class="easyui-textbox"   name="to_receive21" id="to_receive21"  style="width:70% ; height: 60px;"  data-options=" label:'ถึง'  ,  labelPosition:'top'  ,  required:true,    "   />
+            </div>
+
+            <div style="margin-left: 10px;margin-top: 10px; ">
+               <input class="easyui-textbox"   name="subject_receive21" id="subject_receive21"  style="width:70% ; height: 60px;"  data-options=" label:'เรื่อง'  ,  labelPosition:'top'  ,  required:false,    "   />
+            </div>
+
+           <div style="margin-left: 10px;margin-top: 10px; ">
+               <input class="easyui-textbox"   name="practice_receive21" id="practice_receive21"  style="width:70% ; height: 60px;"  data-options=" label:'การปฏฺิบัติ'  ,  labelPosition:'top'  ,  required:false,    "   />
+            </div>
+
+
+             <div style="margin-left: 10px;margin-top: 10px; ">
+               <input class="easyui-textbox"   name="note_receive21" id="note_receive21"  style="width:70% ; height: 60px;"  data-options=" label:'หมายเหตุ'  ,  labelPosition:'top'  ,  required:false,    "   />
+            </div>
+
+                <div style="margin-left: 10px;margin-top: 10px; ">
+                    <input class="easyui-filebox"  id="file21" name="file21" style="width:70%; height: 60px; "   data-options=" label:'แนบ file (ถ้ามี) '  ,  labelPosition:'top'  " />
+               </div>
+
+
+
+
+</form>
 
 
 
     </div>
-<!--  Datagrid  ศูนย์การดูแล ฯ  And Excellence   -->
+<!--  เอกสารรับ   Dialog  การเพิ่ม    ศูนย์การดูแล ฯ  And Excellence   -->
+
 
 
 </body>
