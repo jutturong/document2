@@ -35,7 +35,14 @@ class Welcome extends CI_Controller {
 
 		//------------excellence------------
 		//--เอกสารรับ---
-			 $data["number_add"]=$this->user_model->count_id(3,1);  //count_id($type_record,$type_document)
+		//$type_document=1;  // 1=หนังสือรับ,2=หนังสื
+		/*
+		1 	มูลนิธิตะวันฉายฯ
+																														 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
+																														 3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
+		*/
+		//	echo  $type_record=3; //ประเภทของตารางที่ทำการบันทึก    9
+			 echo  $data["number_add"]=$this->user_model->count_id(3,1);  //count_id($type_record,$type_document)
 			 //$this->load->view("receive21",$data);
 
 
@@ -412,7 +419,7 @@ public function search_excellence()
 
 
 
-																																								if( strlen($file1name)   >  0  &&  $file1name != ""  )
+																																								if(   $file1name != ""  )
 																																										 {
 
 																																																		 $data=array(
@@ -454,7 +461,7 @@ public function search_excellence()
 
 																																										 }
 
-																			  print_r($data);
+																			  //print_r($data);
 
 
 																				 //$tb="tb_main1";

@@ -10,7 +10,7 @@
 </head>
 
 
-<body  onload="javascript:$('#panel_excellence').panel('close')">
+<body  onload="javascript:$('#panel_excellence').panel('close');   ">
 
     <div style="margin:0px 0 0px 0;"></div>
     <div class="easyui-panel" title="<?=$title?>" style="width:700px;height:500px;padding:10px;">
@@ -365,7 +365,12 @@ style="width:400px;height:500px;padding:10px">
                     url:'<?=base_url()?>index.php/welcome/insert_tb_main1_3/',
                     success:function(data)
                     {
-                          alert(data);
+                          //$registration_receive21
+                          //$('#$registration_receive21').textbox('setValue','<?=@$number_add?>');
+
+                           alert(data);
+                          //$('#registration_receive21').textbox('setText','');
+                          location.reload();
                     }
                   });
 
