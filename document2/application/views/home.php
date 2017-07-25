@@ -366,11 +366,36 @@ style="width:400px;height:500px;padding:10px">
                     success:function(data)
                     {
                           //$registration_receive21
-                          //$('#$registration_receive21').textbox('setValue','<?=@$number_add?>');
+                          //$('#registration_receive21').textbox('setValue','<?=@$number_add?>');
 
-                           alert(data);
-                          //$('#registration_receive21').textbox('setText','');
-                          location.reload();
+                          // alert(data);
+                          if( data == 1)
+                          {
+                            //$.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลแล้ว ( Success Insert )');
+                             $.messager.alert({
+                               title:'สถานะการบันทึกข้อมูล',
+                               iconCls:'icon-ok',
+                               msg:'บันทึกข้อมูลสำเร็จ (Success Insert)',
+                               fn:function()
+                                 {
+                                   $('#registration_receive21').textbox('setText','');
+                                   location.reload();
+                                 }
+                             });
+                          }
+                          else if( data == 0 )
+                          {
+                            //$.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลแล้ว ( Success Insert )');
+                            //$('#registration_receive21').textbox('setText','');
+                            $.messager.alert({
+                              title:'สถานะการบันทึกข้อมูล',
+                              iconCls:'icon-cancel',
+                              msg:'บันทึกข้อมูลผิดพลาด (Error Insert)',
+
+                            });
+                          }
+
+
                     }
                   });
 

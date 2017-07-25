@@ -51,7 +51,7 @@ class User_model extends CI_Model {
                              }
                             else
                              {
-                                     $number_add= $number_add+1;
+                                     $number_add= $number_add;
                              }
                         }
                                  return  $number_add;

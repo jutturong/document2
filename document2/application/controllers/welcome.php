@@ -359,29 +359,29 @@ public function search_excellence()
 																			 //echo print_r($_POST);
 																			 //echo  "<hr>";
 																			 #-- หนังสือรับ หนังสือเ้ข้า  มูลนิธิตะวันฉายฯ
-															echo		$registration_receive21=trim($this->input->get_post("registration_receive21"));   //เลขทะเบียนส่ง   1
-														  echo "<br>";
-															echo $at_receive21=trim($this->input->get_post("at_receive21"));  //ที่       2
-														  echo  "<br>";
+																	$registration_receive21=trim($this->input->get_post("registration_receive21"));   //เลขทะเบียนส่ง   1
+														  //echo "<br>";
+														      $at_receive21=trim($this->input->get_post("at_receive21"));  //ที่       2
+														  //echo  "<br>";
 															 $date1_receive21=trim($this->input->get_post("date1_receive21")); //ลงวันที่           3
                               //07/25/2017
 															if(  strlen($date1_receive21) > 0    )
 															{
 																   $ex=explode("/",$date1_receive21);
-																	 echo   $conv_date1_receive21 = $ex[2]."-".$ex[0]."-".$ex[1];
-																	 echo br();
+																	    $conv_date1_receive21 = $ex[2]."-".$ex[0]."-".$ex[1];
+																	 //echo br();
 															}
 
-														  echo   $from_receive21=trim($this->input->get_post("from_receive21")); //จาก       4
-															 echo  "<br>";
-															echo $to_receive21=trim($this->input->get_post("to_receive21"));  //ถึง        5
-															 echo  "<br>";
-															echo  $subject_receive21=trim($this->input->get_post("subject_receive21"));  //เรื่อง       6
-															 echo  "<br>";
-															echo  $practice_receive21=trim($this->input->get_post("practice_receive21"));  //การปฏฺิบัติ       7
-															  echo  "<br>";
-															echo  $note_receive21=trim($this->input->get_post("note_receive21")); //หมายเหตุ      8
-															 echo  "<br>";
+														     $from_receive21=trim($this->input->get_post("from_receive21")); //จาก       4
+															 //echo  "<br>";
+															 $to_receive21=trim($this->input->get_post("to_receive21"));  //ถึง        5
+															 //echo  "<br>";
+															 $subject_receive21=trim($this->input->get_post("subject_receive21"));  //เรื่อง       6
+															 //echo  "<br>";
+															  $practice_receive21=trim($this->input->get_post("practice_receive21"));  //การปฏฺิบัติ       7
+															  //echo  "<br>";
+															 $note_receive21=trim($this->input->get_post("note_receive21")); //หมายเหตุ      8
+															 //echo  "<br>";
 																																				 // <input type="hidden"  id="type_record11"  name="type_record11"  value="1"  />
 																																			/*
 
@@ -391,10 +391,10 @@ public function search_excellence()
 
 																																			 */
 																																			 //"type_record"=>3
-																echo  $type_record=3; //ประเภทของตารางที่ทำการบันทึก    9
-																		echo br();																//  echo  "<br>";
-																echo $type_document=1;  // 1=หนังสือรับ,2=หนังสือส่ง
-	                                    echo br();
+																  $type_record=3; //ประเภทของตารางที่ทำการบันทึก    9
+																		//echo br();																//  echo  "<br>";
+																 $type_document=1;  // 1=หนังสือรับ,2=หนังสือส่ง
+	                                  //echo br();
 																																		//		$date1_receive21_time=trim($this->input->get_post("date1_receive21_time")); //ประเภทของตารางที่ทำการบันทึก    9
 
 
@@ -402,19 +402,19 @@ public function search_excellence()
 
 																																											 //------------------------------- upload file-------------------------------------------
 																																									// print_r($_FILES)
-																echo		$file1name = $_FILES["file21"]['name'];  // ชื่อของไฟล์      10
-														    echo br();
-																echo $file1tmp  =$_FILES['file21']["tmp_name"]; // tmp folder
-																echo br();
-																echo $file1Type= $_FILES['file21']["type"]; //type of file
-																 echo br();
-																echo $file1Size= $_FILES['file21']["size"]; //size
-																 echo br();
-																echo $file1ErrorMsg = $_FILES['file21']["error"]; // 0=false 1=true
-															  echo br();
+																$file1name = $_FILES["file21"]['name'];  // ชื่อของไฟล์      10
+														    //echo br();
+																 $file1tmp  =$_FILES['file21']["tmp_name"]; // tmp folder
+																//echo br();
+																 $file1Type= $_FILES['file21']["type"]; //type of file
+																 //echo br();
+																 $file1Size= $_FILES['file21']["size"]; //size
+																 //echo br();
+																 $file1ErrorMsg = $_FILES['file21']["error"]; // 0=false 1=true
+															  //echo br();
 
-																date_default_timezone_set("Asia/Bangkok");
-														    echo  $sess_timerecord=date("Y-m-d H:s:00");
+																  date_default_timezone_set("Asia/Bangkok");
+														      $sess_timerecord=date("Y-m-d H:s:00");
 
 
 
@@ -441,7 +441,7 @@ public function search_excellence()
 
 																																																 $cp=copy($file1tmp ,  "upload/". $file1name );
 
-																																										 }
+																																										  }
 																																										 else
 																																										 {
 																																													 $data=array(
@@ -471,13 +471,16 @@ public function search_excellence()
 																				 $tb= $this->tb;
 
 																				 $ck=$this->db->insert($tb,$data);
+																				 //$ck=0;
                                          if( $ck )
 																				 {
-																					 echo "ck 1";
+																					 echo "1";
 																				 }
 																				 else {
-																				 	echo "ck 0";
+																				 	echo "0";
 																				 }
+
+
 
 								}
 
