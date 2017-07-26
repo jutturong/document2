@@ -346,6 +346,34 @@ public function search_excellence()
                 }
                 
                 //http://10.87.196.170/document2/index.php/welcome/update_tb_main1_3
+                public function delete_tb_main1_3()
+                        {
+                                 $id_main1=trim($this->input->get_post("id_main1"));
+                               
+                               if( $id_main1 > 0 )
+                               {
+                                          $tb= $this->tb;
+                                         $this->db->where("id_main1",$id_main1);
+                                          $ck= $this->db->delete($tb);
+                                        // $ck=1;
+                                        // $ck=0;
+                                         if( $ck )
+                                         {
+                                             echo 1;
+                                         }
+                                         else
+                                         {
+                                             echo 0;
+                                         }
+                               }          
+                                         
+                                        
+                                   
+                        }
+                
+                
+                
+                //http://10.87.196.170/document2/index.php/welcome/update_tb_main1_3
                 public function  update_tb_main1_3()//excellence  "type_record"=>3  
                 {
                      header('Content-Type: text/html; charset=UTF-8');

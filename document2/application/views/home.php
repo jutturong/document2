@@ -385,6 +385,76 @@ style="width:400px;height:500px;padding:10px">
                                }
                               
                           }
+                     },
+                     {
+                        text:'Delete (ลบข้อมูล)',  iconCls:'icon-cancel',size:'large',handler:function()
+                                {
+                                        var  row=$('#datagrid_excellence').datagrid('getSelected');
+                                        
+                                        
+                                       
+                                       
+                                       $.messager.confirm('Delete Date Status','คุณแน่ใจว่าต้องการลบข้อมูล',function(r){
+                                       
+                                       if( r )
+                                       {
+                                                   // $.messager.progress();
+                                                    
+                                                    if( row.id_main1 > 0 )
+                                                    {
+                                                          $.post('<?=base_url()?>index.php/welcome/delete_tb_main1_3/',{ id_main1: row.id_main1  },function(data)
+                                                          {
+                                                                    // alert(data);
+                                                                  if( data == 1 )
+                                                                  {
+                                                                  
+                                                                       
+                                                                       $.messager.alert({
+                                                                           title:'สถานะของการลบข้อมูล',
+                                                                           msg:'ลบข้อมูลสำเร็จ',
+                                                                           
+                                                                       });
+                                                                       
+                                                                       
+                                                                      //$.messager.alert('สถานะการลบขอ้มูล','ลบข้อมูลสำเร็จ');
+
+                                                                    //$('#datagrid_excellence').datagrid('reload');
+                                                                      location.reload();
+                                                                    
+                                                                    
+                                                                   }
+                                                                   else{
+                                                                     
+                                                                      $.messager.alert({
+                                                                           title:'สถานะของการลบข้อมูล',
+                                                                           msg:'ลบข้อมูลผิดพลาด',
+                                                                      
+                                                                           
+                                                                       });
+                                                                   
+                                                                   }
+                                                                    
+                                                                    
+                                                          });
+                                                          
+                                                       
+                                                          
+                                                          
+                                                    }
+                                       
+                                       }
+                                       
+                                      
+                                       
+                                       
+                                       });
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                }
                      }
                  ]
 
@@ -553,8 +623,9 @@ style="width:400px;height:500px;padding:10px">
                                          //$('#dia_insert_excellence').dialog('close');
                                        //  $('#dia_select_excellence').datagrid('reload');
                                          
+                                         $.messager.progress(); 
                                          
-                                           location.reload();
+                                         location.reload();
                                            
                                        //  $('#dia_insert_excellence').dialog('open');
                                       //  $('#dia_select_excellence').dialog('open'); 
