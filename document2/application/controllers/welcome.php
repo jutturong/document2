@@ -42,7 +42,7 @@ class Welcome extends CI_Controller {
 																														 3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
 		*/
 		//	echo  $type_record=3; //ประเภทของตารางที่ทำการบันทึก    9
-			 echo  $data["number_add"]=$this->user_model->count_id(3,1);  //count_id($type_record,$type_document)
+			  $data["number_add"]=$this->user_model->count_id(3,1);  //count_id($type_record,$type_document)
 			 //$this->load->view("receive21",$data);
 
 
@@ -344,10 +344,127 @@ public function search_excellence()
 
 
                 }
+                
+                //http://10.87.196.170/document2/index.php/welcome/update_tb_main1_3
+                public function  update_tb_main1_3()//excellence  "type_record"=>3  
+                {
+                     header('Content-Type: text/html; charset=UTF-8');
+                       //echo "<br>";
+                     
+                         $id_main1=trim($this->input->get_post("id_main1"));
+                        //echo br();
+                        $registration_receive21=trim($this->input->get_post("registration_receive21"));   //เลขทะเบียนส่ง   1
+                         
+                         
+                        $at_receive21=trim($this->input->get_post("at_receive21"));  //ที่       2
+	     // echo br();												  //echo  "<br>";
+	       $date1_receive21=trim($this->input->get_post("date1_receive21")); //ลงวันที่           3
+                             
+               
+                      //07/25/2017
+	    if(  strlen($date1_receive21) > 0    )
+	    {
+		 $ex=explode("/",$date1_receive21);
+	                  $conv_date1_receive21 = $ex[2]."-".$ex[0]."-".$ex[1];
+                              //echo br();
+	    }
+
+	      $from_receive21=trim($this->input->get_post("from_receive21")); //จาก       4
+	     //echo br();														
+	      $to_receive21=trim($this->input->get_post("to_receive21"));  //ถึง        5
+	    //echo br();													
+	      $subject_receive21=trim($this->input->get_post("subject_receive21"));  //เรื่อง       6
+	    // echo br();														
+	     $practice_receive21=trim($this->input->get_post("practice_receive21"));  //การปฏฺิบัติ       7
+	    // echo br();														
+	      $note_receive21=trim($this->input->get_post("note_receive21")); //หมายเหตุ      8
+	   //  echo br();																		
+	      $type_record=3; //ประเภทของตารางที่ทำการบันทึก    9																															
+	      $type_document=1;  // 1=หนังสือรับ,2=หนังสือส่ง
+	                               
+ //------------------------------- upload file-------------------------------------------
+                        // print_r($_FILES)
+	        $file1name = $_FILES["file21"]['name'];  // ชื่อของไฟล์      10
+	     // echo br();													 
+	      $file1tmp  =$_FILES['file21']["tmp_name"]; // tmp folder
+																
+	      $file1Type= $_FILES['file21']["type"]; //type of file
+																
+	      $file1Size= $_FILES['file21']["size"]; //size
+																
+	      $file1ErrorMsg = $_FILES['file21']["error"]; // 0=false 1=true
+															
+
+	       date_default_timezone_set("Asia/Bangkok");
+	       $sess_timerecord=date("Y-m-d H:s:00");
+               
+               
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    if(   $file1name != ""  )
+																																										 {
+
+																																										     $data=array(
+																																											 "registration"=> $registration_receive21,
+																																											 "at"=> $at_receive21,
+																																											 "date"=>$conv_date1_receive21,
+																																																				 "from"=>$from_receive21,
+																																																				 "to"=> $to_receive21,
+																																																				"subject"=>$subject_receive21,
+																																																				"practice"=>$practice_receive21,
+																																																				"note"=>$note_receive21,
+																																																				"type_record"=> $type_record,
+																																																				"filename"=>$file1name,
+																																																				 "type_document"=>$type_document,
+																																																				 "date_record"=>$sess_timerecord,
+																																																		 );
+
+
+
+																																																 $cp=copy($file1tmp ,  "upload/". $file1name );
+
+																																										  }
+																																										 else
+																																										 {
+																																													 $data=array(
+																																																				 "registration"=>$registration_receive21,
+																																																				 "at"=> $at_receive21,
+																																																				 "date"=>$conv_date1_receive21,
+																																																				 "from"=>$from_receive21,
+																																																				 "to"=> $to_receive21,
+																																																				"subject"=>$subject_receive21,
+																																																				"practice"=>$practice_receive21,
+																																																				"note"=>$note_receive21,
+																																																				"type_record"=> $type_record,
+																																																			//  "filename"=>$file1name,
+																																																				"type_document"=>$type_document,
+																																																			 "date_record"=>$sess_timerecord,
+																																																		 );
+
+																																										 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                $tb= $this->tb;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                if(  $id_main1 >  0   &&  strlen($id_main1) > 0  )
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        $this->db->where("id_main1", $id_main1);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        $ck=$this->db->update($tb,$data);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        if( $ck )
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            echo 1;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        else
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            echo 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                 
+
+                    
+                }
+                
 
                  //http://10.87.196.170/document2/index.php/welcome/insert_tb_main1
-								public function insert_tb_main1_3() //excellence  "type_record"=>3
-								{
+	public function insert_tb_main1_3() //excellence  "type_record"=>3
+	{
 									    /*
                       echo   $registration_receive21=trim($this->input->get_post('registration_receive21'));
 											echo br();
@@ -470,8 +587,11 @@ public function search_excellence()
 																				// $tb="tb_main1_test";
 																				 $tb= $this->tb;
 
+
+
+
 																				 $ck=$this->db->insert($tb,$data);
-																				 //$ck=0;
+																				 // $ck=1;
                                          if( $ck )
 																				 {
 																					 echo "1";
@@ -482,7 +602,7 @@ public function search_excellence()
 
 
 
-								}
+		}
 
 
 }
