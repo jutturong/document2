@@ -182,6 +182,8 @@ style="width:400px;height:500px;padding:10px">
                var   date=$('#date').val();
                var   to= $('#to').val();
 
+                     //alert(type_document);
+                     
                   if(   type_document  > 0  &&  to != ''  )    	//type_document  1 เอกสารรับ   2 เอกสารส่ง
                           {
                               if(   type_document == 1 )
@@ -326,8 +328,10 @@ style="width:400px;height:500px;padding:10px">
                          {
                               var  row=$('#datagrid_excellence').datagrid('getSelected');
                               var  id_main1=row.id_main1;
-                               
-                               if(  id_main1 >  0 )
+                              //   $type_document=2;  // 1=หนังสือรับ,2=หนังสือส่ง 
+                              
+                              //หนังสือรับ
+                               if(  id_main1 >  0  &&  row.type_document == 1  )
                                {
                                       //alert(id_main1);
                                       $('#dia_insert_excellence').dialog('open');
@@ -361,11 +365,8 @@ style="width:400px;height:500px;padding:10px">
                                                //$('#dd').datebox('setValue', '6/1/2012');	
                                               $('#date1_receive21').datebox('setValue',dmy_conv ); //วันที่รับ     
                                            }
-                                          
-                                          
-                                          
-                                        
-                                        $('#from_receive21').textbox('setValue',row.from);  //'จาก'
+
+                                         $('#from_receive21').textbox('setValue',row.from);  //'จาก'
                                         
                                          $('#to_receive21').textbox('setValue',row.to); //ถึง
                                          
@@ -382,6 +383,53 @@ style="width:400px;height:500px;padding:10px">
                                        
                                         
                                         
+                               }
+                               else if( id_main1 >  0  &&  row.type_document == 2  )  //หนังสือส่ง 
+                               {
+                                     //alert('หนังสือส่ง');
+                                     //dia_insert_send_excellence
+                                     $('#dia_insert_send_excellence').dialog('open');
+                                     
+                                     /*
+                                                            $('#date1_send21').datebox('setValue','');  
+                                                          //   $('#to_send21').textbox('setText',''); //เลขที่เอกสาร
+                                                         //   $('#from_send21').textbox('setText',''); //จาก       4
+                                                         //   $('#to_send21').textbox('setText',''); //ถึง        5
+                                                        //    $('#subject_send21').textbox('setText',''); //เรื่อง       6
+                                                          //  $('#practice_send21').textbox('setText',''); //การปฏฺิบัติ       7
+                                                            $('#note_send21').textbox('setText',''); //หมายเหตุ      8
+                                     */
+                                     
+                                         //alert(row.registration);
+                                         $('#registration_send21').textbox('setText', '' );   
+                                         $('#registration_send21').textbox('setValue', row.registration );
+                                      
+                                       var  date_db=row.date;
+                                          if(  date_db.length   >  3  )
+                                          {
+                                               var  str  = date_db.split('-');
+                                               //alert(str[0]);
+                                               var    y=str[0];
+                                               var    m=str[1];
+                                               var    d=str[2];
+                                               var     dmy_conv= m + '/' + d + '/'  + y;
+                                              // alert(dmy_conv);
+                                               //$('#dd').datebox('setValue', '6/1/2012');	
+                                              $('#date1_send21').datebox('setValue',dmy_conv ); //วันที่รับ     
+                                           }
+                                           else
+                                           {
+                                              $('#date1_send21').datebox('setValue','' ); //วันที่รับ 
+                                           }
+                                           
+                                              $('#from_send21').textbox('setValue',row.from); //จาก  
+                                              $('#to_send21').textbox('setValue',row.to); //ถึง  
+                                              $('#subject_send21').textbox('setValue',row.subject); //เรื่อง       6
+                                              $('#practice_send21').textbox('setValue',row.practice); //การปฏฺิบัติ       7
+                                              $('#note_send21').textbox('setValue',row.note); //หมายเหตุ      8
+                                              
+                                              $('#id_main1_send_excellence').textbox('setValue',row.id_main1); 
+
                                }
                               
                           }
@@ -508,6 +556,7 @@ style="width:400px;height:500px;padding:10px">
                                            $('#dia_insert_send_excellence').dialog('open');
                        
                        
+                       
                                             
                                                             $('#registration_send21').textbox('setText','');
                                                             $('#date1_send21').datebox('setValue','');  
@@ -520,6 +569,7 @@ style="width:400px;height:500px;padding:10px">
                                                           //  location.reload();
                                                            //  $('#dia_insert_excellence').dialog('open');
                                                           //  $('#dia_select_excellence').dialog('open'); 
+                                                          
                                                           
                                                          
                        
@@ -614,8 +664,7 @@ style="width:400px;height:500px;padding:10px">
             size:'large',
             handler:function()
               {
-              
-                  // alert('t');
+
                     $('#f_insert_excellence').form('submit',{ 
                      url:'<?=base_url()?>index.php/welcome/update_tb_main1_3/',
                             success:function(data)
@@ -787,7 +836,7 @@ style="width:400px;height:500px;padding:10px">
                                                             $('#subject_send21').textbox('setText',''); //เรื่อง       6
                                                             $('#practice_send21').textbox('setText',''); //การปฏฺิบัติ       7
                                                             $('#note_send21').textbox('setText',''); //หมายเหตุ      8
-                                                          //  location.reload();
+                                                            location.reload();
                                                            //  $('#dia_insert_excellence').dialog('open');
                                                           //  $('#dia_select_excellence').dialog('open'); 
                                                      }
@@ -804,7 +853,46 @@ style="width:400px;height:500px;padding:10px">
             size:'large',
             handler:function()
                     {
-                       alert('t');
+                           //alert('t');
+                           $('#f_insert_send_excellence').form('submit',{
+                             url:'<?=base_url()?>index.php/welcome/update_tb_main1_send_3',
+                             success:function(data)
+                             {
+                                    //alert(data);
+                                    if( data == 1 )
+                                    {
+                                            $.messager.confirm('แก้ไขข้อมูลสำเร็จ (Success Insert)','คุณต้องการแ้ก้ไขข้อมูลอีกหรือไม่',function(r)
+                                              {
+                                                    if(r)
+                                                    {
+                                                            $('#registration_send21').textbox('setText','');
+                                                            $('#date1_send21').datebox('setValue','');  
+                                                          //   $('#to_send21').textbox('setText',''); //เลขที่เอกสาร
+                                                            $('#from_send21').textbox('setText',''); //จาก       4
+                                                            $('#to_send21').textbox('setText',''); //ถึง        5
+                                                            $('#subject_send21').textbox('setText',''); //เรื่อง       6
+                                                            $('#practice_send21').textbox('setText',''); //การปฏฺิบัติ       7
+                                                            $('#note_send21').textbox('setText',''); //หมายเหตุ      8 
+                                                            location.reload();
+                                                    }
+                                  
+                                               });
+                                    }
+                                    else if( data==0 )
+                                    {
+                                                       //$.messager.alert('สถานะการแก้ไขข้อมูล',' แ้ก้ไขข้อมูลผิดพลาด (Error Update!)  ');
+                                                      //$('#registration_receive21').textbox('setText','');
+                                                      $.messager.alert({
+                                                        title:'สถานะการบันทึกข้อมูล',
+                                                        iconCls:'icon-cancel',
+                                                        msg:'บันทึกข้อมูลผิดพลาด (Error Insert)',
+
+                                                      });
+                                    }
+                             }
+                             
+                           });
+                          
                     }
             },
             {
@@ -828,7 +916,7 @@ style="width:400px;height:500px;padding:10px">
     <form id="f_insert_send_excellence"  method="post"  novalidate="novalidate"    enctype="multipart/form-data" >
         
             <div style="margin-left:10px;margin-top: 10px;">
-                <input class="easyui-textbox"   id="registration_send21" name="registration_send21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขส่ง'  ,  labelPosition:'top'  ,  required:true, value:' '    "    />
+                <input class="easyui-textbox"   id="registration_send21" name="registration_send21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขส่ง'  ,  labelPosition:'top'  ,  required:true,     "    />
             </div>
         
          <div style="margin-left:10px;margin-top: 10px;">
@@ -862,7 +950,7 @@ style="width:400px;height:500px;padding:10px">
             </div>
         
              <div   style="margin-left:10px;margin-top: 10px;"  >
-                        <input class="easyui-textbox"   id="id_main1_excellence"  name="id_main1_excellence"     style="width:40px;height: 40px;"  data-options=" readonly:true,  "    />
+                        <input class="easyui-textbox"   id="id_main1_send_excellence"  name="id_main1_send_excellence"     style="width:40px;height: 40px;"  data-options=" readonly:true,  "    />
              </div>
         
     </form>
