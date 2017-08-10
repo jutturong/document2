@@ -43,16 +43,56 @@ class Welcome extends CI_Controller {
 		//	echo  $type_record=3; //ประเภทของตารางที่ทำการบันทึก    9
 			  $data["number_add"]=$this->user_model->count_id(3,1);  //count_id($type_record,$type_document)
 			 //$this->load->view("receive21",$data);
-                            
-                          
-                          
-                          
-                          
-                          
-                          
-                                // หนังสือรับ ศูนย์วิจัยฯ
+                              //--หนังสือส่ง--
+                          /*
+                           /*-------------1.เลขทะเบียนส่ง----------  */
+                             // $tb="tb_main1";
+                               $tb=$this->tb;
+                               $this->db->order_by("id_main1","DESC");
+                               $q_n=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>2));
+                               $row=$q_n->row();
+                               $num_rows_ck= $q_n->num_rows();
+                            // echo br();
+                               if(  $num_rows_ck  > 0 )
+                               {
+                               $registration_ck = $row->registration;
+                            // echo br();
+                               $ex=explode("/",$registration_ck);
+                                 $sum_regis=$ex[1]+1;
+                               
+                             //echo  $ex[1];
+                             //echo br();
+                                                 
+                                             if( $ex[1]  <  1  )
+                                                  {
+                                                       // echo "มีตัวอักษรปน";
+                                                        $exe=explode(".",$ex[1]);
+                                                       // echo $exe[1];
+                                                         $sum_regis=$exe[1]+1;
+                                                  }
+                                 
+                                                  
+                                     $data["number_add_32"]="ศธ0514.7.1.2.3.4/".$sum_regis ;
+                                 
+                                           
+                               }
+                               else
+                               {
+                                  $data["number_add_32"]="ศธ0514.7.1.2.3.4/";
+                               }
+                               echo  $data["number_add_32"];
+                              //-------------1.เลขทะเบียนส่ง----------  
+                           //------------excellence------------
+
+
+
+
+
+
+                                //----------------- หนังสือรับ ศูนย์วิจัยฯ
                                 // $data["number_add"]=$this->user_model->count_id(2,1);
-                                $data["number_add_21"]=$this->user_model->count_id(2,1); 
+                               $data["number_add_21"]=$this->user_model->count_id(2,1);
+                            //  echo br();
                                 /*-------------1.เลขทะเบียนส่ง----------  */
                                // $tb="tb_main1";
                               $tb=$this->tb;
@@ -64,7 +104,7 @@ class Welcome extends CI_Controller {
                                {
                                $registration_ck = $row->registration;
                                $ex=explode("/",$registration_ck);
-                               
+
                                  if( $ex[1]  <  1  )
                                                   {
                                                        // echo "มีตัวอักษรปน";
@@ -72,11 +112,11 @@ class Welcome extends CI_Controller {
                                                        // echo $exe[1];
                                                          $sum_regis=$exe[1]+1;
                                                   }
-                               
+
                                   $sum_regis= (int)$ex[1];
                                  //  echo br();
                                    $sum_regis_int= $sum_regis+1;
-                               
+
                                       $data["number_add_22"]="ศธ0514.7.1.2.3.4.1/". $sum_regis_int ;
                                }
                                else
@@ -84,24 +124,24 @@ class Welcome extends CI_Controller {
                                   $data["number_add_22"]="ศธ0514.7.1.2.3.4.1/";
                                }
                                //echo  $data["number_add_22"];
-                               
-                               
+
+
                               /*-------------1.เลขทะเบียนส่ง----------  */
 
-                                                     
+
                                                      /*
-                                                            //---------------------------มูลนิธิตะวันฉายฯ----1----------------------- 
+                                                            //---------------------------มูลนิธิตะวันฉายฯ----1-----------------------
        function  receive11()  //รับ
        {
                $('#sub11').load("<?=base_url()?>index.php/welcome/receive11");
        }
-       
+
        function  send11()  //ส่ง
        {
                $('#sub11').load("<?=base_url()?>index.php/welcome/send11");
        }
-       
-       //------------------------ ศูนย์การดูแล----3--------------------------------  
+
+       //------------------------ ศูนย์การดูแล----3--------------------------------
        function  receive21()  //รับ
        {
                $('#sub11').load("<?=base_url()?>index.php/welcome/receive21");
@@ -110,8 +150,8 @@ class Welcome extends CI_Controller {
        {
                $('#sub11').load("<?=base_url()?>index.php/welcome/send21");
        }
-  
-  
+
+
   //------------------------ ศูนย์วิจัย----2-----------------
          function  receive31()  //รับ
        {
@@ -284,7 +324,7 @@ public function search_excellence()
 			}
 
 
-            
+
 
                  //http://10.87.196.170/document2/index.php/welcome/export_data
                  public function export_data()//พิ่มพ์หนังสือ
@@ -346,16 +386,16 @@ public function search_excellence()
 
 
 
-																			
+
 
 
                 }
-                
+
                 //http://10.87.196.170/document2/index.php/welcome/update_tb_main1_3
                 public function delete_tb_main1_3()
                         {
                                  $id_main1=trim($this->input->get_post("id_main1"));
-                               
+
                                if( $id_main1 > 0 )
                                {
                                           $tb= $this->tb;
@@ -371,30 +411,30 @@ public function search_excellence()
                                          {
                                              echo 0;
                                          }
-                               }          
-                                         
-                                        
-                                   
+                               }
+
+
+
                         }
-                
-                
-                
+
+
+
                 //http://10.87.196.170/document2/index.php/welcome/update_tb_main1_3
-                public function  update_tb_main1_3()//excellence  "type_record"=>3  
+                public function  update_tb_main1_3()//excellence  "type_record"=>3
                 {
                      header('Content-Type: text/html; charset=UTF-8');
                        //echo "<br>";
-                     
+
                          $id_main1=trim($this->input->get_post("id_main1"));
                         //echo br();
                         $registration_receive21=trim($this->input->get_post("registration_receive21"));   //เลขทะเบียนส่ง   1
-                         
-                         
+
+
                         $at_receive21=trim($this->input->get_post("at_receive21"));  //ที่       2
 	     // echo br();												  //echo  "<br>";
 	       $date1_receive21=trim($this->input->get_post("date1_receive21")); //ลงวันที่           3
-                             
-               
+
+
                       //07/25/2017
 	    if(  strlen($date1_receive21) > 0    )
 	    {
@@ -404,35 +444,35 @@ public function search_excellence()
 	    }
 
 	      $from_receive21=trim($this->input->get_post("from_receive21")); //จาก       4
-	     //echo br();														
+	     //echo br();
 	      $to_receive21=trim($this->input->get_post("to_receive21"));  //ถึง        5
-	    //echo br();													
+	    //echo br();
 	      $subject_receive21=trim($this->input->get_post("subject_receive21"));  //เรื่อง       6
-	    // echo br();														
+	    // echo br();
 	     $practice_receive21=trim($this->input->get_post("practice_receive21"));  //การปฏฺิบัติ       7
-	    // echo br();														
+	    // echo br();
 	      $note_receive21=trim($this->input->get_post("note_receive21")); //หมายเหตุ      8
-	   //  echo br();																		
-	      $type_record=3; //ประเภทของตารางที่ทำการบันทึก    9																															
+	   //  echo br();
+	      $type_record=3; //ประเภทของตารางที่ทำการบันทึก    9
 	      $type_document=1;  // 1=หนังสือรับ,2=หนังสือส่ง
-	                               
+
  //------------------------------- upload file-------------------------------------------
                         // print_r($_FILES)
 	        $file1name = $_FILES["file21"]['name'];  // ชื่อของไฟล์      10
-	     // echo br();													 
+	     // echo br();
 	      $file1tmp  =$_FILES['file21']["tmp_name"]; // tmp folder
-																
+
 	      $file1Type= $_FILES['file21']["type"]; //type of file
-																
+
 	      $file1Size= $_FILES['file21']["size"]; //size
-																
+
 	      $file1ErrorMsg = $_FILES['file21']["error"]; // 0=false 1=true
-															
+
 
 	       date_default_timezone_set("Asia/Bangkok");
 	       $sess_timerecord=date("Y-m-d H:s:00");
-               
-               
+
+
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     if(   $file1name != ""  )
 																																										 {
 
@@ -478,7 +518,7 @@ public function search_excellence()
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 if(  $id_main1 >  0   &&  strlen($id_main1) > 0  )
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 {
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         $this->db->where("id_main1", $id_main1);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         $ck=$this->db->update($tb,$data);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         if( $ck )
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         {
@@ -488,13 +528,13 @@ public function search_excellence()
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         {
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             echo 0;
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                                                 
 
-                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }
+
+
+
                 }
-                
+
 
                  //http://10.87.196.170/document2/index.php/welcome/insert_tb_main1
 	public function insert_tb_main1_3() //excellence  "type_record"=>3
@@ -637,70 +677,70 @@ public function search_excellence()
 
 
 		}
-                
-                
-                
+
+
+
               //http://10.87.196.170/document2/index.php/welcome/insert_tb_main1_send_3/#
-                public function insert_tb_main1_send_3()  //เอกสารส่ง    //excellence  "type_record"=>3  
-                {           
-               
+                public function insert_tb_main1_send_3()  //เอกสารส่ง    //excellence  "type_record"=>3
+                {
+
                            $registration_send21=trim($this->input->get_post("registration_send21"));   //เลขทะเบียนส่ง   1
-                           //echo br();        
-                          
+                           //echo br();
+
                            $date1_send21=trim($this->input->get_post("date1_send21")); //ลงวันที่           3
-                          // echo br();   
-                           
+                          // echo br();
+
                            if(  strlen( $date1_send21) > 0    )
 		{
 	                            $ex=explode("/", $date1_send21);
 		          $conv_date1_receive21 = $ex[2]."-".$ex[0]."-".$ex[1];
 		            //echo br();
 		 }
-                           
+
                            //echo   $conv_date1_receive21;
                            //echo br();
-                           
-                             
-                                 $from_send21=trim($this->input->get_post("from_send21")); //จาก       4
-                           //echo br();    
-                            
-                                 $to_send21=trim($this->input->get_post("to_send21"));  //ถึง        5
-                           //echo br();     
-                                        
-                                  $subject_send21=trim($this->input->get_post("subject_send21"));  //เรื่อง       6
-                           //echo br();    
-                           
-                                    $practice_send21=trim($this->input->get_post("practice_send21"));  //การปฏฺิบัติ       7
-                         // echo br();   
-                          
-                                    $note_send21=trim($this->input->get_post("note_send21")); //หมายเหตุ      8
-                         // echo br();   
-                                
-                           //$at_send21=trim($this->input->get_post("at_send21"));  //ที่       2
-                          
-                                   
 
-                                    
-                                                                          // <input type="hidden"  id="type_record11"  name="type_record11"  value="1"  /> 
+
+                                 $from_send21=trim($this->input->get_post("from_send21")); //จาก       4
+                           //echo br();
+
+                                 $to_send21=trim($this->input->get_post("to_send21"));  //ถึง        5
+                           //echo br();
+
+                                  $subject_send21=trim($this->input->get_post("subject_send21"));  //เรื่อง       6
+                           //echo br();
+
+                                    $practice_send21=trim($this->input->get_post("practice_send21"));  //การปฏฺิบัติ       7
+                         // echo br();
+
+                                    $note_send21=trim($this->input->get_post("note_send21")); //หมายเหตุ      8
+                         // echo br();
+
+                           //$at_send21=trim($this->input->get_post("at_send21"));  //ที่       2
+
+
+
+
+                                                                          // <input type="hidden"  id="type_record11"  name="type_record11"  value="1"  />
                                                                        /*
 
                                                                                           1 	มูลนิธิตะวันฉายฯ
 		                                                      2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
-	                                                      	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ 
-                                                                        
+	                                                      	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
+
                                                                         */
                                                                    // $type_record=trim($this->input->get_post("type_record21")); //ประเภทของตารางที่ทำการบันทึก    9
-                                                             $type_record=3; 
-                                                                    
-                                                                    
+                                                             $type_record=3;
+
+
                                                              $type_document=2;  // 1=หนังสือรับ,2=หนังสือส่ง
-                                             
-                                                             
+
+
                                                               //   $date1_record21_time=trim($this->input->get_post("date1_record21_time"));
-                                                     
+
                                                                                          //------------------------------- upload file-------------------------------------------
-                                                                                   // print_r($_FILES)  
-                                                                                  $file1name = $_FILES["file21"]['name'];  // ชื่อของไฟล์      10  
+                                                                                   // print_r($_FILES)
+                                                                                  $file1name = $_FILES["file21"]['name'];  // ชื่อของไฟล์      10
                                                                     //echo br();
                                                                                  $file1tmp  =$_FILES['file21']["tmp_name"]; // tmp folder
                                                                                 //  echo br();
@@ -708,14 +748,14 @@ public function search_excellence()
                                                                                 //  echo br();
                                                                                 $file1Size= $_FILES['file21']["size"]; //size
                                                                                 //  echo br();
-                                                                                  $file1ErrorMsg = $_FILES['file21']["error"]; // 0=false 1=true   
+                                                                                  $file1ErrorMsg = $_FILES['file21']["error"]; // 0=false 1=true
                                                                                 // echo br();
-                                                                                  
+
                                                                date_default_timezone_set("Asia/Bangkok");
 		                            $sess_timerecord=date("Y-m-d H:s:00");
-  
-  
-                                            
+
+
+
  if(   $file1name != ""  )
      {
 $data=array(
@@ -734,10 +774,10 @@ $data=array(
     );
  $cp=copy($file1tmp ,  "upload/". $file1name );
      }//end if
-     
-     else{      
-       $data=array(   
- "registration"=> $registration_send21 ,       
+
+     else{
+       $data=array(
+ "registration"=> $registration_send21 ,
  //"at"=> $at_receive21,
  "date"=>$conv_date1_receive21,
  "from"=>$from_send21,
@@ -750,11 +790,11 @@ $data=array(
  "type_document"=>$type_document,
   "date_record"=>$sess_timerecord,
  );
-      
+
      }
      //print_r($data);
-     $tb= $this->tb;                                       
-     $ck=$this->db->insert($tb,$data);      
+     $tb= $this->tb;
+     $ck=$this->db->insert($tb,$data);
    //  $ck=1;
      if( $ck )
      {
@@ -764,72 +804,72 @@ $data=array(
      {
          echo 0;
      }
-                                        
+
 
 }//end function
-          
+
         //http://10.87.196.170/document2/index.php/welcome/update_tb_main1_send_3
-        public function update_tb_main1_send_3() 
+        public function update_tb_main1_send_3()
         {
-            
+
               $id_main1_send_excellence=trim($this->input->get_post("id_main1_send_excellence"));
               //echo br();
-              
+
                $registration_send21=trim($this->input->get_post("registration_send21"));   //เลขทะเบียนส่ง   1
-             //  echo br(); 
-                          
+             //  echo br();
+
                        $date1_send21=trim($this->input->get_post("date1_send21")); //ลงวันที่           3
-             
-                           
+
+
                            if(  strlen( $date1_send21) > 0    )
 		{
 	                            $ex=explode("/", $date1_send21);
 		          $conv_date1_receive21 = $ex[2]."-".$ex[0]."-".$ex[1];
-		          // echo br(); 
+		          // echo br();
 		 }
 
-                           
-                             
-                              $from_send21=trim($this->input->get_post("from_send21")); //จาก       4
-                         //  echo br();    
-                            
-                                  $to_send21=trim($this->input->get_post("to_send21"));  //ถึง        5
-                          // echo br();     
-                                        
-                             $subject_send21=trim($this->input->get_post("subject_send21"));  //เรื่อง       6
-                          // echo br();      
-                           
-                                 $practice_send21=trim($this->input->get_post("practice_send21"));  //การปฏฺิบัติ       7
-                         //echo br();    
-                          
-                                  $note_send21=trim($this->input->get_post("note_send21")); //หมายเหตุ      8
-                        //  echo br();    
-                                
-                       
-                          
-                                   
 
-                                    
-                                                                    
+
+                              $from_send21=trim($this->input->get_post("from_send21")); //จาก       4
+                         //  echo br();
+
+                                  $to_send21=trim($this->input->get_post("to_send21"));  //ถึง        5
+                          // echo br();
+
+                             $subject_send21=trim($this->input->get_post("subject_send21"));  //เรื่อง       6
+                          // echo br();
+
+                                 $practice_send21=trim($this->input->get_post("practice_send21"));  //การปฏฺิบัติ       7
+                         //echo br();
+
+                                  $note_send21=trim($this->input->get_post("note_send21")); //หมายเหตุ      8
+                        //  echo br();
+
+
+
+
+
+
+
                                                                        /*
 
                                                                                           1 	มูลนิธิตะวันฉายฯ
 		                                                      2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
-	                                                      	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ 
-                                                                        
+	                                                      	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
+
                                                                         */
                                                                    // $type_record=trim($this->input->get_post("type_record21")); //ประเภทของตารางที่ทำการบันทึก    9
-                                                             $type_record=3; 
-                                                                    
-                                                                    
+                                                             $type_record=3;
+
+
                                                              $type_document=2;  // 1=หนังสือรับ,2=หนังสือส่ง
-                                             
-                                                             
-                                                      
-                                                     
+
+
+
+
                                                                                          //------------------------------- upload file-------------------------------------------
-                                                                                   // print_r($_FILES)  
-                                                                             $file1name = $_FILES["file21"]['name'];  // ชื่อของไฟล์      10  
+                                                                                   // print_r($_FILES)
+                                                                             $file1name = $_FILES["file21"]['name'];  // ชื่อของไฟล์      10
                                                          //echo br();
                                                                                  $file1tmp  =$_FILES['file21']["tmp_name"]; // tmp folder
                                                                                 //  echo br();
@@ -837,15 +877,15 @@ $data=array(
                                                                                 //  echo br();
                                                                                 $file1Size= $_FILES['file21']["size"]; //size
                                                                                 //  echo br();
-                                                                                  $file1ErrorMsg = $_FILES['file21']["error"]; // 0=false 1=true   
+                                                                                  $file1ErrorMsg = $_FILES['file21']["error"]; // 0=false 1=true
                                                                                 // echo br();
-                                                                                  
+
                                                                date_default_timezone_set("Asia/Bangkok");
 		                          $sess_timerecord=date("Y-m-d H:s:00");
                                                        //  echo br();
-                                                         
-                                                         
-                                                         
+
+
+
                                                           if(   $file1name != ""  )
      {
 $data=array(
@@ -864,10 +904,10 @@ $data=array(
     );
  $cp=copy($file1tmp ,  "upload/". $file1name );
      }//end if
-     
-     else{      
-       $data=array(   
- "registration"=> $registration_send21 ,       
+
+     else{
+       $data=array(
+ "registration"=> $registration_send21 ,
  //"at"=> $at_receive21,
  "date"=>$conv_date1_receive21,
  "from"=>$from_send21,
@@ -880,39 +920,39 @@ $data=array(
  "type_document"=>$type_document,
   "date_record"=>$sess_timerecord,
  );
-      
+
      }
-     
-     
+
+
      //print_r($data);
-     
+
                    if(  $id_main1_send_excellence > 0 )
                    {
-                         $tb= $this->tb;       
+                         $tb= $this->tb;
                          $this->db->where("id_main1", $id_main1_send_excellence );
                          $ck=$this->db->update($tb,$data);
                          if( $ck )
                          { echo 1;}
                          else{  echo 0; }
                    }
-            
+
         }
         //--------------END excellence-------------------------------------------------------------
         /*
-              // $type_record=3;      
+              // $type_record=3;
                 1 	มูลนิธิตะวันฉายฯ
 	 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
-	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ      
+	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
                  // $type_record=trim($this->input->get_post("type_record21")); //ประเภทของตารางที่ทำการบันทึก    9
-                // $type_record=3;                                   
+                // $type_record=3;
                  //  $type_document=2;  // 1=หนังสือรับ,2=หนังสือส่ง
          */
-        
+
         //http://10.87.196.170/document2/index.php/welcome/home/json_research
         public function json_research()
         {
-           
-            
+
+
                $tb=$this->tb;
                $this->db->order_by("id_main1","DESC");
 			//$this->db->limit(30,0);
@@ -923,15 +963,15 @@ $data=array(
 			}
 			 //echo  json_encode($rows);
 			 echo json_encode($rows);
-                         
-                         
-                         
-            
+
+
+
+
         }
-        
+
         public function  search_research()
         {
-            
+
               $tb=$this->tb;
 
               $type_document=trim($this->input->get_post("type_document_research"));
@@ -939,18 +979,18 @@ $data=array(
              $date=trim($this->input->get_post("date_research"));  //การรับค่า => 07/28/2017
             //echo br();
             $to=trim($this->input->get_post("to_research"));
-         //echo br(); 
-           
+         //echo br();
+
           if(  $date != "" ) //ต้องแปลงให้เป็น  2017-01-26
                                   {
                                           $ex=explode("/",$date);
 		       $conv_date=$ex[2]."-".$ex[0]."-".$ex[1];  //2017-08-01
 		 }
 
-                //echo $conv_date;  
-                 
-    
-       /*          
+                //echo $conv_date;
+
+
+       /*
     if(  $type_document > 0 &&  $to != ""  &&  $date == ""  )
          {
               $this->db->order_by("id_main1","DESC");
@@ -964,9 +1004,9 @@ $data=array(
                                      $rows[]=$row;
                               }
                              echo  json_encode($rows);
-                    } 
-         }  
-    elseif( $type_document > 0 &&  $to == ""  &&  $date != ""   )     
+                    }
+         }
+    elseif( $type_document > 0 &&  $to == ""  &&  $date != ""   )
     {
               $this->db->order_by("id_main1","DESC");
               $query=$this->db->get_where($tb,array("type_record"=>2,"type_document"=>$type_document,"date"=>$conv_date),10);
@@ -979,7 +1019,7 @@ $data=array(
                                      $rows[]=$row;
                               }
                              echo  json_encode($rows);
-                    } 
+                    }
     }
    else  if(  $type_document > 0   &&  $to  == ""  &&   $date ==""  )
    {
@@ -995,12 +1035,12 @@ $data=array(
                             $rows[]=$row;
                      }
                     echo  json_encode($rows);
-           }        
+           }
      }
  */
- 
+
                  if( $to != ""  &&  $date != "" )
-                 {   
+                 {
                    $this->db->order_by("id_main1","DESC");
                    $query=$this->db->get_where($tb,array("type_record"=>2,"type_document"=>$type_document, "to"=>$to,  "date"=>$conv_date));
                    $check = $query->num_rows();
@@ -1012,7 +1052,7 @@ $data=array(
                                      $rows[]=$row;
                               }
                              echo  json_encode($rows);
-                    } 
+                    }
                  }
                  elseif(  $to != ""  &&  $date == ""   )
                  {
@@ -1027,7 +1067,7 @@ $data=array(
                                      $rows[]=$row;
                               }
                              echo  json_encode($rows);
-                    } 
+                    }
                  }
                  elseif( $to == ""  &&  $date != ""  )
                  {
@@ -1042,7 +1082,7 @@ $data=array(
                                      $rows[]=$row;
                               }
                              echo  json_encode($rows);
-                    } 
+                    }
                  }
                  else
                  {
@@ -1058,38 +1098,38 @@ $data=array(
                                                $rows[]=$row;
                                         }
                                        echo  json_encode($rows);
-                              }  
+                              }
                  }
-                    
-                 
+
+
 
         }//end function
-        
-  
+
+
            /*
-              // $type_record=3;      
+              // $type_record=3;
                 1 	มูลนิธิตะวันฉายฯ
 	 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
-	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ      
+	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
                  // $type_record=trim($this->input->get_post("type_record21")); //ประเภทของตารางที่ทำการบันทึก    9
-                // $type_record=3;                                   
+                // $type_record=3;
                  //  $type_document=2;  // 1=หนังสือรับ,2=หนังสือส่ง
-         */     
-        
-          public function  update_tb_main1_2()//excellence  "type_record"=>3  
+         */
+
+          public function  update_tb_main1_2()//excellence  "type_record"=>3
                 {
                      header('Content-Type: text/html; charset=UTF-8');
                        //echo "<br>";
-                     
+
                          $id_main1=trim($this->input->get_post("id_main1_research"));
                       //echo br();
 
                        $registration_receive21=trim($this->input->get_post("registration_research_receive21"));   //เลขทะเบียนส่ง   1
-                     // echo br();   
-                         
+                     // echo br();
+
                       $at_receive21=trim($this->input->get_post("at_research_receive21"));  //ที่       2
-	    //echo br();   
-              
+	    //echo br();
+
 
 	    $date1_receive21=trim($this->input->get_post("date1_research_receive21")); //ลงวันที่           3
                       //07/25/2017
@@ -1101,46 +1141,46 @@ $data=array(
 	    }
                          //echo  $conv_date1_receive21;
                         //echo br();
-            
+
 	      $from_receive21=trim($this->input->get_post("from_research_receive21")); //จาก       4
-	 // echo br();														
+	 // echo br();
 	      $to_receive21=trim($this->input->get_post("to_research_receive21"));  //ถึง        5
-	  // echo br();													
+	  // echo br();
 	      $subject_receive21=trim($this->input->get_post("subject_research_receive21"));  //เรื่อง       6
-	   // echo br();														
+	   // echo br();
 	     $practice_receive21=trim($this->input->get_post("practice_research_receive21"));  //การปฏฺิบัติ       7
-	   //  echo br();														
+	   //  echo br();
 	     $note_receive21=trim($this->input->get_post("note_research_receive21")); //หมายเหตุ      8
 	    //echo br();
-            
-            
-	      $type_record=2; //ประเภทของตารางที่ทำการบันทึก    9																															
+
+
+	      $type_record=2; //ประเภทของตารางที่ทำการบันทึก    9
 	      $type_document=1;  // 1=หนังสือรับ,2=หนังสือส่ง
-              
-              
-                  // $type_record=3;      
+
+
+                  // $type_record=3;
              //   1 	มูลนิธิตะวันฉายฯ
 	// 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
-	                               
+
  //------------------------------- upload file-------------------------------------------
                         // print_r($_FILES)
 	        $file1name = $_FILES["file21_research"]['name'];  // ชื่อของไฟล์      10
-	 // echo br();													 
+	 // echo br();
 	      $file1tmp  =$_FILES['file21_research']["tmp_name"]; // tmp folder
-																
+
 	      $file1Type= $_FILES['file21_research']["type"]; //type of file
-																
+
 	      $file1Size= $_FILES['file21_research']["size"]; //size
-																
+
 	      $file1ErrorMsg = $_FILES['file21_research']["error"]; // 0=false 1=true
-															
+
 
 	       date_default_timezone_set("Asia/Bangkok");
 	       $sess_timerecord=date("Y-m-d H:s:00");
-               
-               
-               
-               
+
+
+
+
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     if(   $file1name != ""  )
 																																										 {
 
@@ -1186,10 +1226,10 @@ $data=array(
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 if(  $id_main1 >  0   &&  strlen($id_main1) > 0  )
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 {
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         $this->db->where("id_main1", $id_main1);
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         $ck=$this->db->update($tb,$data);
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        // $ck=0;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         if( $ck )
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         {
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             echo 1;
@@ -1198,14 +1238,14 @@ $data=array(
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         {
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             echo 0;
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 }
 
                 }
-        
-        
-                 
-       
+
+
+
+
                 public function insert_tb_main1_2() //excellence  "type_record"=>3
 	{
 									    /*
@@ -1329,7 +1369,7 @@ $data=array(
 																				 // `tb_main1_test`
 
 																				// $tb="tb_main1_test";
-                                                                                                                                                                                                                                                                                                                                                 
+
 																				 $tb= $this->tb;
 																				 $ck=$this->db->insert($tb,$data);
 																				 // $ck=1;
@@ -1340,14 +1380,12 @@ $data=array(
 																				 else {
 																				 	echo "0";
 																				 }
-                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                 
+
+
 
 
 
 		}
-                
+
 
 }
-
-
