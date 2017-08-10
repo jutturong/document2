@@ -51,9 +51,9 @@ class Welcome extends CI_Controller {
                           
                           
                                 // หนังสือรับ ศูนย์วิจัยฯ
-                                                     // $data["number_add"]=$this->user_model->count_id(2,1);
-                                                     $data["number_add_21"]=$this->user_model->count_id(2,1); 
-   /*-------------1.เลขทะเบียนส่ง----------  */
+                                // $data["number_add"]=$this->user_model->count_id(2,1);
+                                $data["number_add_21"]=$this->user_model->count_id(2,1); 
+                                /*-------------1.เลขทะเบียนส่ง----------  */
                                // $tb="tb_main1";
                               $tb=$this->tb;
                                $this->db->order_by("id_main1","DESC");
@@ -83,7 +83,7 @@ class Welcome extends CI_Controller {
                                {
                                   $data["number_add_22"]="ศธ0514.7.1.2.3.4.1/";
                                }
-                               echo  $data["number_add_22"];
+                               //echo  $data["number_add_22"];
                                
                                
                               /*-------------1.เลขทะเบียนส่ง----------  */
@@ -125,7 +125,7 @@ class Welcome extends CI_Controller {
 
 		 $data["title"]=$this->title;
 		 //$data["loadconent"]="receive_excellence";
-		  $data["loadconent"]="";
+		  //$data["loadconent"]="";
 		 $this->load->view("home",$data);
 	}
 

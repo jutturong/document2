@@ -428,7 +428,8 @@ style="width:400px;height:500px;padding:10px">
                                            $('#dia_insert_send_research').dialog('open');
 
                                             
-                                                            $('#registration_send21_research').textbox('setText','');    //registration_send21_research
+                                                            //$('#registration_send21_research').textbox('setText','');    //registration_send21_research
+                                                            $('#registration_send21_research').textbox('setValue','<?=@$number_add_22?>');
                                                             $('#date1_send21_research').datebox('setValue','');    //date1_send21_research
                                                          
                                                             $('#from_send21_research').textbox('setText',''); //จาก       4  //from_send21_research
@@ -436,6 +437,10 @@ style="width:400px;height:500px;padding:10px">
                                                             $('#subject_send21_research').textbox('setText',''); //เรื่อง       6    //subject_send21_research
                                                             $('#practice_send21_research').textbox('setText',''); //การปฏฺิบัติ       7    //practice_send21_research
                                                             $('#note_send21_research').textbox('setText',''); //หมายเหตุ      8    //note_send21_research
+                                                            
+                                                           
+                                                            //
+                                                            //
                                                           //  location.reload();
 
                                            //registration_receive21
@@ -617,7 +622,7 @@ style="width:400px;height:500px;padding:10px">
 <form id="f_insert_research"  method="post" action="<?=base_url()?>index.php/welcome/insert_tb_main1_3" novalidate="novalidate"    enctype="multipart/form-data" >
 
              <div style="margin-left:10px;margin-top: 10px;">
-                <input class="easyui-textbox"   name="registration_research_receive21" id="registration_research_receive21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขรับ'  ,  labelPosition:'top'  ,  required:true, value:'<?=@$number_add_21?>'    "    />
+                 <input class="easyui-textbox"   name="registration_research_receive21" id="registration_research_receive21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขรับ'  ,  labelPosition:'top'  ,     "   value="<?=@$number_add_21?>"  />
             </div>
 
             <div style="margin-left: 10px;margin-top: 10px; ">
@@ -762,7 +767,7 @@ style="width:400px;height:500px;padding:10px">
                     handler:function()
                     {
                         //alert('t');
-                          $('#f_insert_research').dialog('close');
+                          $('#dia_insert_send_research').dialog('close');
 
 
                     }
@@ -776,7 +781,7 @@ style="width:400px;height:500px;padding:10px">
     <form id="f_insert_research"  method="post"  novalidate="novalidate"    enctype="multipart/form-data" >
         
             <div style="margin-left:10px;margin-top: 10px;">
-                <input class="easyui-textbox"   id="registration_send21_research" name="registration_send21_research"  style="width:70% ; height: 60px;"  data-options=" label:'เลขส่ง'  ,  labelPosition:'top'  ,  required:true,  value:'test'   "    />
+                <input class="easyui-textbox"   id="registration_send21_research" name="registration_send21_research"  style="width:70% ; height: 60px;"  data-options=" label:'เลขส่ง'  ,  labelPosition:'top'  ,  required:false,  "   />
             </div>
         
          <div style="margin-left:10px;margin-top: 10px;">

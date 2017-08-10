@@ -100,6 +100,7 @@
                                     <a href="#" class="easyui-linkbutton"  onclick=" javascript: $('#dlg_content_research').dialog('open'); $('#to_research').combogrid('setValue',''); $('#date_research').datebox('setValue',''); "   data-options="iconCls:'icon-large-smartart',size:'large',iconAlign:'top'">ค้นหา</a>
                                     <a href="#" class="easyui-linkbutton"  onclick=" javascript: 
                                                 $('#dia_select_research').dialog('open'); 
+                                             //registration_send21_research
                                                 $('#at_research_receive21').textbox('setValue','');  //เลขที่เอกสาร
                                                 $('#date1_research_receive21').datebox('setValue','');
                                                 $('#from_research_receive21').textbox('setValue','');  //'จาก'
@@ -108,6 +109,10 @@
                                                 $('#practice_research_receive21').textbox('setValue','');  //การปฏฺิบัติ
                                                 $('#note_research_receive21').textbox('setValue',''); //หมายเหตุ
                                                  $('#id_main1_research').textbox('setValue',''); 
+                                                 
+                                                 
+                                                 
+                                                 
                                                 
                                        "   data-options="iconCls:'icon-large-chart',size:'large',iconAlign:'top'">เพิ่ม</a>
                                   
