@@ -453,22 +453,20 @@ style="width:400px;height:500px;padding:10px">
                       //alert(  $('#select_excellence').combobox('getValue')  );
                       //alert('t');
                       
-                                           $('#dia_insert_send_excellence').dialog('open');
+                                           $('#dia_insert_send_research').dialog('open');
                        
                        
                        
                                             
                                                             $('#registration_send21').textbox('setText','');
                                                             $('#date1_send21').datebox('setValue','');  
-                                                          //   $('#to_send21').textbox('setText',''); //เลขที่เอกสาร
+                                                         
                                                             $('#from_send21').textbox('setText',''); //จาก       4
                                                             $('#to_send21').textbox('setText',''); //ถึง        5
                                                             $('#subject_send21').textbox('setText',''); //เรื่อง       6
                                                             $('#practice_send21').textbox('setText',''); //การปฏฺิบัติ       7
                                                             $('#note_send21').textbox('setText',''); //หมายเหตุ      8
-                                                          //  location.reload();
-                                                           //  $('#dia_insert_excellence').dialog('open');
-                                                          //  $('#dia_select_excellence').dialog('open'); 
+                                                     
                                                           
                                                           
                                                          
@@ -814,7 +812,7 @@ style="width:400px;height:500px;padding:10px">
     <form id="f_insert_send_excellence"  method="post"  novalidate="novalidate"    enctype="multipart/form-data" >
         
             <div style="margin-left:10px;margin-top: 10px;">
-                <input class="easyui-textbox"   id="registration_send21" name="registration_send21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขส่ง'  ,  labelPosition:'top'  ,  required:true,     "    />
+                <input class="easyui-textbox"   id="registration_send21" name="registration_send21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขส่ง'  ,  labelPosition:'top'  ,  required:true,  value:'<?=@$number_add_22?>'   "    />
             </div>
         
          <div style="margin-left:10px;margin-top: 10px;">

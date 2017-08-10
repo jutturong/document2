@@ -2,9 +2,8 @@
 
 class Welcome extends CI_Controller {
 
-
-	 var   $title="TAWANCHAI";
-	 var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
+        var   $title="TAWANCHAI";
+        var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
 
 
          public function __construct()
@@ -44,9 +43,85 @@ class Welcome extends CI_Controller {
 		//	echo  $type_record=3; //ประเภทของตารางที่ทำการบันทึก    9
 			  $data["number_add"]=$this->user_model->count_id(3,1);  //count_id($type_record,$type_document)
 			 //$this->load->view("receive21",$data);
+                            
+                          
+                          
+                          
+                          
+                          
+                          
+                                // หนังสือรับ ศูนย์วิจัยฯ
+                                                     // $data["number_add"]=$this->user_model->count_id(2,1);
+                                                     $data["number_add_21"]=$this->user_model->count_id(2,1); 
+   /*-------------1.เลขทะเบียนส่ง----------  */
+                               // $tb="tb_main1";
+                              $tb=$this->tb;
+                               $this->db->order_by("id_main1","DESC");
+                               $q_n=$this->db->get_where($tb,array("type_record"=>2,"type_document"=>2),1);
+                               $row=$q_n->row();
+                               $num_rows_ck= $q_n->num_rows();
+                               if(  $num_rows_ck  > 0 )
+                               {
+                               $registration_ck = $row->registration;
+                               $ex=explode("/",$registration_ck);
+                               
+                                 if( $ex[1]  <  1  )
+                                                  {
+                                                       // echo "มีตัวอักษรปน";
+                                                        $exe=explode(".",$ex[1]);
+                                                       // echo $exe[1];
+                                                         $sum_regis=$exe[1]+1;
+                                                  }
+                               
+                                  $sum_regis= (int)$ex[1];
+                                 //  echo br();
+                                   $sum_regis_int= $sum_regis+1;
+                               
+                                      $data["number_add_22"]="ศธ0514.7.1.2.3.4.1/". $sum_regis_int ;
+                               }
+                               else
+                               {
+                                  $data["number_add_22"]="ศธ0514.7.1.2.3.4.1/";
+                               }
+                               echo  $data["number_add_22"];
+                               
+                               
+                              /*-------------1.เลขทะเบียนส่ง----------  */
 
-
-
+                                                     
+                                                     /*
+                                                            //---------------------------มูลนิธิตะวันฉายฯ----1----------------------- 
+       function  receive11()  //รับ
+       {
+               $('#sub11').load("<?=base_url()?>index.php/welcome/receive11");
+       }
+       
+       function  send11()  //ส่ง
+       {
+               $('#sub11').load("<?=base_url()?>index.php/welcome/send11");
+       }
+       
+       //------------------------ ศูนย์การดูแล----3--------------------------------  
+       function  receive21()  //รับ
+       {
+               $('#sub11').load("<?=base_url()?>index.php/welcome/receive21");
+       }
+        function  send21()  //ส่ง
+       {
+               $('#sub11').load("<?=base_url()?>index.php/welcome/send21");
+       }
+  
+  
+  //------------------------ ศูนย์วิจัย----2-----------------
+         function  receive31()  //รับ
+       {
+               $('#sub11').load("<?=base_url()?>index.php/welcome/receive31");
+       }
+        function  send31()  //ส่ง
+       {
+               $('#sub11').load("<?=base_url()?>index.php/welcome/send31");
+       }
+                                                      */
 
 		 $data["title"]=$this->title;
 		 //$data["loadconent"]="receive_excellence";
