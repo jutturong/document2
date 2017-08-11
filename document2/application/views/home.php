@@ -29,9 +29,9 @@
                              <div  data-options="iconCls:'layout-button-right' " >
                                        <span> เอกสารรับ/ส่ง </span>
                                        <div style="width:300px;">
-                                            <div data-options="iconCls:'icon-large-picture' "  onclick="javascript:  $('#panel_excellence').panel('open'); $('#panel_research').panel('close');   " >ศูนย์การดูแล ฯ And Excellence</div>
-                                            <div data-options="iconCls:'icon-large-picture'"  onclick="javascript:  $('#panel_research').panel('open'); $('#panel_excellence').panel('close');    " >ศูนย์วิจัย ฯ</div>
-                                            <div data-options="iconCls:'icon-large-picture'" >มูลนิธิตะวันฉาย ฯ</div>
+                                            <div data-options="iconCls:'icon-large-picture' "  onclick="javascript:  $('#panel_excellence').panel('open'); $('#panel_research').panel('close');  $('#panel_foundation').panel('close');   " >ศูนย์การดูแล ฯ And Excellence</div>
+                                            <div data-options="iconCls:'icon-large-picture'"  onclick="javascript:  $('#panel_research').panel('open'); $('#panel_excellence').panel('close');   $('#panel_foundation').panel('close');   " >ศูนย์วิจัย ฯ</div>
+                                            <div data-options="iconCls:'icon-large-picture'"    onclick="javascript:   $('#panel_foundation').panel('open'); $('#panel_excellence').panel('close'); $('#panel_research').panel('close');   " >มูลนิธิตะวันฉาย ฯ</div>
                                        </div>
                              </div>
 
@@ -119,8 +119,38 @@
                       
                                 </div>
                      </div>
-                     <!--  ##-------------      ศูนย์วิจัย ฯ ------------------- ##  -->
-
+                     <!--  ##-------------      ศูนย์วิจัย ฯ  ------------------ ##  -->
+                     
+                     <!--  ##-------------      มูลนิธิ --foundation----------------- ##  -->
+                     <div id="panel_foundation" class="easyui-panel" title=" เอกสาร รับ/ส่ง มูลนิธิตะวันฉาย ฯ  , ค้นหา , เพิ่ม "  iconCls="icon-print"  style="width:400px;height:150px;padding:10px;"  closed="true" >
+                                <div style="padding:5px 0;">
+                                    
+                                    <a href="#" class="easyui-linkbutton"  onclick=" javascript: $('#dlg_content_foundation').dialog('open'); $('#to_foundation').combogrid('setValue',''); $('#date_foundation').datebox('setValue',''); "   data-options="iconCls:'icon-large-smartart',size:'large',iconAlign:'top'">ค้นหา</a>
+                                    <a href="#" class="easyui-linkbutton"  onclick=" javascript: 
+                                                
+                                                
+                                                $('#dia_insert_foundation').dialog('open'); 
+                                                $('#registration_foundation_receive21').textbox('setValue','<?=@$number_add_11?>');
+                                                $('#at_research_receive21').textbox('setValue','');  //เลขที่เอกสาร
+                                                $('#date1_foundation_receive21').datebox('setValue','');
+                                                $('#from_foundation_receive21').textbox('setValue','');  //'จาก'
+                                                $('#to_foundation_receive21').textbox('setValue',''); //ถึง
+                                                $('#subject_foundation_receive21').textbox('setValue',''); //'เรื่อง
+                                                $('#practice_foundation_receive21').textbox('setValue','');  //การปฏฺิบัติ
+                                                $('#note_foundation_receive21').textbox('setValue',''); //หมายเหตุ
+                                                 $('#id_main1_foundation').textbox('setValue',''); 
+                                                 
+                                                 
+                                                 
+                                                 
+                                                
+                                       "   data-options="iconCls:'icon-large-chart',size:'large',iconAlign:'top'">เพิ่ม</a>
+                                  
+                      
+                                </div>
+                     </div>
+                     
+                      <!--  ##-------------      มูลนิธิ ----foundation--------------- ##  -->
 
 
             </div>
@@ -137,6 +167,10 @@
         <!-- ศูนย์ฯวิัจัย -->
         <?=$this->load->view("research")?>
          <!-- ศูนย์ฯวิัจัย -->
+         
+         <!-- มูลนิธิ -->
+         <?=$this->load->view("foundation")?>
+         <!-- มูลนิธิ -->
 
 </body>
 
