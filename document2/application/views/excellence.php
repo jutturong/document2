@@ -437,7 +437,10 @@ style="width:400px;height:500px;padding:10px">
                       //alert(   $('#select_excellence').combobox('getValue')  );
                        $('#dia_insert_excellence').dialog('open');
 
-                      //  $('#registration_receive21').textbox('setText','');                 
+                        //number_add
+                        $('#registration_receive21').textbox('setValue','<?=@$number_add?>');      
+                      
+                      
                         $('#date1_receive21').datebox('setValue','');                   
                         $('#at_receive21').textbox('setText',''); //เลขที่เอกสาร
                         $('#from_receive21').textbox('setText',''); //จาก       4
@@ -458,7 +461,8 @@ style="width:400px;height:500px;padding:10px">
                        
                        
                                             
-                                                            $('#registration_send21').textbox('setText','');
+                                                           $('#registration_send21').textbox('setValue','<?=@$number_add_32?>');
+                                                         //number_add_32
                                                             $('#date1_send21').datebox('setValue','');  
                                                          
                                                             $('#from_send21').textbox('setText',''); //จาก       4
@@ -812,7 +816,7 @@ style="width:400px;height:500px;padding:10px">
     <form id="f_insert_send_excellence"  method="post"  novalidate="novalidate"    enctype="multipart/form-data" >
         
             <div style="margin-left:10px;margin-top: 10px;">
-                <input class="easyui-textbox"   id="registration_send21" name="registration_send21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขส่ง'  ,  labelPosition:'top'  ,  required:true,  value:'<?=@$number_add_22?>'   "    />
+                <input class="easyui-textbox"   id="registration_send21" name="registration_send21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขส่ง'  ,  labelPosition:'top'  ,  required:true,  value:'<?=@$number_add_32?>'   "    />
             </div>
         
          <div style="margin-left:10px;margin-top: 10px;">

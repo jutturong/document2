@@ -278,11 +278,9 @@ style="width:400px;height:500px;padding:10px">
                                      //dia_insert_send_research
                                      $('#dia_insert_send_research').dialog('open');
 
-
-
-                                         //alert(row.registration);
-                                         $('#registration_send21').textbox('setText', '' );
-                                         $('#registration_send21').textbox('setValue', row.registration );
+                                      //alert(row.registration);
+                                     
+                                         $('#registration_send21_research').textbox('setValue', row.registration );
 
                                        var  date_db=row.date;
                                           if(  date_db.length   >  3  )
@@ -295,20 +293,20 @@ style="width:400px;height:500px;padding:10px">
                                                var     dmy_conv= m + '/' + d + '/'  + y;
                                               // alert(dmy_conv);
                                                //$('#dd').datebox('setValue', '6/1/2012');
-                                              $('#date1_send21').datebox('setValue',dmy_conv ); //วันที่รับ
+                                              $('#date1_send21_research').datebox('setValue',dmy_conv ); //วันที่รับ
                                            }
                                            else
                                            {
-                                              $('#date1_send21').datebox('setValue','' ); //วันที่รับ
+                                              $('#date1_send21_research').datebox('setValue','' ); //วันที่รับ
                                            }
 
-                                              $('#from_send21').textbox('setValue',row.from); //จาก
-                                              $('#to_send21').textbox('setValue',row.to); //ถึง
-                                              $('#subject_send21').textbox('setValue',row.subject); //เรื่อง       6
-                                              $('#practice_send21').textbox('setValue',row.practice); //การปฏฺิบัติ       7
-                                              $('#note_send21').textbox('setValue',row.note); //หมายเหตุ      8
+                                              $('#from_send21_research').textbox('setValue',row.from); //จาก
+                                              $('#to_send21_research').textbox('setValue',row.to); //ถึง
+                                              $('#subject_send21_research').textbox('setValue',row.subject); //เรื่อง       6
+                                              $('#practice_send21_research').textbox('setValue',row.practice); //การปฏฺิบัติ       7
+                                              $('#note_send21_research').textbox('setValue',row.note); //หมายเหตุ      8
 
-                                            //  $('#id_main1_research').textbox('setValue',row.id_main1);
+                                              $('#id_main1_send_research').textbox('setValue',row.id_main1);
 
                                }
 
@@ -686,28 +684,44 @@ style="width:400px;height:500px;padding:10px">
                       iconCls:'icon-save',
                       size:'large',
                       handler:function(){
-                            $('#f_insert_research').form('submit',{
-                                   url:'<?=base_url()?>index.php/welcome/insert_tb_main1_send_3',
+                            $('#f_insert_research_send').form('submit',{
+                                   url:'<?=base_url()?>index.php/welcome/insert_tb_main1_send_research',
                                    success:function(data)
                                    {
                                           //alert(data);
+                                          
+                                          
+                                       if( data == 1 )
+                                       {  
                                             $.messager.confirm('บันทึกข้อมูลสำเร็จ (Success Insert)','คุณต้องการบันทึกข้อมูลอีกหรือไม่',function(r)
                                                 {
                                                      if(r)
                                                      {
-                                                            $('#registration_send21').textbox('setText','');
-                                                            $('#date1_send21').datebox('setValue','');
+
+                                                        
+                                                            $('#registration_send21_research').textbox('setValue','<?=@$number_add_22?>');
+                                                            
+                                                           
+                                                            $('#date1_send21_research').datebox('setText','');
                                                           //   $('#to_send21').textbox('setText',''); //เลขที่เอกสาร
-                                                            $('#from_send21').textbox('setText',''); //จาก       4
-                                                            $('#to_send21').textbox('setText',''); //ถึง        5
-                                                            $('#subject_send21').textbox('setText',''); //เรื่อง       6
-                                                            $('#practice_send21').textbox('setText',''); //การปฏฺิบัติ       7
-                                                            $('#note_send21').textbox('setText',''); //หมายเหตุ      8
+                                                          
+                                                            $('#from_send21_research').textbox('setText',''); //จาก       4
+                                                            $('#to_send21_research').textbox('setText',''); //ถึง        5
+                                                            $('#subject_send21_research').textbox('setText',''); //เรื่อง       6
+                                                            $('#practice_send21_research').textbox('setText',''); //การปฏฺิบัติ       7
+                                                            $('#note_send21_research').textbox('setText',''); //หมายเหตุ      8
                                                             location.reload();
                                                            //  $('#dia_insert_excellence').dialog('open');
                                                           //  $('#dia_select_excellence').dialog('open');
+                                                          
+
                                                      }
+                                                     
                                                 });
+                                           }
+                                                
+                                                
+                                                
                                    }
                             });
 
@@ -721,25 +735,28 @@ style="width:400px;height:500px;padding:10px">
             handler:function()
                     {
                            //alert('t');
-                           $('#f_insert_research').form('submit',{
-                             url:'<?=base_url()?>index.php/welcome/update_tb_main1_send_3',
+                           $('#f_insert_research_send').form('submit',{
+                             url:'<?=base_url()?>index.php/welcome/update_send_research',
                              success:function(data)
                              {
-                                    //alert(data);
+                                   // alert(data);
+
+                                    
                                     if( data == 1 )
                                     {
                                             $.messager.confirm('แก้ไขข้อมูลสำเร็จ (Success Insert)','คุณต้องการแ้ก้ไขข้อมูลอีกหรือไม่',function(r)
                                               {
                                                     if(r)
                                                     {
-                                                            $('#registration_send21').textbox('setText','');
-                                                            $('#date1_send21').datebox('setValue','');
+                                                            $('#date1_send21_research').datebox('setText','');
                                                           //   $('#to_send21').textbox('setText',''); //เลขที่เอกสาร
-                                                            $('#from_send21').textbox('setText',''); //จาก       4
-                                                            $('#to_send21').textbox('setText',''); //ถึง        5
-                                                            $('#subject_send21').textbox('setText',''); //เรื่อง       6
-                                                            $('#practice_send21').textbox('setText',''); //การปฏฺิบัติ       7
-                                                            $('#note_send21').textbox('setText',''); //หมายเหตุ      8
+                                                          
+                                                            $('#from_send21_research').textbox('setText',''); //จาก       4
+                                                            $('#to_send21_research').textbox('setText',''); //ถึง        5
+                                                            $('#subject_send21_research').textbox('setText',''); //เรื่อง       6
+                                                            $('#practice_send21_research').textbox('setText',''); //การปฏฺิบัติ       7
+                                                            $('#note_send21_research').textbox('setText',''); //หมายเหตุ      8
+                                                            $.messager.progress(); 
                                                             location.reload();
                                                     }
 
@@ -756,6 +773,9 @@ style="width:400px;height:500px;padding:10px">
 
                                                       });
                                     }
+                                    
+                                    
+                                    
                              }
 
                            });
@@ -780,7 +800,7 @@ style="width:400px;height:500px;padding:10px">
      "
      iconCls="icon-print"  title=" รายการเอกสารส่ง  "  >
 
-    <form id="f_insert_research"  method="post"  novalidate="novalidate"    enctype="multipart/form-data" >
+    <form id="f_insert_research_send"  method="post"  novalidate="novalidate"    enctype="multipart/form-data" >
 
             <div style="margin-left:10px;margin-top: 10px;">
                 <input class="easyui-textbox"   id="registration_send21_research" name="registration_send21_research"  style="width:70% ; height: 60px;"  data-options=" label:'เลขส่ง'  ,  labelPosition:'top'  ,  required:false,  "   />
@@ -795,7 +815,7 @@ style="width:400px;height:500px;padding:10px">
           </div>
 
          <div style="margin-left: 10px;margin-top: 10px; ">
-               <input class="easyui-textbox"  id="to_send21_research"  name="to_send21_research"  style="width:70% ; height: 60px;"  data-options=" label:'ถึง'  ,  labelPosition:'top'  ,  required:false,    "   />
+               <input class="easyui-textbox"  id="to_send21_research"  name="to_send21_research"  style="width:70% ; height: 60px;"  data-options=" label:'ถึง'  ,  labelPosition:'top'  ,  required:true,    "   />
           </div>
 
 
@@ -813,7 +833,7 @@ style="width:400px;height:500px;padding:10px">
 
 
            <div style="margin-left: 10px;margin-top: 10px; ">
-                    <input class="easyui-filebox"  id="file21_research"  name="file21_research"  style="width:70%; height: 60px; "   data-options=" label:'แนบ file (ถ้ามี) '  ,  labelPosition:'top'  " />
+                    <input class="easyui-filebox"  id="file21_send21_research"  name="file21_send21_research"  style="width:70%; height: 60px; "   data-options=" label:'แนบ file (ถ้ามี) '  ,  labelPosition:'top'  " />
             </div>
 
              <div   style="margin-left:10px;margin-top: 10px;"  >

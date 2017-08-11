@@ -32,7 +32,7 @@ class Welcome extends CI_Controller {
   public function home()
 	{
 
-		//------------excellence------------
+	        //---###############---------excellence--------------------------------------------------------------
 		//--เอกสารรับ---
 		//$type_document=1;  // 1=หนังสือรับ,2=หนังสื
 		/*
@@ -80,16 +80,18 @@ class Welcome extends CI_Controller {
                                {
                                   $data["number_add_32"]="ศธ0514.7.1.2.3.4/";
                                }
-                               echo  $data["number_add_32"];
+                               //echo  $data["number_add_32"];
+                               //echo br();
                               //-------------1.เลขทะเบียนส่ง----------  
-                           //------------excellence------------
+                            //---###############---------excellence--------------------------------------------------------------
 
 
 
 
 
 
-                                //----------------- หนังสือรับ ศูนย์วิจัยฯ
+                                //-------#########---------- ศูนย์วิจัยฯ------------------------------------------------------------------------------
+                                //------------------------ หนังสือรับ----------------------------------------
                                 // $data["number_add"]=$this->user_model->count_id(2,1);
                                $data["number_add_21"]=$this->user_model->count_id(2,1);
                             //  echo br();
@@ -124,44 +126,69 @@ class Welcome extends CI_Controller {
                                   $data["number_add_22"]="ศธ0514.7.1.2.3.4.1/";
                                }
                                //echo  $data["number_add_22"];
+                               //-------#########---------- ศูนย์วิจัยฯ------------------------------------------------------------------------------
 
+                               
+                               
+                               //--------#####--------------------------มูลนิธิตะวันฉายฯ----------------------------------------------------------------
+                               
+                               
+                                 //---------------------------มูลนิธิตะวันฉายฯ----1----------------------- 
+                               /*
+                                            function  receive11()  //รับ
+                                            {
+                                                    $('#sub11').load("<?=base_url()?>index.php/welcome/receive11");
+                                            }
 
+                                            function  send11()  //ส่ง
+                                            {
+                                                    $('#sub11').load("<?=base_url()?>index.php/welcome/send11");
+                                            }
+
+                                *                                 */                   
+                               
+                               //--------#####--------------------------มูลนิธิตะวันฉายฯ----------------------------------------------------------------
+                                 //receive11()
+                                 //----------------- รับ -------------------------------
+                                 $data["number_add_11"]=$this->user_model->count_id(1,1);
+                                 //----------------- รับ -------------------------------
+
+                                 /*-------------1.เลขทะเบียนส่ง----------  */
+                               $tb="tb_main1";
+                               $this->db->order_by("id_main1","DESC");
+                               $q_n=$this->db->get_where($tb,array("type_record"=>1,"type_document"=>2));
+                               $row=$q_n->row();
+                               $num_row_ck=$q_n->num_rows();
+                               if(  $num_row_ck > 0 )
+                               {
+                               $registration_ck = $row->registration;
+                               $ex=explode("/",$registration_ck);
+                                if( $ex[1]  <  1  )
+                                                  {
+                                                       // echo "มีตัวอักษรปน";
+                                                        $exe=explode(".",$ex[1]);
+                                                       // echo $exe[1];
+                                                         $sum_regis=$exe[1]+1;
+                                                  }
+                                $sum_regis=(int)$ex[1]+1;
+                               
+                               
+                                              
+                               
+                                 $data["number_add_12"]="ตวฉ/".$sum_regis ;
+                               }
+                               else
+                               {
+                                  $data["number_add_12"]="ตวฉ/";
+                               }
+                               //echo $data["number_add_12"];
+                               //echo br();
                               /*-------------1.เลขทะเบียนส่ง----------  */
-
-
-                                                     /*
-                                                            //---------------------------มูลนิธิตะวันฉายฯ----1-----------------------
-       function  receive11()  //รับ
-       {
-               $('#sub11').load("<?=base_url()?>index.php/welcome/receive11");
-       }
-
-       function  send11()  //ส่ง
-       {
-               $('#sub11').load("<?=base_url()?>index.php/welcome/send11");
-       }
-
-       //------------------------ ศูนย์การดูแล----3--------------------------------
-       function  receive21()  //รับ
-       {
-               $('#sub11').load("<?=base_url()?>index.php/welcome/receive21");
-       }
-        function  send21()  //ส่ง
-       {
-               $('#sub11').load("<?=base_url()?>index.php/welcome/send21");
-       }
-
-
-  //------------------------ ศูนย์วิจัย----2-----------------
-         function  receive31()  //รับ
-       {
-               $('#sub11').load("<?=base_url()?>index.php/welcome/receive31");
-       }
-        function  send31()  //ส่ง
-       {
-               $('#sub11').load("<?=base_url()?>index.php/welcome/send31");
-       }
-                                                      */
+                              //--------#####--------------------------มูลนิธิตะวันฉายฯ---------------------------------------------------------------- 
+                                 
+                               
+                               
+                            
 
 		 $data["title"]=$this->title;
 		 //$data["loadconent"]="receive_excellence";
@@ -1385,7 +1412,266 @@ $data=array(
 
 
 
-		}
+		}//end function
+                
+                
+                
+                //http://10.87.196.170/document2/index.php/welcome/insert_tb_main1_send_3/#
+                public function insert_tb_main1_send_research()  //เอกสารส่ง    //excellence  "type_record"=>3
+                {
+                            $id_main1_send_research=trim($this->input->get_post("id_main1_send_research"));
+                          //echo br();
+                          
+                           $registration_send21=trim($this->input->get_post("registration_send21_research"));   //เลขทะเบียนส่ง   1
+                        // echo br();
+
+                            $date1_send21=trim($this->input->get_post("date1_send21_research")); //ลงวันที่           3
+                          //echo br();
+
+                           if(  strlen( $date1_send21) > 0    )
+		{
+	                            $ex=explode("/", $date1_send21);
+		          $conv_date1_receive21 = $ex[2]."-".$ex[0]."-".$ex[1];
+		            //echo br();
+		 }
+
+                           //echo   $conv_date1_receive21;
+                           //echo br();
+
+
+                               $from_send21=trim($this->input->get_post("from_send21_research")); //จาก       4
+                            //echo br();
+
+                                $to_send21=trim($this->input->get_post("to_send21_research"));  //ถึง        5
+                           // echo br();
+
+                                  $subject_send21=trim($this->input->get_post("subject_send21_research"));  //เรื่อง       6
+                            //echo br();
+
+                             $practice_send21=trim($this->input->get_post("practice_send21_research"));  //การปฏฺิบัติ       7
+                           //echo br();
+
+                             $note_send21=trim($this->input->get_post("note_send21_research")); //หมายเหตุ      8
+                           //echo br();
+
+                           //$at_send21=trim($this->input->get_post("at_send21"));  //ที่       2
+
+                                                                                    //      1 	มูลนิธิตะวันฉายฯ
+		                                                 //     2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
+	                                                      //	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
+
+                                                                        
+                                                                   // $type_record=trim($this->input->get_post("type_record21")); //ประเภทของตารางที่ทำการบันทึก    9
+                                                             $type_record=2;
+
+
+                                                             $type_document=2;  // 1=หนังสือรับ,2=หนังสือส่ง
+
+
+                                                              //   $date1_record21_time=trim($this->input->get_post("date1_record21_time"));
+
+                                                                                         //------------------------------- upload file-------------------------------------------
+                                                                                   // print_r($_FILES)
+                                                                                $file1name = $_FILES["file21_send21_research"]['name'];  // ชื่อของไฟล์      10
+                                                                         //echo br();
+                                                                                 $file1tmp  =$_FILES['file21_send21_research']["tmp_name"]; // tmp folder
+                                                                                //  echo br();
+                                                                                 $file1Type= $_FILES['file21_send21_research']["type"]; //type of file
+                                                                                //  echo br();
+                                                                                $file1Size= $_FILES['file21_send21_research']["size"]; //size
+                                                                                //  echo br();
+                                                                                  $file1ErrorMsg = $_FILES['file21_send21_research']["error"]; // 0=false 1=true
+                                                                                // echo br();
+
+                                                               date_default_timezone_set("Asia/Bangkok");
+		                            $sess_timerecord=date("Y-m-d H:s:00");
+
+
+
+ if(   $file1name != ""  )
+     {
+     
+     
+$data=array(
+      "registration"=>  $registration_send21 ,
+     // "at"=> $at_receive21,
+    "date"=>$conv_date1_receive21,
+   "from"=>$from_send21,
+    "to"=> $to_send21,
+   "subject"=>$subject_send21,
+    "practice"=> $practice_send21,
+    "note"=>$note_send21,
+     "type_record"=>  $type_record,
+    "filename"=>$file1name,
+     "type_document"=>$type_document,
+     "date_record"=>$sess_timerecord,
+    );
+            $cp=copy($file1tmp ,  "upload/". $file1name );
+     }//end if
+     else{
+       $data=array(
+ "registration"=> $registration_send21 ,
+ //"at"=> $at_receive21,
+ "date"=>$conv_date1_receive21,
+ "from"=>$from_send21,
+  "to"=> $to_send21,
+  "subject"=>$subject_send21,
+  "practice"=> $practice_send21,
+  "note"=>$note_send21,
+  "type_record"=>  $type_record,
+  "filename"=>$file1name,
+ "type_document"=>$type_document,
+  "date_record"=>$sess_timerecord,
+ );
+     }
+     
+     
+     if( $id_main1_send_research == ""   )
+     {      
+                    // print_r($data);
+                   $tb= $this->tb;
+                   $ck=$this->db->insert($tb,$data);
+                  // $ck=1;
+                   if( $ck )
+                   {
+                       echo 1;
+                   }
+                   else
+                   {
+                       echo 0;
+                   }
+      }
+     
+
+}//end function
+
+ public  function  update_send_research()
+ {
+     
+ 
+                               $id_main1_send_research=trim($this->input->get_post("id_main1_send_research"));
+                          // echo br();
+                          
+                           $registration_send21=trim($this->input->get_post("registration_send21_research"));   //เลขทะเบียนส่ง   1
+                        // echo br();
+
+                            $date1_send21=trim($this->input->get_post("date1_send21_research")); //ลงวันที่           3
+                          //echo br();
+
+                           if(  strlen( $date1_send21) > 0    )
+		{
+	                            $ex=explode("/", $date1_send21);
+		          $conv_date1_receive21 = $ex[2]."-".$ex[0]."-".$ex[1];
+		            //echo br();
+		 }
+
+                           //echo   $conv_date1_receive21;
+                           //echo br();
+
+
+                               $from_send21=trim($this->input->get_post("from_send21_research")); //จาก       4
+                            //echo br();
+
+                                $to_send21=trim($this->input->get_post("to_send21_research"));  //ถึง        5
+                           // echo br();
+
+                                  $subject_send21=trim($this->input->get_post("subject_send21_research"));  //เรื่อง       6
+                            //echo br();
+
+                             $practice_send21=trim($this->input->get_post("practice_send21_research"));  //การปฏฺิบัติ       7
+                           //echo br();
+
+                             $note_send21=trim($this->input->get_post("note_send21_research")); //หมายเหตุ      8
+                           //echo br();
+
+                           //$at_send21=trim($this->input->get_post("at_send21"));  //ที่       2
+
+                                                                                    //      1 	มูลนิธิตะวันฉายฯ
+		                                                 //     2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
+	                                                      //	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
+
+                                                                        
+                                                                   // $type_record=trim($this->input->get_post("type_record21")); //ประเภทของตารางที่ทำการบันทึก    9
+                                                             $type_record=2;
+
+
+                                                             $type_document=2;  // 1=หนังสือรับ,2=หนังสือส่ง
+
+
+                                                              //   $date1_record21_time=trim($this->input->get_post("date1_record21_time"));
+
+                                                                                         //------------------------------- upload file-------------------------------------------
+                                                                                   // print_r($_FILES)
+                                                                                $file1name = $_FILES["file21_send21_research"]['name'];  // ชื่อของไฟล์      10
+                                                                         //echo br();
+                                                                                 $file1tmp  =$_FILES['file21_send21_research']["tmp_name"]; // tmp folder
+                                                                                //  echo br();
+                                                                                 $file1Type= $_FILES['file21_send21_research']["type"]; //type of file
+                                                                                //  echo br();
+                                                                                $file1Size= $_FILES['file21_send21_research']["size"]; //size
+                                                                                //  echo br();
+                                                                                  $file1ErrorMsg = $_FILES['file21_send21_research']["error"]; // 0=false 1=true
+                                                                                // echo br();
+
+                                                               date_default_timezone_set("Asia/Bangkok");
+		                            $sess_timerecord=date("Y-m-d H:s:00");
+
+
+
+ if(   $file1name != ""  )
+     {
+     
+     
+$data=array(
+      "registration"=>  $registration_send21 ,
+     // "at"=> $at_receive21,
+    "date"=>$conv_date1_receive21,
+   "from"=>$from_send21,
+    "to"=> $to_send21,
+   "subject"=>$subject_send21,
+    "practice"=> $practice_send21,
+    "note"=>$note_send21,
+     "type_record"=>  $type_record,
+    "filename"=>$file1name,
+     "type_document"=>$type_document,
+     "date_record"=>$sess_timerecord,
+    );
+            $cp=copy($file1tmp ,  "upload/". $file1name );
+     }//end if
+     else{
+       $data=array(
+ "registration"=> $registration_send21 ,
+ //"at"=> $at_receive21,
+ "date"=>$conv_date1_receive21,
+ "from"=>$from_send21,
+  "to"=> $to_send21,
+  "subject"=>$subject_send21,
+  "practice"=> $practice_send21,
+  "note"=>$note_send21,
+  "type_record"=>  $type_record,
+  "filename"=>$file1name,
+ "type_document"=>$type_document,
+  "date_record"=>$sess_timerecord,
+ );
+     }
+
+        // print_r($data);
+         if( $id_main1_send_research  > 0 &&  $id_main1_send_research != ""  )
+         {
+               $tb=$this->tb;
+               $this->db->where("id_main1",$id_main1_send_research);
+               $ck=$this->db->update($tb,$data);
+               if( $ck )
+               {
+                   echo 1;
+               }
+               else
+               {
+                   echo 0;
+               }
+         }
+         
+ }
 
 
 }
