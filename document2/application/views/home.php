@@ -129,6 +129,9 @@
                                     <a href="#" class="easyui-linkbutton"  onclick=" javascript: 
                                                 
                                                 
+                                                 $('#dia_select_foundation').dialog('open'); 
+                                                
+                                                /*
                                                 $('#dia_insert_foundation').dialog('open'); 
                                                 $('#registration_foundation_receive21').textbox('setValue','<?=@$number_add_11?>');
                                                 $('#at_research_receive21').textbox('setValue','');  //เลขที่เอกสาร
@@ -139,7 +142,7 @@
                                                 $('#practice_foundation_receive21').textbox('setValue','');  //การปฏฺิบัติ
                                                 $('#note_foundation_receive21').textbox('setValue',''); //หมายเหตุ
                                                  $('#id_main1_foundation').textbox('setValue',''); 
-                                                 
+                                                 */
                                                  
                                                  
                                                  

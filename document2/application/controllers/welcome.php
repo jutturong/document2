@@ -1912,8 +1912,8 @@ $data=array(
 																				// $tb="tb_main1_test";
 																				
                                                                                                                                                                                                                                                                                                                                                  
-                                                                                                                                                                                                                                                                                                                                                             
-                                                                                                                                                                                                                                                                                                                                                 if( $id_main1_foundation == 0  ||  $id_main1_foundation == "")
+                                                                                                                                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                                                                                                                                 if(  $id_main1_foundation == "")
                                                                                                                                                                                                                                                                                                                                                  {
                                                                                                                                                                                                                                                                                                                                                         //echo   print_r($data);
                                                                                                                                                                                                                                                                                                                                                        $tb=$this->tb;
@@ -1927,7 +1927,7 @@ $data=array(
                                                                                                                                                                                                                                                                                                                                                            echo 0;
                                                                                                                                                                                                                                                                                                                                                        }
                                                                                                                                                                                                                                                                                                                                                  }
-
+                                                                                                                                                                                                                                                                                                                                                
 		}
 
                 public function update_send_foundation() //excellence  "type_record"=>3
@@ -2078,7 +2078,274 @@ $data=array(
                                                                                                                                                                                                                                                                                                                                                  }
 
 		}
+ 
+               public function insert_tb_main1_send_foundation()  //หนังสือส่ง  มูลนิธิ
+                {
+                            $id_main1_send_research=trim($this->input->get_post("id_main1_send_foundation"));
+                          //echo br();
+                          
+                           $registration_send21=trim($this->input->get_post("registration_send21_foundation"));   //เลขทะเบียนส่ง   1
+                        // echo br();
+
+                            $date1_send21=trim($this->input->get_post("date1_send21_foundation")); //ลงวันที่           3
+                          //echo br();
+
+                           if(  strlen( $date1_send21) > 0    )
+		{
+	                            $ex=explode("/", $date1_send21);
+		          $conv_date1_receive21 = $ex[2]."-".$ex[0]."-".$ex[1];
+		            //echo br();
+		 }
+
+                           //echo   $conv_date1_receive21;
+                           //echo br();
 
 
+                               $from_send21=trim($this->input->get_post("from_send21_foundation")); //จาก       4
+                            //echo br();
+
+                                $to_send21=trim($this->input->get_post("to_send21_foundation"));  //ถึง        5
+                           // echo br();
+
+                                  $subject_send21=trim($this->input->get_post("subject_send21_foundation"));  //เรื่อง       6
+                            //echo br();
+
+                             $practice_send21=trim($this->input->get_post("practice_send21_foundation"));  //การปฏฺิบัติ       7
+                           //echo br();
+
+                             $note_send21=trim($this->input->get_post("note_send21_foundation")); //หมายเหตุ      8
+                           //echo br();
+
+                           //$at_send21=trim($this->input->get_post("at_send21"));  //ที่       2
+
+                                                                                    //      1 	มูลนิธิตะวันฉายฯ
+		                                                 //     2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
+	                                                      //	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
+
+                                                                        
+                                                                   // $type_record=trim($this->input->get_post("type_record21")); //ประเภทของตารางที่ทำการบันทึก    9
+                                                             $type_record=1;
+
+
+                                                             $type_document=2;  // 1=หนังสือรับ,2=หนังสือส่ง
+
+
+                                                              //   $date1_record21_time=trim($this->input->get_post("date1_record21_time"));
+
+                                                                                         //------------------------------- upload file-------------------------------------------
+                                                                                   // print_r($_FILES)
+                                                                                $file1name = $_FILES["file21_send21_foundation"]['name'];  // ชื่อของไฟล์      10
+                                                                         //echo br();
+                                                                                 $file1tmp  =$_FILES['file21_send21_foundation']["tmp_name"]; // tmp folder
+                                                                                //  echo br();
+                                                                                 $file1Type= $_FILES['file21_send21_foundation']["type"]; //type of file
+                                                                                //  echo br();
+                                                                                $file1Size= $_FILES['file21_send21_foundation']["size"]; //size
+                                                                                //  echo br();
+                                                                                  $file1ErrorMsg = $_FILES['file21_send21_foundation']["error"]; // 0=false 1=true
+                                                                                // echo br();
+
+                                                               date_default_timezone_set("Asia/Bangkok");
+		                            $sess_timerecord=date("Y-m-d H:s:00");
+
+
+
+ if(   $file1name != ""  )
+     {
+     
+     
+$data=array(
+      "registration"=>  $registration_send21 ,
+     // "at"=> $at_receive21,
+    "date"=>$conv_date1_receive21,
+   "from"=>$from_send21,
+    "to"=> $to_send21,
+   "subject"=>$subject_send21,
+    "practice"=> $practice_send21,
+    "note"=>$note_send21,
+     "type_record"=>  $type_record,
+    "filename"=>$file1name,
+     "type_document"=>$type_document,
+     "date_record"=>$sess_timerecord,
+    );
+            $cp=copy($file1tmp ,  "upload/". $file1name );
+     }//end if
+     else{
+       $data=array(
+ "registration"=> $registration_send21 ,
+ //"at"=> $at_receive21,
+ "date"=>$conv_date1_receive21,
+ "from"=>$from_send21,
+  "to"=> $to_send21,
+  "subject"=>$subject_send21,
+  "practice"=> $practice_send21,
+  "note"=>$note_send21,
+  "type_record"=>  $type_record,
+  "filename"=>$file1name,
+ "type_document"=>$type_document,
+  "date_record"=>$sess_timerecord,
+ );
+     }
+            
+        //print_r($data);
+     
+     
+     if( $id_main1_send_research == ""   )
+     {      
+                    // print_r($data);
+                   $tb= $this->tb;
+                  $ck=$this->db->insert($tb,$data);
+                  // $ck=1;
+                   //$ck=0;
+                   if( $ck )
+                   {
+                       echo 1;
+                   }
+                   else
+                   {
+                       echo 0;
+                   }
+      }
+     
+     
+
+}//end function
+
+
+          public  function update_send_foundation2()
+          {
+               {
+                            $id_main1_send_research=trim($this->input->get_post("id_main1_send_foundation"));
+                          //echo br();
+                          
+                           $registration_send21=trim($this->input->get_post("registration_send21_foundation"));   //เลขทะเบียนส่ง   1
+                        // echo br();
+
+                            $date1_send21=trim($this->input->get_post("date1_send21_foundation")); //ลงวันที่           3
+                          //echo br();
+
+                           if(  strlen( $date1_send21) > 0    )
+		{
+	                            $ex=explode("/", $date1_send21);
+		          $conv_date1_receive21 = $ex[2]."-".$ex[0]."-".$ex[1];
+		            //echo br();
+		 }
+
+                           //echo   $conv_date1_receive21;
+                           //echo br();
+
+
+                               $from_send21=trim($this->input->get_post("from_send21_foundation")); //จาก       4
+                            //echo br();
+
+                                $to_send21=trim($this->input->get_post("to_send21_foundation"));  //ถึง        5
+                           // echo br();
+
+                                  $subject_send21=trim($this->input->get_post("subject_send21_foundation"));  //เรื่อง       6
+                            //echo br();
+
+                             $practice_send21=trim($this->input->get_post("practice_send21_foundation"));  //การปฏฺิบัติ       7
+                           //echo br();
+
+                             $note_send21=trim($this->input->get_post("note_send21_foundation")); //หมายเหตุ      8
+                           //echo br();
+
+                           //$at_send21=trim($this->input->get_post("at_send21"));  //ที่       2
+
+                                                                                    //      1 	มูลนิธิตะวันฉายฯ
+		                                                 //     2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
+	                                                      //	3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
+
+                                                                        
+                                                                   // $type_record=trim($this->input->get_post("type_record21")); //ประเภทของตารางที่ทำการบันทึก    9
+                                                             $type_record=1;
+
+
+                                                             $type_document=2;  // 1=หนังสือรับ,2=หนังสือส่ง
+
+
+                                                              //   $date1_record21_time=trim($this->input->get_post("date1_record21_time"));
+
+                                                                                         //------------------------------- upload file-------------------------------------------
+                                                                                   // print_r($_FILES)
+                                                                                $file1name = $_FILES["file21_send21_foundation"]['name'];  // ชื่อของไฟล์      10
+                                                                         //echo br();
+                                                                                 $file1tmp  =$_FILES['file21_send21_foundation']["tmp_name"]; // tmp folder
+                                                                                //  echo br();
+                                                                                 $file1Type= $_FILES['file21_send21_foundation']["type"]; //type of file
+                                                                                //  echo br();
+                                                                                $file1Size= $_FILES['file21_send21_foundation']["size"]; //size
+                                                                                //  echo br();
+                                                                                  $file1ErrorMsg = $_FILES['file21_send21_foundation']["error"]; // 0=false 1=true
+                                                                                // echo br();
+
+                                                               date_default_timezone_set("Asia/Bangkok");
+		                            $sess_timerecord=date("Y-m-d H:s:00");
+
+
+
+ if(   $file1name != ""  )
+     {
+     
+     
+$data=array(
+      "registration"=>  $registration_send21 ,
+     // "at"=> $at_receive21,
+    "date"=>$conv_date1_receive21,
+   "from"=>$from_send21,
+    "to"=> $to_send21,
+   "subject"=>$subject_send21,
+    "practice"=> $practice_send21,
+    "note"=>$note_send21,
+     "type_record"=>  $type_record,
+    "filename"=>$file1name,
+     "type_document"=>$type_document,
+     "date_record"=>$sess_timerecord,
+    );
+            $cp=copy($file1tmp ,  "upload/". $file1name );
+     }//end if
+     else{
+       $data=array(
+ "registration"=> $registration_send21 ,
+ //"at"=> $at_receive21,
+ "date"=>$conv_date1_receive21,
+ "from"=>$from_send21,
+  "to"=> $to_send21,
+  "subject"=>$subject_send21,
+  "practice"=> $practice_send21,
+  "note"=>$note_send21,
+  "type_record"=>  $type_record,
+  "filename"=>$file1name,
+ "type_document"=>$type_document,
+  "date_record"=>$sess_timerecord,
+ );
+     }
+            
+        //print_r($data);
+     
+     
+     if( $id_main1_send_research != ""   &&    $id_main1_send_research > 0  )
+     {      
+                    // print_r($data);
+                   $tb= $this->tb;
+                   $this->db->where("id_main1",$id_main1_send_research);
+                  $ck=$this->db->update($tb,$data);
+                  // $ck=1;
+                   //$ck=0;
+                   if( $ck )
+                   {
+                       echo 1;
+                   }
+                   else
+                   {
+                       echo 0;
+                   }
+      }
+     
+     
+
+}//end function
+          }
+   
 
 }
