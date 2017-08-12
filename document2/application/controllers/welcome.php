@@ -1678,6 +1678,24 @@ $data=array(
                    // $type_record=3;
              //   1 	มูลนิธิตะวันฉายฯ
 	// 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
+  public function json_foundation()
+        {
+
+
+               $tb=$this->tb;
+               $this->db->order_by("id_main1","DESC");
+			//$this->db->limit(30,0);
+			$query=$this->db->get_where($tb,array("type_record"=>1),5);
+			foreach($query->result() as $row)
+			{
+					$rows[]=$row;
+			}
+			 //echo  json_encode($rows);
+			 echo json_encode($rows);
+
+
+        }
+        
   public function  search_foundation()
         {
 
@@ -1910,10 +1928,156 @@ $data=array(
                                                                                                                                                                                                                                                                                                                                                        }
                                                                                                                                                                                                                                                                                                                                                  }
 
-
-
 		}
 
+                public function update_send_foundation() //excellence  "type_record"=>3
+	{
+									    /*
+                      echo   $registration_receive21=trim($this->input->get_post('registration_receive21'));
+											echo br();
+										 //echo  't';
+										 */
+
+										 header('Content-Type: text/html; charset=UTF-8');
+
+																			 //echo print_r($_POST);
+																			 //echo  "<hr>";
+                                                                                                                                                         //
+                                                                                                                                                         //                                                                                                 
+																			 #-- หนังสือรับ หนังสือเ้ข้า  มูลนิธิตะวันฉายฯ
+                                                                                 
+                                                                                 
+                                                                                                                                                              $id_main1_foundation=trim($this->input->get_post("id_main1_foundation"));
+																	$registration_receive21=trim($this->input->get_post("registration_foundation_receive21"));   //เลขทะเบียนส่ง   1
+														  //echo "<br>";
+														      $at_receive21=trim($this->input->get_post("at_foundation_receive21"));  //ที่       2
+														  //echo  "<br>";
+															 $date1_receive21=trim($this->input->get_post("date1_foundation_receive21")); //ลงวันที่           3
+                              //07/25/2017
+															if(  strlen($date1_receive21) > 0    )
+															{
+																   $ex=explode("/",$date1_receive21);
+																	    $conv_date1_receive21 = $ex[2]."-".$ex[0]."-".$ex[1];
+																	 //echo br();
+															}
+
+														     $from_receive21=trim($this->input->get_post("from_foundation_receive21")); //จาก       4
+															 //echo  "<br>";
+															 $to_receive21=trim($this->input->get_post("to_foundation_receive21"));  //ถึง        5
+															 //echo  "<br>";
+															 $subject_receive21=trim($this->input->get_post("subject_foundation_receive21"));  //เรื่อง       6
+															 //echo  "<br>";
+															  $practice_receive21=trim($this->input->get_post("practice_foundation_receive21"));  //การปฏฺิบัติ       7
+															  //echo  "<br>";
+															 $note_receive21=trim($this->input->get_post("note_foundation_receive21")); //หมายเหตุ      8
+															 //echo  "<br>";
+																																				 // <input type="hidden"  id="type_record11"  name="type_record11"  value="1"  />
+																																			/*
+
+																																												 1 	มูลนิธิตะวันฉายฯ
+																												 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
+																												 3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
+
+																																			 */
+																																			 //"type_record"=>3
+																  $type_record=1; //ประเภทของตารางที่ทำการบันทึก    9
+																		//echo br();																//  echo  "<br>";
+																 $type_document=1;  // 1=หนังสือรับ,2=หนังสือส่ง
+	                                  //echo br();
+																																		//		$date1_receive21_time=trim($this->input->get_post("date1_receive21_time")); //ประเภทของตารางที่ทำการบันทึก    9
+
+
+																																		 //  print_r($_FILES);
+
+																																											 //------------------------------- upload file-------------------------------------------
+																																									// print_r($_FILES)
+																$file1name = $_FILES["file21_foundation"]['name'];  // ชื่อของไฟล์      10
+														    //echo br();
+																 $file1tmp  =$_FILES['file21_foundation']["tmp_name"]; // tmp folder
+																//echo br();
+																 $file1Type= $_FILES['file21_foundation']["type"]; //type of file
+																 //echo br();
+																 $file1Size= $_FILES['file21_foundation']["size"]; //size
+																 //echo br();
+																 $file1ErrorMsg = $_FILES['file21_foundation']["error"]; // 0=false 1=true
+															  //echo br();
+
+																  date_default_timezone_set("Asia/Bangkok");
+														      $sess_timerecord=date("Y-m-d H:s:00");
+
+
+
+
+																																								if(   $file1name != ""  )
+																																										 {
+
+																																																		 $data=array(
+																																																				 "registration"=> $registration_receive21,
+																																																				 "at"=> $at_receive21,
+																																																				 "date"=>$conv_date1_receive21,
+																																																				 "from"=>$from_receive21,
+																																																				 "to"=> $to_receive21,
+																																																				"subject"=>$subject_receive21,
+																																																				"practice"=>$practice_receive21,
+																																																				"note"=>$note_receive21,
+																																																				"type_record"=> $type_record,
+																																																				"filename"=>$file1name,
+																																																				 "type_document"=>$type_document,
+																																																				 "date_record"=>$sess_timerecord,
+																																																		 );
+
+
+
+																																																 $cp=copy($file1tmp ,  "upload/". $file1name );
+
+																																										  }
+																																										 else
+																																										 {
+																																													 $data=array(
+																																																				 "registration"=>$registration_receive21,
+																																																				 "at"=> $at_receive21,
+																																																				 "date"=>$conv_date1_receive21,
+																																																				 "from"=>$from_receive21,
+																																																				 "to"=> $to_receive21,
+																																																				"subject"=>$subject_receive21,
+																																																				"practice"=>$practice_receive21,
+																																																				"note"=>$note_receive21,
+																																																				"type_record"=> $type_record,
+																																																			//  "filename"=>$file1name,
+																																																				"type_document"=>$type_document,
+																																																			 "date_record"=>$sess_timerecord,
+																																																		 );
+
+																																										 }
+
+																			  //print_r($data);
+
+
+																				 //$tb="tb_main1";
+																				 // `tb_main1_test`
+
+																				// $tb="tb_main1_test";
+																				
+                                                                                                                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                                                                                                             
+                                                                                                                                                                                                                                                                                                                                                 if( $id_main1_foundation > 0  ||  $id_main1_foundation != "")
+                                                                                                                                                                                                                                                                                                                                                 {
+                                                                                                                                                                                                                                                                                                                                                        //echo   print_r($data);
+                                                                                                                                                                                                                                                                                                                                                       $tb=$this->tb;
+                                                                                                                                                                                                                                                                                                                                                      // $ck=$this->db->insert($tb,$data);
+                                                                                                                                                                                                                                                                                                                                                       $this->db->where("id_main1",$id_main1_foundation);
+                                                                                                                                                                                                                                                                                                                                                       $ck=$this->db->update($tb,$data);
+                                                                                                                                                                                                                                                                                                                                                       if($ck)
+                                                                                                                                                                                                                                                                                                                                                       {
+                                                                                                                                                                                                                                                                                                                                                           echo 1;
+                                                                                                                                                                                                                                                                                                                                                       }
+                                                                                                                                                                                                                                                                                                                                                       else
+                                                                                                                                                                                                                                                                                                                                                       {
+                                                                                                                                                                                                                                                                                                                                                           echo 0;
+                                                                                                                                                                                                                                                                                                                                                       }
+                                                                                                                                                                                                                                                                                                                                                 }
+
+		}
 
 
 

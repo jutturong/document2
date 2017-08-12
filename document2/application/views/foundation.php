@@ -56,7 +56,7 @@ style="width:400px;height:500px;padding:10px">
 
             <div style="margin-bottom:10px">
 
-                <input class="easyui-datebox"    label="วันที่/เดือน/ปี "  name="date_research"  id="date_foundation" labelPosition="top" style="width:80%;height:60px">
+                <input class="easyui-datebox"    label="วันที่/เดือน/ปี "  name="date_foundation"  id="date_foundation" labelPosition="top" style="width:80%;height:60px">
             </div>
 
 
@@ -117,8 +117,8 @@ style="width:400px;height:500px;padding:10px">
                                           {
 
                                                    //alert(data);
-                                                   // $('#dia_datagrid_research').dialog('open');
-                                                   // $('#datagrid_research').datagrid('loadData',data);
+                                                   // $('#dia_datagrid_foundation').dialog('open');
+                                                   // $('#datagrid_foundation').datagrid('loadData',data);
                                            });
                                            */
 
@@ -196,18 +196,18 @@ style="width:400px;height:500px;padding:10px">
                                     }
                  ]],
                  toolbar:[
-                     //{  text:'Refresh' ,iconCls:'icon-reload',handler:function(){  $('#datagrid_research').datagrid('reload');  }   },
+                     //{  text:'Refresh' ,iconCls:'icon-reload',handler:function(){  $('#datagrid_foundation').datagrid('reload');  }   },
                     {  text:'Export',iconCls:'icon-print',size:'large',handler:function()
                            {
 
-                                window.open( '<?=base_url()?>index.php/welcome/export_data/'+  '2'  +  '/'  +  $('#type_document_research').combobox('getValue')  +  '/'    +    $('#to_research').combogrid('getValue') + '/' + $('#date_research').datebox('getValue')   );
+                                window.open( '<?=base_url()?>index.php/welcome/export_data/'+  '1'  +  '/'  +  $('#type_document_foundation').combobox('getValue')  +  '/'    +    $('#to_foundation').combogrid('getValue') + '/' + $('#date_foundation').datebox('getValue')   );
                             },
 
                      },
                      {
                         text:'Download file',iconCls:'icon-large-picture',size:'lagre',handler:function()
                          {
-                              var  row=$('#datagrid_research').datagrid('getSelected');
+                              var  row=$('#datagrid_foundation').datagrid('getSelected');
                               if( row )
                               {
                                    var  filename=row.filename;
@@ -224,26 +224,26 @@ style="width:400px;height:500px;padding:10px">
                      {
                         text:'Edit(แก้ไขข้อมูล)', size:'large'  ,iconCls:'icon-edit',handler:function()
                          {
-                              var  row=$('#datagrid_research').datagrid('getSelected');
+                              var  row=$('#datagrid_foundation').datagrid('getSelected');
                               var  id_main1=row.id_main1;
                               //   $type_document=2;  // 1=หนังสือรับ,2=หนังสือส่ง
 
                               //หนังสือรับ
+                              //alert(id_main1);
+                              
+                              
                                if(  id_main1 >  0  &&  row.type_document == 1  )
                                {
-                                      //alert(id_main1);
-
-
-
-
-                                         $('#dia_insert_research').dialog('open');
-                                         $('#registration_research_receive21').textbox('setValue',row.registration); //เลขรับ
-                                         $('#at_research_receive21').textbox('setValue',row.at);  //เลขที่เอกสาร
-                                         $('#date1_research_receive21').datebox('setValue','');
-
-                                         //alert(row.date);
-
-                                          var  date_db=row.date;
+                                        
+                                    
+                                      
+                                          
+                                          $('#dia_insert_foundation').dialog('open');
+                                          $('#registration_foundation_receive21').textbox('setValue',row.registration); //เลขรับ
+                                          $('#at_foundation_receive21').textbox('setValue',row.at);  //เลขที่เอกสาร
+                                          $('#date1_foundation_receive21').datebox('setValue','');
+                                          
+                                           var  date_db=row.date;
                                           if(  date_db.length   >  3  )
                                           {
                                                var  str  = date_db.split('-');
@@ -254,26 +254,26 @@ style="width:400px;height:500px;padding:10px">
                                                var     dmy_conv= m + '/' + d + '/'  + y;
                                               // alert(dmy_conv);
                                                //$('#dd').datebox('setValue', '6/1/2012');
-                                               $('#date1_research_receive21').datebox('setValue',dmy_conv ); //วันที่รับ
-                                               //   $('#date1_research_receive21').datebox('setValue','');
+                                               $('#date1_foundation_receive21').datebox('setValue',dmy_conv ); //วันที่รับ
+                                               
                                            }
-
-
-                                           $('#from_research_receive21').textbox('setValue',row.from);  //'จาก'
-                                           $('#to_research_receive21').textbox('setValue',row.to); //ถึง
-                                           $('#subject_research_receive21').textbox('setValue',row.subject); //'เรื่อง
-                                           $('#practice_research_receive21').textbox('setValue',row.practice);  //การปฏฺิบัติ
-                                           $('#note_research_receive21').textbox('setValue',row.note); //หมายเหตุ
-                                         //  $('#id_research_main1').textbox('setValue',row.id_main1); // id
-                                           $('#id_main1_research').textbox('setValue',row.id_main1);
-
+                                           
+                                           
+                                           $('#from_foundation_receive21').textbox('setValue',row.from);  //'จาก'
+                                           $('#to_foundation_receive21').textbox('setValue',row.to); //ถึง
+                                           $('#subject_foundation_receive21').textbox('setValue',row.subject); //'เรื่อง
+                                           $('#practice_foundation_receive21').textbox('setValue',row.practice);  //การปฏฺิบัติ
+                                           $('#note_foundation_receive21').textbox('setValue',row.note); //หมายเหตุ
+                                       
+                                           $('#id_main1_foundation').textbox('setValue',row.id_main1);
+                                          
 
                                }
                                else if( id_main1 >  0  &&  row.type_document == 2  )  //หนังสือส่ง
                                {
                                      //alert('หนังสือส่ง');
                                      //dia_insert_send_research
-                                     $('#dia_insert_send_research').dialog('open');
+                                     $('#datagrid_foundation').dialog('open');
 
                                       //alert(row.registration);
                                      
@@ -312,7 +312,7 @@ style="width:400px;height:500px;padding:10px">
                      {
                         text:'Delete (ลบข้อมูล)',  iconCls:'icon-cancel',size:'large',handler:function()
                                 {
-                                        var  row=$('#datagrid_research').datagrid('getSelected');
+                                        var  row=$('#datagrid_foundation').datagrid('getSelected');
 
                                        $.messager.confirm('Delete Date Status','คุณแน่ใจว่าต้องการลบข้อมูล',function(r){
 
@@ -340,7 +340,7 @@ style="width:400px;height:500px;padding:10px">
 
                                                                       //$.messager.alert('สถานะการลบขอ้มูล','ลบข้อมูลสำเร็จ');
 
-                                                                    //$('#datagrid_research').datagrid('reload');
+                                                                    //$('#datagrid_foundation').datagrid('reload');
                                                                       location.reload();
 
 
@@ -465,32 +465,71 @@ style="width:400px;height:500px;padding:10px">
             handler:function()
               {
 
-                    $('#f_insert_research').form('submit',{
-                     url:'<?=base_url()?>index.php/welcome/update_tb_main1_2/',
+                    $('#f_insert_foundation').form('submit',{
+                     url:'<?=base_url()?>index.php/welcome/update_send_foundation/',
                             success:function(data)
                             {
-                                    // alert(data);
+                                     //alert(data);
+                                    
+                                    
                                     if( data == 1)
                                     {
                                         $.messager.confirm('แก้ไขข้อมูลสำเร็จ (Success Insert)','คุณต้องการแ้ก้ไขข้อมูลอีกหรือไม่',function(r)
                                         {
                                                  if(r)
                                                     {
+                                                    
+                                                    
 
-                                                           $('#registration_research_receive21').textbox('setText','');
+                                                           $('#registration_foundation_receive21').textbox('setText','');
                                                            $('#date1_research_receive21').datebox('setValue','');
-                                                           $('#at_research_receive21').textbox('setText',''); //เลขที่เอกสาร
-                                                           $('#from_research_receive21').textbox('setText',''); //จาก       4
-                                                           $('#to_research_receive21').textbox('setText',''); //ถึง        5
-                                                           $('#subject_research_receive21').textbox('setText',''); //เรื่อง       6
-                                                           $('#practice_research_receive21').textbox('setText',''); //การปฏฺิบัติ       7
-                                                           $('#note_research_receive21').textbox('setText',''); //หมายเหตุ      8
+                                                           $('#at_foundation_receive21').textbox('setText',''); //เลขที่เอกสาร
+                                                           $('#from_foundation_receive21').textbox('setText',''); //จาก       4
+                                                           $('#to_foundation_receive21').textbox('setText',''); //ถึง        5
+                                                           $('#subject_foundation_receive21').textbox('setText',''); //เรื่อง       6
+                                                           $('#practice_foundation_receive21').textbox('setText',''); //การปฏฺิบัติ       7
+                                                           $('#note_foundation_receive21').textbox('setText',''); //หมายเหตุ      8
 
 
                                                            $.messager.progress();
                                                            location.reload();
                                                          //  $('#dia_insert_excellence').dialog('open');
                                                         //  $('#dia_select_excellence').dialog('open');
+                                                        
+                                                        
+                                                        /*
+                                                         $('#dia_insert_foundation').dialog('open');
+                                          $('#registration_foundation_receive21').textbox('setValue',row.registration); //เลขรับ
+                                          $('#at_foundation_receive21').textbox('setValue',row.at);  //เลขที่เอกสาร
+                                          $('#date1_foundation_receive21').datebox('setValue','');
+                                          
+                                           var  date_db=row.date;
+                                          if(  date_db.length   >  3  )
+                                          {
+                                               var  str  = date_db.split('-');
+                                               //alert(str[0]);
+                                               var    y=str[0];
+                                               var    m=str[1];
+                                               var    d=str[2];
+                                               var     dmy_conv= m + '/' + d + '/'  + y;
+                                              // alert(dmy_conv);
+                                               //$('#dd').datebox('setValue', '6/1/2012');
+                                               $('#date1_foundation_receive21').datebox('setValue',dmy_conv ); //วันที่รับ
+                                               
+                                           }
+                                           
+                                           
+                                           $('#from_foundation_receive21').textbox('setValue',row.from);  //'จาก'
+                                           $('#to_foundation_receive21').textbox('setValue',row.to); //ถึง
+                                           $('#subject_foundation_receive21').textbox('setValue',row.subject); //'เรื่อง
+                                           $('#practice_foundation_receive21').textbox('setValue',row.practice);  //การปฏฺิบัติ
+                                           $('#note_foundation_receive21').textbox('setValue',row.note); //หมายเหตุ
+                                       
+                                           $('#id_main1_foundation').textbox('setValue',row.id_main1);
+                                                        
+                                                        */
+                                                        
+                                                        
 
                                                     }
                                         });
@@ -514,6 +553,9 @@ style="width:400px;height:500px;padding:10px">
 
 
                                     }
+                                    
+                                    
+                                    
 
                             }
                });
