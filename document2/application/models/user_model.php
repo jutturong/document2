@@ -55,7 +55,33 @@ class User_model extends CI_Model {
                              }
                         }
                                  return  $number_add;
+                }//end function
+               
+          function  login()//check login เข้าสู่ระบบ
+          {
+                //  "sess_login"=>1, 
+                $sess_login=$this->session->userdata("sess_login");  //test check  authentication login
+                /*
+                 if(  $sess_login  )
+                 {
+                       echo "Login";
+                 }
+                 else
+                 {
+                     echo "Please Login";
+                 }
+                
+                 */
+                
+                if( $sess_login != 1 )
+                {
+                     //echo "Please Login";
+                     redirect("welcome/index");
                 }
+          
+                    
+               
+          }
 
 
 

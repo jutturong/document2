@@ -20,7 +20,15 @@ class Welcome extends CI_Controller {
 		 //echo "testing";
 
 
-
+                                    $sess_data=array(
+                                                                     "sess_us"=>"",
+                                                                     "sess_ps"=>"",
+                                                                     //"sess_per"=> $check_per,  
+                                                                      "sess_login"=>0, 
+                                                               );
+                                    
+                                    $this->session->set_userdata($sess_data);
+                                    $this->session->sess_destroy();
 
 
 
@@ -28,9 +36,59 @@ class Welcome extends CI_Controller {
 		  //$this->load->view("home",$data);
 		 $this->load->view("login",$data);
 	}
-
-  public function home()
+        
+                 public   function  checklogin()
+                 {
+                      $us=trim($this->input->get_post("us"));
+                     //echo br();
+                      $ps=trim(md5($this->input->get_post("ps")));
+                     //echo br();
+                     
+                     $tb_user="tb_user";
+                     
+                     //$this->db->get_where($tb_user,array("username"=>us,"password"=>ps));
+                     //echo $num_check=$query->num_rows();
+                     //echo br();
+                     
+                     $query=$this->db->get_where($tb_user,array("username"=>$us));
+                     $check_rows=$query->num_rows();
+                    //echo br();
+                      if( $check_rows == 1 )
+                      {
+                          
+                          
+                          $sess_data=array(
+                                   "sess_us"=>$us,
+                                   "sess_ps"=>$ps,
+                                   //"sess_per"=> $check_per,  
+                                    "sess_login"=>1, 
+                             );
+                          
+                          
+                          
+                           $this->session->set_userdata($sess_data);
+                          $sess_login=$this->session->userdata("sess_login");  //test check  authentication login
+                          if( $sess_login == 1)
+                          {
+                                //redirect("welcome/lhome");
+                                 echo 1;
+                          }
+                          else
+                              {
+                                 //redirect("welcome/index");
+                                 echo 0;
+                              
+                              }
+                          
+                          
+                      }
+                     
+                 }
+        
+                  // http://10.87.196.170/document2/index.php/welcome/home/          for   test
+                  public function home()
 	{
+                         $this->user_model->login();  //for checklogin
 
 	        //---###############---------excellence--------------------------------------------------------------
 		//--เอกสารรับ---
@@ -203,6 +261,7 @@ class Welcome extends CI_Controller {
 	//http://10.87.196.170/document2/index.php/welcome/json_academic
 	public function json_academic() //json รายชื่อ อ.
 	{
+                       $this->user_model->login();  //for checklogin
 		    $tb="tb_academic";
        $query=$this->db->get($tb);
 			 foreach($query->result() as $row)
@@ -215,9 +274,11 @@ class Welcome extends CI_Controller {
 
 
 
-//http://192.168.2.112/document2/index.php/welcome/json_excellence
+//http://10.87.196.170/document2/index.php/welcome/json_excellence
 public function json_excellence()  //ศูนย์การดูแล AND excellence
 {
+      $this->user_model->login();  //for checklogin
+      
     	//$tb="tb_main1";
           $tb=$this->tb;
           $this->db->order_by("id_main1","DESC");
@@ -232,9 +293,11 @@ public function json_excellence()  //ศูนย์การดูแล AND ex
 }
 
 
-
+//http://10.87.196.170/document2/index.php/welcome/search_excellence
 public function search_excellence()
 {
+      $this->user_model->login();  //for checklogin
+      
         // $tb="tb_main1";
 				 // $tb="tb_main1_test";
            $tb=$this->tb;
@@ -357,7 +420,7 @@ public function search_excellence()
                  //http://10.87.196.170/document2/index.php/welcome/export_data
                  public function export_data()//พิ่มพ์หนังสือ
                 {
-
+                      $this->user_model->login();  //for checklogin
 
                             header('Content-Type: text/html; charset=utf-8');
 
@@ -422,6 +485,9 @@ public function search_excellence()
                 //http://10.87.196.170/document2/index.php/welcome/update_tb_main1_3
                 public function delete_tb_main1_3()
                         {
+                            $this->user_model->login();  //for checklogin
+                      
+                      
                                  $id_main1=trim($this->input->get_post("id_main1"));
 
                                if( $id_main1 > 0 )
@@ -450,6 +516,9 @@ public function search_excellence()
                 //http://10.87.196.170/document2/index.php/welcome/update_tb_main1_3
                 public function  update_tb_main1_3()//excellence  "type_record"=>3
                 {
+                      $this->user_model->login();  //for checklogin
+                      
+                      
                      header('Content-Type: text/html; charset=UTF-8');
                        //echo "<br>";
 
@@ -564,10 +633,11 @@ public function search_excellence()
                 }
 
 
-                 //http://10.87.196.170/document2/index.php/welcome/insert_tb_main1
+                 //http://10.87.196.170/document2/index.php/welcome/insert_tb_main1_3
 	public function insert_tb_main1_3() //excellence  "type_record"=>3
 	{
-									    /*
+	      $this->user_model->login();  //for checklogin
+          								    /*
                       echo   $registration_receive21=trim($this->input->get_post('registration_receive21'));
 											echo br();
 										 //echo  't';
@@ -711,7 +781,9 @@ public function search_excellence()
               //http://10.87.196.170/document2/index.php/welcome/insert_tb_main1_send_3/#
                 public function insert_tb_main1_send_3()  //เอกสารส่ง    //excellence  "type_record"=>3
                 {
-
+                       $this->user_model->login();  //for checklogin
+                       
+                       
                            $registration_send21=trim($this->input->get_post("registration_send21"));   //เลขทะเบียนส่ง   1
                            //echo br();
 
@@ -839,7 +911,10 @@ $data=array(
         //http://10.87.196.170/document2/index.php/welcome/update_tb_main1_send_3
         public function update_tb_main1_send_3()
         {
-
+               $this->user_model->login();  //for checklogin
+  
+  
+  
               $id_main1_send_excellence=trim($this->input->get_post("id_main1_send_excellence"));
               //echo br();
 
@@ -979,7 +1054,7 @@ $data=array(
         //http://10.87.196.170/document2/index.php/welcome/home/json_research
         public function json_research()
         {
-
+              $this->user_model->login();  //for checklogin
 
                $tb=$this->tb;
                $this->db->order_by("id_main1","DESC");
@@ -996,10 +1071,12 @@ $data=array(
 
 
         }
-
+        //http://10.87.196.170/document2/index.php/welcome/home/search_research
         public function  search_research()
         {
-
+               $this->user_model->login();  //for checklogin
+               
+               
               $tb=$this->tb;
 
               $type_document=trim($this->input->get_post("type_document_research"));
@@ -1144,8 +1221,12 @@ $data=array(
                  //  $type_document=2;  // 1=หนังสือรับ,2=หนังสือส่ง
          */
 
+        //http://10.87.196.170/document2/index.php/welcome/home/update_tb_main1_2
           public function  update_tb_main1_2()//excellence  "type_record"=>3
                 {
+                     $this->user_model->login();  //for checklogin
+                
+                
                      header('Content-Type: text/html; charset=UTF-8');
                        //echo "<br>";
 
@@ -1273,10 +1354,12 @@ $data=array(
 
 
 
-
+       // http://10.87.196.170/document2/index.php/welcome/home/update_tb_main1_2
                 public function insert_tb_main1_2() //excellence  "type_record"=>3
 	{
-									    /*
+	  $this->user_model->login();  //for checklogin
+              
+          								    								    /*
                       echo   $registration_receive21=trim($this->input->get_post('registration_receive21'));
 											echo br();
 										 //echo  't';
@@ -1417,9 +1500,13 @@ $data=array(
                 
                 
                 
-                //http://10.87.196.170/document2/index.php/welcome/insert_tb_main1_send_3/#
+                //http://10.87.196.170/document2/index.php/welcome/insert_tb_main1_send_research
                 public function insert_tb_main1_send_research()  //เอกสารส่ง    //excellence  "type_record"=>3
                 {
+                    
+                      $this->user_model->login();  //for checklogin
+                      
+                      
                             $id_main1_send_research=trim($this->input->get_post("id_main1_send_research"));
                           //echo br();
                           
@@ -1546,8 +1633,11 @@ $data=array(
 
 }//end function
 
+ // http://10.87.196.170/document2/index.php/welcome/update_send_research
+
  public  function  update_send_research()
  {
+     $this->user_model->login();  //for checklogin
      
  
                                $id_main1_send_research=trim($this->input->get_post("id_main1_send_research"));
@@ -1678,9 +1768,10 @@ $data=array(
                    // $type_record=3;
              //   1 	มูลนิธิตะวันฉายฯ
 	// 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
+ // http://10.87.196.170/document2/index.php/welcome/json_foundation
   public function json_foundation()
         {
-
+              $this->user_model->login();  //for checklogin
 
                $tb=$this->tb;
                $this->db->order_by("id_main1","DESC");
@@ -1695,9 +1786,11 @@ $data=array(
 
 
         }
-        
+   //  http://10.87.196.170/document2/index.php/welcome/search_foundation
   public function  search_foundation()
         {
+              $this->user_model->login();  //for checklogin
+
 
               $tb=$this->tb;
 
@@ -1782,10 +1875,12 @@ $data=array(
         }//end function
         
         
-         //http://10.87.196.170/document2/index.php/welcome/insert_tb_main1
+         //http://10.87.196.170/document2/index.php/welcome/insert_send_foundation
 	public function insert_send_foundation() //excellence  "type_record"=>3
 	{
-									    /*
+	    $this->user_model->login();  //for checklogin
+        
+        								    								    /*
                       echo   $registration_receive21=trim($this->input->get_post('registration_receive21'));
 											echo br();
 										 //echo  't';
@@ -1929,10 +2024,13 @@ $data=array(
                                                                                                                                                                                                                                                                                                                                                  }
                                                                                                                                                                                                                                                                                                                                                 
 		}
-
+                // http://10.87.196.170/document2/index.php/welcome/update_send_foundation
                 public function update_send_foundation() //excellence  "type_record"=>3
 	{
-									    /*
+	    $this->user_model->login();  //for checklogin
+        
+        								    
+        								    								    								    /*
                       echo   $registration_receive21=trim($this->input->get_post('registration_receive21'));
 											echo br();
 										 //echo  't';
@@ -2078,9 +2176,11 @@ $data=array(
                                                                                                                                                                                                                                                                                                                                                  }
 
 		}
- 
+               // http://10.87.196.170/document2/index.php/welcome/insert_tb_main1_send_foundation
                public function insert_tb_main1_send_foundation()  //หนังสือส่ง  มูลนิธิ
                 {
+                     $this->user_model->login();  //for checklogin
+                   
                             $id_main1_send_research=trim($this->input->get_post("id_main1_send_foundation"));
                           //echo br();
                           
@@ -2214,6 +2314,9 @@ $data=array(
 
           public  function update_send_foundation2()
           {
+              $this->user_model->login();  //for checklogin
+              
+              
                {
                             $id_main1_send_research=trim($this->input->get_post("id_main1_send_foundation"));
                           //echo br();
