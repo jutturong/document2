@@ -2465,6 +2465,43 @@ $data=array(
                         }
                         echo json_encode($rows);
               }  //end function     
+      //http://10.87.196.170/document2/index.php/welcome/insert_vacation        
+      public   function   insert_vacation()
+      {
+           
+             echo   $type_person5=trim($this->input->get_post("type_person5"));
+             echo br();
+          
+             echo  $write=trim($this->input->get_post("write"));  //เขียนที่    1
+             echo br();
+             
+             
+            echo  $date_write=trim($this->input->get_post("date_write"));  //วันเดือนปี ที่เขียน   2
+            echo br();
+            
+            
+            echo $subject=trim($this->input->get_post("subject"));  //เรื่อง   3
+            echo br();
+             
+          
+      } //end function    
+              
+              
+   #-------------sick  ลาป่วยประจำปี---------------------------------------
+     //http://10.87.196.170/document2/index.php/welcome/json_sick
+     public   function   json_sick()    
+     {
+                 $this->user_model->login();  //for checklogin
+                 $tb="tb_sick";
+                 $this->db->order_by("id_sick","DESC");
+                        $q=$this->db->get($tb,10);
+                        foreach($q->result() as $row)
+                        {
+                            $rows[]=$row;
+                        }
+                        echo json_encode($rows);
+     }
+              
    
 
 }

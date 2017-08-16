@@ -43,8 +43,8 @@
                               <span >ใบลา</span>
                                   <div style="width:300px;">
                                       
-                                      <div data-options="iconCls:'icon-ok' "  onclick="javascript:  $('#dia_vacation').dialog('open');   "  >สรุปการลาพักผ่อน/ลาป่วยภายในหน่วยงาน</div>
-                                      <div data-options="iconCls:'icon-ok' ">ใบลาป่วย/ลาคลอดบตุร/ลากิจส่วนตัว</div>
+                                      <div data-options="iconCls:'icon-ok' "  onclick="javascript:  $('#dia_vacation').dialog('open');   "  >ลาพักผ่อนประจำปี</div>
+                                      <div data-options="iconCls:'icon-ok' "  onclick="javascript:  $('#dia_sick').dialog('open');   "   >ใบลาป่วย/ลาคลอดบตุร/ลากิจส่วนตัว</div>
                                     
 
                                   </div>
@@ -180,6 +180,10 @@
          <!-- ใบลาพักผ่อน -->
              <?=$this->load->view("vacation")?>
           <!-- ใบลาพักผ่อน -->
+          
+          <!--  ใบลาป่วย -->
+             <?=$this->load->view("sick")?>
+          <!--  ใบลาป่วย -->
 
 </body>
 

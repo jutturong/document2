@@ -59,7 +59,7 @@
                        
                           url:'<?=base_url()?>index.php/welcome/json_vacation',
                           rownumbers:true,
-                          singleSelected:true,
+                          singleSelect:true,
                           columns:[[
                           
                             {  field:'first_name', title:'ชื่อ',align:'left',    },
@@ -105,3 +105,112 @@
     
 </div>
 <!-- datagrid  หลัก ในการลาทั้งหมด -->
+
+
+<!--  Dia  +  form  บันทึกผล -->
+<div class="easyui-dialog" 
+     id="dia_fr_vacation"
+     style="width: 700px;height: 600px;"
+     data-options="
+         iconCls:'icon-save',
+         
+         closed:false,
+         modal:true,
+         minimizable:true,
+         resizable:true,
+         maximizable:true,
+         
+         title:' แบบฟอร์มใบลาพักผ่อนประจำปี  ',
+         
+         buttons:[
+         
+              { text:'บันทึกข้อมูล',iconCls:'icon-save',iconAlign:'top', handler:function()
+                   {
+                          //fr_vacation
+                          $.ajax({
+                              url:'<?=base_url()?>index.php/welcome/insert_vacation',
+                              method:'post',
+                              data:$('#fr_vacation').serialize(),
+                          
+                          }).done(function(data){
+                               alert(data);
+                          });
+                    }},
+              { text:'Close(ปิด)',iconCls:'icon-cancel',iconAlign:'top',handler:function(){ $('#dia_fr_vacation').dialog('close'); }  }
+         ]
+     "
+     >
+    
+    <form  id="fr_vacation">
+        
+        <table>
+            
+            <tr>
+                <td></td>
+               
+                <td style="width:200px;"  >
+                    <input class="easyui-switchbutton"  name="type_person5"   readonly="true"    id="type_person5"    value="5"   checked> เจ้าหน้าที่ศูนย์ตะวันฉาย
+                </td>
+            </tr>
+            
+            <tr>
+          
+                <td  style="width:200px;">
+                    
+                </td >
+                
+                <td>
+                    <input class="easyui-textbox"   id="write" name="write"  data-options=" iconCls:'icon-lock' ,value:'ศูนย์ตะวันฉายฯ'   "   style="width:200px;height: 40px;"   />
+                </td>
+                
+                
+            </tr>
+            
+            <tr>
+                
+              
+                  <td  style="width:200px;">
+                    
+                </td >
+                <td>
+                    <input class="easyui-datebox"  id="date_write"  name="date_write" style="width:150px;height: 40px;"  >
+                </td>
+            </tr>
+            
+            
+            <tr>
+               
+                <td>
+                    <input class="easyui-textbox"   id="subject"  name="subject"  data-options=" value:'ขอลาพักผ่อนประจำปี'  "   style="width:150px;height: 40px;"    >
+                </td>
+            </tr>
+            
+               <tr>
+               
+                <td>
+                    <input class="easyui-textbox"    id="study" name="study"   data-options=" value:'รองผู้อำนวยการฝ่ายบริหาร ศูนย์ตะวันฉาย'  "   style="width:400px;height: 40px;"    >
+                </td>
+            </tr>
+            
+            
+            <tr>
+                
+                <td>
+                    <select     id="id_staff"  name="id_staff"    labelPosition="top"    class="easyui-combobox"    style="width:100px;height: 40px;"    >
+                                           <option value="AL">Alabama</option>
+                                           <option value="AK">Alaska</option>
+                    </select>
+                    
+                </td>
+                
+            </tr>
+            
+            
+            
+        </table>
+        
+    </form>
+    
+</div>
+
+<!--  Dia  +  form  บันทึกผล -->
