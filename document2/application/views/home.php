@@ -42,8 +42,10 @@
                            <div data-options=" iconCls:'layout-button-right'  ">
                               <span >ใบลา</span>
                                   <div style="width:300px;">
+                                      
+                                      <div data-options="iconCls:'icon-ok' "  onclick="javascript:  $('#dia_vacation').dialog('open');   "  >สรุปการลาพักผ่อน/ลาป่วยภายในหน่วยงาน</div>
                                       <div data-options="iconCls:'icon-ok' ">ใบลาป่วย/ลาคลอดบตุร/ลากิจส่วนตัว</div>
-                                      <div data-options="iconCls:'icon-ok' ">สรุปการลาพักผ่อน/ลาป่วยภายในหน่วยงาน</div>
+                                    
 
                                   </div>
                            </div>
@@ -174,6 +176,10 @@
          <!-- มูลนิธิ -->
          <?=$this->load->view("foundation")?>
          <!-- มูลนิธิ -->
+         
+         <!-- ใบลาพักผ่อน -->
+             <?=$this->load->view("vacation")?>
+          <!-- ใบลาพักผ่อน -->
 
 </body>
 

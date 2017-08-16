@@ -2311,7 +2311,7 @@ $data=array(
 
 }//end function
 
-
+         // http://10.87.196.170/document2/index.php/welcome/update_send_foundation2
           public  function update_send_foundation2()
           {
               $this->user_model->login();  //for checklogin
@@ -2447,8 +2447,24 @@ $data=array(
      
      
 
-}//end function
-          }
+}
+          }//end function
+          
+          
+   #--------------- vacation ลาพักผ่อนประจำปี-----------------------
+    //http://10.87.196.170/document2/index.php/welcome/json_vacation
+     public   function   json_vacation()
+             {
+                       $this->user_model->login();  //for checklogin
+                        $tb="tb_vacation";
+                        $this->db->order_by("id_vacation","DESC");
+                        $q=$this->db->get($tb,10);
+                        foreach($q->result() as $row)
+                        {
+                            $rows[]=$row;
+                        }
+                        echo json_encode($rows);
+              }  //end function     
    
 
 }
