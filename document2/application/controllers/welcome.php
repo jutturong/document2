@@ -2501,6 +2501,27 @@ $data=array(
                         }
                         echo json_encode($rows);
      }
+     
+     
+
+     //http://10.87.196.170/document2/index.php/welcome/json_staff
+     public function json_staff()
+     {
+         //$this->user_model->login();  //for checklogin
+          $tb="tb_staff";
+        //  $this->db->order_by("id_staff","DESC");
+                        $q=$this->db->get($tb,10);
+                        foreach($q->result() as $row)
+                        {
+                            $rows[]=$row;
+                        }
+                        echo json_encode($rows);
+         
+     }
+     
+    
+     
+     
               
    
 

@@ -1,5 +1,6 @@
 
 
+
 <!-- dia หน้าหลัก ลาพักผ่อนประจำปี -->
 <div  id="dia_vacation"  title=" ลาพักผ่อนประจำปี "  class="easyui-dialog"  
       data-options=" closed:true 
@@ -110,7 +111,7 @@
 <!--  Dia  +  form  บันทึกผล -->
 <div class="easyui-dialog" 
      id="dia_fr_vacation"
-     style="width: 700px;height: 600px;"
+     style="width: 850px;height: 600px;"
      data-options="
          iconCls:'icon-save',
          
@@ -139,6 +140,7 @@
               { text:'Close(ปิด)',iconCls:'icon-cancel',iconAlign:'top',handler:function(){ $('#dia_fr_vacation').dialog('close'); }  }
          ]
      "
+
      >
     
     <form  id="fr_vacation">
@@ -193,16 +195,91 @@
             </tr>
             
             
-            <tr>
+            <tr  >
                 
-                <td>
-                    <select     id="id_staff"  name="id_staff"    labelPosition="top"    class="easyui-combobox"    style="width:100px;height: 40px;"    >
-                                           <option value="AL">Alabama</option>
-                                           <option value="AK">Alaska</option>
+                <td style="width:700px;">
+                    
+                    <select     id="id_staff"  name="id_staff"    labelPosition="top"    class="easyui-combogrid"
+                                data-options="
+                                   url:'<?=base_url()?>index.php/welcome/json_staff',
+                                   panelWidth:200,
+                                   idField:'id_staff',
+                                   textField:'name',
+                                   method:'post',
+                                   fitColumns:true,
+                                   label:'ชื่อ-นามสกุล',
+                                   labelPosition:'left',
+                                   singleSelect:true,
+                                   
+                                   
+                                   columns:[[
+                                     { field:'name',title:'ชื่อ', },
+                                     { field:'lastname',title:'นามสกุล'  },
+                                     
+                                   ]]
+                                   
+                                   ,
+                                   
+                                   onChange:function()
+                                   {
+                                   
+                                       
+                                      //    var  row=$('#id_staff'').combogrid('getSelected');
+                                        //var  alert(row.name);
+                                      
+                                      var  id_staff  =   $('#id_staff').combogrid('getValue');
+                                       //  alert( $('#id_staff').combogrid('getValue') );
+                                      // alert(   id_staff  );
+                                            $.ajax({
+                                               url:'<?=base_url()?>index.php/welcome/json_staff',
+                                              // type:'text',
+                                               //:'json',
+                                               method:'post',
+                                               dataType:'json',
+                                               
+                                            }).done(function(data)
+                                               { 
+                                                      //alert(data);  
+                                                      //$('#first_name').textbox('setValue',
+                                                      $.each(data,function(v,k)
+                                                        {
+                                                             alert(k.name);
+                                                           
+                                                        });
+                                                    
+                                                });
+                                        
+                                   }        
+                                "
+                                style="width:200px;height: 40px;"    >
+                                           
                     </select>
                     
+                    
+              
+                    <select  class="easyui-combobox"  name="prename" id="prename"  style="width:80px;height: 40px;"  >
+                             <option value="1">นาย</option>
+                              <option value="2">นาง</option>
+                              <option value="3">นางสาว</option>
+                    </select>
+                    
+                    <input class="easyui-textbox"  style="width:100px;height: 40px;"  prompt="ชื่อ"   id="first_name"  name="first_name"  data-options=" iconCls:'icon-man'  "   />
+                    <input class="easyui-textbox"  style="width:100px;height: 40px;"   prompt="นามสกุล"  id="last_name"  name="last_name"  data-options=" iconCls:'icon-man'  "   />
+                    <input class="easyui-textbox"  style="width:100px;height: 40px;"   prompt="ตำแหน่ง"   id="position"  name="position"      />
+                      
+                      
                 </td>
                 
+            </tr>
+            
+            
+            <tr>
+                <td>
+             <input class="easyui-textbox"  style="width:120px;height: 40px;"  prompt="สังกัดหน่วยงาน" labelPosition="left" id="affiliation"   name="affiliation"    />
+             
+              <input class="easyui-textbox"  style="width:120px;height: 40px;"  prompt="งาน" labelPosition="left" id="work"  name="work"   />
+             
+            </td>
             </tr>
             
             
