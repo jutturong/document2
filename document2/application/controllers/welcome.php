@@ -4,6 +4,8 @@ class Welcome extends CI_Controller {
 
         var   $title="TAWANCHAI";
         var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
+       // var   $tb_vacation="tb_vacation";
+        var   $tb_vacation="tb_vacation_test";
 
 
          public function __construct()
@@ -2456,34 +2458,448 @@ $data=array(
      public   function   json_vacation()
              {
                        $this->user_model->login();  //for checklogin
-                        $tb="tb_vacation";
+                       // $tb="tb_vacation";
+                       $tb=$this->tb_vacation;
                         $this->db->order_by("id_vacation","DESC");
-                        $q=$this->db->get($tb,10);
+                        $q=$this->db->get($tb,20);
                         foreach($q->result() as $row)
                         {
                             $rows[]=$row;
                         }
                         echo json_encode($rows);
               }  //end function     
+             
+              /*
+               //---------------------บันทึกใบลาพักผ่อน-----------------------------
+                public  function insert_vacation()
+                        {
+                                 if(    $this->user_model->authenlogin() == 1 )
+                                 {
+                                              header('Content-Type: text/html; charset=UTF-8');
+                                              
+                                               $write=trim($this->input->get_post("write"));  //เขียนที่    1
+                                           //   echo br();
+                                               $date_write=trim($this->input->get_post("date_write"));  //วันเดือนปี ที่เขียน   2
+                                            //  echo br();
+                                              $subject=trim($this->input->get_post("subject"));  //เรื่อง   3
+                                          //    echo br();
+                                              $study=trim($this->input->get_post("study"));  //เรียน   4
+                                            //  echo br();
+                                               $prename=trim($this->input->get_post("prename")); //คำนำหน้าชื่อ   5
+                                             //  echo br();
+                                               $first_name=trim($this->input->get_post("first_name"));  //ชื่อ    6
+                                            //  echo br();
+                                               $last_name=trim($this->input->get_post("last_name")); //นามสกุล   7
+                                             // echo br();
+                                              $position=trim($this->input->get_post("position"));  //ตำแหน่ง   8
+                                            //  echo br(); 
+                                              $affiliation=trim($this->input->get_post("affiliation")); //สังกัด   9
+                                             // echo br();
+                                              $work=trim($this->input->get_post("work")); //งาน   10
+                                            //  echo br();
+                                              $tel=trim($this->input->get_post("tel")); //โทร    11
+                                           //   echo br();
+                                              $cumulative=trim($this->input->get_post("cumulative")); //วันลาสะสม   12
+                                             // echo br();
+                                               $rest=trim($this->input->get_post('rest')); //วันลาที่เหลืออยู่      13
+                                            //  echo  br();
+                                              $total=trim($this->input->get_post('total'));  //รวมวันลาเป็น      14
+                                           //   echo  br();
+                                               $current=trim($this->input->get_post("current"));  //ในปีนี้ลามาแล้ว     15
+                                              // echo  br();
+                                               $keep=trim($this->input->get_post("keep"));  //คงเหลือวันลาอีก      16
+                                             //  echo  br();
+                                               $wishes=trim($this->input->get_post("wishes"));  //มีความประสงค์จะขอลาพักผ่อนมีกำหนด    17
+                                              // echo  br(); 
+                                                $date_begin=trim($this->input->get_post("date_begin"));  //ขอลาพักผ่อนตั้งแต่วันที่        18
+                                            //  echo  br();
+                                               $end_date=trim($this->input->get_post("end_date"));  //ขอลาพักผ่อน ถึงวันที่        19
+                                           //   echo  br();
+                                              $house_number=trim($this->input->get_post("house_number"));  //บ้านเลขที่        20
+                                             // echo  br();
+                                              $road=trim($this->input->get_post("road"));  //ถนน        21
+                                             //  echo  br();
+                                                $district=trim($this->input->get_post("district")); //ตำบล        22
+                                              // echo  br();
+                                                $city=trim($this->input->get_post("city"));  //อำเภอ         23
+                                              // echo  br();
+                                               $province=trim($this->input->get_post("province"));  //จังหวัด        24
+                                              // echo  br();
+                                                $tel_address=trim($this->input->get_post("tel_address")); //โทรศํพท์  เบอร์โทรศํพท์หลังจากจังหวัด      25
+                                              // echo  br();
+                                                 $leave=trim($this->input->get_post("leave"));  //ลามาแล้ว       26
+                                               //echo  br();
+                                                 $leave_thistime=trim($this->input->get_post("leave_thistime"));  //ลาครั้งนี้ วันทำการ      27
+                                               //echo  br(); 
+                                                 $date_total_leave=trim($this->input->get_post("date_total_leave"));  //รวมเป็น วันทำการ       28
+                                              // echo  br(); 
+                                                 $sign=trim($this->input->get_post("sign"));  //ลงชื่อขอแสดงความนับถือ       29
+                                               //echo  br(); 
+                                                $presign=trim($this->input->get_post("presign"));  //คำนำหน้าชื่อ  ขอแสดงความนับถือ         30
+                                              // echo  br(); 
+                                                 $name_sign=trim($this->input->get_post("name_sign"));    //ชื่อ ขอแสดงความนับถือ       31
+                                               // echo  br(); 
+                                                $lastname_sign=trim($this->input->get_post("lastname_sign"));  //นามสกุล  ขอแสดงความนับถือ      32
+                                               // echo  br(); 
+                                                $allowed=trim($this->input->get_post("allowed"));  //เห็นควรอนุญาตหรือไม่        33
+                                               // echo  br(); 
+                                                 $name_inspector=trim($this->input->get_post("name_inspector"));  //ลงชื่อผู้ตรวจสอบ        34
+                                                // echo  br(); 
+                                                  $lastname_inspector=trim($this->input->get_post("lastname_inspector"));  //นามสกุลผู้ตรวจสอบ     35
+                                                // echo  br(); 
+                                                  $name_commander=trim($this->input->get_post("name_commander"));  //ชื่อผู้บังคับบั้ญชา     36
+                                                // echo br();
+                                                  $lastname_commander=trim($this->input->get_post("lastname_commander"));  //นามสกุลผู้บังคับบัญชา     37
+                                                // echo br();
+                                                  $position_inspector=trim($this->input->get_post("position_inspector")); //ตำแหน่งผู้ตรวจสอบ      38
+                                                // echo br();
+                                                  $position_commander=trim($this->input->get_post("position_commander"));  //ตำแหน่งของผู้บังคับบัญชา     39
+                                                //echo br();
+                                                 $date_inspector=trim($this->input->get_post("date_inspector"));  //วันที่ ผู้ตรวจสอบ     40
+                                               // echo br();
+                                                  $date_commander=trim($this->input->get_post("date_commander"));  //วันที่ผู้บังคับบัญชา     41
+                                                //echo br();
+                                                 $allow_manager=trim($this->input->get_post("allow_manager"));  //ผู้บริหาร อนุญาตหรือไม่      42
+                                               //echo br();
+                                                $first_name2=trim($this->input->get_post("first_name2"));  //ลงชื่อ     43
+                                               // echo br();
+                                                 $last_name2=trim($this->input->get_post("last_name2"));  //นามสกุล     44
+                                                //echo br();
+                                                $last_position=trim($this->input->get_post("last_position"));  //ตำแหน่ง      45
+                                               // echo br();
+                                                  $last_date=trim($this->input->get_post("last_date"));      //   46
+                                               // echo br();
+                                                
+                                                 $type_person=trim($this->input->get_post("type_person"));
+
+                                                 $id_staff=trim($this->input->get_post("id_staff"));
+                                                 
+                                                 
+                                                 
+                                                
+                                                $data=array(
+                                                            "write"=>$write,   //1
+                                                            "date_write"=>$date_write,   //2
+                                                            "subject"=>$subject,    //3
+                                                            "study"=>$study,   //4
+                                                            "prename"=>$prename,   //5
+                                                            "first_name"=>$first_name,    //6
+                                                            "last_name"  =>$last_name,    //7
+                                                             "position"=> $position,     //8
+                                                             "affiliation"=> $affiliation,     //9
+                                                              "work"=>$work,    //10
+                                                              "tel"=>$tel,    //11
+                                                              "cumulative"=>$cumulative,
+                                                             "rest"=>$rest,    
+                                                             "total"=> $total,     
+                                                            "current"=>$current,
+                                                            "keep"=>$keep,
+                                                            "wishes"=>$wishes,
+                                                            "date_begin"=>$date_begin,
+                                                            "end_date"=>$end_date,
+                                                            "house_number"=>$house_number,
+                                                            "road"=>$road,
+                                                            "district"=>$district,
+                                                            "city"=>$city,
+                                                            "province"=>$province,
+                                                             "tel_address"=>$tel_address,
+                                                              "leave"=>$leave,    //12
+                                                             "leave_thistime"=>$leave_thistime,     //13
+                                                             "date_total_leave"=>$date_total_leave,     //14
+                                                             "sign"=> $sign,     //15
+                                                             "presign"=>$presign,    //16
+                                                            "name_sign"=>$name_sign,     //17
+                                                            "lastname_sign"=>$lastname_sign,     //18
+                                                            "allowed"=>$allowed,      //19
+                                                            "name_inspector"=>$name_inspector,     //20
+                                                            "lastname_inspector"=>$lastname_inspector,      //21
+                                                            "name_commander"=>$name_commander,        //22
+                                                           "lastname_commander"=>$lastname_commander,      //23
+                                                           "position_inspector"=>$position_inspector,       //24
+                                                           "position_commander"=>$position_commander,       //25
+                                                           "date_inspector"=>$date_inspector,       //26
+                                                           "date_commander"=>$date_commander,        //27
+                                                           "allow_manager"=>$allow_manager,        //28
+                                                          "first_name2"=>$first_name2,       //29
+                                                          "last_name2"=>$last_name2,       //30
+                                                         "last_position"=>$last_position,      //31
+                                                         "last_date"=>$last_date,       //32
+                                                        "type_person"=>$type_person,
+                                                       "id_staff"=>$id_staff,
+                                                );
+                                                
+                                              $tb="tb_vacation";
+                                              $ck_insert=$this->db->insert($tb,$data); //ตรวจสอบการ insert
+                                             //   $ck_insert=true;
+                                                if(  $ck_insert    )
+                                                {
+                                                     echo 1;  
+                                                }
+                                                else
+                                                {
+                                                    echo 0;
+                                                }
+                                                
+                                                       
+                                 }                  
+                        } 
+               
+               */
+               
+              
       //http://10.87.196.170/document2/index.php/welcome/insert_vacation        
       public   function   insert_vacation()
       {
-           
-             echo   $type_person5=trim($this->input->get_post("type_person5"));
-             echo br();
-          
-             echo  $write=trim($this->input->get_post("write"));  //เขียนที่    1
-             echo br();
-             
-             
-            echo  $date_write=trim($this->input->get_post("date_write"));  //วันเดือนปี ที่เขียน   2
-            echo br();
+             //header('Content-Type: text/html; charset=UTF-8');
             
             
-            echo $subject=trim($this->input->get_post("subject"));  //เรื่อง   3
-            echo br();
-             
+             $type_person5=trim($this->input->get_post("type_person5"));
+            // echo br();
           
+             $write=trim($this->input->get_post("write"));  //เขียนที่    1
+             //echo br();
+             
+             
+              $date_write=trim($this->input->get_post("date_write"));  //วันเดือนปี ที่เขียน   2
+           // echo br();
+            
+            if(  $date_write != "" ) //08/22/2017
+            {
+                $ex=explode("/",$date_write);
+                 $date_write_conv=$ex[2]."-".$ex[0]."-".$ex[1];
+                //echo br();
+                
+            }
+            
+            
+            
+            
+            $subject=trim($this->input->get_post("subject"));  //เรื่อง   3
+           // echo br();
+            
+            $study=trim($this->input->get_post("study"));  //เรียน   4
+            // echo br();
+             
+            $prename=trim($this->input->get_post("prename")); //คำนำหน้าชื่อ   5
+             // echo br(); 
+             
+              
+            $first_name=trim($this->input->get_post("first_name"));  //ชื่อ    6
+            // echo br();
+             
+            $last_name=trim($this->input->get_post("last_name")); //นามสกุล   7
+            //  echo br();
+              
+            $position=trim($this->input->get_post("position"));  //ตำแหน่ง   8
+             //  echo br(); 
+              
+             $affiliation=trim($this->input->get_post("affiliation")); //สังกัด   9
+           //    echo br();
+               
+             $work=trim($this->input->get_post("work")); //งาน   10
+             //   echo br();
+                
+          $tel=trim($this->input->get_post("tel")); //โทร    11
+              //  echo br();
+                
+                $cumulative=trim($this->input->get_post("cumulative")); //วันลาสะสม   12
+             //   echo br();
+                
+               $rest=trim($this->input->get_post('rest')); //วันลาที่เหลืออยู่      13
+             //   echo  br();
+              
+           $total=trim($this->input->get_post('total'));  //รวมวันลาเป็น      14
+              //  echo  br();
+                
+             $current=trim($this->input->get_post("current"));  //ในปีนี้ลามาแล้ว     15
+              //  echo  br();
+                
+             $keep=trim($this->input->get_post("keep"));  //คงเหลือวันลาอีก      16
+               //  echo  br();
+                 
+               $wishes=trim($this->input->get_post("wishes"));  //มีความประสงค์จะขอลาพักผ่อนมีกำหนด    17
+                 //echo  br();
+                
+                $date_begin=trim($this->input->get_post("date_begin"));  //ขอลาพักผ่อนตั้งแต่วันที่        18
+               //  echo  br();
+                  if(  $date_begin != "" ) //08/22/2017
+                    {
+                        $ex=explode("/",$date_begin);
+                         $date_begin_conv=$ex[2]."-".$ex[0]."-".$ex[1];
+                        //echo br();
+
+                    }
+                 
+                
+                 $end_date=trim($this->input->get_post("end_date"));  //ขอลาพักผ่อน ถึงวันที่        19
+               // echo  br();
+                if(  $end_date != "" ) //08/22/2017
+                    {
+                        $ex=explode("/",$end_date);
+                         $end_date_conv=$ex[2]."-".$ex[0]."-".$ex[1];
+                        //echo br();
+
+                    }
+                
+                
+                   $house_number=trim($this->input->get_post("house_number"));  //บ้านเลขที่        20
+                //echo  br();
+                 
+                   $road=trim($this->input->get_post("road"));  //ถนน        21
+                 //echo  br();
+                 
+                    $district=trim($this->input->get_post("district")); //ตำบล        22
+                 //echo  br();
+                
+                   $city=trim($this->input->get_post("city"));  //อำเภอ         23
+                 //echo  br();
+                 
+                  $province=trim($this->input->get_post("province"));  //จังหวัด        24
+                 //echo  br();
+                 
+                 $tel_address=trim($this->input->get_post("tel_address")); //โทรศํพท์  เบอร์โทรศํพท์หลังจากจังหวัด      25
+                //echo  br();
+                 
+                 $leave=trim($this->input->get_post("leave"));  //ลามาแล้ว       26
+                 //echo  br();
+                 
+                    $leave_thistime=trim($this->input->get_post("leave_thistime"));  //ลาครั้งนี้ วันทำการ      27
+                 // echo  br(); 
+                  
+                    $date_total_leave=trim($this->input->get_post("date_total_leave"));  //รวมเป็น วันทำการ       28
+                 // echo  br(); 
+                  
+                    $sign=trim($this->input->get_post("sign"));  //ลงชื่อขอแสดงความนับถือ       29
+                 // echo  br(); 
+                  
+                     $presign=trim($this->input->get_post("presign"));  //คำนำหน้าชื่อ  ขอแสดงความนับถือ         30
+                  //echo  br();
+                  
+                   $name_sign=trim($this->input->get_post("name_sign"));    //ชื่อ ขอแสดงความนับถือ       31
+                 //echo  br(); 
+                  
+                  $lastname_sign=trim($this->input->get_post("lastname_sign"));  //นามสกุล  ขอแสดงความนับถือ      32
+                 // echo  br();
+                  
+                 $name_inspector=trim($this->input->get_post("name_inspector"));  //ลงชื่อผู้ตรวจสอบ        34
+                 // echo  br();             // echo  br(); 
+                  
+                  $lastname_inspector=trim($this->input->get_post("lastname_inspector"));  //นามสกุลผู้ตรวจสอบ     35
+                 // echo  br();     
+                  
+                  $position_inspector=trim($this->input->get_post("position_inspector")); //ตำแหน่งผู้ตรวจสอบ      38
+                 // echo br(); 
+
+            
+                    $position_commander=trim($this->input->get_post("position_commander"));  //ตำแหน่งของผู้บังคับบัญชา     39
+                   //echo br();
+                       
+                  
+                     $date_inspector=trim($this->input->get_post("date_inspector"));  //วันที่ ผู้ตรวจสอบ     40
+                 // echo br();
+                 if(  $date_inspector  != "" ) //08/22/2017
+                    {
+                        $ex=explode("/",$date_inspector);
+                         $date_inspector_conv=$ex[2]."-".$ex[0]."-".$ex[1];
+                       // echo br();
+
+                    }
+                 
+                    
+                   $allowed=trim($this->input->get_post("allowed"));  //เห็นควรอนุญาตหรือไม่        33
+                  //echo  br();   
+             
+                  
+                          $name_commander=trim($this->input->get_post("name_commander"));  //ชื่อผู้บังคับบั้ญชา ชั้นต้น    36
+                   //echo  br();   
+                   
+                     $lastname_commander=trim($this->input->get_post("lastname_commander"));  //นามสกุลผู้บังคับบัญชา  ชั้นต้น    37
+                   //echo br(); 
+                  
+                    $position_commander=trim($this->input->get_post("position_commander"));  //ตำแหน่งของผู้บังคับบัญชา    ชั้นต้น    39
+                   //echo br(); 
+                   
+                $allow_manager=trim($this->input->get_post("allow_manager"));  //ผู้บริหาร อนุญาตหรือไม่      42
+                 // echo br(); 
+                 
+                  
+                    $first_name2=trim($this->input->get_post("first_name2"));  // ชื่อผู้บริหาร   43
+                //  echo br();
+                   
+                    $last_name2=trim($this->input->get_post("last_name2"));  //นามสกุล ผู้บริหาร    44
+                //  echo br();
+                     
+                  
+                  $last_position=trim($this->input->get_post("last_position"));  //ตำแหน่ง ผู้บริหาร      45
+                 // echo br();
+                      
+                $data=array(
+                                             "write"=>$write,   //1
+                                             "date_write"=>$date_write,   //2
+                                             "subject"=>$subject,    //3
+                                             "study"=>$study,   //4
+                                             "prename"=>$prename,   //5
+                                             "first_name"=>$first_name,    //6
+                                             "last_name"  =>$last_name,    //7
+                                              "position"=> $position,     //8
+                                              "affiliation"=> $affiliation,     //9
+                                               "work"=>$work,    //10
+                                               "tel"=>$tel,    //11
+                                               "cumulative"=>$cumulative,
+                                              "rest"=>$rest,    
+                                              "total"=> $total,     
+                                             "current"=>$current,
+                                             "keep"=>$keep,
+                                             "wishes"=>$wishes,
+                                             "date_begin"=>$date_begin_conv,
+                                             "end_date"=>$end_date_conv,
+                                             "house_number"=>$house_number,
+                                             "road"=>$road,
+                                             "district"=>$district,
+                                             "city"=>$city,
+                                             "province"=>$province,
+                                              "tel_address"=>$tel_address,
+                                               "leave"=>$leave,    //12
+                                              "leave_thistime"=>$leave_thistime,     //13
+                                              "date_total_leave"=>$date_total_leave,     //14
+                                              "sign"=> $sign,     //15
+                                              "presign"=>$presign,    //16
+                                             "name_sign"=>$name_sign,     //17
+                                             "lastname_sign"=>$lastname_sign,     //18
+                                             "allowed"=>$allowed,      //19
+                                             "name_inspector"=>$name_inspector,     //20
+                                             "lastname_inspector"=>$lastname_inspector,      //21
+                                             "name_commander"=>$name_commander,        //22
+                                            "lastname_commander"=>$lastname_commander,      //23
+                                            "position_inspector"=>$position_inspector,       //24
+                                            "position_commander"=>$position_commander,       //25
+                                            "date_inspector"=>$date_inspector_conv,       //26
+                                        //    "date_commander"=>$date_commander_conv,        //27
+                                            "allow_manager"=>$allow_manager,        //28
+                                           "first_name2"=>$first_name2,       //29
+                                           "last_name2"=>$last_name2,       //30
+                                          "last_position"=>$last_position,      //31
+                                       //   "last_date"=>$last_date,       //32
+                                    //     "type_person"=>$type_person,
+                                   //     "id_staff"=>$id_staff,
+                                 );
+                
+                             // print_r($data);
+                              
+                                $tb=$this->tb_vacation;
+                                $ck_insert=$this->db->insert($tb,$data); //ตรวจสอบการ insert
+                                //$ck_insert=1;
+                              //  $ck_insert=0;
+                                if(  $ck_insert    )
+                                   {
+                                                   echo 1;  
+                                   }
+                                   else
+                                   {
+                                                  echo 0;
+                                   }
+
+                
       } //end function    
               
               
@@ -2518,6 +2934,42 @@ $data=array(
                         echo json_encode($rows);
          
      }
+     
+     public function json_call_staff()
+     {
+          //$this->user_model->login();  //for checklogin
+            $tb="tb_staff";
+            $id_staff=trim($this->input->get_post("id_staff"));
+            $q=$this->db->get_where($tb,array("id_staff"=>$id_staff));
+                        foreach($q->result() as $row)
+                        {
+                            $rows[]=$row;
+                        }
+                        echo json_encode($rows);
+         
+     }
+     //มีวันลาสะสม   ตรวจสอบวันลาสะสม
+     public   function check_vacation()
+     {
+          //$this->user_model->login();  //for checklogin
+         //  $tb="tb_vacation";
+            $tb=$this->tb_vacation;
+            $first_name=trim($this->input->get_post("first_name"));
+          //echo br();
+            $this->db->order_by("id_vacation","DESC");
+            $q=$this->db->get_where($tb,array("first_name"=>$first_name),1);
+            foreach($q->result() as $row)
+            {
+                $rows[]=$row;
+            }
+            echo  json_encode($rows);
+           
+
+           
+           
+           
+     }
+     
      
     
      
