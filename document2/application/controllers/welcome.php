@@ -6,6 +6,8 @@ class Welcome extends CI_Controller {
         var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
        // var   $tb_vacation="tb_vacation";
         var   $tb_vacation="tb_vacation_test";
+        
+        var  $total_day_vacation=10; //จำนวนวันลาทั้งหมดในปีแต่ละปี
 
 
          public function __construct()
@@ -2652,10 +2654,10 @@ $data=array(
       {
              //header('Content-Type: text/html; charset=UTF-8');
             
-             $this->user_model->login();  //for checklogin
+           //  $this->user_model->login();  //for checklogin
                
              $type_person5=trim($this->input->get_post("type_person5"));
-            // echo br();
+         //echo br();
           
              $write=trim($this->input->get_post("write"));  //เขียนที่    1
              //echo br();
@@ -2717,6 +2719,8 @@ $data=array(
                 
              $keep=trim($this->input->get_post("keep"));  //คงเหลือวันลาอีก      16
                //  echo  br();
+             
+          
                  
                $wishes=trim($this->input->get_post("wishes"));  //มีความประสงค์จะขอลาพักผ่อนมีกำหนด    17
                  //echo  br();
@@ -2776,7 +2780,7 @@ $data=array(
                      $presign=trim($this->input->get_post("presign"));  //คำนำหน้าชื่อ  ขอแสดงความนับถือ         30
                   //echo  br();
                   
-                   $name_sign=trim($this->input->get_post("name_sign"));    //ชื่อ ขอแสดงความนับถือ       31
+                  $name_sign=trim($this->input->get_post("name_sign"));    //ชื่อ ขอแสดงความนับถือ       31
                  //echo  br(); 
                   
                   $lastname_sign=trim($this->input->get_post("lastname_sign"));  //นามสกุล  ขอแสดงความนับถือ      32
@@ -2796,7 +2800,7 @@ $data=array(
                    //echo br();
                        
                   
-                     $date_inspector=trim($this->input->get_post("date_inspector"));  //วันที่ ผู้ตรวจสอบ     40
+                 $date_inspector=trim($this->input->get_post("date_inspector"));  //วันที่ ผู้ตรวจสอบ     40
                  // echo br();
                  if(  $date_inspector  != "" ) //08/22/2017
                     {
@@ -2833,7 +2837,35 @@ $data=array(
                   
                   $last_position=trim($this->input->get_post("last_position"));  //ตำแหน่ง ผู้บริหาร      45
                  // echo br();
-                      
+                  
+                  
+                  //----------- ปรับปรุงรายการคำนวณ-----------------
+                  /*
+            มีวันลาสะสม (วัน) =cumulative
+
+มีวันลาพักผ่อนในปีนี้ (วัน)=rest
+
+รวมวันลาเป็น  = total  = cumulative +  rest
+
+ในปีนี้ลามาแล้ว (วัน)= current
+
+คงเหลือวันลาอีก (วัน)=keep
+                   */
+                
+                  
+            
+                 $date_total_leave_cal=$leave + $leave_thistime+ $leave_thistime; //รวมเป็นวันทำการ=ลามาแล้ว+ลาครั้งนี้
+   
+                 $current_cal=$date_total_leave_cal;  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+                 
+              //   $keep_cal= $total - $leave_thistime;  //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้    keep =  total - leave_thistime
+                  $keep_cal= $this->total_day_vacation- $date_total_leave;  
+   
+     //----------- ปรับปรุงรายการคำนวณ-----------------
+                  
+                  
+               if(   $date_inspector  != ""     )
+               {
                 $data=array(
                                              "write"=>$write,   //1
                                              "date_write"=>$date_write_conv,   //2
@@ -2848,23 +2880,32 @@ $data=array(
                                                "tel"=>$tel,    //11
                                                "cumulative"=>$cumulative,
                                               "rest"=>$rest,    
-                                              "total"=> $total,     
-                                             "current"=>$current,
-                                             "keep"=>$keep,
+                                              "total"=> $total,  
+                    
+                    
+                                          //   "current"=>$current,
+                                            "current"=>$current_cal,  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+                    
+                                              //  "keep"=>$keep,
+                                             "keep"=>  $keep_cal,   //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้  keep =   $keep_cal= $total - $leave_thistime;  
+                    
                                              "wishes"=>$wishes,
+                    
                                              "date_begin"=>$date_begin_conv,
                                              "end_date"=>$end_date_conv,
+                    
                                              "house_number"=>$house_number,
                                              "road"=>$road,
                                              "district"=>$district,
                                              "city"=>$city,
                                              "province"=>$province,
                                               "tel_address"=>$tel_address,
-                                             //  "leave"=>$leave,    //12
+                                            //  "leave"=>$leave,    //12
                                               "leave"=>$date_total_leave,    //ปรับปรุงรวมวันลาใหม่ โดยการรวมวันลาที่เหลืออยู่
                                               "leave_thistime"=>$leave_thistime,     //13
                     
-                                              "date_total_leave"=>$date_total_leave,     //14
+                                           //   "date_total_leave"=>$date_total_leave,     //14
+                                                "date_total_leave"=>$date_total_leave_cal,  //ปรับปรุง
                     
                     
                                               "sign"=> $sign,     //15
@@ -2878,7 +2919,12 @@ $data=array(
                                             "lastname_commander"=>$lastname_commander,      //23
                                             "position_inspector"=>$position_inspector,       //24
                                             "position_commander"=>$position_commander,       //25
-                                            "date_inspector"=>$date_inspector_conv,       //26
+                    
+                    
+                                             "date_inspector"=>$date_inspector_conv,       //26    //error
+                                            
+                                             
+                                             
                                         //    "date_commander"=>$date_commander_conv,        //27
                                             "allow_manager"=>$allow_manager,        //28
                                            "first_name2"=>$first_name2,       //29
@@ -2888,10 +2934,83 @@ $data=array(
                                     //     "type_person"=>$type_person,
                                    //     "id_staff"=>$id_staff,
                                  );
+               }
+                else
+                    {
+                    $data=array(
+                                             "write"=>$write,   //1
+                                             "date_write"=>$date_write_conv,   //2
+                                             "subject"=>$subject,    //3
+                                             "study"=>$study,   //4
+                                             "prename"=>$prename,   //5
+                                             "first_name"=>$first_name,    //6
+                                             "last_name"  =>$last_name,    //7
+                                              "position"=> $position,     //8
+                                              "affiliation"=> $affiliation,     //9
+                                               "work"=>$work,    //10
+                                               "tel"=>$tel,    //11
+                                               "cumulative"=>$cumulative,
+                                              "rest"=>$rest,    
+                                              "total"=> $total,     
+                        
+                                            // "current"=>$current,
+                                              "current"=>$current_cal,  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+                        
+                        
+                                           //  "keep"=>$keep,
+                                               "keep"=>  $keep_cal,    //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้  keep =   $keep_cal= $total - $leave_thistime;  
+                        
+                        
+                                             "wishes"=>$wishes,
+                                             "date_begin"=>$date_begin_conv,
+                                             "end_date"=>$end_date_conv,
+                                             "house_number"=>$house_number,
+                                             "road"=>$road,
+                                             "district"=>$district,
+                                             "city"=>$city,
+                                             "province"=>$province,
+                                              "tel_address"=>$tel_address,
+                                            //  "leave"=>$leave,    //12
+                                              "leave"=>$date_total_leave,    //ปรับปรุงรวมวันลาใหม่ โดยการรวมวันลาที่เหลืออยู่
+                                              "leave_thistime"=>$leave_thistime,     //13
+                    
+                                           //   "date_total_leave"=>$date_total_leave,     //14
+                                               "date_total_leave"=>$date_total_leave_cal,  //ปรับปรุง
+                    
+                                              "sign"=> $sign,     //15
+                                              "presign"=>$presign,    //16
+                                             "name_sign"=>$name_sign,     //17
+                                             "lastname_sign"=>$lastname_sign,     //18
+                                             "allowed"=>$allowed,      //19
+                                             "name_inspector"=>$name_inspector,     //20
+                                             "lastname_inspector"=>$lastname_inspector,      //21
+                                             "name_commander"=>$name_commander,        //22
+                                            "lastname_commander"=>$lastname_commander,      //23
+                                            "position_inspector"=>$position_inspector,       //24
+                                            "position_commander"=>$position_commander,       //25
+                    
+                                           //  "date_inspector"=>$date_inspector_conv,       //26    //error
+                                            
+                                             
+                                             
+                                        //    "date_commander"=>$date_commander_conv,        //27
+                                            "allow_manager"=>$allow_manager,        //28
+                                           "first_name2"=>$first_name2,       //29
+                                           "last_name2"=>$last_name2,       //30
+                                          "last_position"=>$last_position,      //31
+                                       //   "last_date"=>$last_date,       //32
+                                    //     "type_person"=>$type_person,
+                                   //     "id_staff"=>$id_staff,
+                                 );
+                    
+                    }
                 
-                                // print_r($data);
+                
+                
+                             //    print_r($data);
                               
                                 
+                
                                 $tb=$this->tb_vacation;
                                 $ck_insert=$this->db->insert($tb,$data); //ตรวจสอบการ insert
                                 //$ck_insert=1;
@@ -2904,10 +3023,19 @@ $data=array(
                                    {
                                                   echo 0;
                                    }
+          
+                                
+                                   
                                
 
                 
       } //end function    
+
+      public function test()
+      {
+          echo "t";
+      }
+      
    #---------delete------------------------- 
       //http://10.87.196.170/document2/index.php/welcome/delete_vacation
     public   function  delete_vacation()
@@ -2976,9 +3104,12 @@ $data=array(
                         echo json_encode($rows);
          
      }
+     
+     
      //มีวันลาสะสม   ตรวจสอบวันลาสะสม
      public   function check_vacation()
      {
+         
           //$this->user_model->login();  //for checklogin
          //  $tb="tb_vacation";
             $tb=$this->tb_vacation;
@@ -2991,10 +3122,7 @@ $data=array(
                 $rows[]=$row;
             }
             echo  json_encode($rows);
-           
 
-           
-           
            
      }
      

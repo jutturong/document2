@@ -17,9 +17,9 @@
     
     <div style="margin-left: 15px ;margin-top: 15px;">
         
-        <a href="#"  onclick="javascript: alert('t');  "  class="easyui-linkbutton" data-options=" iconCls:'icon-large-chart'  ,size:'large' , iconAlign:'top'  "   >ยืนใบลา</a>  
+        <a href="javascript:void(0)"  onclick="javascript: alert('t');  "  class="easyui-linkbutton" data-options=" iconCls:'icon-large-chart'  ,size:'large' , iconAlign:'top'  "   >ยืนใบลา</a>  
         
-        <a href="#"  onclick="
+        <a href="javascript:void(0)"  onclick="
             javascript: 
                     
           // alert('t');  
@@ -155,20 +155,32 @@
          title:' แบบฟอร์มใบลาพักผ่อนประจำปี  ',
          
          buttons:[
-         
+
               { text:'บันทึกข้อมูล',iconCls:'icon-save',iconAlign:'top', handler:function()
                    {
+                   
                           //fr_vacation
                           $.ajax({
+                        
+                          
                               url:'<?=base_url()?>index.php/welcome/insert_vacation',
+                              
+                             // url:'<?=base_url()?>index.php/welcome/test',
+                              
+                              
+                              
                               method:'post',
                               data:$('#fr_vacation').serialize(),
                           
-                          }).done(function(data){
+                          }).done(function(data)
+                          {
                           
-                              // alert(data);
+                               
+                                alert(data);
+                             
                                
                                
+                               /*
                                if(data=='1')
                                {
                                     $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลสำเร็จ','info');
@@ -181,6 +193,8 @@
                                      $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','บันทึกข้อมูลผิดพลาด','error');
                                      $('#datagrid_vacation').datagrid('reload');
                                }
+                               */
+                               
                                
                                
                                
@@ -194,6 +208,9 @@
                      {
                           
                                     //prename   //combobox
+                                    
+                                    $('#date_write').datebox('setText','');
+                                    
                                     $('#id_staff').combobox('setText','');
                                     $('#prename').combobox('setText','');
                                     $('#first_name').textbox('setText','');
@@ -310,7 +327,7 @@
                     
                 </td >
                 <td>
-                    <input class="easyui-datebox"  id="date_write"  name="date_write" style="width:150px;height: 40px;"  >
+                    <input class="easyui-datebox"  id="date_write"  name="date_write" style="width:150px;height: 40px;"    required="true"  />
                 </td>
             </tr>
             
@@ -380,19 +397,19 @@
                                                              if( id_staff == 1 )
                                                              {
 
-                                                                  $('#prename').combobox('setValue',id_staff);
+                                                                  $('#prename').combobox('setValue',1);
                                                                   
                                                              }
                                                              else if( id_staff == 2 )
                                                              {
 
-                                                                  $('#prename').combobox('setValue',id_staff);
+                                                                  $('#prename').combobox('setValue',2);
                                                                   
                                                              }
                                                              else if( id_staff == 3 )
                                                              {
 
-                                                                  $('#prename').combobox('setValue',id_staff);
+                                                                  $('#prename').combobox('setValue',3);
                                                                   
                                                              }
                                                              
@@ -449,9 +466,9 @@
             
             <tr>
                 <td colspan="3">
-             <input class="easyui-textbox"  style="width:250px;height: 40px;"  labelPosition="right"   id="affiliation"   name="affiliation"  data-options=" "  label="สังกัดหน่วยงาน" labelWidth="100px;"   value="-"  />
+             <input class="easyui-textbox"  style="width:250px;height: 40px;"  labelPosition="right"   id="affiliation"   name="affiliation"  data-options=" "  label="สังกัดหน่วยงาน" labelWidth="100px;"   data-options="  value:'-',   "   />
              
-             <input class="easyui-textbox"  style="width:250px;height: 40px;"  labelPosition="right" id="work"  name="work"  label="งาน"  labelWidth="90px;" value="-"   />
+             <input class="easyui-textbox"  style="width:250px;height: 40px;"  labelPosition="right" id="work"  name="work"  label="งาน"  labelWidth="90px;"    data-options=" value:'-',   "   />
               
              
               
@@ -467,7 +484,7 @@
                    <input class="easyui-numberbox"  style="width:250px;height: 40px;" labelAlign="right"  labelWidth="200px;"  label="มีวันลาสะสม (วัน) " labelPosition="left"
                           id="cumulative" name="cumulative"  />
               
-                   <a href="#"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
+                   <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
                          {
                               // alert('t');
@@ -508,7 +525,7 @@
  
                         name="rest"    id="rest"  />
               
-                   <a href="#"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
+                   <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
                          {
                               // alert('t');
@@ -529,8 +546,8 @@
                                        //alert(k.cumulative);
                                        var  rest=k.rest;
                                       // $('#rest').numberbox('setValue', rest );
-                                      var   rest=10-k.cumulative
-                                      $('#rest').numberbox('setValue', rest );
+                                     // var   rest=10-k.cumulative
+                                      $('#rest').numberbox('setValue', k.rest );
                                    });
                               
                               });
@@ -551,11 +568,13 @@
                    
                    
               
-                   <a href="#"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
+                   <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
                          {
                               // alert('t');
                               
+                              
+                              /*
                               $.ajax({
                                 url:'<?=base_url()?>index.php/welcome/check_vacation',
                                 data:$('#fr_vacation').serialize(),
@@ -577,6 +596,9 @@
                                    });
                               
                               });
+                              */
+                              var  total= $('#cumulative').numberbox('getValue') + $('#rest').numberbox('getValue'); 
+                             $('#total').numberbox('setValue', total  );
                              
                          }   "  /> Check วัน  </a>
                    
@@ -599,7 +621,7 @@
                    
                    
               
-                   <a href="#"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
+                   <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
                          {
                               // alert('t');
@@ -621,7 +643,9 @@
                                        var  rest=k.rest;
                                       // $('#rest').numberbox('setValue', rest );
                                       var   current=k.current;
-                                      $('#current').numberbox('setValue', current );
+                                     // $('#current').numberbox('setValue', current );
+                                     $('#current').numberbox('setValue', current );
+                                     
                                    });
                               
                               });
@@ -649,10 +673,13 @@
                    
                    
               
-                   <a href="#"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
+                   <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
                          {
+                         
+                         
                               // alert('t');
+                              
                               
                               $.ajax({
                                 url:'<?=base_url()?>index.php/welcome/check_vacation',
@@ -669,13 +696,18 @@
                                    {
                                       
                                    
-                                     var   keep=10- k.current;
-                                      $('#keep').numberbox('setValue',  keep );
+                                     //var   keep=10- k.current;
+                                     $('#keep').numberbox('setValue',  k.keep );
                                    
                                    
                                    });
+                                  
+                                
                               
                               });
+                              
+                              
+                             
                              
                          }   "  /> Check วัน  </a>
                    
@@ -716,11 +748,11 @@
                     
                     
                     <input class="easyui-datebox"  
-                           label="ขอลาพักผ่อนตั่้งแต่วันที่" labelWidth="130px;"  labelPosition="right"  style="width:270px;height: 40px;"    id="date_begin"  name="date_begin"   />
+                           label="ขอลาพักผ่อนตั่้งแต่วันที่" labelWidth="130px;"  labelPosition="right"  style="width:270px;height: 40px;"  required="true"    id="date_begin"  name="date_begin"   />
 
 
                      <input class="easyui-datebox"  
-                           label="ถึงวันที่" labelWidth="50px;"  labelPosition="right"  style="width:200px;height: 40px;"    id="end_date"  name="end_date"   />
+                           label="ถึงวันที่" labelWidth="50px;"  labelPosition="right"  style="width:200px;height: 40px;"    id="end_date"  name="end_date"   required="true"   />
 
  
                 </td>
@@ -789,7 +821,7 @@ labelPosition="left"  labelWidth="310px"
 (วันทำการ)"   labelPosition="top"  labelWidth="150px;"   id="leave"  name="leave"   style="width:50px;height: 60px;">
                 
                     
-                    <a href="#"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
+                    <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
                          {
                               // alert('t');
@@ -808,8 +840,8 @@ labelPosition="left"  labelWidth="310px"
                                       
                                    
                                      var   leave=k.leave;
-                                      $('#leave').numberbox('setValue',  leave );
-                                   
+                                     // $('#leave').numberbox('setValue',  leave );
+                                     $('#leave').numberbox('setValue', $('#current').numberbox('getValue')  );
                                    
                                    });
                               
@@ -828,7 +860,7 @@ labelPosition="left"  labelWidth="310px"
                       <input class="easyui-numberbox"   label="ลาครั้งนี้
 (วันทำการ) "   labelPosition="top"  labelWidth="150px;"   id="leave_thistime"  name="leave_thistime"   style="width:50px;height: 60px;">
                       
-                         <a href="#"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
+                         <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
                          {
                                // alert('t');
@@ -847,7 +879,7 @@ labelPosition="left"  labelWidth="310px"
                       <input class="easyui-numberbox"   label="รวมเป็น 
 (วันทำการ) "   labelPosition="top"  labelWidth="150px;"  id="date_total_leave"   name="date_total_leave"   style="width:50px;height: 60px;">
                       
-                        <a href="#"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
+                        <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
                          {
                                // alert('t');
@@ -888,6 +920,7 @@ labelPosition="left"  labelWidth="310px"
                     
                     
                      <input class="easyui-textbox"   labelWidth="150px;"     id="name_sign"  name="name_sign" style="width:150px;height: 40px;"  />
+                     
                      
                      <input class="easyui-textbox"   labelWidth="150px;"    id="lastname_sign"  name="lastname_sign"  style="width:200px;height: 40px;"  />
                      

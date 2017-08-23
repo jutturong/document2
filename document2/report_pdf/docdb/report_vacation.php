@@ -485,7 +485,9 @@ $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' , " [ / ] เจ้าหน้�
                   $pdf->Cell(  30  ,  10 , iconv( 'UTF-8','cp874' , "(วันทำการ)"   ),BLR,0,'C',false);
                   $pdf->setXY( $x1+70 , $y1 + 175 );
                   $pdf->SetFont('angsana','',14);
+                //  $date_total_leave_cal=$leave + $leave_thistime;
                   $pdf->Cell(  30  ,  10 , iconv( 'UTF-8','cp874' ,   $date_total_leave   ),BLR,0,'C',false);
+                 //  $pdf->Cell(  30  ,  10 , iconv( 'UTF-8','cp874' ,  $date_total_leave_cal   ),BLR,0,'C',false);
                    //-------------------- ตารางวันลา ------------------------------
 
 
