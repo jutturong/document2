@@ -2654,7 +2654,7 @@ $data=array(
       {
              //header('Content-Type: text/html; charset=UTF-8');
             
-           //  $this->user_model->login();  //for checklogin
+            $this->user_model->login();  //for checklogin
                
              $type_person5=trim($this->input->get_post("type_person5"));
          //echo br();
@@ -2854,15 +2854,48 @@ $data=array(
                 
                   
             
-                 $date_total_leave_cal=$leave + $leave_thistime+ $leave_thistime; //รวมเป็นวันทำการ=ลามาแล้ว+ลาครั้งนี้
+                 $date_total_leave_cal=$leave + $leave_thistime; //รวมเป็นวันทำการ=ลามาแล้ว+ลาครั้งนี้
    
-                 $current_cal=$date_total_leave_cal;  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+                 //$current_cal=$date_total_leave_cal;  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+                    $current_cal=$date_total_leave_cal;  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+              //  $current_cal=  $leave + leave_thistime
                  
               //   $keep_cal= $total - $leave_thistime;  //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้    keep =  total - leave_thistime
-                  $keep_cal= $this->total_day_vacation- $date_total_leave;  
+                  $keep_cal= $this->total_day_vacation-  $date_total_leave_cal;  
+                  
+                  $rest_cal =  $rest - $wishes;
+                  
+                  $total_cal=   $total    -    $wishes;
+                  
+                  /*
+                   มีวันลาสะสม (วัน) =cumulative
+
+มีวันลาพักผ่อนในปีนี้ (วัน)=rest
+
+รวมวันลาเป็น  = total  = cumulative +  rest
+
+ในปีนี้ลามาแล้ว (วัน)= current
+
+คงเหลือวันลาอีก (วัน)=keep
+
+
+   มีความประสงค์จะขอลาพักผ่อน = wishes
+
+รวมเป็น(วันทำการ)=date_total_leave
+
+
+ลามาแล้ว (วันทำการ)=leave
+
+ลาครั้งนี้(วันทำการ)=leave_thistime
+
+รวมเป็นวันทำการ=date_total_leave
+                   */
    
      //----------- ปรับปรุงรายการคำนวณ-----------------
-                  
+              
+                   date_default_timezone_set("Asia/Bangkok");    
+                  // $date_rec=date("Y-m-d H:s:00");  //วันที่ทำการบันทึก เผื่อต้องการ query
+                   $date_rec=date("Y-m-d");  //วันที่ทำการบันทึก เผื่อต้องการ query
                   
                if(   $date_inspector  != ""     )
                {
@@ -2879,8 +2912,13 @@ $data=array(
                                                "work"=>$work,    //10
                                                "tel"=>$tel,    //11
                                                "cumulative"=>$cumulative,
-                                              "rest"=>$rest,    
-                                              "total"=> $total,  
+                    
+                                            //  "rest"=>$rest,    
+                                             "rest"=>$rest_cal,
+                    
+                    
+                                             // "total"=> $total,  
+                                                "total"=> $total_cal,
                     
                     
                                           //   "current"=>$current,
@@ -2900,8 +2938,10 @@ $data=array(
                                              "city"=>$city,
                                              "province"=>$province,
                                               "tel_address"=>$tel_address,
-                                            //  "leave"=>$leave,    //12
-                                              "leave"=>$date_total_leave,    //ปรับปรุงรวมวันลาใหม่ โดยการรวมวันลาที่เหลืออยู่
+                                               "leave"=>$leave,    //12
+                                            //  "leave"=>$date_total_leave,    //ปรับปรุงรวมวันลาใหม่ โดยการรวมวันลาที่เหลืออยู่
+                    
+                    
                                               "leave_thistime"=>$leave_thistime,     //13
                     
                                            //   "date_total_leave"=>$date_total_leave,     //14
@@ -2933,6 +2973,8 @@ $data=array(
                                        //   "last_date"=>$last_date,       //32
                                     //     "type_person"=>$type_person,
                                    //     "id_staff"=>$id_staff,
+                    
+                                             "date_rec"=>$date_rec,
                                  );
                }
                 else
@@ -2950,8 +2992,13 @@ $data=array(
                                                "work"=>$work,    //10
                                                "tel"=>$tel,    //11
                                                "cumulative"=>$cumulative,
-                                              "rest"=>$rest,    
-                                              "total"=> $total,     
+                        
+                                           //   "rest"=>$rest,    
+                                               "rest"=>$rest_cal,
+                        
+                        
+                                             // "total"=> $total,   
+                                             "total"=> $total_cal,
                         
                                             // "current"=>$current,
                                               "current"=>$current_cal,  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
@@ -2970,8 +3017,8 @@ $data=array(
                                              "city"=>$city,
                                              "province"=>$province,
                                               "tel_address"=>$tel_address,
-                                            //  "leave"=>$leave,    //12
-                                              "leave"=>$date_total_leave,    //ปรับปรุงรวมวันลาใหม่ โดยการรวมวันลาที่เหลืออยู่
+                                              "leave"=>$leave,    //12
+                                            //  "leave"=>$date_total_leave,    //ปรับปรุงรวมวันลาใหม่ โดยการรวมวันลาที่เหลืออยู่
                                               "leave_thistime"=>$leave_thistime,     //13
                     
                                            //   "date_total_leave"=>$date_total_leave,     //14
@@ -3001,16 +3048,18 @@ $data=array(
                                        //   "last_date"=>$last_date,       //32
                                     //     "type_person"=>$type_person,
                                    //     "id_staff"=>$id_staff,
+                                                "date_rec"=>$date_rec,
                                  );
                     
                     }
                 
                 
                 
-                             //    print_r($data);
-                              
-                                
-                
+                               //   print_r($data);
+                              //    echo br();
+               
+                    
+                    
                                 $tb=$this->tb_vacation;
                                 $ck_insert=$this->db->insert($tb,$data); //ตรวจสอบการ insert
                                 //$ck_insert=1;
@@ -3023,6 +3072,7 @@ $data=array(
                                    {
                                                   echo 0;
                                    }
+                 
           
                                 
                                    

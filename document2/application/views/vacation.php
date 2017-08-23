@@ -176,11 +176,11 @@
                           {
                           
                                
-                                alert(data);
+                               // alert(data);
                              
                                
                                
-                               /*
+                               
                                if(data=='1')
                                {
                                     $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลสำเร็จ','info');
@@ -193,7 +193,7 @@
                                      $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','บันทึกข้อมูลผิดพลาด','error');
                                      $('#datagrid_vacation').datagrid('reload');
                                }
-                               */
+                               
                                
                                
                                
@@ -393,20 +393,23 @@
                                                         {
                                                         
                                                              var  id_staff=k.id_staff;
+                                                             
+                                                             var  prename=k.prename;
 
-                                                             if( id_staff == 1 )
+                                                             
+                                                             if(  prename == 'นาย' )
                                                              {
 
                                                                   $('#prename').combobox('setValue',1);
                                                                   
                                                              }
-                                                             else if( id_staff == 2 )
+                                                             else if( prename == 'นาง' )
                                                              {
 
                                                                   $('#prename').combobox('setValue',2);
                                                                   
                                                              }
-                                                             else if( id_staff == 3 )
+                                                             else if( prename == 'นางสาว'  )
                                                              {
 
                                                                   $('#prename').combobox('setValue',3);
@@ -415,7 +418,7 @@
                                                              
                                                             // alert(k.position);
                                                              
-                                                             $('#prename').combobox('setValue',k.prename );
+                                                        //     $('#prename').combobox('setValue',k.prename );
                                                          
                                                              $('#first_name').textbox('setValue',k.name);
                                                          
@@ -427,7 +430,7 @@
                                                              $('#sign').textbox('setValue', fullname );
                                                              
                                                              
-                                                             $('#presign').combobox('setValue',k.prename);
+                                                       //      $('#presign').combobox('setValue',k.prename);
                                                              
                                                              $('#name_sign').textbox('setValue',k.name);
                                                              
@@ -482,7 +485,7 @@
                 <td>
                 <!-- <input placeholder=""  id="cumulative" name="cumulative"   type="tel" class="validate"   >-->
                    <input class="easyui-numberbox"  style="width:250px;height: 40px;" labelAlign="right"  labelWidth="200px;"  label="มีวันลาสะสม (วัน) " labelPosition="left"
-                          id="cumulative" name="cumulative"  />
+                          id="cumulative" name="cumulative"  required="true"  />
               
                    <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
@@ -523,7 +526,7 @@
                    <input class="easyui-numberbox"  style="width:250px;height: 40px;" labelAlign="right"  labelWidth="200px;"  label="
 มีวันลาพักผ่อนในปีนี้ (วัน) " labelPosition="left"
  
-                        name="rest"    id="rest"  />
+                        name="rest"    id="rest"    required="true"   />
               
                    <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
@@ -564,7 +567,7 @@
                    <input class="easyui-numberbox"  style="width:250px;height: 40px;" labelAlign="right"  labelWidth="200px;"  label="
 รวมวันลาเป็น (วัน) " labelPosition="left"
  
-                        name="total"    id="total"  />
+                        name="total"    id="total"  required="true"  />
                    
                    
               
@@ -617,7 +620,7 @@
 ในปีนี้ลามาแล้ว (วัน) " labelPosition="left"
  
  
-                        name="current"    id="current"  />
+                        name="current"    id="current"   required="true"   />
                    
                    
               
@@ -669,7 +672,7 @@
  
  
  
-                        name="keep"    id="keep"  />
+                        name="keep"    id="keep"   required="true"   />
                    
                    
               
@@ -726,7 +729,7 @@
                    <input class="easyui-numberbox"  style="width:300px;height: 40px;" labelAlign="right"  labelWidth="250px;" 
                         
                           label="
-มีความประสงค์จะขอลาพักผ่อนมีกำหนด (วัน) " labelPosition="left"      id="wishes" name="wishes"    />
+                          มีความประสงค์จะขอลาพักผ่อนมีกำหนด (วัน) " labelPosition="left"      id="wishes" name="wishes"   required="true"    />
  
  
  
@@ -818,7 +821,7 @@ labelPosition="left"  labelWidth="310px"
                 <tr>
                 <td>
                     <input class="easyui-numberbox"   label="ลามาแล้ว
-(วันทำการ)"   labelPosition="top"  labelWidth="150px;"   id="leave"  name="leave"   style="width:50px;height: 60px;">
+(วันทำการ)"   labelPosition="top"  labelWidth="150px;"   id="leave"  name="leave"   style="width:50px;height: 60px;"   required="true" >
                 
                     
                     <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
@@ -858,7 +861,7 @@ labelPosition="left"  labelWidth="310px"
                 <td>
                     
                       <input class="easyui-numberbox"   label="ลาครั้งนี้
-(วันทำการ) "   labelPosition="top"  labelWidth="150px;"   id="leave_thistime"  name="leave_thistime"   style="width:50px;height: 60px;">
+(วันทำการ) "   labelPosition="top"  labelWidth="150px;"   id="leave_thistime"  name="leave_thistime"   style="width:50px;height: 60px;"   required="true" >
                       
                          <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
@@ -877,7 +880,7 @@ labelPosition="left"  labelWidth="310px"
                 <td>
                     
                       <input class="easyui-numberbox"   label="รวมเป็น 
-(วันทำการ) "   labelPosition="top"  labelWidth="150px;"  id="date_total_leave"   name="date_total_leave"   style="width:50px;height: 60px;">
+(วันทำการ) "   labelPosition="top"  labelWidth="150px;"  id="date_total_leave"   name="date_total_leave"   style="width:50px;height: 60px;"  required="true" >
                       
                         <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
