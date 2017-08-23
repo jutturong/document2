@@ -319,7 +319,7 @@ $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' , " [ / ] เจ้าหน้�
 
     //  $prename = 2;
 
-      if( $prename == 1  )
+      if( $prename == '1'  )
       {
        $pdf->SetFont('angsana','U',14);
        $pdf->setXY( $x1 + 28  , $y1 + 35 );
@@ -328,7 +328,7 @@ $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' , " [ / ] เจ้าหน้�
         $pdf->setXY( $x1 + 34  , $y1 + 35 );
         $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' ,  "/นาง/นางสาว)"  ),'C',false);
       }
-      else if( $prename == 2  )
+      else if( $prename == '2'  )
       {
        $pdf->SetFont('angsana','',14);
        $pdf->setXY( $x1 + 28  , $y1 + 35 );
@@ -340,7 +340,7 @@ $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' , " [ / ] เจ้าหน้�
          $pdf->setXY( $x1 + 39  , $y1 + 35 );
          $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' ,  "/นางสาว)"  ),'C',false);
       }
-       else if( $prename == 3  )
+       else if( $prename == '3'  )
       {
        $pdf->SetFont('angsana','',14);
        $pdf->setXY( $x1 + 28  , $y1 + 35 );
@@ -352,6 +352,20 @@ $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' , " [ / ] เจ้าหน้�
         // $pdf->SetFont('angsana','',14);
         // $pdf->setXY( $x1 + 39  , $y1 + 55 );
         // $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' ,  "/นางสาว)"  ),'C',false);
+      }
+      else{
+           $pdf->SetFont('angsana','',14);
+       $pdf->setXY( $x1 + 28  , $y1 + 35 );
+       $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' ,  "นาย/นาง/นางสาว)"  ),'C',false);
+       // $pdf->SetFont('angsana','U',14);
+        $pdf->setXY( $x1 + 40  , $y1 + 35 );
+         $pdf->SetFont('angsana','U',14);
+       // $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' ,  $prename_detail.")"  ),'C',false);
+        // $pdf->SetFont('angsana','',14);
+        // $pdf->setXY( $x1 + 39  , $y1 + 55 );
+        // $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' ,  "/นางสาว)"  ),'C',false);
+          
+          
       }
 
 

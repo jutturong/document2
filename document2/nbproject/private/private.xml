@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/var/www/html/document2/report_pdf/docdb/query_vacation.php</file>
             <file>file:/var/www/html/document2/application/views/vacation.php</file>
+            <file>file:/var/www/html/document2/report_pdf/docdb/report_vacation.php</file>
             <file>file:/var/www/html/document2/application/controllers/welcome.php</file>
         </group>
     </open-files>

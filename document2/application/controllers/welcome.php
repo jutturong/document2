@@ -2652,7 +2652,8 @@ $data=array(
       {
              //header('Content-Type: text/html; charset=UTF-8');
             
-            
+             $this->user_model->login();  //for checklogin
+               
              $type_person5=trim($this->input->get_post("type_person5"));
             // echo br();
           
@@ -2835,7 +2836,7 @@ $data=array(
                       
                 $data=array(
                                              "write"=>$write,   //1
-                                             "date_write"=>$date_write,   //2
+                                             "date_write"=>$date_write_conv,   //2
                                              "subject"=>$subject,    //3
                                              "study"=>$study,   //4
                                              "prename"=>$prename,   //5
@@ -2859,9 +2860,13 @@ $data=array(
                                              "city"=>$city,
                                              "province"=>$province,
                                               "tel_address"=>$tel_address,
-                                               "leave"=>$leave,    //12
+                                             //  "leave"=>$leave,    //12
+                                              "leave"=>$date_total_leave,    //ปรับปรุงรวมวันลาใหม่ โดยการรวมวันลาที่เหลืออยู่
                                               "leave_thistime"=>$leave_thistime,     //13
+                    
                                               "date_total_leave"=>$date_total_leave,     //14
+                    
+                    
                                               "sign"=> $sign,     //15
                                               "presign"=>$presign,    //16
                                              "name_sign"=>$name_sign,     //17
@@ -2884,8 +2889,9 @@ $data=array(
                                    //     "id_staff"=>$id_staff,
                                  );
                 
-                             // print_r($data);
+                                // print_r($data);
                               
+                                
                                 $tb=$this->tb_vacation;
                                 $ck_insert=$this->db->insert($tb,$data); //ตรวจสอบการ insert
                                 //$ck_insert=1;
@@ -2898,10 +2904,32 @@ $data=array(
                                    {
                                                   echo 0;
                                    }
+                               
 
                 
       } //end function    
-              
+   #---------delete------------------------- 
+      //http://10.87.196.170/document2/index.php/welcome/delete_vacation
+    public   function  delete_vacation()
+    {
+            $this->user_model->login();  //for checklogin
+            $id_vacation=trim($this->input->get_post("id_vacation"));
+           // echo br();
+               $tb=$this->tb_vacation;
+               if( $id_vacation > 0 )
+               {
+                   $this->db->where("id_vacation",$id_vacation);
+                   $ck=$this->db->delete($tb);
+                   if( $ck )
+                   {
+                       echo 1;
+                   }
+                   else
+                   {
+                       echo 0;
+                   }
+               }
+    }
               
    #-------------sick  ลาป่วยประจำปี---------------------------------------
      //http://10.87.196.170/document2/index.php/welcome/json_sick

@@ -278,8 +278,11 @@ $cur_date=date("Y-m-d");
   $id_vacation=trim($_REQUEST["id_vacation"]);
   if(  $id_vacation > 0  )
   {
-                $tb="tb_vacation";
+                 //$tb="tb_vacation";
                
+                  $tb="tb_vacation_test";
+                  
+                  
                 /*
                    $str2="select  *  from  $tb  where  type_record=$type_record  and   type_document=$type_document     and   `date` >=  '$select_date'   limit 14,14   ";
          $query2=mysql_query($str2) or die("mysql error ");
@@ -308,17 +311,20 @@ $cur_date=date("Y-m-d");
                         
                         $prename=$row["prename"];  //คำนำหน้าชื่อ
                         // $prename=3;
-                        if(  $prename == 1  )
+                        if(  $prename == "1"  )
                         {
                                  $prename_detail="นาย";
                         }
-                        elseif(  $prename == 2 )
+                        elseif(  $prename == "2" )
                         {
                                $prename_detail="นาง";
                         }
-                        elseif(  $prename == 3 )
+                        elseif(  $prename == "3" )
                         {
                                $prename_detail="นางสาว";
+                        }
+                        else{
+                                $prename_detail="";
                         }
                         
                         $first_name=$row["first_name"]; //ชื่อ

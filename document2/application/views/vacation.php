@@ -84,7 +84,21 @@
                                                       if(row)
                                                       {
                                                             var  id_vacation=row.id_vacation;
-                                                            alert(id_vacation);
+                                                            //alert(id_vacation);
+                                                            var  url='http://10.87.196.170/document2/index.php/welcome/delete_vacation/' + id_vacation;
+                                                            $.post(url,{  id_vacation:id_vacation },function(data){
+                                                                    //alert(data);
+                                                                    if( data == 1 )
+                                                                    {
+                                                                          $.messager.alert('สถานะการลบข้อมูล','ลบข้อมูลสำเร็จ','info');
+                                                                          $('#datagrid_vacation').datagrid('reload');
+                                                                    }
+                                                                    else if( data==0)
+                                                                    {
+                                                                          $.messager.alert('สถานะการลบข้อมูลผิดพลาด','ลบข้อมูลผิดพลาด','error');
+                                                                          $('#datagrid_vacation').datagrid('reload');
+                                                                    }
+                                                            });
                                                       }
                                                 }
                                                 
@@ -158,10 +172,14 @@
                                if(data=='1')
                                {
                                     $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลสำเร็จ','info');
+                                    $('#datagrid_vacation').datagrid('reload');
+                                     $('#dia_main_vacation').dialog('open');
+                                     $('#datagrid_vacation').datagrid('reload');
                                }
                                else if( data=='0' )
                                {
                                      $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','บันทึกข้อมูลผิดพลาด','error');
+                                     $('#datagrid_vacation').datagrid('reload');
                                }
                                
                                
@@ -252,7 +270,7 @@
                 },    
                     
                { text:'Close(ปิด)',iconCls:'icon-cancel',iconAlign:'top',handler:function(){ $('#dia_fr_vacation').dialog('close'); }  },
-               {  text:'Show(การแสดงผล)' , iconCls:'icon-print', iconAlign:'top'  , handler:function(){   $('#dia_main_vacation').dialog('open');    } },
+               {  text:'Show(การแสดงผล)' , iconCls:'icon-print', iconAlign:'top'  , handler:function(){   $('#dia_main_vacation').dialog('open');     $('#datagrid_vacation').datagrid('reload');  } },
                
          ]
      "
