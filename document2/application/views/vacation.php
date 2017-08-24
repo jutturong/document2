@@ -401,18 +401,22 @@
                                                              {
 
                                                                   $('#prename').combobox('setValue',1);
+                                                                  //presign
+                                                                  $('#presign').combobox('setValue',1);
                                                                   
                                                              }
                                                              else if( prename == 'นาง' )
                                                              {
 
                                                                   $('#prename').combobox('setValue',2);
+                                                                    $('#presign').combobox('setValue',2);
                                                                   
                                                              }
                                                              else if( prename == 'นางสาว'  )
                                                              {
 
                                                                   $('#prename').combobox('setValue',3);
+                                                                    $('#presign').combobox('setValue',3);
                                                                   
                                                              }
                                                              
@@ -652,8 +656,13 @@
                                      
                                      //alert(k.current);
                                      
-                                     $('#current').textbox('setValue', k.current );
+                                     //$('#current').textbox('setValue', k.current );
                                      
+                                     //ปรับสูตรใหม่
+                                    // date_total_leave
+                                      $('#current').textbox('setValue', k.date_total_leave );
+                                      
+                                      
                                    });
                               
                               });
@@ -677,7 +686,7 @@
  
  
  
-                        name="keep"    id="keep"   required="true" precision="1"   />
+                        name="keep"    id="keep"   required="true"  precision="1"   />
                    
                    
               
@@ -688,7 +697,7 @@
                          
                               // alert('t');
                               
-                              
+                              /*
                               $.ajax({
                                 url:'<?=base_url()?>index.php/welcome/check_vacation',
                                 data:$('#fr_vacation').serialize(),
@@ -713,9 +722,11 @@
                                 
                               
                               });
+                              */
                               
-                              
-                             
+                             // keep=total-current
+                              var   keep_cal =$('#total').numberbox('getValue') -  $('#current').numberbox('getValue');
+                             $('#keep').numberbox('setValue', keep_cal );
                              
                          }   "  /> Check วัน  </a>
                    
@@ -879,12 +890,13 @@ labelPosition="left"  labelWidth="310px"
                     <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
                          {
-                              // alert('t');
+                              //alert('t');
                               
+                             
                               $.ajax({
                                 url:'<?=base_url()?>index.php/welcome/check_vacation',
                                 data:$('#fr_vacation').serialize(),
-                               // dataType:'text',
+                             
                                dataType:'json',
                                 
                               }).done(function(data){
@@ -894,13 +906,22 @@ labelPosition="left"  labelWidth="310px"
                                    {
                                       
                                    
-                                     var   leave=k.leave;
+                                   //  var   leave=k.leave;
                                      // $('#leave').numberbox('setValue',  leave );
-                                     $('#leave').numberbox('setValue', $('#current').numberbox('getValue')  );
+                                   //   k.date_total_leave
+                                         $('#leave').numberbox('setValue'  ,  k.date_total_leave    );
                                    
                                    });
-                              
+
                               });
+                             
+                              
+                              
+                          
+                                 //   $('#leave').numberbox('setValue', $('#current').numberbox('getValue')  );
+                                //   $('#current').textbox('setValue', k.date_total_leave ); 
+                                     
+                                     
                              
                          }   "  /> Check วัน  </a>
                     

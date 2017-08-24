@@ -2861,7 +2861,7 @@ $data=array(
               //  $current_cal=  $leave + leave_thistime
                  
               //   $keep_cal= $total - $leave_thistime;  //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้    keep =  total - leave_thistime
-                  $keep_cal= $this->total_day_vacation-  $date_total_leave_cal;  
+                //  $keep_cal= $this->total_day_vacation-  $date_total_leave_cal;  
                   
                   $rest_cal =  $rest - $wishes;
                   
@@ -2893,7 +2893,20 @@ $data=array(
 ลาครั้งนี้(วันทำการ)=leave_thistime
 
 รวมเป็นวันทำการ=date_total_leave
+                    
+                   ปรับคงเหลือวันลา
+                   คงเหลือวันลาอีก (วัน)= id="keep"
+รวมวันลาเป็น (วัน)  name="total"    id="total"  -  
+ในปีนี้ลามาแล้ว (วัน)   name="current"    id="current"
+
+     keep=total-current
+     $('#keep').numberbox('setValue', keep_cal ); 
+                    
+                   
                    */
+                  
+                  
+                  
    
      //----------- ปรับปรุงรายการคำนวณ-----------------
               
@@ -2925,11 +2938,11 @@ $data=array(
                                               //  "total"=> $total_cal,
                     
                     
-                                          //   "current"=>$current,
-                                            "current"=>$current_cal,  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+                                             "current"=>$current,
+                                         //   "current"=>$current_cal,  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
                     
-                                              //  "keep"=>$keep,
-                                             "keep"=>  $keep_cal,   //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้  keep =   $keep_cal= $total - $leave_thistime;  
+                                                "keep"=>$keep,
+                                          //  "keep"=>  $keep_cal,   //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้  keep =   $keep_cal= $total - $leave_thistime;  
                     
                                              "wishes"=>$wishes,
                     
@@ -3004,12 +3017,12 @@ $data=array(
                                               "total"=> $total,   
                                           //   "total"=> $total_cal,
                         
-                                            // "current"=>$current,
-                                              "current"=>$current_cal,  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+                                             "current"=>$current,
+                                           //   "current"=>$current_cal,  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
                         
                         
-                                           //  "keep"=>$keep,
-                                               "keep"=>  $keep_cal,    //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้  keep =   $keep_cal= $total - $leave_thistime;  
+                                            "keep"=>$keep,
+                                            //   "keep"=>  $keep_cal,    //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้  keep =   $keep_cal= $total - $leave_thistime;  
                         
                         
                                              "wishes"=>$wishes,
