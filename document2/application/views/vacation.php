@@ -567,7 +567,7 @@
                    <input class="easyui-numberbox"  style="width:250px;height: 40px;" labelAlign="right"  labelWidth="200px;"  label="
 รวมวันลาเป็น (วัน) " labelPosition="left"
  
-                        name="total"    id="total"  required="true"  />
+                        name="total"    id="total"  required="true"      />
                    
                    
               
@@ -600,7 +600,9 @@
                               
                               });
                               */
-                              var  total= $('#cumulative').numberbox('getValue') + $('#rest').numberbox('getValue'); 
+                              
+                              
+                              var  total=  parseInt( $('#cumulative').numberbox('getValue') ) +  parseInt(  $('#rest').numberbox('getValue') );
                              $('#total').numberbox('setValue', total  );
                              
                          }   "  /> Check วัน  </a>
@@ -620,7 +622,7 @@
 ในปีนี้ลามาแล้ว (วัน) " labelPosition="left"
  
  
-                        name="current"    id="current"   required="true"   />
+                        name="current"    id="current"   required="true"  precision="1"   />
                    
                    
               
@@ -647,7 +649,10 @@
                                       // $('#rest').numberbox('setValue', rest );
                                       var   current=k.current;
                                      // $('#current').numberbox('setValue', current );
-                                     $('#current').numberbox('setValue', current );
+                                     
+                                     //alert(k.current);
+                                     
+                                     $('#current').textbox('setValue', k.current );
                                      
                                    });
                               
@@ -672,7 +677,7 @@
  
  
  
-                        name="keep"    id="keep"   required="true"   />
+                        name="keep"    id="keep"   required="true" precision="1"   />
                    
                    
               
@@ -766,8 +771,55 @@
                 <td colspan="3">
                     
                     
-                    <div class="easyui-panel" style="width: 400px;height: 40px;padding: 10px;">ในระหว่างลาพักผ่อนครั้งนี้ หากมีราชการด่วนติดต่อได้ที่บ้านเลขที่</div>
-
+                    <div class="easyui-panel" style="width: 500px;height: 60px;padding: 2px;">
+                        
+                        
+                        
+                             ในระหว่างลาพักผ่อนครั้งนี้ หากมีราชการด่วนติดต่อได้ที่บ้านเลขที่
+                        
+                       
+                    
+                    
+                    <a href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-ok"  iconAlign="top"  onclick="
+                         javascirpt:
+                                 
+                               var  url='<?=base_url()?>index.php/welcome/check_vacation';
+                       
+                               $.ajax({
+                                   url:url,
+                                   method:'post',
+                                  // dataType:'text',
+                                  dataType:'json',
+                                   data: $('#fr_vacation').serialize(),
+                               }).done(function(data)
+                                   {
+                                         //alert(data);
+                                         
+                                         $.each(data,function(v,k){
+                                             
+                                          //house_number
+                                          //district
+                                          //city
+                                          //province
+                                          //tel_address
+                                          //alert(k.house_number);
+                                               
+                                                $('#house_number').textbox('setValue',k.house_number);
+                                                $('#road').textbox('setValue',k.road);
+                                                $('#district').textbox('setValue',k.district);
+                                                $('#city').textbox('setValue',k.city);
+                                                $('#province').textbox('setValue',k.province);
+                                                $('#tel_address').textbox('setValue',k.tel_address);
+                                                 
+                                         });
+                                         
+                                        
+                                   });
+                       
+                       "   >Check Address</a>
+                    
+                    </div>
+                    
                     
                    <!-- 
                     <input class="easyui-textbox"  

@@ -3136,7 +3136,7 @@ $data=array(
          //$this->user_model->login();  //for checklogin
           $tb="tb_staff";
         //  $this->db->order_by("id_staff","DESC");
-                        $q=$this->db->get($tb,10);
+                        $q=$this->db->get($tb);
                         foreach($q->result() as $row)
                         {
                             $rows[]=$row;
@@ -3179,6 +3179,7 @@ $data=array(
 
            
      }
+     
      
      
     
