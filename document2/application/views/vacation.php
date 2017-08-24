@@ -176,11 +176,11 @@
                           {
                           
                                
-                               // alert(data);
+                                alert(data);
                              
                                
                                
-                               
+                               /*
                                if(data=='1')
                                {
                                     $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลสำเร็จ','info');
@@ -193,7 +193,7 @@
                                      $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','บันทึกข้อมูลผิดพลาด','error');
                                      $('#datagrid_vacation').datagrid('reload');
                                }
-                               
+                               */
                                
                                
                                

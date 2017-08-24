@@ -2865,12 +2865,16 @@ $data=array(
                   
                   $rest_cal =  $rest - $wishes;
                   
-                  $total_cal=   $total    -    $wishes;
+                //  $total_cal=   $total    -    $wishes;
+                  
+                //  $total_cal=  $cumulative + $rest_cal;
+                  
+                  
                   
                   /*
-                   มีวันลาสะสม (วัน) =cumulative
+ มีวันลาสะสม (วัน) =cumulative    ให้fix เป็น 0 ยกเว้นเมย์ เป็น 1
 
-มีวันลาพักผ่อนในปีนี้ (วัน)=rest
+มีวันลาพักผ่อนในปีนี้ (วัน)=rest   ให้ทุกคนเป็น 10 ยกเว้นเบส 5
 
 รวมวันลาเป็น  = total  = cumulative +  rest
 
@@ -2911,14 +2915,14 @@ $data=array(
                                               "affiliation"=> $affiliation,     //9
                                                "work"=>$work,    //10
                                                "tel"=>$tel,    //11
-                                               "cumulative"=>$cumulative,
+                                            //   "cumulative"=>$cumulative,
                     
-                                            //  "rest"=>$rest,    
-                                             "rest"=>$rest_cal,
+                                              "rest"=>$rest,    
+                                       //      "rest"=>$rest_cal,
                     
                     
-                                             // "total"=> $total,  
-                                                "total"=> $total_cal,
+                                              "total"=> $total,  
+                                              //  "total"=> $total_cal,
                     
                     
                                           //   "current"=>$current,
@@ -2991,14 +2995,14 @@ $data=array(
                                               "affiliation"=> $affiliation,     //9
                                                "work"=>$work,    //10
                                                "tel"=>$tel,    //11
-                                               "cumulative"=>$cumulative,
+                                         //      "cumulative"=>$cumulative,
                         
-                                           //   "rest"=>$rest,    
-                                               "rest"=>$rest_cal,
+                                              "rest"=>$rest,    
+                                         //      "rest"=>$rest_cal,
                         
                         
-                                             // "total"=> $total,   
-                                             "total"=> $total_cal,
+                                              "total"=> $total,   
+                                          //   "total"=> $total_cal,
                         
                                             // "current"=>$current,
                                               "current"=>$current_cal,  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
@@ -3055,8 +3059,8 @@ $data=array(
                 
                 
                 
-                               //   print_r($data);
-                              //    echo br();
+                                  print_r($data);
+                                  echo br();
                
                     
                     
