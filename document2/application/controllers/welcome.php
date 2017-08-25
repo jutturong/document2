@@ -5,8 +5,10 @@ class Welcome extends CI_Controller {
         var   $title="TAWANCHAI";
         var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
        // var   $tb_vacation="tb_vacation";
-        var   $tb_vacation="tb_vacation_test";
-        
+       // var   $tb_vacation="tb_vacation_test";
+        var   $tb_vacation="tb_vacation";
+           
+           
         var  $total_day_vacation=10; //จำนวนวันลาทั้งหมดในปีแต่ละปี
 
 
@@ -146,6 +148,7 @@ class Welcome extends CI_Controller {
                                //echo br();
                               //-------------1.เลขทะเบียนส่ง----------  
                             //---###############---------excellence--------------------------------------------------------------
+                               
 
 
 
@@ -2648,7 +2651,24 @@ $data=array(
                
                */
                
-              
+       public function  update_vacation()       
+       {
+              $this->user_model->login();  //for checklogin
+              $pass_update=trim($this->input->get_post("pass_update"));
+              $id_vacation=trim($this->input->get_post("id_vacation"));
+              if(  $pass_update  == "update1234"   )
+                  {
+                          $tb=$this->tb_vacation;
+                          $q=$this->db->get_where($tb,array("id_vacation"=>$id_vacation));
+                          foreach($q->result() as $row)
+                          {
+                              $rows[]=$row;
+                          }
+                              echo  json_encode($rows);
+                          //echo  json_encode(array("test"=>"success"));
+                  }
+           
+       }
       //http://10.87.196.170/document2/index.php/welcome/insert_vacation        
       public   function   insert_vacation()
       {
@@ -2856,21 +2876,25 @@ $data=array(
             
                  $date_total_leave_cal=$leave + $leave_thistime; //รวมเป็นวันทำการ=ลามาแล้ว+ลาครั้งนี้
    
-                 //$current_cal=$date_total_leave_cal;  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+      
                     $current_cal=$date_total_leave_cal;  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
-              //  $current_cal=  $leave + leave_thistime
-                 
-              //   $keep_cal= $total - $leave_thistime;  //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้    keep =  total - leave_thistime
-                //  $keep_cal= $this->total_day_vacation-  $date_total_leave_cal;  
+
                   
                   $rest_cal =  $rest - $wishes;
                   
-                //  $total_cal=   $total    -    $wishes;
+
+    
+                  /*
+ปรับสูตรใหม่ใช้สูตรของยุ้ย
+                  1+2=3
+                  3-4=5
+               และที่สำคัญต้องแก้ไข  ในปีนี้ลามาแล้ว (วัน)=    $('#current').textbox('setValue', k.date_total_leave );  (รวมเป็นวันทำการ)
+                      
+                   */
                   
-                //  $total_cal=  $cumulative + $rest_cal;
-                  
-                  
-                  
+               
+                          
+                          
                   /*
  มีวันลาสะสม (วัน) =cumulative    ให้fix เป็น 0 ยกเว้นเมย์ เป็น 1
 
@@ -3072,8 +3096,8 @@ $data=array(
                 
                 
                 
-                                  print_r($data);
-                                  echo br();
+                                 // print_r($data);
+                                  //echo br();
                
                     
                     
@@ -3146,7 +3170,7 @@ $data=array(
      //http://10.87.196.170/document2/index.php/welcome/json_staff
      public function json_staff()
      {
-         //$this->user_model->login();  //for checklogin
+         $this->user_model->login();  //for checklogin
           $tb="tb_staff";
         //  $this->db->order_by("id_staff","DESC");
                         $q=$this->db->get($tb);
@@ -3160,7 +3184,7 @@ $data=array(
      
      public function json_call_staff()
      {
-          //$this->user_model->login();  //for checklogin
+          $this->user_model->login();  //for checklogin
             $tb="tb_staff";
             $id_staff=trim($this->input->get_post("id_staff"));
             $q=$this->db->get_where($tb,array("id_staff"=>$id_staff));
@@ -3177,7 +3201,7 @@ $data=array(
      public   function check_vacation()
      {
          
-          //$this->user_model->login();  //for checklogin
+          $this->user_model->login();  //for checklogin
          //  $tb="tb_vacation";
             $tb=$this->tb_vacation;
             $first_name=trim($this->input->get_post("first_name"));

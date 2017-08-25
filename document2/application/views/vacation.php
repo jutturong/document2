@@ -17,7 +17,7 @@
     
     <div style="margin-left: 15px ;margin-top: 15px;">
         
-        <a href="javascript:void(0)"  onclick="javascript: alert('t');  "  class="easyui-linkbutton" data-options=" iconCls:'icon-large-chart'  ,size:'large' , iconAlign:'top'  "   >ยืนใบลา</a>  
+        <a href="javascript:void(0)"  onclick="javascript:   $('#dia_fr_vacation').dialog('open');  "  class="easyui-linkbutton" data-options=" iconCls:'icon-large-chart'  ,size:'large' , iconAlign:'top'  "   >ยืนใบลา</a>  
         
         <a href="javascript:void(0)"  onclick="
             javascript: 
@@ -41,7 +41,9 @@
 <!-- datagrid  หลัก ในการลาทั้งหมด -->
 <div  class="easyui-dialog"   id="dia_main_vacation" 
       style="width:500px;height: 400px;"
-      data-options=" closed:true, title:'หน้าหลักลาพักผ่อนประจำปี' 
+      data-options="
+         closed:false
+        ,title:'หน้าหลักลาพักผ่อนประจำปี' 
        ,maximizable:false
        ,minimizable:true
       ,iconCls:'icon-large-shapes' 
@@ -49,6 +51,7 @@
       ,buttons:[
       
         { text:'Close(ปิด)',  iconCls:'icon-cancel' ,iconAlign:'top',handler:function(){   $('#dia_main_vacation').dialog('close'); }  },
+        {  text:'ยื่นใบลาพักร้อน',iconCls:'icon-man' , iconAlign:'top', handler:function(){  $('#dia_fr_vacation').dialog('open');   }    },
         
       ]
       
@@ -72,7 +75,34 @@
                           toolbar:[
                           
                             { text:'Reload', iconAlign:'top'   , iconCls:'icon-reload',handler:function(){ $('#datagrid_vacation').datagrid('reload'); }   },
-                            { text:'Edit (แก้ไข)',  iconAlign:'top' ,  iconCls:'icon-edit',handler:function(){      } },
+                            { text:'Edit (แก้ไข)',  iconAlign:'top' ,  iconCls:'icon-edit',handler:function()
+                                      {   //begin     
+                                                 var  row=$('#datagrid_vacation').datagrid('getSelected');
+                                                 if(row)
+                                                 {
+                                                      var  id_vacation=row.id_vacation;
+                                                     
+                                                        if( id_vacation > 0 )
+                                                        {
+                                                              //alert(id_vacation);
+                                                              $('#dia_correct_vacation').dialog('open');
+                                                              
+                                                             /*
+                                                              $('#dia_correct_vacation').dialog({
+                                                                 title:'คุณต้องการแก้ไขข้อมูลการลาของเจ้าหน้าที่ภายในหน่วยงาน',
+                                                                 
+                                                              });
+                                                              */
+                                                              
+                                                              
+                                                              
+                                                        }//end if2
+                                                 
+                                                 }//endif
+                                      
+                                      
+                                      }  //end
+                             },
                              { text:'Delete (ลบ)',   iconAlign:'top'  , iconCls:'icon-cancel',handler:function()
                                  {   
                                       $.messager.confirm('คุณต้อการลบข้อมูล','คุณต้องการลบข้อมูลหรือไม่',function(r)
@@ -146,7 +176,7 @@
      data-options="
          iconCls:'icon-print',
          
-         closed:false,
+         closed:true,
          modal:true,
          minimizable:true,
          resizable:true,
@@ -155,7 +185,20 @@
          title:' แบบฟอร์มใบลาพักผ่อนประจำปี  ',
          
          buttons:[
-
+               {
+                   text:'(update) แก้ไข้ข้อมูล',iconCls:'icon-edit', iconAlign:'top', handler:function()
+                   { 
+                          //alert('t');  
+                          
+                         //id_vacation_update
+                         var  id_vacation_update=$('#id_vacation_update').textbox('getValue');
+                         if( id_vacation_update > 0 )
+                         {
+                             alert(id_vacation_update);
+                         }
+                        
+                   },
+               },
               { text:'บันทึกข้อมูล',iconCls:'icon-save',iconAlign:'top', handler:function()
                    {
                    
@@ -176,11 +219,11 @@
                           {
                           
                                
-                                alert(data);
+                               // alert(data);
                              
                                
                                
-                               /*
+                               
                                if(data=='1')
                                {
                                     $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลสำเร็จ','info');
@@ -193,7 +236,7 @@
                                      $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','บันทึกข้อมูลผิดพลาด','error');
                                      $('#datagrid_vacation').datagrid('reload');
                                }
-                               */
+                               
                                
                                
                                
@@ -208,7 +251,9 @@
                      {
                           
                                     //prename   //combobox
-                                    
+                                   $('#house_number').textbox('setText','');
+                                     
+                                     
                                     $('#date_write').datebox('setText','');
                                     
                                     $('#id_staff').combobox('setText','');
@@ -260,7 +305,10 @@
                                    
                                    
                                    
-                                   $('#house_number').textbox('setValue','');
+                                 // 
+                               //  $('#house_number').textbox('clear');
+                               //   $('#house_number').textbox('setValue','test');
+                              //   alert('t');
                                    
                                    
                                    
@@ -463,7 +511,7 @@
                     
                     <input class="easyui-textbox"  style="width:100px;height: 40px;"  prompt="ชื่อ"   id="first_name"  name="first_name"  data-options=" iconCls:'icon-man'  "   />
                     <input class="easyui-textbox"  style="width:130px;height: 40px;"   prompt="นามสกุล"  id="last_name"  name="last_name"  data-options=" iconCls:'icon-man'  "   />
-                    <input class="easyui-textbox"  style="width:200px;height: 60px;"   prompt="ตำแหน่ง"   id="position"  name="position"   data-options="  label:'ตำแหน่ง', labelPosition:'top', iconCls:'icon-ok'   "    />
+                    <input class="easyui-textbox"  style="width:300px;height: 60px;"   prompt="ตำแหน่ง"   id="position"  name="position"   data-options="  label:'ตำแหน่ง', labelPosition:'top', iconCls:'icon-ok'   "    />
                       
                       
                 </td>
@@ -479,7 +527,7 @@
               
              
               
-               <input class="easyui-textbox"  style="width:220px;height: 40px;" labelAlign="right"  labelWidth="120px;"  label="คณะแพทยศาสตร์" labelPosition="left"   id="tel" name="tel"  data-options="  value:'043363123' "  />
+               <input class="easyui-numberbox"  style="width:220px;height: 40px;" labelAlign="right"  labelWidth="120px;"  label="คณะแพทยศาสตร์" labelPosition="left"   id="tel" name="tel"  data-options="  value:'043363123'  ,prefix:0  "  />
               
              
             </td>
@@ -815,7 +863,13 @@
                                           //tel_address
                                           //alert(k.house_number);
                                                
+                                                //alert(k.house_number);
                                                 $('#house_number').textbox('setValue',k.house_number);
+                                              
+                                              
+                                               
+                                            
+                                                
                                                 $('#road').textbox('setValue',k.road);
                                                 $('#district').textbox('setValue',k.district);
                                                 $('#city').textbox('setValue',k.city);
@@ -832,17 +886,10 @@
                     </div>
                     
                     
-                   <!-- 
-                    <input class="easyui-textbox"  
-labelPosition="top"  labelWidth="310px"
-labelWidth="250px"
-     id="้house_number" 
-     name="house_number"  
-     
-     prompt="บ้านเลขที่"  style="width:80px; height: 40px;"  />
-                   -->
-                    
-                   <input class="easyui-textbox"   id="้house_number"  name="house_number"   prompt="บ้านเลขที่"  style="width:80px; height: 40px;"   />
+                   
+                    <input class="easyui-textbox" prompt="บ้่านเลขที่"   data-options=" multiline:true,  "      id="้house_number"     name="house_number"       style="width:100px; height: 40px;"  />
+
+                   
                     
                       <input class="easyui-textbox"  
 labelPosition="left"  labelWidth="310px"
@@ -1087,6 +1134,11 @@ labelPosition="left"  labelWidth="310px"
             </tr>
             
             
+            <tr>
+                <td>
+                    <input class="easyui-textbox"  id="id_vacation_update" name="id_vacation_update"  data-options="  readonly:true,  "  style="width:60px;height: 40px;"  />
+                </td>
+            </tr>
             
         </table>       
             
@@ -1108,3 +1160,157 @@ labelPosition="left"  labelWidth="310px"
 </div>
 
 <!--  Dia  +  form  บันทึกผล -->
+
+
+
+<!--  dialog  password  แก้ไขข้อมุล การลาพักผ่อน -->
+<div class="easyui-dialog"  id="dia_correct_vacation"  data-options="
+      closed:true,
+      title:' คุณต้องการแก้ไขวันลาของเจ้าหน้าที่ภายในหน่วยงาน   ',
+      iconCls:'icon-man',
+      modal:true,
+      resizable:true,
+      minimizable:false,
+      collabsible:true,
+      buttons:[
+         { text:'Close(ปิด)',  iconAlign:'top'   , iconCls:'icon-cancel',handler:function(){
+                 $('#dia_correct_vacation').dialog('close');
+         
+             } //endfunction
+         },
+         {
+             text:'Submit', iconCls:'icon-lock',   iconAlign:'top'  , handler:function()
+             {
+                  
+                    var  row=$('#datagrid_vacation').datagrid('getSelected');
+                   if( row )
+                   {
+                   
+                            var   id_vacation=row.id_vacation;
+                             // alert(id_vacation);
+                              
+                             if( id_vacation > 0 )
+                             {
+                              
+                                    $.post('<?=base_url()?>index.php/welcome/update_vacation',{  pass_update: $('#pass_update').passwordbox('getValue') , id_vacation : id_vacation   },function(data)
+                                      { 
+
+                                            
+                                              $.each(data,function(v,k){
+                                               
+                                                    
+                                                      
+                                                            
+                                                            $('#dia_fr_vacation').dialog('open');
+                                                            
+                                                            
+                                                            var  date_write=k.date_write;  // format  date 08/25/2017
+                                                            
+                                                            if( date_write.length > 0 )
+                                                            {
+                                                                 var  ex=date_write.split('-');
+                                                                 var  date_write_conv= ex[1]  +   '/'  +  ex[2]  +  '/'  +  ex[0]  ;
+                                                                 $('#date_write').datebox('setValue',date_write_conv);
+                                                            }
+
+                                                            var   id_vacation=k.id_vacation;
+                                                            $('#id_vacation_update').textbox('setValue',k.id_vacation);
+                                                            
+                                                            
+                                                            var  prename=k.prename;
+                                                            //alert(prename);
+                                                            $('#prename').combobox('setValue',prename);
+                                                            
+                                                            $('#first_name').textbox('setValue',k.first_name);
+                                                            
+                                                            $('#last_name').textbox('setValue',k.last_name);
+                                                            
+                                                            $('#position').textbox('setValue',k.position);
+                                                            
+                                                            $('#affiliation').textbox('setValue',k.affiliation);
+                                                            
+                                                            $('#work').textbox('setValue',k.work);
+                                                            
+                                                            
+                                                           $('#tel').numberbox('setValue',k.tel);
+                                                           
+                                                           $('#cumulative').numberbox('setValue',k.cumulative);
+                                                           
+                                                           
+                                                           $('#rest').numberbox('setValue',k.rest);
+                                                           
+                                                            $('#total').numberbox('setValue',k.total);
+                                                            
+                                                            
+                                                           $('#current').numberbox('setValue',k.current);
+                                                           
+                                                           
+                                                            $('#keep').numberbox('setValue',k.keep);
+                                                            
+                                                            
+                                                            $('#wishes').numberbox('setValue',k.wishes);
+                                                            
+                                                            
+                                                            //date_begin
+                                                            var  date_begin=k.date_begin;
+                                                             if( date_begin.length > 0 )
+                                                            {
+                                                                 var  ex=date_begin.split('-');
+                                                                 var  date_begin_conv= ex[1]  +   '/'  +  ex[2]  +  '/'  +  ex[0]  ;
+                                                                 $('#date_begin').datebox('setValue',date_write_conv);
+                                                            }
+                                                            
+                                                            
+                                                            //end_date
+                                                            var  end_date=k.end_date;
+                                                              if( end_date.length > 0 )
+                                                            {
+                                                                 var  ex=date_begin.split('-');
+                                                                 var  date_begin_conv= ex[1]  +   '/'  +  ex[2]  +  '/'  +  ex[0]  ;
+                                                                 $('#end_date').datebox('setValue',date_write_conv);
+                                                            }
+                                                            
+                                                            
+                                                            $('#house_number').textbox('setValue',k.house_number);
+                                                            
+                                                            $('#road').textbox('setValue',k.road);
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                              });
+
+                                      },'json'); //end function
+                             
+                             }
+                   
+                   }
+                   
+                   
+                   
+                    
+                    
+                                        
+             }//end function
+         },
+         {
+              text:'Clear(ล้าง)', iconCls:'icon-reload',iconAlign:'top', handler:function()
+               {
+                     $('#pass_update').passwordbox('clear');
+               }
+         }
+        
+      ]
+      
+      
+      
+     
+      " style="width:350px;height: 200px;padding: 10px;">
+    
+    <input class="easyui-passwordbox"  id="pass_update"  data-options=" value:'update1234' ,  showEye:true,   "  prompt=" ระบุรหัสผ่าน (Password) " iconWidth="28"  label="ระบุรหัสผ่าน "  lableWidth="100px;"  labelPosition="top"  style="width:200px;height: 80px;padding: 10px;"   />
+    
+</div>
+
+
+<!--  dialog  password  แก้ไขข้อมุล การลาพักผ่อน -->

@@ -456,13 +456,30 @@ style="width:400px;height:500px;padding:10px">
                       //alert(  $('#select_excellence').combobox('getValue')  );
                       //alert('t');
                       
-                                           $('#dia_insert_send_research').dialog('open');
+                                           //$('#dia_insert_send_research').dialog('open');
+                                           
+                                          // dia_insert_send_excellence
+                                          
+                                           $('#dia_insert_send_excellence').dialog('open');
+                                           
+                                           
                        
-                       
-                       
+                                                            var  add='<?=$number_add_32?>';
+                                                            
+                                                            /*
+                                                            // alert(add);
+                                                             $.messager.confirm('','',function(r){
+                                                                   if(r)
+                                                                   {
+                                                                       $('#registration_send21').textbox('setValue',add);
+                                                                   }
+                                                             });
+                                                             */
                                             
-                                                           $('#registration_send21').textbox('setValue','<?=@$number_add_32?>');
+                                                           $('#registration_send21').textbox('setValue',add);
                                                          //number_add_32
+                                                         
+                                                         
                                                             $('#date1_send21').datebox('setValue','');  
                                                          
                                                             $('#from_send21').textbox('setText',''); //จาก       4
@@ -816,8 +833,12 @@ style="width:400px;height:500px;padding:10px">
     <form id="f_insert_send_excellence"  method="post"  novalidate="novalidate"    enctype="multipart/form-data" >
         
             <div style="margin-left:10px;margin-top: 10px;">
-                <input class="easyui-textbox"   id="registration_send21" name="registration_send21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขส่ง'  ,  labelPosition:'top'  ,  required:true,  value:'<?=@$number_add_32?>'   "    />
+                <input class="easyui-textbox"   id="registration_send21" name="registration_send21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขส่ง'  ,  labelPosition:'top'   "    />
             </div>
+        
+        
+        
+        
         
          <div style="margin-left:10px;margin-top: 10px;">
                 <input class="easyui-datebox" label="วันที่รับ "   id="date1_send21"  name="date1_send21"   labelPosition="top" style="width:70%;height:60px"  data-options=" required:true,  ">
