@@ -42,7 +42,7 @@
 <div  class="easyui-dialog"   id="dia_main_vacation" 
       style="width:500px;height: 400px;"
       data-options="
-         closed:false
+         closed:true,
         ,title:'หน้าหลักลาพักผ่อนประจำปี' 
        ,maximizable:false
        ,minimizable:true
