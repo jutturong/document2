@@ -519,6 +519,10 @@ style="width:400px;height:500px;padding:10px">
 
                           if( data == 1)
                           {
+                          
+                          
+                          
+                          /*
                              $.messager.confirm('บันทึกข้อมูลสำเร็จ (Success Insert)','บันทึกข้อมูลแล้ว คุณต้องการบันทึกข้อมูลอีกหรือไม่',function(r)
                              {
                                   if(r)
@@ -540,17 +544,33 @@ style="width:400px;height:500px;padding:10px">
                                        
                                           $('#dia_insert_research').dialog('close');
                                           $('#dia_select_research').dialog('close');
-                                       //   $('#panel_research').panel('open');
-                                     
-                               
-                                      
-                                       
-                                       
-                                       //  $('#dia_insert_excellence').dialog('open');
-                                      //  $('#dia_select_excellence').dialog('open');
+
                                   }
 
                              });
+                             */
+                             
+                             
+                              $('#registration_research_receive21').textbox('setText','');  //registration_research_receive21
+
+                                         $('#date1_research_receive21').datebox('setValue','');
+
+
+                                         $('#at_research_receive21').textbox('setText',''); //เลขที่เอกสาร
+                                         $('#from_research_receive21').textbox('setText',''); //จาก       4
+                                         $('#to_research_receive21').textbox('setText',''); //ถึง        5
+                                         $('#subject_research_receive21').textbox('setText',''); //เรื่อง       6
+                                         $('#practice_research_receive21').textbox('setText',''); //การปฏฺิบัติ       7
+                                         $('#note_research_receive21').textbox('setText',''); //หมายเหตุ      8
+
+
+                                   
+                                       
+                                          $('#dia_insert_research').dialog('close');
+                                          $('#dia_select_research').dialog('close');
+                                          
+                                          
+                                          
 
 
                           }
@@ -730,17 +750,39 @@ style="width:400px;height:500px;padding:10px">
                                           
                                        if( data == 1 )
                                        {  
+                                       
+                                       
+                                       
+                                       
+                                            /*
                                             $.messager.confirm('บันทึกข้อมูลสำเร็จ (Success Insert)','คุณต้องการบันทึกข้อมูลอีกหรือไม่',function(r)
                                                 {
                                                      if(r)
                                                      {
 
-                                                        
                                                             $('#registration_send21_research').textbox('setValue','<?=@$number_add_22?>');
                                                             
                                                            
                                                             $('#date1_send21_research').datebox('setText','');
-                                                          //   $('#to_send21').textbox('setText',''); //เลขที่เอกสาร
+                                                      
+                                                          
+                                                            $('#from_send21_research').textbox('setText',''); //จาก       4
+                                                            $('#to_send21_research').textbox('setText',''); //ถึง        5
+                                                            $('#subject_send21_research').textbox('setText',''); //เรื่อง       6
+                                                            $('#practice_send21_research').textbox('setText',''); //การปฏฺิบัติ       7
+                                                            $('#note_send21_research').textbox('setText',''); //หมายเหตุ      8
+
+                                                     }
+                                                     
+                                                 });
+                                                 */
+                                                 
+                                                 
+                                                 // $('#registration_send21_research').textbox('setValue','<?=@$number_add_22?>');
+                                                            
+                                                           
+                                                            $('#date1_send21_research').datebox('setText','');
+                                                      
                                                           
                                                             $('#from_send21_research').textbox('setText',''); //จาก       4
                                                             $('#to_send21_research').textbox('setText',''); //ถึง        5
@@ -748,28 +790,19 @@ style="width:400px;height:500px;padding:10px">
                                                             $('#practice_send21_research').textbox('setText',''); //การปฏฺิบัติ       7
                                                             $('#note_send21_research').textbox('setText',''); //หมายเหตุ      8
                                                             
-                                                            
-                                                         //   location.reload();
-                                                            
-                                                            //dia_insert_send_research
-                                                            
-                                                                        $('#dia_insert_send_research').dialog('close');
-                                                                        $('#dia_select_research').dialog('close');
-                                                                    //    $('#panel_research').panel('open');
-                                                            
-                                                            
-                                                           //  $('#dia_insert_excellence').dialog('open');
-                                                          //  $('#dia_select_excellence').dialog('open');
-                                                          
-
-                                                     }
-                                                     
-                                                });
-                                           }
+                                                             $('#dia_insert_send_research').dialog('close');
+                                                             $('#dia_select_research').dialog('close');
+                                                             
+                                                      
+                                                 
+                                                 
+                                              }//end if
+          
                                                 
-                                                
-                                                
-                                   }
+                                   }//end success
+                                   
+                                   
+                                   
                             });
 
                       },

@@ -564,10 +564,13 @@ style="width:400px;height:500px;padding:10px">
                           //$registration_receive21
                           //$('#registration_receive21').textbox('setValue','<?=@$number_add?>');
 
-                          // alert(data);
+                    
                           if( data == 1)
                           {
 
+                          
+                          
+                          /*
                              $.messager.confirm('บันทึกข้อมูลสำเร็จ (Success Insert)','คุณต้องการบันทึกข้อมูลอีกหรือไม่',function(r)
                              {
                                   if(r)
@@ -592,6 +595,26 @@ style="width:400px;height:500px;padding:10px">
                                   }
                              
                              });
+                             */
+                             
+                                        $('#registration_receive21').textbox('setText','');
+                                         
+                                         $('#date1_receive21').datebox('setValue','');  
+                                         
+                                         
+                                         $('#at_receive21').textbox('setText',''); //เลขที่เอกสาร
+                                         $('#from_receive21').textbox('setText',''); //จาก       4
+                                         $('#to_receive21').textbox('setText',''); //ถึง        5
+                                         $('#subject_receive21').textbox('setText',''); //เรื่อง       6
+                                         $('#practice_receive21').textbox('setText',''); //การปฏฺิบัติ       7
+                                         $('#note_receive21').textbox('setText',''); //หมายเหตุ      8
+
+                                       
+                                        $('#dia_select_excellence').dialog('close');   // เลือกเพิ่มหรือรับหนังสือ
+                                        
+                                        $('#dia_insert_excellence').dialog('close');
+                             
+                             
 
 
                           }
@@ -777,7 +800,10 @@ style="width:400px;height:500px;padding:10px">
                                    url:'<?=base_url()?>index.php/welcome/insert_tb_main1_send_3',
                                    success:function(data)
                                    {
-                                          //alert(data);
+                                          
+                                   
+                                             /*
+                                            //alert(data);
                                             $.messager.confirm('บันทึกข้อมูลสำเร็จ (Success Insert)','คุณต้องการบันทึกข้อมูลอีกหรือไม่',function(r)
                                                 {
                                                      if(r)
@@ -797,6 +823,24 @@ style="width:400px;height:500px;padding:10px">
 
                                                      }
                                                 });
+                                                */
+                                                
+                                                
+                                                            $('#registration_send21').textbox('setText','');
+                                                            $('#date1_send21').datebox('setValue','');  
+                                                          //   $('#to_send21').textbox('setText',''); //เลขที่เอกสาร
+                                                            $('#from_send21').textbox('setText',''); //จาก       4
+                                                            $('#to_send21').textbox('setText',''); //ถึง        5
+                                                            $('#subject_send21').textbox('setText',''); //เรื่อง       6
+                                                            $('#practice_send21').textbox('setText',''); //การปฏฺิบัติ       7
+                                                            $('#note_send21').textbox('setText',''); //หมายเหตุ      8
+                                                          //  location.reload();
+
+                                                              $('#dia_select_excellence').dialog('close');
+                                                              $('#dia_insert_send_excellence').dialog('close');
+                                                
+                                                
+                                                
                                    }
                             });
                   

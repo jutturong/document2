@@ -542,15 +542,17 @@ style="width:400px;height:500px;padding:10px">
                         
                           if( data == 1)
                           {
+                          
+                          
+                          
+                          /*
                              $.messager.confirm('บันทึกข้อมูลสำเร็จ (Success Insert)','บันทึกข้อมูลแล้ว คุณต้องการบันทึกข้อมูลอีกหรือไม่',function(r)
                              {
                                   if(r)
                                   {
                                          $('#registration_foundation_receive21').textbox('setText','');  //registration_foundation_receive21
 
-                                        
                                          $('#date1_foundation_receive21').datebox('setValue','');
-
 
                                          $('#at_foundation_receive21').textbox('setText',''); //เลขที่เอกสาร
                                          $('#from_foundation_receive21').textbox('setText',''); //จาก       4
@@ -559,20 +561,29 @@ style="width:400px;height:500px;padding:10px">
                                          $('#practice_foundation_receive21').textbox('setText',''); //การปฏฺิบัติ       7
                                          $('#note_foundation_receive21').textbox('setText',''); //หมายเหตุ      8
 
-                                         // $.messager.progress();
-                                        // location.reload();
-                                       
-                                        
                                           $('#dia_insert_foundation').dialog('close');
-                                          $('#dia_select_foundation').dialog('close'); 
-                                   //     $('#dlg_content_foundation').dialog('close');
-                                        
-                                        
-                                         
-                                       
+                                          $('#dia_select_foundation').dialog('close');   
                                   }
 
                              });
+                             */
+                             
+                             
+                                         $('#registration_foundation_receive21').textbox('setText','');  //registration_foundation_receive21
+
+                                         $('#date1_foundation_receive21').datebox('setValue','');
+
+                                         $('#at_foundation_receive21').textbox('setText',''); //เลขที่เอกสาร
+                                         $('#from_foundation_receive21').textbox('setText',''); //จาก       4
+                                         $('#to_foundation_receive21').textbox('setText',''); //ถึง        5
+                                         $('#subject_foundation_receive21').textbox('setText',''); //เรื่อง       6
+                                         $('#practice_foundation_receive21').textbox('setText',''); //การปฏฺิบัติ       7
+                                         $('#note_foundation_receive21').textbox('setText',''); //หมายเหตุ      8
+
+                                          $('#dia_insert_foundation').dialog('close');
+                                          $('#dia_select_foundation').dialog('close');   
+                                          
+                             
 
 
                           }
@@ -804,38 +815,27 @@ style="width:400px;height:500px;padding:10px">
                                          
                                        if( data == 1 )
                                        {  
+                                       
+                                       
+                                       /*
                                             $.messager.confirm('บันทึกข้อมูลสำเร็จ (Success Insert)','คุณต้องการบันทึกข้อมูลอีกหรือไม่',function(r)
                                                 {
                                                      if(r)
                                                      {
 
                                                         
-                                                            $('#registration_send21_foundation').textbox('setValue','<?=@$number_add_22?>');
+                                                            //$('#registration_send21_foundation').textbox('setValue','<?=@$number_add_22?>');
                                                             
                                                            
                                                             $('#date1_send21_foundation').datebox('setText','');
-                                                          //   $('#to_send21').textbox('setText',''); //เลขที่เอกสาร
+                                                         
                                                           
                                                             $('#from_send21_foundation').textbox('setText',''); //จาก       4
                                                             $('#to_send21_foundation').textbox('setText',''); //ถึง        5
                                                             $('#subject_send21_foundation').textbox('setText',''); //เรื่อง       6
                                                             $('#practice_send21_foundation').textbox('setText',''); //การปฏฺิบัติ       7
                                                             $('#note_send21_foundation').textbox('setText',''); //หมายเหตุ      8
-                                                            
-                                                            
-                                                          //  location.reload();
-                                                           //  $('#dia_insert_excellence').dialog('open');
-                                                          //  $('#dia_select_excellence').dialog('open');
-                                                          
-                                                          
-                                                      //    $('#dia_insert_send_foundation').dialog('close');
-                                                      //    $('#dlg_content_foundation').dialog('close');
-                                                          
-                                                          
-                                                    //       
-                                                    //        $('#dlg_content_foundation').dialog('close');
-                                                              //dlg_content_foundation
-                                                              
+
                                                                  $('#dia_select_foundation').dialog('close'); 
                                                                  $('#dia_insert_send_foundation').dialog('close');
                                                                  
@@ -844,6 +844,25 @@ style="width:400px;height:500px;padding:10px">
                                                      }
                                                      
                                                 });
+                                                */
+                                                
+                                                
+                                                
+                                                            $('#date1_send21_foundation').datebox('setText','');
+                                                         
+                                                          
+                                                            $('#from_send21_foundation').textbox('setText',''); //จาก       4
+                                                            $('#to_send21_foundation').textbox('setText',''); //ถึง        5
+                                                            $('#subject_send21_foundation').textbox('setText',''); //เรื่อง       6
+                                                            $('#practice_send21_foundation').textbox('setText',''); //การปฏฺิบัติ       7
+                                                            $('#note_send21_foundation').textbox('setText',''); //หมายเหตุ      8
+
+                                                                 $('#dia_select_foundation').dialog('close'); 
+                                                                 $('#dia_insert_send_foundation').dialog('close');
+                                                                 
+                                                                 
+                                                                 
+                                                
                                            }
                                            else{
                                                  $.messager.alert({
