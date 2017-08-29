@@ -84,18 +84,18 @@ style="width:400px;height:500px;padding:10px">
 
                      //alert(type_document);
                      
-                  if(   type_document  > 0  &&  to != ''  )    	//type_document  1 เอกสารรับ   2 เอกสารส่ง
+                  if(   type_document  > 0    )    	//type_document  1 เอกสารรับ   2 เอกสารส่ง
                           {
                               if(   type_document == 1 )
                               {
-                                  $('#dia_datagrid_excellence').dialog({ title:'เอกสารรับ'  });
+                                  $('#dia_datagrid_excellence').dialog({ title:'เอกสารรับ  Excellence '  });
                               }
                               else if(    type_document == 2  )
                               {
-                                  $('#dia_datagrid_excellence').dialog({ title:'เอกสารส่ง'  });
+                                  $('#dia_datagrid_excellence').dialog({ title:'เอกสารส่ง  Excellence '  });
                                }
 
-                               $('#dia_datagrid_excellence').dialog('open');
+                              // $('#dia_datagrid_excellence').dialog('open');
                               // $('#dia_datagrid_excellence').dialog({ title:'test' });
 
 
@@ -106,9 +106,15 @@ style="width:400px;height:500px;padding:10px">
                                  dataType:'json'}).done(function(data)
                                           {
 
-                                              //   $('#dia_datagrid_excellence').dialog('open');
+                                              
+                                                 $('#dia_datagrid_excellence').dialog('open');
 
                                                  $('#datagrid_excellence').datagrid('loadData',data);
+                                                
+                                                
+                                                
+                                                   //alert(data);
+                                                 
                                            });
 
 

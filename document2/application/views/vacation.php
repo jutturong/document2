@@ -3,7 +3,8 @@
 
 <!-- dia หน้าหลัก ลาพักผ่อนประจำปี -->
 <div  id="dia_vacation"  title=" ลาพักผ่อนประจำปี "  class="easyui-dialog"  
-      data-options=" closed:true 
+      data-options=" 
+      closed:true
       ,iconCls:'icon-print' 
       ,modal:'true' 
       ,buttons:[
@@ -195,7 +196,49 @@
                          var  id_vacation_update=$('#id_vacation_update').textbox('getValue');
                          if( id_vacation_update > 0 )
                          {
-                             alert(id_vacation_update);
+                                // alert(id_vacation_update);
+                               //  id_vacation_update
+                               //  fr_vacation
+                               $.ajax({
+                                 url:'<?=base_url()?>index.php/welcome/update_table_vacation/',
+                               //  dataType:'text',
+                                 dataType:'json',
+                                 method:'post',
+                                 data:$('#fr_vacation').serialize(),
+                                 
+                               }).done(function(data)
+                                    {
+                                            
+                                               //success
+                                               var  ck=data.success;
+                                               //alert(data.success);
+                                               if( ck )
+                                               {
+
+                                                       $.messager.alert(
+                                                       {
+                                                          title:'สถานะการ update ข้อมูล',
+                                                          msg:'สถานะการ update ข้อมูลสำเร็จ',
+                                                          fn:function(){
+                                                          
+                                                          
+                                                               $('#dia_fr_vacation').dialog('close');
+                                                               $('#dia_main_vacation').dialog('open');
+                                                               $('#dia_correct_vacation').dialog('close');
+                                                               
+                                                               
+                                                               
+                                                               
+                                                          }//end
+                                                       });
+                                                    
+                                               }
+                                               else{
+                                                    $.messager.alert(' สถานะการ  update  ข้อมูล',' การ update  ข้อมูลผิดพลาด ','error');
+                                               }
+                                               
+                                    });
+                                 
                          }
                         
                    },
@@ -251,7 +294,8 @@
                      handler:function()
                      {
                           
-                                    //prename   //combobox
+                                  // $('#fr_vacation').form('clear');
+                                   //prename   //combobox
                                    $('#house_number').textbox('setText','');
                                      
                                      
@@ -1062,9 +1106,9 @@ labelPosition="left"  labelWidth="310px"
             <tr>
                 <td colspan="3">
                     
-                      <input class="easyui-textbox"  id="name_inspector"  data-options="label:'ผู้ตรวจสอบ ชื่อ-นามสกุล ' , labelPosition:'top',   "  name="name_inspector" style="width:150px;height: 60px;"    value="นงลักษณ์" readonly="true"  >
-                      <input class="easyui-textbox"  id="lastname_inspector"   name="lastname_inspector"    style="width:150px;height: 40px;"   value="พรมขอนยาง" readonly="true"  >
-                      <input class="easyui-textbox"   id="position_inspector"  name="position_inspector"   style="width:200px;height: 40px;"   value="เจ้าหน้าที่ผู้ช่วยวิัจัยและธุรการ" readonly="true"  >
+                      <input class="easyui-textbox"  id="name_inspector"  data-options="label:'ผู้ตรวจสอบ ชื่อ-นามสกุล ' , labelPosition:'top', value:'นงลักษณ์'   "  name="name_inspector" style="width:150px;height: 60px;"     >
+                      <input class="easyui-textbox"  id="lastname_inspector"   name="lastname_inspector"    style="width:150px;height: 40px;"   data-options="  value:'พรมขอนยาง',   "     >
+                      <input class="easyui-textbox"   id="position_inspector"  name="position_inspector"   style="width:200px;height: 40px;"  data-options="value:'เจ้าหน้าที่ผู้ช่วยวิัจัยและธุรการ'  "    >
                       <input class="easyui-datebox"     id="date_inspector"   name="date_inspector"  style="width: 150px;height: 40px;" />
                       
                       
@@ -1275,6 +1319,31 @@ labelPosition="left"  labelWidth="310px"
                                                             $('#house_number').textbox('setValue',k.house_number);
                                                             
                                                             $('#road').textbox('setValue',k.road);
+                                                            
+                                                              $('#district').textbox('setValue',k.district);
+                                                            
+                                                            $('#city').textbox('setValue',k.city);
+                                                            
+                                                            $('#province').textbox('setValue',k.province);
+                                                            
+                                                            $('#tel_address').textbox('setValue',k.tel_address);
+                                                            
+                                                            $('#leave').numberbox('setValue',k.leave);
+                                                            
+                                                            $('#leave_thistime').numberbox('setValue',k.leave_thistime);
+                                                            
+                                                            $('#date_total_leave').numberbox('setValue',k.date_total_leave);
+                                                            
+                                                            $('#presign').combobox('setValue',k.presign);
+                                                            
+                                                            $('#sign').textbox('setValue',k.sign);
+                                                            
+                                                            $('#presign').combobox('setValue',k.presign);
+                                                            
+                                                            $('#name_sign').textbox('setValue',k.name_sign);
+                                                            
+                                                            $('#lastname_sign').textbox('setValue',k.lastname_sign);
+                                                            
                                                             
                                                             
                                                             

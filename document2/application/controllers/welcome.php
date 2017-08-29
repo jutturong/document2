@@ -12,8 +12,8 @@ class Welcome extends CI_Controller {
         
         
         
-       var   $tb_vacation="tb_vacation";
-    //  var   $tb_vacation="tb_vacation_test";
+     //  var   $tb_vacation="tb_vacation";
+      var   $tb_vacation="tb_vacation_test";
     
            
            
@@ -481,7 +481,7 @@ public function search_excellence()
 				 // $tb="tb_main1_test";
            $tb=$this->tb;
 
-           $type_document=trim($this->input->get_post("type_document"));
+            $type_document=trim($this->input->get_post("type_document"));
           //echo br();
             $date=trim($this->input->get_post("date"));  //การรับค่า => 07/28/2017
           //echo br();
@@ -496,7 +496,9 @@ public function search_excellence()
           $to=trim($this->input->get_post("to"));
           //echo br();
 
-           if( $type_document  > 0  &&   strlen($date) >  0     )
+          
+           
+           if( $type_document  > 0  &&  $date !=   ""   &&   $to == ""    )
          	{
 		$this->db->order_by("id_main1","DESC");
                                     // $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"date"=>$conv_date));
@@ -514,11 +516,11 @@ public function search_excellence()
                                       }
             }
 
-        else  if( $type_document  > 0  &&   strlen($date) >  0    &&   strlen($to)  > 0  )
+        else  if( $type_document  > 0  &&     $to != ""   &&  $date == ""  )
          	{
 		$this->db->order_by("id_main1","DESC");
                                     // $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"date"=>$conv_date));
-                                      $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"to"=>$to,"date"=>$conv_date));
+                                     $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"to"=>$to ));
 
 
                                         $check = $query->num_rows();
@@ -531,14 +533,12 @@ public function search_excellence()
                                            echo  json_encode($rows);
                                       }
             }
-           elseif(  $type_document  > 0   &&   strlen($to)  >  0   &&   strlen($date) == 0      )
-           {
-               $this->db->order_by("id_main1","DESC");
-                                    // $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"date"=>$conv_date));
-                                      $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"to"=>$to));
-
-
-                                        $check = $query->num_rows();
+            
+            else if(  $type_document  > 0  &&  $date   !=   ""   &&   $to   !=   ""      )
+            {
+                 $this->db->order_by("id_main1","DESC");
+                 $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"to"=>$to , "date"=>$conv_date  ));
+                   $check = $query->num_rows();
                                       if( $check  > 0  )
                                       {
                                            foreach($query->result() as $row)
@@ -547,33 +547,19 @@ public function search_excellence()
                                         }
                                            echo  json_encode($rows);
                                       }
-           }
-            elseif(  $type_document  > 0   &&   strlen($to)  ==  0   &&   strlen($date) > 0      )
+                
+            }
+            
+           else  if(  $type_document  > 0    &&   $date  == ""    &&   $to  ==   ""     )
            {
                $this->db->order_by("id_main1","DESC");
-                                     $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"date"=>$conv_date));
-                                    //  $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"to"=>$to));
-
-
-                                        $check = $query->num_rows();
-                                      if( $check  > 0  )
-                                      {
-                                           foreach($query->result() as $row)
-                                        {
-                                             $rows[]=$row;
-                                        }
-                                           echo  json_encode($rows);
-                                      }
-           }
-
-           elseif( $type_document  > 0  &&   $date ==  ""   &&  $to ==  ""     )
-           {
-               $this->db->order_by("id_main1","DESC");
-                                     $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"date"=>$conv_date),20);
+                                     $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document  ),20);
                                    //   $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document));
 
 
                                         $check = $query->num_rows();
+                                        
+                                        
                                       if( $check  > 0  )
                                       {
                                            foreach($query->result() as $row)
@@ -585,6 +571,7 @@ public function search_excellence()
 
                                          //$this->load->view("export",$data);
            }
+          
 
 
 
@@ -2889,6 +2876,456 @@ $data=array(
                   }
            
        }
+       
+       public function  update_table_vacation()  //update  table
+       {
+             $this->user_model->login();  //for checklogin
+             
+             
+             $id_vacation_update=trim($this->input->get_post("id_vacation_update"));
+          
+             
+              
+               $type_person5=trim($this->input->get_post("type_person5"));
+         //echo br();
+          
+             $write=trim($this->input->get_post("write"));  //เขียนที่    1
+             //echo br();
+             
+             
+              $date_write=trim($this->input->get_post("date_write"));  //วันเดือนปี ที่เขียน   2
+           // echo br();
+            
+            if(  $date_write != "" ) //08/22/2017
+            {
+                $ex=explode("/",$date_write);
+                 $date_write_conv=$ex[2]."-".$ex[0]."-".$ex[1];
+                //echo br();
+                
+            }
+            
+            
+            
+            
+            $subject=trim($this->input->get_post("subject"));  //เรื่อง   3
+           // echo br();
+            
+            $study=trim($this->input->get_post("study"));  //เรียน   4
+            // echo br();
+             
+            $prename=trim($this->input->get_post("prename")); //คำนำหน้าชื่อ   5
+             // echo br(); 
+             
+              
+            $first_name=trim($this->input->get_post("first_name"));  //ชื่อ    6
+            // echo br();
+             
+            $last_name=trim($this->input->get_post("last_name")); //นามสกุล   7
+            //  echo br();
+              
+            $position=trim($this->input->get_post("position"));  //ตำแหน่ง   8
+             //  echo br(); 
+              
+             $affiliation=trim($this->input->get_post("affiliation")); //สังกัด   9
+           //    echo br();
+               
+             $work=trim($this->input->get_post("work")); //งาน   10
+             //   echo br();
+                
+          $tel=trim($this->input->get_post("tel")); //โทร    11
+              //  echo br();
+                
+                $cumulative=trim($this->input->get_post("cumulative")); //วันลาสะสม   12
+             //   echo br();
+                
+               $rest=trim($this->input->get_post('rest')); //วันลาที่เหลืออยู่      13
+             //   echo  br();
+              
+           $total=trim($this->input->get_post('total'));  //รวมวันลาเป็น      14
+              //  echo  br();
+                
+             $current=trim($this->input->get_post("current"));  //ในปีนี้ลามาแล้ว     15
+              //  echo  br();
+                
+             $keep=trim($this->input->get_post("keep"));  //คงเหลือวันลาอีก      16
+               //  echo  br();
+             
+          
+                 
+               $wishes=trim($this->input->get_post("wishes"));  //มีความประสงค์จะขอลาพักผ่อนมีกำหนด    17
+                 //echo  br();
+                
+                $date_begin=trim($this->input->get_post("date_begin"));  //ขอลาพักผ่อนตั้งแต่วันที่        18
+               //  echo  br();
+                  if(  $date_begin != "" ) //08/22/2017
+                    {
+                        $ex=explode("/",$date_begin);
+                         $date_begin_conv=$ex[2]."-".$ex[0]."-".$ex[1];
+                        //echo br();
+
+                    }
+                 
+                
+                 $end_date=trim($this->input->get_post("end_date"));  //ขอลาพักผ่อน ถึงวันที่        19
+               // echo  br();
+                if(  $end_date != "" ) //08/22/2017
+                    {
+                        $ex=explode("/",$end_date);
+                         $end_date_conv=$ex[2]."-".$ex[0]."-".$ex[1];
+                        //echo br();
+
+                    }
+                
+                
+                   $house_number=trim($this->input->get_post("house_number"));  //บ้านเลขที่        20
+                //echo  br();
+                 
+                   $road=trim($this->input->get_post("road"));  //ถนน        21
+                 //echo  br();
+                 
+                    $district=trim($this->input->get_post("district")); //ตำบล        22
+                 //echo  br();
+                
+                   $city=trim($this->input->get_post("city"));  //อำเภอ         23
+                 //echo  br();
+                 
+                  $province=trim($this->input->get_post("province"));  //จังหวัด        24
+                 //echo  br();
+                 
+                 $tel_address=trim($this->input->get_post("tel_address")); //โทรศํพท์  เบอร์โทรศํพท์หลังจากจังหวัด      25
+                //echo  br();
+                 
+                 $leave=trim($this->input->get_post("leave"));  //ลามาแล้ว       26
+                 //echo  br();
+                 
+                    $leave_thistime=trim($this->input->get_post("leave_thistime"));  //ลาครั้งนี้ วันทำการ      27
+                 // echo  br(); 
+                  
+                    $date_total_leave=trim($this->input->get_post("date_total_leave"));  //รวมเป็น วันทำการ       28
+                 // echo  br(); 
+                  
+                    $sign=trim($this->input->get_post("sign"));  //ลงชื่อขอแสดงความนับถือ       29
+                 // echo  br(); 
+                  
+                     $presign=trim($this->input->get_post("presign"));  //คำนำหน้าชื่อ  ขอแสดงความนับถือ         30
+                  //echo  br();
+                  
+                  $name_sign=trim($this->input->get_post("name_sign"));    //ชื่อ ขอแสดงความนับถือ       31
+                 //echo  br(); 
+                  
+                  $lastname_sign=trim($this->input->get_post("lastname_sign"));  //นามสกุล  ขอแสดงความนับถือ      32
+                 // echo  br();
+                  
+                 $name_inspector=trim($this->input->get_post("name_inspector"));  //ลงชื่อผู้ตรวจสอบ        34
+                 // echo  br();             // echo  br(); 
+                  
+                  $lastname_inspector=trim($this->input->get_post("lastname_inspector"));  //นามสกุลผู้ตรวจสอบ     35
+                 // echo  br();     
+                  
+                  $position_inspector=trim($this->input->get_post("position_inspector")); //ตำแหน่งผู้ตรวจสอบ      38
+                 // echo br(); 
+
+            
+                    $position_commander=trim($this->input->get_post("position_commander"));  //ตำแหน่งของผู้บังคับบัญชา     39
+                   //echo br();
+                       
+                  
+                 $date_inspector=trim($this->input->get_post("date_inspector"));  //วันที่ ผู้ตรวจสอบ     40
+                 // echo br();
+                 if(  $date_inspector  != "" ) //08/22/2017
+                    {
+                        $ex=explode("/",$date_inspector);
+                         $date_inspector_conv=$ex[2]."-".$ex[0]."-".$ex[1];
+                       // echo br();
+
+                    }
+                 
+                    
+                   $allowed=trim($this->input->get_post("allowed"));  //เห็นควรอนุญาตหรือไม่        33
+                  //echo  br();   
+             
+                  
+                          $name_commander=trim($this->input->get_post("name_commander"));  //ชื่อผู้บังคับบั้ญชา ชั้นต้น    36
+                   //echo  br();   
+                   
+                     $lastname_commander=trim($this->input->get_post("lastname_commander"));  //นามสกุลผู้บังคับบัญชา  ชั้นต้น    37
+                   //echo br(); 
+                  
+                    $position_commander=trim($this->input->get_post("position_commander"));  //ตำแหน่งของผู้บังคับบัญชา    ชั้นต้น    39
+                   //echo br(); 
+                   
+                $allow_manager=trim($this->input->get_post("allow_manager"));  //ผู้บริหาร อนุญาตหรือไม่      42
+                 // echo br(); 
+                 
+                  
+                    $first_name2=trim($this->input->get_post("first_name2"));  // ชื่อผู้บริหาร   43
+                //  echo br();
+                   
+                    $last_name2=trim($this->input->get_post("last_name2"));  //นามสกุล ผู้บริหาร    44
+                //  echo br();
+                     
+                  
+                  $last_position=trim($this->input->get_post("last_position"));  //ตำแหน่ง ผู้บริหาร      45
+                 // echo br();
+                  
+                  
+                  //----------- ปรับปรุงรายการคำนวณ-----------------
+                  /*
+            มีวันลาสะสม (วัน) =cumulative
+
+มีวันลาพักผ่อนในปีนี้ (วัน)=rest
+
+รวมวันลาเป็น  = total  = cumulative +  rest
+
+ในปีนี้ลามาแล้ว (วัน)= current
+
+คงเหลือวันลาอีก (วัน)=keep
+                   */
+                
+                  
+            
+                 $date_total_leave_cal=$leave + $leave_thistime; //รวมเป็นวันทำการ=ลามาแล้ว+ลาครั้งนี้
+   
+      
+                    $current_cal=$date_total_leave_cal;  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+
+                  
+                  $rest_cal =  $rest - $wishes;
+                  
+
+    
+                  /*
+ปรับสูตรใหม่ใช้สูตรของยุ้ย
+                  1+2=3
+                  3-4=5
+               และที่สำคัญต้องแก้ไข  ในปีนี้ลามาแล้ว (วัน)=    $('#current').textbox('setValue', k.date_total_leave );  (รวมเป็นวันทำการ)
+                      
+                   */
+                  
+               
+                          
+                          
+                  /*
+ มีวันลาสะสม (วัน) =cumulative    ให้fix เป็น 0 ยกเว้นเมย์ เป็น 1
+
+มีวันลาพักผ่อนในปีนี้ (วัน)=rest   ให้ทุกคนเป็น 10 ยกเว้นเบส 5
+
+รวมวันลาเป็น  = total  = cumulative +  rest
+
+ในปีนี้ลามาแล้ว (วัน)= current
+
+คงเหลือวันลาอีก (วัน)=keep
+
+
+   มีความประสงค์จะขอลาพักผ่อน = wishes
+
+รวมเป็น(วันทำการ)=date_total_leave
+
+
+ลามาแล้ว (วันทำการ)=leave
+
+ลาครั้งนี้(วันทำการ)=leave_thistime
+
+รวมเป็นวันทำการ=date_total_leave
+                    
+                   ปรับคงเหลือวันลา
+                   คงเหลือวันลาอีก (วัน)= id="keep"
+รวมวันลาเป็น (วัน)  name="total"    id="total"  -  
+ในปีนี้ลามาแล้ว (วัน)   name="current"    id="current"
+
+     keep=total-current
+     $('#keep').numberbox('setValue', keep_cal ); 
+                    
+                   
+                   */
+                  
+                  
+                  
+   
+     //----------- ปรับปรุงรายการคำนวณ-----------------
+              
+                   date_default_timezone_set("Asia/Bangkok");    
+                  // $date_rec=date("Y-m-d H:s:00");  //วันที่ทำการบันทึก เผื่อต้องการ query
+                   $date_rec=date("Y-m-d");  //วันที่ทำการบันทึก เผื่อต้องการ query
+                  
+               if(   $date_inspector  != ""     )
+               {
+                $data=array(
+                                             "write"=>$write,   //1
+                                             "date_write"=>$date_write_conv,   //2
+                                             "subject"=>$subject,    //3
+                                             "study"=>$study,   //4
+                                             "prename"=>$prename,   //5
+                                             "first_name"=>$first_name,    //6
+                                             "last_name"  =>$last_name,    //7
+                                              "position"=> $position,     //8
+                                              "affiliation"=> $affiliation,     //9
+                                               "work"=>$work,    //10
+                                               "tel"=>$tel,    //11
+                                            //   "cumulative"=>$cumulative,
+                    
+                                              "rest"=>$rest,    
+                                       //      "rest"=>$rest_cal,
+                    
+                    
+                                              "total"=> $total,  
+                                              //  "total"=> $total_cal,
+                    
+                    
+                                             "current"=>$current,
+                                         //   "current"=>$current_cal,  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+                    
+                                                "keep"=>$keep,
+                                          //  "keep"=>  $keep_cal,   //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้  keep =   $keep_cal= $total - $leave_thistime;  
+                    
+                                             "wishes"=>$wishes,
+                    
+                                             "date_begin"=>$date_begin_conv,
+                                             "end_date"=>$end_date_conv,
+                    
+                                             "house_number"=>$house_number,
+                                             "road"=>$road,
+                                             "district"=>$district,
+                                             "city"=>$city,
+                                             "province"=>$province,
+                                              "tel_address"=>$tel_address,
+                                               "leave"=>$leave,    //12
+                                            //  "leave"=>$date_total_leave,    //ปรับปรุงรวมวันลาใหม่ โดยการรวมวันลาที่เหลืออยู่
+                    
+                    
+                                              "leave_thistime"=>$leave_thistime,     //13
+                    
+                                           //   "date_total_leave"=>$date_total_leave,     //14
+                                                "date_total_leave"=>$date_total_leave_cal,  //ปรับปรุง
+                    
+                    
+                                              "sign"=> $sign,     //15
+                                              "presign"=>$presign,    //16
+                                             "name_sign"=>$name_sign,     //17
+                                             "lastname_sign"=>$lastname_sign,     //18
+                                             "allowed"=>$allowed,      //19
+                                             "name_inspector"=>$name_inspector,     //20
+                                             "lastname_inspector"=>$lastname_inspector,      //21
+                                             "name_commander"=>$name_commander,        //22
+                                            "lastname_commander"=>$lastname_commander,      //23
+                                            "position_inspector"=>$position_inspector,       //24
+                                            "position_commander"=>$position_commander,       //25
+                    
+                    
+                                             "date_inspector"=>$date_inspector_conv,       //26    //error
+                                            
+                                             
+                                             
+                                        //    "date_commander"=>$date_commander_conv,        //27
+                                            "allow_manager"=>$allow_manager,        //28
+                                           "first_name2"=>$first_name2,       //29
+                                           "last_name2"=>$last_name2,       //30
+                                          "last_position"=>$last_position,      //31
+                                       //   "last_date"=>$last_date,       //32
+                                    //     "type_person"=>$type_person,
+                                   //     "id_staff"=>$id_staff,
+                    
+                                             "date_rec"=>$date_rec,
+                                 );
+               }
+                else
+                    {
+                    $data=array(
+                                             "write"=>$write,   //1
+                                             "date_write"=>$date_write_conv,   //2
+                                             "subject"=>$subject,    //3
+                                             "study"=>$study,   //4
+                                             "prename"=>$prename,   //5
+                                             "first_name"=>$first_name,    //6
+                                             "last_name"  =>$last_name,    //7
+                                              "position"=> $position,     //8
+                                              "affiliation"=> $affiliation,     //9
+                                               "work"=>$work,    //10
+                                               "tel"=>$tel,    //11
+                                         //      "cumulative"=>$cumulative,
+                        
+                                              "rest"=>$rest,    
+                                         //      "rest"=>$rest_cal,
+                        
+                        
+                                              "total"=> $total,   
+                                          //   "total"=> $total_cal,
+                        
+                                             "current"=>$current,
+                                           //   "current"=>$current_cal,  //ในปีนี้ลามาแล้ว       ปรับปรุงเพิ่ม
+                        
+                        
+                                            "keep"=>$keep,
+                                            //   "keep"=>  $keep_cal,    //วันลาคงเหลือ keep =  วันลารวม - ลาครั้งนี้  keep =   $keep_cal= $total - $leave_thistime;  
+                        
+                        
+                                             "wishes"=>$wishes,
+                                             "date_begin"=>$date_begin_conv,
+                                             "end_date"=>$end_date_conv,
+                                             "house_number"=>$house_number,
+                                             "road"=>$road,
+                                             "district"=>$district,
+                                             "city"=>$city,
+                                             "province"=>$province,
+                                              "tel_address"=>$tel_address,
+                                              "leave"=>$leave,    //12
+                                            //  "leave"=>$date_total_leave,    //ปรับปรุงรวมวันลาใหม่ โดยการรวมวันลาที่เหลืออยู่
+                                              "leave_thistime"=>$leave_thistime,     //13
+                    
+                                           //   "date_total_leave"=>$date_total_leave,     //14
+                                               "date_total_leave"=>$date_total_leave_cal,  //ปรับปรุง
+                    
+                                              "sign"=> $sign,     //15
+                                              "presign"=>$presign,    //16
+                                             "name_sign"=>$name_sign,     //17
+                                             "lastname_sign"=>$lastname_sign,     //18
+                                             "allowed"=>$allowed,      //19
+                                             "name_inspector"=>$name_inspector,     //20
+                                             "lastname_inspector"=>$lastname_inspector,      //21
+                                             "name_commander"=>$name_commander,        //22
+                                            "lastname_commander"=>$lastname_commander,      //23
+                                            "position_inspector"=>$position_inspector,       //24
+                                            "position_commander"=>$position_commander,       //25
+                    
+                                           //  "date_inspector"=>$date_inspector_conv,       //26    //error
+                                            
+                                             
+                                             
+                                        //    "date_commander"=>$date_commander_conv,        //27
+                                            "allow_manager"=>$allow_manager,        //28
+                                           "first_name2"=>$first_name2,       //29
+                                           "last_name2"=>$last_name2,       //30
+                                          "last_position"=>$last_position,      //31
+                                       //   "last_date"=>$last_date,       //32
+                                    //     "type_person"=>$type_person,
+                                   //     "id_staff"=>$id_staff,
+                                                "date_rec"=>$date_rec,
+                                 );
+                    
+                    }
+                
+                
+                
+                               //   print_r($data);
+                                  //echo br();
+               
+                    
+                    // $id_vacation_update
+                                $tb=$this->tb_vacation;
+                                $this->db->where("id_vacation",$id_vacation_update);
+                               $ck= $this->db->update($tb,$data);
+                               if( $ck )
+                               {
+                                  echo   json_encode(array("success"=>1));
+                               }else
+                               {
+                                  echo   json_encode(array("success"=>0));
+                               }
+             
+           
+       }
+       
+       
       //http://10.87.196.170/document2/index.php/welcome/insert_vacation        
       public   function   insert_vacation()
       {

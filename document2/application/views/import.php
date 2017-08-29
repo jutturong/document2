@@ -12,7 +12,10 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="<?=base_url()?>easyui/themes/default/easyui.css">
 
+
 <link rel="stylesheet" type="text/css" href="<?=base_url()?>easyui/themes/mobile.css">
+
+
 
 <link rel="stylesheet" type="text/css" href="<?=base_url()?>easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="<?=base_url()?>easyui/demo/demo.css">
