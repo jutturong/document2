@@ -197,8 +197,8 @@ $(function(){
         <div class="input-field col s6">
             
           <i class="material-icons prefix">account_circle</i>
-          <input id="registration_receive11" name="registration_receive11"  type="text"  placeholder="1.เลขทะเบียนรับ"  value="<?=@$number_add?>" />
-          <!--<label for="registration_receive11">1.เลขทะเบียนรับ</label>-->
+          <input id="registration_receive11" name="registration_receive11"  type="text"  placeholder="1.เลขทะเบียนรับ"  value="<?=$number_add?>" />
+          <label for="registration_receive11">1.เลขทะเบียนรับ</label>
           
           
         </div>
@@ -208,7 +208,7 @@ $(function(){
         <!--  <i class="material-icons prefix">phone</i> -->
             <i class="material-icons prefix">account_circle</i>
             
-            <input id="at_receive11" name="at_receive11"  type="text"  placeholder="2.ที่"   />
+            <input id="at_receive11" name="at_receive11"  type="text"  placeholder="2.ที่"  value="ศธ 0514.1.61.3/ว 3136" />
           
           <label for="at_receive11">2.ที่</label>
           
@@ -235,7 +235,7 @@ $(function(){
           <i class="material-icons prefix">toll</i>
           
           
-          <input  id="from_receive11"  name="from_receive11"   type="text" class="validate"  />
+          <input  id="from_receive11"  name="from_receive11"   type="text" class="validate"  value="รองอธิการบดีฝ่ายวิจัยและการถ่ายทอดเทคโนโลยี"   />
           
           <label for="from_receive11">4.จาก</label>
         </div>
@@ -245,7 +245,7 @@ $(function(){
           <i class="material-icons prefix">toll</i>
           
           
-          <input  id="to_receive11"  name="to_receive11"  type="text" class="validate"  />
+          <input  id="to_receive11"  name="to_receive11"  type="text" class="validate"  value="ผู้อำนวยการมูลนิธิตะวันฉายฯ" />
           
           <label for="icon_telephone">5.ถึง</label>
         </div>
@@ -255,7 +255,7 @@ $(function(){
           <i class="material-icons prefix">settings</i>
           
           
-          <input  id="subject_receive11"  name="subject_receive11"  type="text" class="validate"   />
+          <input  id="subject_receive11"  name="subject_receive11"  type="text" class="validate"  value="แจ้งผลการอนุมัติงบประมาณ ปีงบประมาณ 2560 และขอเชิญประชุม" />
           
           <label for="subject_receive11">6.เรื่อง</label>
         </div>
@@ -300,10 +300,6 @@ $(function(){
     </div>
           
           
-    
-          
-          
-          
           
           <input type="hidden"  id="type_record11"  name="type_record11"  value="1"  /> 
           
@@ -312,25 +308,6 @@ $(function(){
           <!--<div class="input-field col s6"> -->
           <!--  <div style="border-top: 300px;border-top-width:5px; border-right-width:5px; border-bottom-width:5px; border-left-width:5px;">-->
           <!-- <div style="padding:10px  0  10px  0"> </div>  -->
-          
-          
-          
-          <div class="input-field col s6">
-            
-          <i class="material-icons prefix">open_in_browser</i>
-         <!-- <input id="icon_telephone" type="tel" class="validate"> -->
-          
-          
-          <input type="date"  id="date1_receive11_time"  name="date1_receive11_time"  class="datepicker" />
-        
-          
-                   
-          <label for="date1_receive11_time">วันที่ทำการบันทึก</label>
-                   
-          
-        </div>
-          
-          
 
           <div class="button-collapse col s6">
                 

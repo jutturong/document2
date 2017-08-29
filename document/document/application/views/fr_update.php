@@ -10,24 +10,7 @@
            <meta charset="UTF-8">
            <title><?=$title?></title>
            
-           <script type="text/javascript">
-               
-           $(function()
-           {
-    
-    
-    $('.datepicker').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15, // Creates a dropdown of 15 years to control year
-    monday:'Mon',
-  // format:'dd-mm-yyyy',
-    format:'yyyy-mm-dd',
-  });
-    
-    
-             });
-
-         </script>
+           
            
     </head>
     
@@ -54,7 +37,6 @@
           
           
         </div>
-         
           
         <div class="input-field col s12">
             
@@ -155,9 +137,6 @@
           
           
             <input type="hidden"  id="type_record"  name="type_record"  value=""  /> 
-            
-            
-                <input type="hidden"  id="page"  name="page"  value="1"  /> 
           
           
           <!--<div class="input-field col s6"> -->

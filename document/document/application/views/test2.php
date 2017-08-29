@@ -7,49 +7,13 @@
       
            <meta charset="UTF-8">
            <title><?=$title?></title>
- 
+      
    
-           <?php
-                $cur_year = date("Y");  //วัน เดือน ปี  ในปัจจุบัน
-           ?>
-           
-           
-           
- <script type="text/javascript">
-      $(function()
-      {
-          
-            /*
-            $( "#birds" ).on("keydown",function(event)
-            { 
-                
-                    
-                    if ( event.keyCode === $.ui.keyCode.TAB &&
-                   $( this ).autocomplete( "instance" ).menu.active ) {
-                    event.preventDefault();
-                    
-                    
-             });
-            */
-    
-    
-        function log( message ) 
-        {
-                $( "<div>" ).text( message ).prependTo( "#log" );
-                $( "#log" ).scrollTop( 0 );
-        }
-    
-    
-    
-
-            
-            
-             
-            
-      });
- </script>    
-           
         
+          
+            
+            
+            
            
  <!--  ลบข้อมูลในตาราง -->
  <script type="text/javascript">
@@ -79,111 +43,15 @@
                     });
           });
     }
-    
-   
-       //  ค้นหา  Modal  มูลนิธิตะวันฉายฯ 
-      $(document).ready(function(){
-             $('#modal_sr').modal();
-             
-             
-                           
- 
-             ////http://10.87.196.170/document/index.php/welcome/auto 
-                 var     url="<?=base_url()?>index.php/welcome/auto";
-                 
-               
-                 
-             
-             
-             
-             
-             $('#autocomplete11').autocomplete(
-             {
-                  
-                        data: {
-                                "Apple": null,
-                                "Microsoft": null,
-                                "Google": 'http://placehold.it/250x250'
-                                 }
-  
-              });
-         
-            
-            
-      
-      
-          
-              
-              
-    
-            
-            
-            
-                     /*
-                      $('#autocomplete11').keyup(function()
-                      {
-                              //alert('t');
-                              $.ajax({
-                                  type:"POST",
-                                  url:"<?=base_url()?>index.php/welcome/auto",
-                                  dataType:"json",
-                                  success:function(data)
-                                     {
-                                           $.each(data,function(k,v){
-                                                   //alert(v.at);
-                                                    $('#tags').append(v.at+'<br/>');
-                                                 // response(v.at);
-                                               
-                                                   
-                                           });
-                                     }
-                                  
-                              });
-                      });
-                     */
-                              
-                     
-                        
-              
-              
-              
-    
-       });
-      
-      
-      
-
-   /*
-$(document).ready(function(){
-	$("#search-box").keyup(function(){
-		$.ajax({
-		type: "POST",
-		url: "<?=base_url()?>index.php/welcome/auto",
-		data:'keyword='+$(this).val(),
-		beforeSend: function(){
-			$("#search-box").css("background","#FFF url(LoaderIcon.gif) no-repeat 165px");
-		},
-		success: function(data){
-			$("#suggesstion-box").show();
-			$("#suggesstion-box").html(data);
-			$("#search-box").css("background","#FFF");
-		}
-		});
-	});
-});
-*/
-  
-
-            
-
 </script>
 <!--  ลบข้อมูลในตาราง -->
 
 
+    
+           
            <script type="text/javascript">
               $(function(){
                   var send1='<?php echo $this->uri->segment(3);?>';
-                  var ID='<?php echo $this->uri->segment(4);?>';
                   //alert( send1 );
                   //insert_success
                   if(  send1 == "insert_success"  )
@@ -197,19 +65,18 @@ $(document).ready(function(){
                   }
                   
                   // redirect("welcome/homepage/insert_success_send11");  //หนังสือส่ง
-                 else  if(  send1 == "insert_success_send11" ||   send1 =="insert_success_send21"  ||  send1 =='page1' )
+                 else  if(  send1 == "insert_success_send11" ||   send1 =="insert_success_send21"    )
                   {
                           
                                 var $toastContent = $('<span>บันทึักข้อมูลสำเร็จ</span>');
                                 Materialize.toast($toastContent, 5000,'rounded');
                                 
                                 $('#sub11').load("<?=base_url()?>index.php/welcome/subtable11");
- 
+                                
+
                   }
-                  
-                  
                   //insert_success_receive21  //insert_success_send21
-                      else  if(  send1 == "insert_success_receive21"   ||  send1 ==  "insert_success_send21"  ||  send1 =='page2'   )
+                      else  if(  send1 == "insert_success_receive21"   ||  send1 ==  "insert_success_send21"   )
                   {
                           
                                 var $toastContent = $('<span>บันทึักข้อมูลสำเร็จ</span>');
@@ -220,7 +87,7 @@ $(document).ready(function(){
 
                   } 
                   //insert_success_receive31
-                  else  if(  send1 == "insert_success_receive31"   ||  send1 ==  "insert_success_send31"   ||  send1 =='page3'    )
+                  else  if(  send1 == "insert_success_receive31"   ||  send1 ==  "insert_success_send31"   )
                   {
                           
                                 var $toastContent = $('<span>บันทึักข้อมูลสำเร็จ</span>');
@@ -230,69 +97,10 @@ $(document).ready(function(){
                                 
 
                   } 
-                  else  if(  send1 == "insert_main_academic"  )//หน้าหลักกิจกรรมทางวิชาการ
-                  {
-                               $('#sub11').load("<?=base_url()?>index.php/welcome/table_main_academic");
-                  }
-                  
-                  else if( send1 == "man_calendar"  ) //หน้าปฏิทินหลัก
-                  {
-                        //http://10.87.196.170/document/index.php/welcome/calendar
-                        $('#sub11').load("<?=base_url()?>index.php/welcome/calendar");
-                  }
-                  /*
-                  else if (  send1 == ""  ) {
-                      $('#sub11').load("");
-                  }
-*/
-                  
-                  // $('#sub11').load("<?=base_url()?>index.php/welcome/table_main_academic");
-                  
-                 
-                
-                 //ปรับปรุงการ update  ข้อมูลเป็นราย
-                 //updateid
-                   else  if( send1 == "updateid"    ) //หน้าปฏิทินหลัก
-                  {
-                          //http://10.87.196.170/document/index.php/welcome/calendar
-                          //http://10.87.196.170/document/index.php/welcome/homepage/updateid/906
-                         // alert(ID);
-                         
-                           // $('#sub11').load("<?=base_url()?>index.php/welcome/subtable11");
-                            
-                           $('#sub11').load("<?=base_url()?>index.php/welcome/loadformID/" + ID );
-                  }
-                  
                   
               });    
            </script>
-       
            
-           <script type="text/javascript">
-               
-   function  search_calendar1()  //ค้นหา
-   {
-             // alert('t');
-               
-              
-            //http://localhost/document/index.php/welcome/search_main_calendar
-              // alert(  $('#firstname_academic').val()   );
-               // var   url= '<?=base_url()?>index.php/welcome/search_main_calendar/' +  $('#firstname_academic').val();
-                //alert(url);
-                
-                 // alert(  '<?=base_url()?>index.php/welcome/search_main_calendar/' +  $('#firstname_academic').val()  );
-                
-                
-                 $('#sub11').load("<?=base_url()?>index.php/welcome/search_main_calendar/"  +  $('#firstname_academic_sr').val()    );
-              
-            //   $('#sub11').load(url);
-              
-               //  return false;
-   }
-   
-   
-
-</script>
            
            
       <script type="text/javascript">
@@ -335,7 +143,6 @@ $(document).ready(function(){
            // index.php/welcome/subtable11/
                   
                 $('#sub11').load("<?=base_url()?>index.php/welcome/subtable11");
-              
                 
                 //$('#modal_table11').modal('open');
        }
@@ -346,7 +153,6 @@ $(document).ready(function(){
            // index.php/welcome/subtable11/
                   
                 $('#sub11').load("<?=base_url()?>index.php/welcome/table2");
-               
                 
                 //$('#modal_table11').modal('open');
        }
@@ -356,7 +162,6 @@ $(document).ready(function(){
            // index.php/welcome/subtable11/
                   
                 $('#sub11').load("<?=base_url()?>index.php/welcome/table3");
-               
                 
                 //$('#modal_table11').modal('open');
        }
@@ -524,39 +329,6 @@ $(document).ready(function(){
                   $('#sub11').load("<?=base_url()?>index.php/welcome/add_academic");
                  
            }
-            function update_academic(id)
-           {
-                  //alert('t');
-                  $('#sub11').load("<?=base_url()?>index.php/welcome/update_academic/" + id );
-                 
-           }
-           
-           
-           
-           function   main_academic() //ตารางหลักกิจกรรม
-           {
-                  //$('#sub11').load("<?=base_url()?>index.php/welcome/table_main_academic");
-                 
-                   $('#sub11').load("<?=base_url()?>index.php/welcome/calendar"  );
-           }
-           
-           
-            function   page_main_academic(page)
-           {
-                  $('#sub11').load("<?=base_url()?>index.php/welcome/page_table_main_academic/"  +  page  );
-                  
-
-           }
-           
-           
-           
-           function  page_main1(url) //แบ่งหน้า page
-           {
-                   //alert(url);
-                  $('#sub11').load(url);
-              
-           }
-           
            
            
       </script>
@@ -565,16 +337,10 @@ $(document).ready(function(){
     </head>
 
 
-      <!--  onload="javascript:   $('#modal2').modal('open');  "  -->
-    <body  >
+
+    <body>
 
 
-        
-
-        
-        
-        
-        
 
       
       <!--  search 
@@ -595,24 +361,14 @@ $(document).ready(function(){
       <!-- mobile menu -->
       <div class="fixed-action-btn horizontal">
     <a class="btn-floating btn-large red">
-      <i class="large material-icons">recent_actors</i>
+      <i class="large material-icons">mode_edit</i>
     </a>
     <ul>
-        
-        <!--
-        <li><a href="#"  onclick=" window.location.assign('<?=base_url()?>index.php/welcome/export_data')  "  >test</a></li>
-        -->
-        
-        <li><a class="btn-floating red"  onclick=" javascript: $('#modal2').modal('open');  " ><i class="material-icons">phonelink_lock</i></a>Login</li>
-      <li><a class="btn-floating yellow darken-1"  onclick=" javascript: $('#modal1').modal('open');  "  ><i class="material-icons">print</i></a>View</li>
-      <li><a class="btn-floating green"><i class="material-icons">offline_pin</i></a>Activity</li>
-      
-       
-       
-      <li><a class="btn-floating blue"  onclick="javascript:  window.location.assign('<?=base_url()?>index.php/welcome/logout')  "><i class="material-icons">power_settings_new</i></a>Logout</li>
+        <li><a class="btn-floating red"  onclick="table11()" ><i class="material-icons">insert_chart</i></a></li>
+      <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+      <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+      <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
     </ul>
-          
-          
   </div>
         
       
@@ -629,42 +385,30 @@ $(document).ready(function(){
   <!-- Dropdown Structure -->    
   <ul id="dropdown1" class="dropdown-content">
       
-      <li><a href="#!"     onclick=" receive11() "    ><i class="tiny material-icons left">voicemail</i>หนังสือรับ</a></li>
-      <li><a href="<?=base_url()?>report_pdf/docdb/dbreport.php/?type_record=1&type_document=1"  target="_blank"    ><i class="material-icons left">tab_unselected</i> ออกรายงาน</a></li>
-  
+      <li><a href="#!"     onclick=" receive11() "    ><i class="material-icons left">contacts</i>ทะเบียนหนังสือรับ</a></li>
+   <li><a href="#!"   onclick="report('<?=base_url()?>index.php/welcome/export_excel/1/1')" ><i class="material-icons left">perm_identity</i> ออกรายงาน</a></li>
+    <li><a href="#!"><i class="material-icons left">search</i>ค้นหาหนังสือรับ</a></li>
     
   <li class="divider"></li>
-  <li><a href="#!"   onclick=" send11() "  ><i class="tiny material-icons left">voicemail</i>หนังสือส่ง</a></li>
-   <li>
-       <a href="<?=base_url()?>report_pdf/docdb/dbreport.php/?type_record=1&type_document=1"  target="_blank"   >
-          
-           
-           <i class="material-icons left">tab_unselected</i> ออกรายงาน</a>
-   </li>
-  
-   <!--
-    <li><a href="#modal_circular"><i class="material-icons left">phonelink_lock</i>ถึง(หนังสือเวียน)</a></li>
-   -->
-    
-    <!--
+  <li><a href="#!"   onclick=" send11() "  ><i class="material-icons left">contacts</i>ทะเบียนหนังสือส่ง</a></li>
+   <li><a href="#!"  onclick="report('<?=base_url()?>index.php/welcome/export_excel/1/2')" > <i class="material-icons left">perm_identity</i> ออกรายงาน</a></li>
+    <li><a href="#!"><i class="material-icons left">search</i>ค้นหาหนังสือส่ง</a></li>
    <li class="divider"></li>
    <li class="divider"></li>
-    -->
    
 
 </ul>
   
    <ul id="dropdown2" class="dropdown-content">
       
-       <li><a href="#!" onclick=" receive21()"><i class="tiny material-icons left">voicemail</i>หนังสือรับ</a></li>
-   <li><a href="<?=base_url()?>report_pdf/docdb/dbreport.php/?type_record=3&type_document=1" target="_blank"    ><i class="material-icons left">tab_unselected</i> ออกรายงาน</a></li>
-    
+       <li><a href="#!" onclick=" receive21()"><i class="material-icons left">contacts</i>ทะเบียนหนังสือรับ</a></li>
+   <li><a href="#!"   onclick="report('<?=base_url()?>index.php/welcome/export_excel/3/1')"  ><i class="material-icons left">perm_identity</i> ออกรายงาน</a></li>
+    <li><a href="#!"><i class="material-icons left">search</i>ค้นหาหนังสือรับ</a></li>
     
   <li class="divider"></li>
-  <li><a href="#!" onclick=" send21()  "><i class="tiny material-icons left">voicemail</i>หนังสือส่ง</a></li>
-  <!--onclick="report('<?=base_url()?>index.php/welcome/export_excel/3/2')" -->
-   <li><a href="<?=base_url()?>report_pdf/docdb/dbreport.php/?type_record=3&type_document=1"  target="_blank"     > <i class="tiny material-icons left">tab_unselected</i> ออกรายงาน</a></li>
-   <!-- <li><a href="#modal_circular"><i class="material-icons left">phonelink_lock</i>ถึง(หนังสือเวียน)</a></li> -->
+  <li><a href="#!" onclick=" send21()  "><i class="material-icons left">contacts</i>ทะเบียนหนังสือส่ง</a></li>
+   <li><a href="#!"   onclick="report('<?=base_url()?>index.php/welcome/export_excel/3/2')"    > <i class="material-icons left">perm_identity</i> ออกรายงาน</a></li>
+    <li><a href="#!"><i class="material-icons left">search</i>ค้นหาหนังสือส่ง</a></li>
    <li class="divider"></li>
    <li class="divider"></li>
   
@@ -673,16 +417,14 @@ $(document).ready(function(){
   
      <ul id="dropdown3" class="dropdown-content">
       
-        <li><a href="#!"   onclick=" receive31()" ><i class="tiny material-icons left">voicemail</i>หนังสือรับ</a></li>
-        <!--onclick="report('<?=base_url()?>index.php/welcome/export_excel/2/1')"  -->
-   <li><a href="<?=base_url()?>report_pdf/docdb/dbreport.php/?type_record=2&type_document=1"    target="_blank"    ><i class="tiny material-icons left">tab_unselected</i> ออกรายงาน</a></li>
-  
+        <li><a href="#!"   onclick=" receive31()" ><i class="material-icons left">contacts</i>ทะเบียนหนังสือรับ</a></li>
+   <li><a href="#!"  onclick="report('<?=base_url()?>index.php/welcome/export_excel/2/1')"    ><i class="material-icons left">perm_identity</i> ออกรายงาน</a></li>
+    <li><a href="#!"><i class="material-icons left">search</i>ค้นหาหนังสือรับ</a></li>
     
   <li class="divider"></li>
-  <li><a href="#!" onclick=" send31()  " ><i class="tiny material-icons left">voicemail</i>หนังสือส่ง</a></li>
-  <!-- onclick="report('<?=base_url()?>index.php/welcome/export_excel/2/2')" -->
-   <li><a href="<?=base_url()?>report_pdf/docdb/dbreport.php/?type_record=2&type_document=2" target="_blank"  > <i class="tiny material-icons left">tab_unselected</i> ออกรายงาน</a></li>
-  <!-- <li><a href="#modal_circular"><i class="material-icons left">phonelink_lock</i>ถึง(หนังสือเวียน)</a></li> -->
+  <li><a href="#!" onclick=" send31()  " ><i class="material-icons left">contacts</i>ทะเบียนหนังสือส่ง</a></li>
+   <li><a href="#!"  onclick="report('<?=base_url()?>index.php/welcome/export_excel/2/2')"  > <i class="material-icons left">perm_identity</i> ออกรายงาน</a></li>
+    <li><a href="#!"><i class="material-icons left">search</i>ค้นหาหนังสือส่ง</a></li>
    <li class="divider"></li>
    <li class="divider"></li>
   
@@ -706,36 +448,7 @@ $(document).ready(function(){
         
           <li><a href="#!"   onclick="add_academic()" ><i class="material-icons left">sort_by_alpha</i>เพิ่มกิจกรรม</a></li>
           <li class="divider"></li>
-          
-          <li><a href="#modal_show_academic"   ><i class="material-icons left">zoom_in</i>ค้นหากิจกรรม</a></li>
-          
-          
-           <li><a href="#"   onclick="main_academic()" ><i class="material-icons left">perm_identity</i>แสดงกิจกรรมหลัก</a></li>
-           
-           
-          
-        
-  
-   </ul>
-  
-  
-     <ul id="dropdown5" class="dropdown-content">
-      
-         <li><a href="#"  onclick="  $('#sub11').load('<?=base_url()?>index.php/welcome/form_vacation');  ">    <i class="tiny material-icons left">redeem</i>แบบใบลาพักผ่อนประจำปี </a> </a></li>
-
-         <li><a href="#"  onclick=" $('#sub11').load('<?=base_url()?>index.php/welcome/form_sick');   "   >    <i class="tiny material-icons left">airplay</i>แบบใบลาป่วย/ลาคลอดบุตร/ลากิจส่วนตัว</a> </a></li>
-                
-  
-         <li class="divider"></li>
-         
-         
-         <li><a href="#modal_sum_vacation"     >    <i class="tiny material-icons left">today</i>สรุปการลาพักผ่อน/ลาป่วย ภายในหน่วยงาน</a> </a></li>
-                
-  
-    
-  <!--
-  <li><a href="#" ><i class="tiny material-icons left">airplay</i>แบบใบลาป่วย</a></li>
-   -->
+          <li><a href="#modal_show_academic"   onclick="" ><i class="material-icons left">work</i>แสดงกิจกรรม</a></li>
   
    </ul>
   
@@ -770,7 +483,6 @@ $(document).ready(function(){
     <div class="nav-wrapper">
       <!--  
       <a href="#!" class="brand-logo">Logo</a>
-      <a href="../../report_pdf/docdb/dbreport.php"></a>
       -->
       
       <!--
@@ -779,71 +491,45 @@ $(document).ready(function(){
       <ul class="nav-wrapper">
       
         
-          <!--
              <li><a href="javascript: $('#modal2').modal('open');  "><i class="material-icons left">perm_identity</i>เข้าสู่ระบบ</a></li>
-            --> 
-             
          
+             <li><a href="<?=base_url()?>index.php/welcome/logout/"><i class="material-icons left">settings_power</i>ออกจากระบบ</a></li>
+         
+         
+         
+         
+         <li>
+             <a class="dropdown-button" href="#!"     data-activates="dropdown1"><i class="material-icons left">view_week</i> มูลนิธิตะวันฉาย  ฯ<i class="material-icons right">arrow_drop_down</i></a>
+         </li>
           
          
-              <!--<li><a href="#modal_circular"><i class="material-icons left">phonelink_lock</i>หนังสือเวียน</a></li>-->
          
-               <li><a href="#"  onclick=" javascript: $('#modal2').modal('open');  "><i class="material-icons left">phonelink_lock</i>  </a></li>
-               
-               <li><a href="<?=base_url()?>index.php/welcome/logout/"><i class="material-icons left">settings_power</i></a></li>
-               
-               
-         <li>
-             <a class="dropdown-button" href="#modal_sr"    ><i class="material-icons left">zoom_in</i> Search </a>
-         </li>
-         
-         
-           <li >
-             <a class="dropdown-button" href="#!" data-activates="dropdown2"><i class="material-icons left  red">perm_identity</i> ศูนย์การดูแล ฯ And  Excellence<i class="material-icons right">arrow_drop_down</i></a>
-         </li>
-         
-         
-           <li>
-             <a class="dropdown-button" href="#!" data-activates="dropdown3"><i class="material-icons left green">perm_identity</i>    ศูนย์วิจัย  ฯ    <i class="material-icons right">arrow_drop_down</i></a>
+             <li>
+             <a class="dropdown-button" href="#!" data-activates="dropdown3"><i class="material-icons left">view_week</i>    ศูนย์วิจัย  ฯ    <i class="material-icons right">arrow_drop_down</i></a>
          </li>
          
          
          
          <li>
-             <a class="dropdown-button" href="#!"     data-activates="dropdown1"><i class="material-icons left blue">perm_identity</i> มูลนิธิตะวันฉาย  ฯ<i class="material-icons right">arrow_drop_down</i></a>
+             <a class="dropdown-button" href="#!" data-activates="dropdown2"><i class="material-icons left">view_week</i> ศูนย์การดูแล  ฯ<i class="material-icons right">arrow_drop_down</i></a>
          </li>
-          
-         
-         
-           
-         
-         
-         
-       
          
       
          
           <li>
-             <a class="dropdown-button" href="#modal1" data-activates=""><i class="material-icons left">print</i> แสดงผลการบันทึก</a>
+             <a class="dropdown-button" href="#modal1" data-activates=""><i class="material-icons right">vpn_key</i> แสดงผลการบันทึก</a>
          </li>
          
          
          
            <li>
-             <a class="dropdown-button" href="#" data-activates="dropdown4"><i class="material-icons left">offline_pin</i> ตารางงานผู้บริหาร </a>
+             <a class="dropdown-button" href="#" data-activates="dropdown4"><i class="material-icons right">group_work</i> กิจกรรมทางวิชาการ </a>
          </li>
          
          
-         
-           <li>
-             <a class="dropdown-button" href="#"   data-activates="dropdown5"><i class="material-icons left">supervisor_account</i> ใบลาพักผ่อน/ใบลาป่วย <i class="material-icons right">arrow_drop_down</i></a>
-         </li>
-      
+       
          
          
-        
-            
-            
          <!--
         <li>
             <a href="sass.html"><i class="material-icons left">search</i>Link with Left Icon</a>
@@ -862,8 +548,15 @@ $(document).ready(function(){
         
 
 
-<!-- load content -->
+
   <span id="sub11"></span>
+
+
+
+
+
+  
+  
   <!-- Modal Trigger -->
 
 
@@ -889,26 +582,24 @@ $(document).ready(function(){
       <a href="#" class="brand-logo right">Logo</a>
         -->
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-          
-          
-           <li  >
-            
-            <a href="javascript:void(0)"   onclick="table2()"    ><i class="material-icons left red">perm_identity</i>ศูนย์การดูแลฯ And Excellence</a> 
-        </li>
-        
-            <li>
-            
-              <a href="javascript:void(0)"    onclick="table3()"    ><i class="material-icons left green">perm_identity</i>ศูนย์วิจัยผู้ป่วยปากแหว่งเพดานโหว่ฯ</a> 
-        
-        </li>
-        
-          <li >
+          <li>
               
-              <a href="javascript:void(0)"  onclick="table11()"       ><i class="material-icons left blue">perm_identity</i>มูลนิธิตะวันฉายฯ</a> 
+              <a href="javascript:void(0)"  onclick="table11()"       ><i class="material-icons left">perm_identity</i>มูลนิธิตะวันฉายฯ</a> 
           
           </li>
           
-
+          <li>
+            
+              <a href="javascript:void(0)"    onclick="table3()"    ><i class="material-icons left">perm_identity</i>ศูนย์วิจัยผู้ป่วยปากแหว่งเพดานโหว่ฯ</a> 
+        
+        </li>
+        
+        
+        <li>
+            
+            <a href="javascript:void(0)"   onclick="table2()"    ><i class="material-icons left">perm_identity</i>ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ</a> 
+        </li>
+        
       </ul>
         
         
@@ -931,10 +622,8 @@ $(document).ready(function(){
   <div id="modal2" class="modal">
       
     <div class="modal-content">
-      <h4>
-               <i class="large material-icons">vpn_key</i>
-                  ยินดีต้อนรับเข้าสู่ระบบโปรแกรมธุรการ</h4>
-      <!--<p>โปรแกรมธุรการ</p>--> 
+      <!--<h4>เข้าสู่ระบบ</h4>-->
+      <!-- <p>A bunch of text</p> -->
       
       
       <div class="row">
@@ -960,12 +649,8 @@ $(document).ready(function(){
         
          <div class="row">
               <div class="input-field col s12">
-                  
-                  <?=nbs(70)?>
-                  <button class=" btn waves-effect waves-light" type="button" name="action"  id="btn_login" >
-                    <i class="large material-icons md-30">lock_open</i>
-                    
-                    
+                  <button class="btn waves-effect waves-light" type="button" name="action"  id="btn_login" >
+                    <i class="material-icons md-30">lock_open</i>
            </button>
               </div>
          </div>   
@@ -989,111 +674,14 @@ $(document).ready(function(){
   </div>
   </div>        
   
- 
- 
- <!--  รายการค้นหาหลัก -->
- <script type="text/javascript">
-     
 
-
-                // alert('t');
-                 
-                 /*
-                  $.ajax({
-                      type:'POST',
-                      data: $('#fr_sr_main1').serialize(),
-                      url:'<?=base_url()?>index.php/welcome/search_tb_main1',
-                      dataType:'json',
-                      contentType:'application/json',
-                      success:function(data)
-                        {
-                              alert(data);
-                        }
-                      
-                   });
-         */
-            
-            
-            
-            /*
-            $.getJSON("<?=base_url()?>index.php/welcome/search_tb_main1",  { data: $('#fr_sr_main1').serialize()  }   ,function(data)
-             {
-                 alert(data);
-             },"json");
-               */
-                  
-                  
-                  
-         //$('#fr_sr_main1').submit(function(){  return false; });
-        
-       
-
-  $(function()
-     {
-         
-         
-         /*
-                $('#btn_sr_main1').click(function()
-                {
-                     var  url='<?=base_url()?>index.php/welcome/search_tb_main1';
-                    
-                    
-                    
-                       $('#sub11').load(url, $('#main_from').serialize() , function(data)
-                            {   
-                                     //  Materialize.toast(' แสดงผลการค้นหา ', 4000 , 'rounded') // 4000 is the duration of the toast
-                                     //  $('#modal_show_academic').modal('close');
-                                           alert(data);
-                            } );
-
-
-
-                });
-           */
-              
-              
-              $('#main_from').submit(function(event)
-              { 
-                       //alert('t'); 
-                       
-                       
-                          //  var  url='<?=base_url()?>index.php/welcome/search_tb_main1';
-                               var  url='<?=base_url()?>index.php/welcome/sarch_by_id';
-                               $('#sub11').load(url,  $('#main_from').serialize()   ,function(data)
-                                { 
-                                      // alert(data);  
-                                      Materialize.toast(' แสดงผลการค้นหา ', 4000 , 'rounded') // 4000 is the duration of the toast
-                                      //$('#modal_sr').modal('close');
-                                });
-                                
-                                
-               
-                       return false;
-               });
-       
-     });
-     
-       
-    
-    
-      $(document).ready(function() 
-      {
-                       $('select').material_select();
-      });
-     
-     
- 
- </script>
- 
  
  <!--  แสดงกิจกรรมทางวิชาการ -->
  <script type="text/javascript">
      
     $(document).ready(function() 
     {
-           $('#firstname_academic_sr').material_select(); //ชื่อ-นามสกุล
-           
-           
+           $('#firstname_academic').material_select(); //ชื่อ-นามสกุล
            
            $('#activities').material_select(); //กิจกรรม
            
@@ -1110,123 +698,66 @@ $(document).ready(function(){
            
            
            
-                $('#begin_date_main').pickadate({
-               // selectMonths:true,
-                   selectMonths: true, // Creates a dropdown to control month
-                    selectYears: 15, // Creates a dropdown of 15 years to control year
-                    monday:'Mon',
-                  // format:'dd-mm-yyyy',
-                    format:'yyyy-mm-dd',
-           });
-           
-           
-           $('#end_date_main').pickadate({
-               // selectMonths:true,
-                   selectMonths: true, // Creates a dropdown to control month
-                    selectYears: 15, // Creates a dropdown of 15 years to control year
-                    monday:'Mon',
-                  // format:'dd-mm-yyyy',
-                    format:'yyyy-mm-dd',
-           });
-           
-           
-           
-            $('#end_date').pickadate({
-               // selectMonths:true,
-                   selectMonths: true, // Creates a dropdown to control month
-                    selectYears: 15, // Creates a dropdown of 15 years to control year
-                    monday:'Mon',
-                  // format:'dd-mm-yyyy',
-                    format:'yyyy-mm-dd',
-           });
-           
-           //-----form search--------
-           
-           /*
-           $('#fr_sr_academic').submit(function(event){
-                   alert('t');
-                   
-                   return false;
-           });
-           */
-          
-          
-          
-          $('#btn_academic').click(function(){
-                   var  url="<?=base_url()?>index.php/welcome/search_main_academic";
-                  $('#sub11').load(url, $('#fr_sr_academic').serialize() , function(data)
-                  {   
-                             Materialize.toast(' แสดงผลการค้นหา ', 4000 , 'rounded') // 4000 is the duration of the toast
-                            // $('#modal_show_academic').modal('close');
-                  } );
-          });
-           
-           
-           
-           
-           
     });
     
     
+
+           
+           
            
  </script>
  
- 
- 
- 
-
- 
- 
- 
- 
- 
-
- 
  <!--      class="modal "   -->
  <div id="modal_show_academic"   class="modal "   >
-     <!-- <form id="fr_sr_academic" action="<?=base_url()?>index.php/welcome/search_main_academic"> -->
-         
      <div class="modal-content" >
+         
+             <div class="input-field col s6">
+                                 <select id="firstname_academic" name="firstname_academic" >
+                                          <option value="" disabled selected>Choose your option</option>
+                                          <option value="1">ศ.บวรศิลป์  เชาว์ชื่น</option>
+                                          <option value="2">สุธีรา-ประดับวงษ์</option>
+                                          <option value="">นงลักษณ์  พรมขอนยาง</option>
+                                          <option value="">ภาวิณี  รูปพรม</option>
+                                          
+                                          <option value="">ศุภชัย วงศ์ชื่น</option>
+                                          <option value="">จัตุรงค์ เจริญฤทธิ์</option>
+
+                                 </select>
+                                           <label> ชื่อ-นามสกุล : </label>
+             </div>
+         
          
          
          <div class="input-field col s6">
-             <select id="firstname_academic_sr" name="firstname_academic_sr"  onchange="search_calendar1() " >
-                                          
-                                          <option value="" disabled selected>Choose your option</option>
-                                             <?php   $this->user_model->select_academic();  ?>
-                                               
-                                 </select>
-                                           <label> ชื่อ-นามสกุล : </label>
-          </div>
-
+                            <select id="activities" name="activities" >
+                                     <option value="" disabled selected>Choose your option</option>
+                                     <option value="1">วิทยากรในประเทศ</option>
+                                     <option value="2">วิทยากรต่างประเทศ</option>
+                                     <option value="3">ประชุมวิชาการในประเทศ</option>
+                                     <option value="4">ประชุมวิชาการต่างประเทศ</option>
+                                     <option value="5">ประชุมอื่นๆ</option>
+                                     <option value="6">อบรม/ดูงานในประเทศ</option>
+                                     <option value="7">อบรม/ดูงานต่างประเทศ</option>
+                                     <option value="8">บริการวิชาการ</option>
+                                     <option value="9">ศิลปวัฒนธรรม</option>
+                            </select>
+                                      <label> กิจกรรม : </label>
+         </div>
          
-         <!--
+         
+       
          <div class="input-field col s6">
                              <i class="material-icons prefix">today</i>
                             <input type="date" id="begin_date"  name="begin_date"   class="datepicker"  />   
-                          
+                            <!-- <label> ตั้งแต่วันที่ : </label> -->
            </div>
          
-          <div class="input-field col s6">
-                             <i class="material-icons prefix">today</i>
-                            <input type="date" id="end_date"  name="end_date"   class="datepicker"  />   
-                            
-           </div>
-          -->
          
-         
-         
-          <!--
-         <button class="waves-effect waves-light btn-large" type="button"   onclick="search_calendar1()"   id="btn_academic"  name="btn_academic" >
+             <button class="waves-effect waves-light btn-large" type="submit"  id="btn_academic"  name="btn_academic" >
                   SEARCH
-         <i class="material-icons md-30">assignment_ind</i>
-         </button>
+                                  <i class="material-icons md-30">assignment_ind</i>
+              </button>
          
-         <button class="waves-effect waves-light btn-large" type="reset"  id="btn_academic"  name="btn_academic" >
-                  CLEAR
-                                  <i class="material-icons md-30">tab_unselected</i>
-         </button>
-          -->
          
          
           
@@ -1237,1147 +768,21 @@ $(document).ready(function(){
      
      
      <div class="modal-footer">
-         <a href="#" class="modal-action modal-close waves-effect  waves-green btn-flat"  > ปิด (Close) </a>
+         <a href="#" class="modal-action modal-close waves-effect  waves-green btn-flat"  >Close</a>
      </div>
-          
-          
-        
-     
  </div>
  <!--  แสดงกิจกรรมทางวิชาการ -->
 
  
  
-   <!--  Modal   การค้นหาหลัก -->
-  <div id="modal_sr" class="modal">
-       <!--  #http://localhost/document/index.php/welcome/search_tb_main1 -->
-       <form    id="search_main"     >
-          
-    <div class="modal-content">
-      
-          
-          
-     <!-- <i class="material-icons  circle">perm_identity</i>-->
-      
-        <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">zoom_in</i></a>
-            
-          <?=nbs(5)?>
-          Main Search
-      
-          
-      <!--
-      <p>A bunch of text</p>
-      -->
-      
-      <div class="row">
-          <div class="col s12">
-               <div class="row">
-                  
-                        <div class="input-field col s6">
-     <select  name="type_record"   id="type_record"   >
-      <option value="" disabled selected>  :: เลือกข้อมูล ::  </option>
-      <option value="1">มูลนิธิตะวันฉาย ฯ</option>
-      <option value="2">ศูนย์วิจัย ฯ</option>
-      <option value="3">ศูนย์การดูแล ฯ</option>
-    </select>
-    <label>เลือกข้อมูล</label>
-  </div>
-                  
-               </div>
-           </div>
-      </div>
-      
-      
-      
-       <div class="row">
-           
-                    
-           
-           
-           
-                     <div class="col s4">
-                      <div class="row">
-                        <div class="input-field col s12">
-                            
-                            
-                          <i class="material-icons prefix">today</i>
-                          
-                          <input type="date" class="datepicker" id="begin_date_main"  name="begin_date_main"  onchange="
-                                 javascript:
-                                       var  begin_date_main =  $('#begin_date_main').val();
-                                       //alert(begin_date_main);
-                                       var  end_date_main=$('#end_date_main').val();
-                                       var  url='<?=base_url()?>index.php/welcome/search_by_date';
-                                        //  alert('กำลังประมวลผล');
-                                    $('#sub11').html('');
-                                        $('#sub11').load(url, {  'begin_date_main': $('#begin_date_main').val()  , 'end_date_main':$('#end_date_main').val()  ,'type_record':$('#type_record').val() ,  },function(data)
-                                        {
-                                            
-                                        }  );
-                                 
-                                 "  />
-                                 
-                                 
-                        </div>
-                      </div>
-                    </div>
-                     
-                     
-                      <div class="col s4">
-                      <div class="row">
-                        <div class="input-field col s12">
-                          <i class="material-icons prefix">today</i>
-                          
-                          <input type="date" class="datepicker" id="end_date_main"   name="end_date_main" onchange="
-                                 javascript:
-                                       var  begin_date_main =  $('#begin_date_main').val();
-                                       //alert(begin_date_main);
-                                       var  end_date_main=$('#end_date_main').val();
-                                       var  url='<?=base_url()?>index.php/welcome/search_by_date';
-                                       //   alert('กำลังประมวลผล');
-                                    $('#sub11').html('');
-                                      $('#sub11').load(url, {  'begin_date_main': $('#begin_date_main').val()  , 'end_date_main':$('#end_date_main').val()  ,'type_record':$('#type_record').val() ,  },function(data)
-                                        {
-                                            
-                                        }  );
-                                 
-                                 "   />
-                                 
-                                 
-                        </div>
-                      </div>
-                     
-                          
-                          
-                    </div>
-           
-           
-            <div class="col s4">
-                      <div class="row">
-                        <div class="input-field col s12">
-                           <a class="waves-effect waves-light btn-large"  onclick=" 
-                           javascript:
-                                   var  url='<?=base_url()?>index.php/welcome/search_by_date';
-                                 //  alert(url);
-                                  //  alert('กำลังประมวลผล');
-                                    $('#sub11').html('');
-                                    $('#sub11').load(url, {  'begin_date_main': $('#begin_date_main').val()  , 'end_date_main':$('#end_date_main').val()  ,'type_record':$('#type_record').val() ,  },function(data)
-                                        {
-                                            
-                                        }  );
-                                        
-                             
-                             "    ><i class="material-icons left">zoom_in</i>Search</a>  
-                                 
-                                 
-                        </div>
-                      </div>
-                     
-                          
-                          
-                    </div>
-           
-    
-                  
-       
-                     
-    
-                         <div class="col s5">
-                      <div class="row">
-                     
-                              <div class="ui-widget">
-                                  
-                                  <!--
-                                  <input  type="text"  readonly="readonly"  name="id_main1"  id="id_main1"  />
-                                  -->
-                                   
-  <label for="to">ถึง : </label>
-  
-  
-  <input id="to"  onkeypress=" ">
-
-  
-</div>
-                          
-
  
-
-                     
-           </div>
-                             
-                             
-
-                             
-                             
-                    </div>
-           
-           
-           
-           
-           
-           
-           
-           <div class="col s4">
-                      <div class="row">
-                        <div class="input-field col s12">
-                           <a class="waves-effect waves-light btn-large"  onclick=" 
-                        javascript:
-      $('#sub11').html('');
-      var   type_record=$('#type_record').val();
  
-               if(   type_record  >  0 )
-               {
-
-                              $('#sub11').load('<?=base_url()?>index.php/welcome/sarch_by_to' ,    {  'to':$('#from').val(), 'type_record' : $('#type_record').val() }      ,  function(data)
-                             {  
-                                 //alert(data); 
-                             }  );
-                             
-                             
-               }          
-                                        
-                             
-                             "    ><i class="material-icons left">zoom_in</i>Search</a>  
-                                 
-                                 
-                        </div>
-                      </div>
-                     
-                          
-                          
-                    </div>   
-           
-           
-           
-           
-                     
-                     
-                     
-         
-            
-             
-             
-
-
-           
-     </div>
-      
-      
-            <div class="row">
-                
-                
-          <div class="col s5">
-               <div class="row">
-                  
-          <label for="subject">เรื่อง : </label>
-  
-  
-  <input id="subject"  onkeypress=" ">
-                  
-               </div>
-           </div>
-                
-               <div class="col s5">
-               <div class="row">
-                  
-           <a class="waves-effect waves-light btn-large"  onclick=" 
-            
-              javascript:
-      $('#sub11').html('');
-      var   type_record=$('#type_record').val();
-        if(   type_record  >  0 )
-               {
-                     $('#sub11').load('<?=base_url()?>index.php/welcome/search_by_search' ,    {  'subject':$('#subject').val(), 'type_record' : $('#type_record').val() , 'fieldname':'subject'  }      ,  function(data)
-                             {  
-                                  //alert(data); 
-                             }  );
-                   
-               }
-      
-                                        
-                             
-                             "    ><i class="material-icons left">zoom_in</i>Search</a>  
-                                 
-                  
-               </div>
-           </div>   
-
-      </div>
-      
-      
-     
-            <div class="row">
-                
-                
-          <div class="col s5">
-               <div class="row">
-                  
-          <label for="from">จาก : </label>
-  
-  
-  <input id="from"  onkeypress=" ">
-                  
-               </div>
-           </div>
-                
-               <div class="col s5">
-               <div class="row">
-                  
-           <a class="waves-effect waves-light btn-large"  onclick=" 
-            
-              javascript:
-      $('#sub11').html('');
-      var   type_record=$('#type_record').val();
-        if(   type_record  >  0 )
-               {
-                     $('#sub11').load('<?=base_url()?>index.php/welcome/search_by_search' ,    {  'subject':$('#from').val(), 'type_record' : $('#type_record').val() , 'fieldname':'from'  }      ,  function(data)
-                             {  
-                                  //alert(data); 
-                             }  );
-                   
-               }
-      
-                                        
-                             
-                             "    ><i class="material-icons left">zoom_in</i>Search</a>  
-                                 
-                  
-               </div>
-           </div>   
-
-      </div> 
-      
-      
-      <div class="row">
-                
-                
-          <div class="col s5">
-               <div class="row">
-                  
-          <label for="at">ที่ : </label>
-  
-  
-  <input id="at"  onkeypress=" ">
-                  
-               </div>
-           </div>
-                
-               <div class="col s5">
-               <div class="row">
-                  
-           <a class="waves-effect waves-light btn-large"  onclick=" 
-            
-              javascript:
-      $('#sub11').html('');
-      var   type_record=$('#type_record').val();
-        if(   type_record  >  0 )
-               {
-                     $('#sub11').load('<?=base_url()?>index.php/welcome/search_by_search' ,    {  'subject':$('#at').val(), 'type_record' : $('#type_record').val() , 'fieldname':'at'  }      ,  function(data)
-                             {  
-                                  //alert(data); 
-                             }  );
-                   
-               }
-      
-                                        
-                             
-                             "    ><i class="material-icons left">zoom_in</i>Search</a>  
-                                 
-                  
-               </div>
-           </div>   
-
-      </div> 
-      
-      
-      
-      
-      
-    </div>
-      
-
-    <div class="modal-footer">
-        
-     
-        <!--
-        <a class="waves-effect waves-light btn-large"  onclick="javascript:  $(function(){ $('#modal_sr').modal('close');  } );  "  ><i class="material-icons left">mic_off</i>Close</a>
-        -->
-        
-        
-        <!--
-        <a href="#!"    class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-        -->
-        
-        <!--
-        <a class="waves-effect waves-light btn-large"   onclick="action_main1()"  ><i class="material-icons left">person_pin</i>Search</a>
-        -->
-        
-        <!--
-        <button class="btn waves-effect waves-light btn-large" type="submit" name="action"   id="btn_sr_main1"   >Search
-                     <i class="material-icons right">person_pin</i>
-       </button>
-        -->
-        
-        
-        <!--
-        <a class="waves-effect waves-light btn-large"  onclick=" 
-              javascript: 
-                  //  $('#birds').val('');   $('#log').val('');  
-              $('#sub11').load('<?=base_url()?>index.php/welcome/sarch_by_to' ,    {  'to':$('#to').val(), 'type_record' : $('#type_record').val() }      ,  function(data)
-                             {  
-                                 //alert(data); 
-                             }  );
-                             
-                             "    ><i class="material-icons left">mic_off</i>Search</a>  
-                             
-         -->                    
-       
-       <a class="waves-effect waves-light btn-large"  onclick="javascript:  $(function(){ $('#modal_sr').modal('close');  } );  "  ><i class="material-icons left">mic_off</i>Close</a>
-       
-      
-     
-  
-    
-    </div>
-      
-      
-      </form> 
-      
-  </div>
- <!-- ค้นหา  Modal  มูลนิธิตะวันฉายฯ า -->
 
  
    
+  
  
  
-  <!-- dialog หนังสือเวียน -->
-  
-  <div id="modal_circular" class="modal">
-      <!--   <?=base_url()?>report_pdf/docdb/dbreport.php/?type_record=2&type_document=2  -->
-      <!--  action="<?=base_url()?>report_pdf/docdb/queryheader.php"  -->
-      
-      <!--  http://10.87.196.170/document/report_pdf/docdb/queryheader.php   -->
-      <!--  report_pdf/docdb/report_circle.php  -->
-      <!--  report_pdf/docdb/queryheader.php  -->
-      <form  id="fr_header_report" class="col s12"  action="<?=base_url()?>report_pdf/docdb/report_circle.php"   method="post"  enctype="multipart/form-data"  novalidate="novalidate"    >   
-    <div class="modal-content">
-        
-
-      
-       
-        <div class="input-field col s6">
-          <i class="material-icons prefix">picture_in_picture</i>
-          <input    id="at_circle" name="at_circle"  class="validate">
-          <!--<label for="icon_prefix">First Name</label>-->
-          
-          <input type="hidden"  id="id_main1"  name="id_main1"  />
-          
-        </div>
-        
-
-        <!--  1  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name1" name="head_name1">
-                <option value="" disabled selected>Choose your option</option>
-                 <?=$this->user_model->select_header()?>   
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory1"  name="factory1"  >
-                <option value="" disabled selected>Choose your option</option>
-                <?=$this->user_model->select_factory()?>   
-        </select>
-        </div>
-      </div>
-         <!--  1  -->
-         
-         <!--  2  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name2" name="head_name2">
-                <option value="" disabled selected>Choose your option</option>
-                
-                 <?=$this->user_model->select_header()?>   
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory2"  name="factory2"  >
-                <option value="" disabled selected>Choose your option</option>
-                
-              
-                 <?=$this->user_model->select_factory()?>   
-        </select>
-        </div>
-      </div>
-         <!--  2  -->
-        
-             <!--  3  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name3" name="head_name3">
-                <option value="" disabled selected>Choose your option</option>
-                
-               
-                  <?=$this->user_model->select_header()?>   
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory3"  name="factory3"  >
-                <option value="" disabled selected>Choose your option</option>
-                
-               <?=$this->user_model->select_factory()?>  
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  3  -->         
-         
-         
-          <!--  4  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name4" name="head_name4">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-                    <?=$this->user_model->select_header()?>   
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory4"  name="factory4"  >
-                <option value="" disabled selected>Choose your option</option>
-                
-             <?=$this->user_model->select_factory()?>  
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  4  -->   
-         
-         
-           <!--  5  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name5" name="head_name5">
-                <option value="" disabled selected>Choose your option</option>
-                
-                 <?=$this->user_model->select_header()?> 
-             
-                
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory5"  name="factory5"  >
-                <option value="" disabled selected>Choose your option</option>
-                
-                   <?=$this->user_model->select_factory()?>   
-               
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  5  --> 
-         
-        
-          <!--  6  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name6" name="head_name6">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-                
-                 <?=$this->user_model->select_header()?>   
-                
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory6"  name="factory6"  >
-                <option value="" disabled selected>Choose your option</option>
-                
-                <?=$this->user_model->select_factory()?>   
-               
-                
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  6  --> 
-         
-         
-         <!--  7  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name7" name="head_name7">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-                
-                 <?=$this->user_model->select_header()?>   
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory7"  name="factory7"  >
-                <option value="" disabled selected>Choose your option</option>
-                 <?=$this->user_model->select_factory()?>  
-               
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  7  -->
-        
-         
-           <!--  8  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name8" name="head_name8">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-                
-                 <?=$this->user_model->select_header()?>
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory8"  name="factory8"  >
-                <option value="" disabled selected>Choose your option</option>
-                
-                <?=$this->user_model->select_factory()?>   
-                  
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  8  -->
-         
-         
-          <!--  9  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name9" name="head_name9">
-                <option value="" disabled selected>Choose your option</option>
-                
-                 
-                  <?=$this->user_model->select_header()?>   
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory9"  name="factory9"  >
-                <option value="" disabled selected>Choose your option</option>
-                <?=$this->user_model->select_factory()?>  
-                
-              
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  9  -->
-              
-        
-          <!--  10  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name10" name="head_name10">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-                
-                   <?=$this->user_model->select_header()?>
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory10"  name="factory10"  >
-                <option value="" disabled selected>Choose your option</option>
-                 <?=$this->user_model->select_factory()?>  
-                
-             
-                
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  10  -->
-         
-                   <!--  11  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name11" name="head_name11">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-                  <?=$this->user_model->select_header()?>   
-                
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory11"  name="factory11"  >
-                <option value="" disabled selected>Choose your option</option>
-                <?=$this->user_model->select_factory()?> 
-                
-              
-                
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  11  -->
-         
-         
-     <!--  12  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name12" name="head_name12">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-                
-                <?=$this->user_model->select_header()?>
-                
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory12"  name="factory12"  >
-                <option value="" disabled selected>Choose your option</option>
-                <?=$this->user_model->select_factory()?>   
-                
-                
-                
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  12  -->
-         
-           <!--  13  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name13" name="head_name13">
-                <option value="" disabled selected>Choose your option</option>
-                
-               
-                <?=$this->user_model->select_header()?>   
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory13"  name="factory13"  >
-                <option value="" disabled selected>Choose your option</option>
-                 <?=$this->user_model->select_factory()?>   
-                
-                
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  13  -->
-         
-          <!--  14  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name14" name="head_name14">
-                <option value="" disabled selected>Choose your option</option>
-                
-               
-                 <?=$this->user_model->select_header()?>   
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory14"  name="factory14"  >
-                <option value="" disabled selected>Choose your option</option>
-                 <?=$this->user_model->select_factory()?>   
-                
-               
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  14  -->
-         
-          <!--  15  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name15" name="head_name15">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-                
-                 <?=$this->user_model->select_header()?>   
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory15"  name="factory15"  >
-                <option value="" disabled selected>Choose your option</option>+
-                 <?=$this->user_model->select_factory()?> 
-                
-               
-                
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  15  -->
-  
-         
-          <!--  16  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name16" name="head_name16">
-                <option value="" disabled selected>Choose your option</option>
-                
-                 <?=$this->user_model->select_header()?>  
-                  
-                
-                
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory16"  name="factory16"  >
-                <option value="" disabled selected>Choose your option</option>
-                <?=$this->user_model->select_factory()?> 
-                
-                
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  16  -->
-         
-           <!--  17  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name17" name="head_name17">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-              
-                
-                <?=$this->user_model->select_header()?>  
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory17"  name="factory17"  >
-                <option value="" disabled selected>Choose your option</option>
-                  <?=$this->user_model->select_factory()?>   
-                
-                 
-                
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  17  -->
-         
-         <!--  18  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name18" name="head_name18">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-                
-                   <?=$this->user_model->select_header()?>  
-                
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory18"  name="factory18"  >
-                <option value="" disabled selected>Choose your option</option>
-                 <?=$this->user_model->select_factory()?>  
-                
-              
-                
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  18  -->
-         
-            <!--  19  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name19" name="head_name19">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-                  <?=$this->user_model->select_header()?>   
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory19"  name="factory19"  >
-                <option value="" disabled selected>Choose your option</option>
-                <?=$this->user_model->select_factory()?>   
-                
-              
-                
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  19  -->
-         
-         
-          <!--  20  -->
-     <div class="row">
-        <div class="input-field col s6">
-            
-            <select   id="head_name20" name="head_name20">
-                <option value="" disabled selected>Choose your option</option>
-                
-                
-                  
-                 <?=$this->user_model->select_header()?>  
-                
-                
-        </select>  
-        </div>
-        <div class="input-field col s6">
-            
-            <select  id="factory20"  name="factory20"  >
-                <option value="" disabled selected>Choose your option</option>
-                <?=$this->user_model->select_factory()?> 
-                
-                
-                
-                
-                
-        </select>
-        </div>
-      </div>
-         <!--  20  -->
-         
-    </div>
-      
-    
-      
-    <div class="modal-footer">
-        
-       <!-- 
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-       
-       <?=base_url()?>report_pdf/docdb/dbreport.php/?type_record=2&type_document=2
-       
-       
-       -->
-       
-       <!-- <?=base_url()?>report_pdf/docdb/queryheader.php -->
-       <!--
-       <a class="waves-effect waves-light btn-large" onclick=" javascript:  $('#fr_header_report').form('submit',function(data){  alert(data);  });  " >
-      <i class="material-icons">add</i>
-            Report
-      </a>
-       -->
-       
-       
-       <button type="submit"  class="waves-effect waves-light btn-large" >
-            <i class="material-icons">add</i>
-            Report
-       </button>
-     
-       
-       <a class="btn-large " onclick=" javascript: $(function(){  $('#modal_circular').modal('close');  })  " ><i class="large material-icons">power_settings_new</i>Close</a>
-       
-      
-    </div>
-      
-          </form>
-  </div>
-     <!-- dialog หนังสือเวียน -->
- 
- 
-     
-          
-     
-     
-     <!--  วันลาพักผ่อน ประจำปี -->
-     
-     
-     
-     <script type="text/javascript">
-   
-   
-   $(function()
-   {
-       
-                $('#date_begin_sr_vacation').pickadate({
-                  selectMonths: true, // Creates a dropdown to control month
-                  selectYears: 15, // Creates a dropdown of 15 years to control year
-                  format:'yyyy-mm-dd',
-                  
-                });
-                
-                
-                 $('#end_date_sr_vacation').pickadate({
-                  selectMonths: true, // Creates a dropdown to control month
-                  selectYears: 15, // Creates a dropdown of 15 years to control year
-                  format:'yyyy-mm-dd',
-                  
-                });
-                
-                
-  
-   });
-
-  
-        
-     </script>
-
-      <!-- Modal Structure -->
-  <div id="modal_sum_vacation" class="modal modal-fixed-footer">
-    <div class="modal-content">
-        <!--
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
-        -->
-        <h6>
-              <i class=" material-icons">person_pin</i>    สรุปการลาพักผ่อน/ลาป่วยภายในหน่วยงาน
-        </h6>
-        
-        <div class="input-field col s3">
-            <select class="browser-default"  id="work_year"  name="work_year"   onchange="" >
-                <option value="" disabled selected>เลือกปี</option>
-                <!--  $cur_year   -->
-                <?php
-                    $max_year =  $cur_year + 1;
-                    $nagative=$cur_year-1;
-                    for($min= $nagative;$min<=$max_year;$min++)
-                    {
-                          ?>
-                                  <option value="<?=$min?>" ><?=$min?></option>
-                          <?php
-                    }
-                ?>
-                
-            </select>
-        </div>
-        
-        
-        <div class="input-field col s3">
-            
-                     
-             <!--  <i class="tiny material-icons prefix">account_circle</i> -->
-            <!--
-            <input  type="text" class="validate"   id="first_name_vacation_sr"  name="first_name_vacation_sr"  >
-                    
-            
-                      
-            <input  type="text" class="validate" id="last_name_vacation_sr"   name="last_name_vacation_sr">
-                     
-              -->      
-              
-              <select class="browser-default"  id="id_staff_sr"  name="id_staff_sr"   onchange="" >
-                    <option value="" disabled selected>ชื่อ-นามสกุล</option>
-                    <?=$this->user_model->tb_staff()?>
-              </select> 
-                      
-        </div>
-        
-        
-        
-       
-
-        
-        <div class="input-field col s12">   
-            <a class="waves-effect waves-light btn-large"  onclick="javascript:
-               //alert('t');
-              //$.post('<?=base_url()?>index.php/welcome/sr_tb_vacation',{},function(data){    });
-               $('#sub11').load('<?=base_url()?>index.php/welcome/sr_tb_vacation',
-                   {  
-                        'id_staff_sr':$('#id_staff_sr').val(),
-                        'work_year':$('#work_year').val(),
-                        
-                      //  'sr_tb_name':$('#sr_tb_name').val(), 
-                    },
-                   function(){  });
-               "   ><i class="material-icons right">perm_identity</i>ค้นหา</a>
-        </div>
-    </div>
-
-    <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">
-                     <i class="material-icons">loyalty</i>
-                        Close ( ปิด )
-      </a>
-    </div>
-
-  </div>
-      
-     <!--  วันลาพักผ่อน ประจำปี -->
-     
-     
  
     </body>
   </html>

@@ -42,24 +42,9 @@ $(function(){
     format:'yyyy-mm-dd'
   });
     
-    $('#date1_send31').val("<?php  echo date("Y-m-d");  ?>");
-    
-    
-      //date1_send31_time
-      
-          $('#date1_send31_time').pickadate({
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15, // Creates a dropdown of 15 years to control year
-    format:'yyyy-mm-dd'
-  });
-    
-    $('#date1_send31_time').val("<?php  echo date("Y-m-d");  ?>");
-    
 });
   
   
-  
-
   
     
 });
@@ -226,18 +211,22 @@ $(function(){
         <div class="input-field col s6">
             
           <i class="material-icons prefix">account_circle</i>
-          <input id="registration_send31" name="registration_send31"  type="text"  placeholder="1.เลขทะเบียนส่ง"  value="<?=@$number_add?>" />
-          <!--<label for="registration_send31">1.เลขทะเบียนส่ง</label>-->
+          <input id="registration_send31" name="registration_send31"  type="text"  placeholder="1.เลขทะเบียนส่ง"  value="<?=$number_add?>" />
+          <label for="registration_send31">1.เลขทะเบียนส่ง</label>
           
           
         </div>
           
-         <!--     
-                    <div class="input-field col s6">  <i class="material-icons prefix">phone</i>  <i class="material-icons prefix">account_circle</i> placeholder="2.ที่"  <label for="at_send31">2.ที่</label>
-                    <input id="at_send31" name="at_send31"  type="text"   disabled="disabled"   />
-                    </div>
-          -->
+        <div class="input-field col s6">
+            
+        <!--  <i class="material-icons prefix">phone</i> -->
+            <i class="material-icons prefix">account_circle</i>
+            
+            <input id="at_send31" name="at_send31"  type="text"  placeholder="2.ที่"  value="ศธ 0514.1.61.3/ว 3136" />
           
+          <label for="at_send31">2.ที่</label>
+          
+        </div>
           
             
           <div class="input-field col s6">
@@ -260,7 +249,7 @@ $(function(){
           <i class="material-icons prefix">toll</i>
           
           
-          <input  id="from_send31"  name="from_send31"   type="text" class="validate"   />
+          <input  id="from_send31"  name="from_send31"   type="text" class="validate"  value="รองอธิการบดีฝ่ายวิจัยและการถ่ายทอดเทคโนโลยี"   />
           
           <label for="from_send31">4.จาก</label>
         </div>
@@ -270,7 +259,7 @@ $(function(){
           <i class="material-icons prefix">toll</i>
           
           
-          <input  id="to_send31"  name="to_send31"  type="text" class="validate"   />
+          <input  id="to_send31"  name="to_send31"  type="text" class="validate"  value="ผู้อำนวยการมูลนิธิตะวันฉายฯ" />
           
           <label for="icon_telephone">5.ถึง</label>
         </div>
@@ -280,7 +269,7 @@ $(function(){
           <i class="material-icons prefix">settings</i>
           
           
-          <input  id="subject_send31"  name="subject_send31"  type="text" class="validate"   />
+          <input  id="subject_send31"  name="subject_send31"  type="text" class="validate"  value="แจ้งผลการอนุมัติงบประมาณ ปีงบประมาณ 2560 และขอเชิญประชุม" />
           
           <label for="subject_send31">6.เรื่อง</label>
         </div>
@@ -331,24 +320,6 @@ $(function(){
           <!--<div class="input-field col s6"> -->
           <!--  <div style="border-top: 300px;border-top-width:5px; border-right-width:5px; border-bottom-width:5px; border-left-width:5px;">-->
           <!-- <div style="padding:10px  0  10px  0"> </div>  -->
-          
-          
-          <div class="input-field col s12">
-            
-          <i class="material-icons prefix">open_in_browser</i>
-         <!-- <input id="icon_telephone" type="tel" class="validate"> -->
-          
-          
-          <input type="date"  id="date1_send31_time"  name="date1_send31_time"  class="datepicker" />
-        
-          
-                   
-          <label for="date1_send31_time">วันที่ทำการบันทึก</label>
-                   
-          
-        </div>
-          
-          
 
           <div class="button-collapse col s6">
                 

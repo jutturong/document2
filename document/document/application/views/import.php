@@ -60,33 +60,6 @@
       <link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700" rel='stylesheet' />
       
       
-      
-      <!--  import  js calendar ปฏฺิทินกิจกรรม  -->
-        <!--
-        //cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.js
-//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.css
-//cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.print.css 
-        -->
-        
-          <!--
-         <script src='fullcalendar/fullcalendar.js'></script>
-          -->
-     
-          <!--
-        <script type="text/javascript" src="<?=base_url()?>node_modules/fullcalendar/dist/fullcalendar.js"></script>
-        <script src='<?=base_url()?>node_modules/fullcalendar/dist/moment.min.js'></script>
-      <script src='<?=base_url()?>node_modules/fullcalendar/dist/jquery.min.js'></script>
-        <link rel='stylesheet' href='<?=base_url()?>node_modules/fullcalendar/dist/fullcalendar.css' /> 
-        -->
-
-      <!--  import  js calendar ปฏฺิทินกิจกรรม  -->
-      
-      
-      
-
-
-
-      
    
       
       
