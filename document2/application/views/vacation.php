@@ -42,12 +42,13 @@
 <div  class="easyui-dialog"   id="dia_main_vacation" 
       style="width:500px;height: 400px;"
       data-options="
-         closed:true,
-        ,title:'หน้าหลักลาพักผ่อนประจำปี' 
+         closed:true
+       , title : 'หน้าหลักลาพักผ่อนประจำปี'
        ,maximizable:false
        ,minimizable:true
       ,iconCls:'icon-large-shapes' 
       ,collapsible:false
+      
       ,buttons:[
       
         { text:'Close(ปิด)',  iconCls:'icon-cancel' ,iconAlign:'top',handler:function(){   $('#dia_main_vacation').dialog('close'); }  },

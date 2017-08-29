@@ -13,7 +13,7 @@ style="width:400px;height:500px;padding:10px">
     <option value="2">เอกสารส่ง</option>
 </select>
 
-            </div>
+</div>
 
 
 <!--  ของ -->
@@ -420,7 +420,22 @@ style="width:400px;height:500px;padding:10px">
                            
                             
                                                 $('#dia_insert_foundation').dialog('open'); 
-                                                $('#registration_foundation_receive21').textbox('setValue','<?=@$number_add_11?>');
+                                                
+                                                
+                                               // $('#registration_foundation_receive21').textbox('setValue','<?=@$number_add_11?>');
+                                                
+                                                
+                                                var  url_='<?=base_url()?>index.php/welcome/number_foundation_receive';
+                                      //alert(url_);
+                                     
+                                      $.post(url_,function(data)
+                                        {
+                                                var  number_add  =data.number_add;
+                                               // alert( number_add );
+                                                $('#registration_foundation_receive21').textbox('setValue',number_add);  
+                                        },'json');
+                                                
+                                                
                                                 $('#at_foundation_receive21').textbox('setValue','');  //เลขที่เอกสาร
                                                 $('#date1_foundation_receive21').datebox('setValue','');
                                                 $('#from_foundation_receive21').textbox('setValue','');  //'จาก'
@@ -456,7 +471,23 @@ style="width:400px;height:500px;padding:10px">
                                                
 
                                             $('#dia_insert_send_foundation').dialog('open');
-                                            $('#registration_send21_foundation').textbox('setValue','<?=@$number_add_12?>');
+                                            
+                                            
+                                         //   $('#registration_send21_foundation').textbox('setValue','<?=@$number_add_12?>');
+                                            
+                                            
+                                              var  url_='<?=base_url()?>index.php/welcome/number_foundation_send';
+                                      //alert(url_);
+                                     
+                                      $.post(url_,function(data)
+                                        {
+                                                var  number_add  =data.number_add;
+                                               // alert( number_add );
+                                                $('#registration_send21_foundation').textbox('setValue',number_add);  
+                                        },'json');
+                                            
+                                            
+                                            
                                              $('#date1_send21_foundation').datebox('setValue','');    //date1_send21_foundation
                                             $('#from_send21_foundation').textbox('setText',''); //จาก       4
                                             $('#to_send21_foundation').textbox('setText',''); //ถึง        5
@@ -528,8 +559,15 @@ style="width:400px;height:500px;padding:10px">
                                          $('#practice_foundation_receive21').textbox('setText',''); //การปฏฺิบัติ       7
                                          $('#note_foundation_receive21').textbox('setText',''); //หมายเหตุ      8
 
-                                          $.messager.progress();
-                                          location.reload();
+                                         // $.messager.progress();
+                                        // location.reload();
+                                       
+                                        
+                                          $('#dia_insert_foundation').dialog('close');
+                                          $('#dia_select_foundation').dialog('close'); 
+                                   //     $('#dlg_content_foundation').dialog('close');
+                                        
+                                        
                                          
                                        
                                   }
@@ -593,7 +631,15 @@ style="width:400px;height:500px;padding:10px">
 
 
                                                            $.messager.progress();
+                                                           
                                                            location.reload();
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
                                                          //  $('#dia_insert_excellence').dialog('open');
                                                         //  $('#dia_select_excellence').dialog('open');
                                                         
@@ -775,10 +821,25 @@ style="width:400px;height:500px;padding:10px">
                                                             $('#subject_send21_foundation').textbox('setText',''); //เรื่อง       6
                                                             $('#practice_send21_foundation').textbox('setText',''); //การปฏฺิบัติ       7
                                                             $('#note_send21_foundation').textbox('setText',''); //หมายเหตุ      8
-                                                            location.reload();
+                                                            
+                                                            
+                                                          //  location.reload();
                                                            //  $('#dia_insert_excellence').dialog('open');
                                                           //  $('#dia_select_excellence').dialog('open');
                                                           
+                                                          
+                                                      //    $('#dia_insert_send_foundation').dialog('close');
+                                                      //    $('#dlg_content_foundation').dialog('close');
+                                                          
+                                                          
+                                                    //       
+                                                    //        $('#dlg_content_foundation').dialog('close');
+                                                              //dlg_content_foundation
+                                                              
+                                                                 $('#dia_select_foundation').dialog('close'); 
+                                                                 $('#dia_insert_send_foundation').dialog('close');
+                                                                 
+                                                                 
 
                                                      }
                                                      
@@ -881,7 +942,7 @@ style="width:400px;height:500px;padding:10px">
             </div>
 
          <div style="margin-left:10px;margin-top: 10px;">
-                <input class="easyui-datebox" label="วันที่รับ "   id="date1_send21_foundation"  name="date1_send21_foundation"   labelPosition="top" style="width:70%;height:60px"  data-options=" required:true,  ">
+                <input class="easyui-datebox" label="วันที่ส่งออก "   id="date1_send21_foundation"  name="date1_send21_foundation"   labelPosition="top" style="width:70%;height:60px"  data-options=" required:true,  ">
          </div>
 
           <div style="margin-left: 10px;margin-top: 10px; ">

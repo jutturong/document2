@@ -3,10 +3,18 @@
 class Welcome extends CI_Controller {
 
         var   $title="TAWANCHAI";
+        
+        
         var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
-       // var   $tb_vacation="tb_vacation";
-       // var   $tb_vacation="tb_vacation_test";
-        var   $tb_vacation="tb_vacation";
+     //   var     $tb= "tb_main1";  
+        
+        
+        
+        
+        
+       var   $tb_vacation="tb_vacation";
+    //  var   $tb_vacation="tb_vacation_test";
+    
            
            
         var  $total_day_vacation=10; //จำนวนวันลาทั้งหมดในปีแต่ละปี
@@ -91,6 +99,169 @@ class Welcome extends CI_Controller {
                      
                  }
         
+                  //-----------------------------excellence---------------------------------------------------  
+               #http://10.87.196.170/document2/index.php/welcome/number_excellence_receive     
+                 #http://10.87.196.170/document/index.php/welcome/number_excellence_receive
+                public function  number_excellence_receive() // หนังสือรับ excellence
+               {
+                  // $this->user_model->login();  //for checklogin
+                   //--เอกสารรับ---
+                    //$type_document=1;  // 1=หนังสือรับ,2=หนังสื
+                      $number_add=$this->user_model->count_id(3,1);  //count_id($type_record,$type_document)
+                  //--เอกสารรับ---
+                     echo   json_encode(array("number_add"=>$number_add));   
+               }
+               
+               #http://192.168.2.120/document2/index.php/welcome/number_excellence_send    
+               #http://10.87.196.170/document/index.php/welcome/number_excellence_receive
+               public function  number_excellence_send() // หนังสือส่ง  excellence
+               {
+                  // $this->user_model->login();  //for checklogin
+                   /*-------------1.เลขทะเบียนส่ง----------  */
+                             // $tb="tb_main1";
+                               $tb=$this->tb;
+                               $this->db->order_by("id_main1","DESC");
+                               $q_n=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>2));
+                               $row=$q_n->row();
+                               $num_rows_ck= $q_n->num_rows();
+                            // echo br();
+                               if(  $num_rows_ck  > 0 )
+                               {
+                               $registration_ck = $row->registration;
+                            // echo br();
+                               $ex=explode("/",$registration_ck);
+                                 $sum_regis=$ex[1]+1;
+
+                                                 
+                                             if( $ex[1]  <  1  )
+                                                  {
+                                                       // echo "มีตัวอักษรปน";
+                                                        $exe=explode(".",$ex[1]);
+                                                       // echo $exe[1];
+                                                         $sum_regis=$exe[1]+1;
+                                                  }
+                                 
+                                                  
+                                     $number_add="ศธ0514.7.1.2.3.4/".$sum_regis ;
+                                 
+                                           
+                               }
+                               else
+                               {
+                                  $number_add="ศธ0514.7.1.2.3.4/";
+                               }
+                               
+                               echo   json_encode(array("number_add"=>$number_add));   
+                              //-------------1.เลขทะเบียนส่ง----------  
+               }
+                   //-----------------------------excellence---------------------------------------------------
+               
+                //-------#########---------- ศูนย์วิจัยฯ------------------------------------------------------------------------------
+                #http://192.168.2.120/document2/index.php/welcome/number_research_receive  
+               #http://10.87.196.170/document/index.php/welcome/number_research_receive
+               public function  number_research_receive() //หนังสือรับ
+                {
+                     $number_add=$this->user_model->count_id(2,1);
+                      echo   json_encode(array("number_add"=>$number_add));   
+                } 
+                
+                #http://192.168.2.120/document2/index.php/welcome/number_research_send    
+                #http://10.87.196.170/document/index.php/welcome/number_research_send
+                public function  number_research_send() //หนังสือส่ง
+                {
+                     //------------------------ หนังสือรับ----------------------------------------
+                                // $data["number_add"]=$this->user_model->count_id(2,1);
+                               $data["number_add_21"]=$this->user_model->count_id(2,1);
+                            //  echo br();
+                                /*-------------1.เลขทะเบียนส่ง----------  */
+                               // $tb="tb_main1";
+                              $tb=$this->tb;
+                               $this->db->order_by("id_main1","DESC");
+                               $q_n=$this->db->get_where($tb,array("type_record"=>2,"type_document"=>2),1);
+                               $row=$q_n->row();
+                               $num_rows_ck= $q_n->num_rows();
+                               if(  $num_rows_ck  > 0 )
+                               {
+                               $registration_ck = $row->registration;
+                               $ex=explode("/",$registration_ck);
+
+                                 if( $ex[1]  <  1  )
+                                                  {
+                                                       // echo "มีตัวอักษรปน";
+                                                        $exe=explode(".",$ex[1]);
+                                                       // echo $exe[1];
+                                                         $sum_regis=$exe[1]+1;
+                                                  }
+
+                                  $sum_regis= (int)$ex[1];
+                                 //  echo br();
+                                   $sum_regis_int= $sum_regis+1;
+
+                                      $number_add="ศธ0514.7.1.2.3.4.1/". $sum_regis_int ;
+                               }
+                               else
+                               {
+                                  $number_add="ศธ0514.7.1.2.3.4.1/";
+                               }
+                                 echo   json_encode(array("number_add"=>$number_add));   
+                }
+               
+               
+               //-------#########---------- ศูนย์วิจัยฯ------------------------------------------------------------------------------
+                
+                //-------##############----------- มูลนิธิ-------------------------------------------------------------------
+                # http://10.87.196.170/document2/index.php/welcome/number_foundation_receive
+                 public function  number_foundation_receive() //หนังสือรับ
+                {
+                          //----------------- รับ -------------------------------
+                                $number_add=$this->user_model->count_id(1,1);
+                                echo   json_encode(array("number_add"=>$number_add));   
+                          //----------------- รับ -------------------------------
+                } 
+                
+                
+                 # http://10.87.196.170/document2/index.php/welcome/number_foundation_send
+                  public function  number_foundation_send() //หนังสือส่ง
+                {
+                                    /*-------------1.เลขทะเบียนส่ง----------  */
+                              // $tb="tb_main1";
+                                $tb=$this->tb;
+                               $this->db->order_by("id_main1","DESC");
+                               $q_n=$this->db->get_where($tb,array("type_record"=>1,"type_document"=>2));
+                               $row=$q_n->row();
+                               $num_row_ck=$q_n->num_rows();
+                               if(  $num_row_ck > 0 )
+                               {
+                               $registration_ck = $row->registration;
+                               $ex=explode("/",$registration_ck);
+                                if( $ex[1]  <  1  )
+                                                  {
+                                                       // echo "มีตัวอักษรปน";
+                                                        $exe=explode(".",$ex[1]);
+                                                       // echo $exe[1];
+                                                         $sum_regis=$exe[1]+1;
+                                                  }
+                                $sum_regis=(int)$ex[1]+1;
+                               
+                               
+                                              
+                               
+                                 $number_add="ตวฉ/".$sum_regis ;
+                               }
+                               else
+                               {
+                                  $number_add="ตวฉ/";
+                               }
+                              // echo $data["number_add_12"];
+                              echo   json_encode(array("number_add"=>$number_add));   
+                              /*-------------1.เลขทะเบียนส่ง----------  */
+                }
+                
+               
+               //-------##############----------- มูลนิธิ------------------------------------------------------------------- 
+              
+                
+                
                   // http://10.87.196.170/document2/index.php/welcome/home/          for   test
                   public function home()
 	{
@@ -220,7 +391,8 @@ class Welcome extends CI_Controller {
                                  //----------------- รับ -------------------------------
 
                                  /*-------------1.เลขทะเบียนส่ง----------  */
-                               $tb="tb_main1";
+                              // $tb="tb_main1";
+                                $tb=$this->tb;
                                $this->db->order_by("id_main1","DESC");
                                $q_n=$this->db->get_where($tb,array("type_record"=>1,"type_document"=>2));
                                $row=$q_n->row();
@@ -324,9 +496,25 @@ public function search_excellence()
           $to=trim($this->input->get_post("to"));
           //echo br();
 
+           if( $type_document  > 0  &&   strlen($date) >  0     )
+         	{
+		$this->db->order_by("id_main1","DESC");
+                                    // $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"date"=>$conv_date));
+                                      $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"date"=>$conv_date));
 
 
-          if( $type_document  > 0  &&   strlen($date) >  0    &&   strlen($to)  > 0  )
+                                        $check = $query->num_rows();
+                                      if( $check  > 0  )
+                                      {
+                                           foreach($query->result() as $row)
+                                        {
+                                             $rows[]=$row;
+                                        }
+                                           echo  json_encode($rows);
+                                      }
+            }
+
+        else  if( $type_document  > 0  &&   strlen($date) >  0    &&   strlen($to)  > 0  )
          	{
 		$this->db->order_by("id_main1","DESC");
                                     // $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"date"=>$conv_date));
@@ -770,7 +958,8 @@ public function search_excellence()
 
 
 																				 $ck=$this->db->insert($tb,$data);
-																				 // $ck=1;
+                                                                                                                                                                 
+																				// $ck=1;
                                          if( $ck )
 																				 {
 																					 echo "1";
@@ -1151,7 +1340,22 @@ $data=array(
      }
  */
 
-                 if( $to != ""  &&  $date != "" )
+                 if(  $date != "" )
+                 {
+                   $this->db->order_by("id_main1","DESC");
+                   $query=$this->db->get_where($tb,array("type_record"=>2,"type_document"=>$type_document, "date"=>$conv_date));
+                   $check = $query->num_rows();
+                  //echo br();
+                    if(  $check  > 0  )
+                    {
+                             foreach($query->result() as $row)
+                              {
+                                     $rows[]=$row;
+                              }
+                             echo  json_encode($rows);
+                    }
+                 }
+               else  if( $to != ""  &&  $date != "" )
                  {
                    $this->db->order_by("id_main1","DESC");
                    $query=$this->db->get_where($tb,array("type_record"=>2,"type_document"=>$type_document, "to"=>$to,  "date"=>$conv_date));
@@ -1813,9 +2017,25 @@ $data=array(
                                           $ex=explode("/",$date);
 		       $conv_date=$ex[2]."-".$ex[0]."-".$ex[1];  //2017-08-01
 		 }
+                 
+                 
 
-   
-                 if( $to != ""  &&  $date != "" )
+             if(   $date != "" )
+                 {
+                   $this->db->order_by("id_main1","DESC");
+                   $query=$this->db->get_where($tb,array("type_record"=>1,"type_document"=>$type_document,  "date"=>$conv_date));
+                   $check = $query->num_rows();
+                  //echo br();
+                    if(  $check  > 0  )
+                    {
+                             foreach($query->result() as $row)
+                              {
+                                     $rows[]=$row;
+                              }
+                             echo  json_encode($rows);
+                    }
+                 }
+            else     if( $to != ""  &&  $date != "" )
                  {
                    $this->db->order_by("id_main1","DESC");
                    $query=$this->db->get_where($tb,array("type_record"=>1,"type_document"=>$type_document, "to"=>$to,  "date"=>$conv_date));

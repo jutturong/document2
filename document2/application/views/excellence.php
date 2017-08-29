@@ -24,7 +24,7 @@ style="width:400px;height:500px;padding:10px">
 
 <!--  ของ -->
 <div style="margin-bottom:10px">
-        <input class="easyui-combogrid"  id="to"  required="true"  name="to"  labelPosition="left"  style="width:80%;height:60px"
+        <input class="easyui-combogrid"  id="to"   name="to"  labelPosition="left"  style="width:80%;height:60px"
                   data-options="
                      url:'<?=base_url()?>index.php/welcome/json_to',
                      method:'post',
@@ -438,7 +438,21 @@ style="width:400px;height:500px;padding:10px">
                        $('#dia_insert_excellence').dialog('open');
 
                         //number_add
-                        $('#registration_receive21').textbox('setValue','<?=@$number_add?>');      
+                      //  $('#registration_receive21').textbox('setValue','<?=@$number_add?>');      
+                        
+                        
+                        
+                                    var  url_='<?=base_url()?>index.php/welcome/number_excellence_receive';
+                                    //alert(url_);
+                                    
+                                      $.post(url_,function(data)
+                                        {
+                                                var  number_add  =data.number_add;
+                                               // alert( number_add );
+                                                $('#registration_receive21').textbox('setValue',number_add);  
+                                        },'json');
+                                      
+                                        
                       
                       
                         $('#date1_receive21').datebox('setValue','');                   
@@ -464,21 +478,37 @@ style="width:400px;height:500px;padding:10px">
                                            
                                            
                        
-                                                            var  add='<?=$number_add_32?>';
+                                                           
                                                             
-                                                            /*
-                                                            // alert(add);
-                                                             $.messager.confirm('','',function(r){
-                                                                   if(r)
-                                                                   {
-                                                                       $('#registration_send21').textbox('setValue',add);
-                                                                   }
-                                                             });
-                                                             */
-                                            
-                                                           $('#registration_send21').textbox('setValue',add);
-                                                         //number_add_32
+                                                            
+                                                           
+                                      
+                                      
+                          
+                                        
+                                        
+                                                            
+                                                         //   var  add='<?=$number_add_32?>';
+                                                       //   $('#registration_send21').textbox('setValue',add);
+                                                       
                                                          
+                                                         
+                                                         
+                                                         
+                                      var  url_='<?=base_url()?>index.php/welcome/number_excellence_send';
+                                      //alert(url_);
+                                     
+                                      $.post(url_,function(data)
+                                        {
+                                                var  number_add  =data.number_add;
+                                                //alert( number_add );
+                                                $('#registration_send21').textbox('setValue',number_add);  
+                                        },'json');
+                                       
+                                                
+                                                   
+                                                    var  url_='<?=base_url()?>index.php/welcome/number_excellence_receive';
+                                                   
                                                          
                                                             $('#date1_send21').datebox('setValue','');  
                                                          
@@ -547,11 +577,12 @@ style="width:400px;height:500px;padding:10px">
                                          $('#subject_receive21').textbox('setText',''); //เรื่อง       6
                                          $('#practice_receive21').textbox('setText',''); //การปฏฺิบัติ       7
                                          $('#note_receive21').textbox('setText',''); //หมายเหตุ      8
-                                         
-                                         
-                                         location.reload();
-                                       //  $('#dia_insert_excellence').dialog('open');
-                                      //  $('#dia_select_excellence').dialog('open'); 
+
+                                       
+                                        $('#dia_select_excellence').dialog('close');   // เลือกเพิ่มหรือรับหนังสือ
+                                        
+                                        $('#dia_insert_excellence').dialog('close');
+
                                   }
                              
                              });
@@ -753,9 +784,11 @@ style="width:400px;height:500px;padding:10px">
                                                             $('#subject_send21').textbox('setText',''); //เรื่อง       6
                                                             $('#practice_send21').textbox('setText',''); //การปฏฺิบัติ       7
                                                             $('#note_send21').textbox('setText',''); //หมายเหตุ      8
-                                                            location.reload();
-                                                           //  $('#dia_insert_excellence').dialog('open');
-                                                          //  $('#dia_select_excellence').dialog('open'); 
+                                                          //  location.reload();
+
+                                                              $('#dia_select_excellence').dialog('close');
+                                                              $('#dia_insert_send_excellence').dialog('close');
+
                                                      }
                                                 });
                                    }
@@ -841,7 +874,7 @@ style="width:400px;height:500px;padding:10px">
         
         
          <div style="margin-left:10px;margin-top: 10px;">
-                <input class="easyui-datebox" label="วันที่รับ "   id="date1_send21"  name="date1_send21"   labelPosition="top" style="width:70%;height:60px"  data-options=" required:true,  ">
+                <input class="easyui-datebox" label="วันที่ส่งออก "   id="date1_send21"  name="date1_send21"   labelPosition="top" style="width:70%;height:60px"  data-options=" required:true,  ">
          </div>
         
           <div style="margin-left: 10px;margin-top: 10px; ">

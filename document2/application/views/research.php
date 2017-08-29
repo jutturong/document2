@@ -407,8 +407,23 @@ style="width:400px;height:500px;padding:10px">
                       //alert(   $('#select_research').combobox('getValue')  );
                        $('#dia_insert_research').dialog('open');
 
-                        $('#registration_research_receive21').textbox('setValue','<?=@$number_add_21?>');
+                      //  $('#registration_research_receive21').textbox('setValue','<?=@$number_add_21?>');
                       //registration_research_receive21
+                      
+                      
+                      
+                              var  url_='<?=base_url()?>index.php/welcome/number_research_receive';
+                                      //alert(url_);
+                                     
+                                      $.post(url_,function(data)
+                                        {
+                                                var  number_add  =data.number_add;
+                                              //  alert( number_add );
+                                                $('#registration_research_receive21').textbox('setValue',number_add);  
+                                        },'json');
+                      
+                      
+                      
 
                         $('#date1_receive21').datebox('setValue','');
                         $('#at_receive21').textbox('setText',''); //เลขที่เอกสาร
@@ -429,7 +444,20 @@ style="width:400px;height:500px;padding:10px">
 
 
                                                             //$('#registration_send21_research').textbox('setText','');    //registration_send21_research
-                                                            $('#registration_send21_research').textbox('setValue','<?=@$number_add_22?>');
+                                                         //   $('#registration_send21_research').textbox('setValue','<?=@$number_add_22?>');
+                                                            
+                                      var  url_='<?=base_url()?>index.php/welcome/number_research_send';
+                                      //alert(url_);
+                                     
+                                      $.post(url_,function(data)
+                                        {
+                                                var  number_add  =data.number_add;
+                                              // alert( number_add );
+                                                $('#registration_send21_research').textbox('setValue',number_add);  
+                                        },'json');
+                                                            
+                                                            
+                                                            
                                                             $('#date1_send21_research').datebox('setValue','');    //date1_send21_research
 
                                                             $('#from_send21_research').textbox('setText',''); //จาก       4  //from_send21_research
@@ -508,7 +536,16 @@ style="width:400px;height:500px;padding:10px">
                                          $('#note_research_receive21').textbox('setText',''); //หมายเหตุ      8
 
 
-                                         location.reload();
+                                   
+                                       
+                                          $('#dia_insert_research').dialog('close');
+                                          $('#dia_select_research').dialog('close');
+                                       //   $('#panel_research').panel('open');
+                                     
+                               
+                                      
+                                       
+                                       
                                        //  $('#dia_insert_excellence').dialog('open');
                                       //  $('#dia_select_excellence').dialog('open');
                                   }
@@ -710,7 +747,17 @@ style="width:400px;height:500px;padding:10px">
                                                             $('#subject_send21_research').textbox('setText',''); //เรื่อง       6
                                                             $('#practice_send21_research').textbox('setText',''); //การปฏฺิบัติ       7
                                                             $('#note_send21_research').textbox('setText',''); //หมายเหตุ      8
-                                                            location.reload();
+                                                            
+                                                            
+                                                         //   location.reload();
+                                                            
+                                                            //dia_insert_send_research
+                                                            
+                                                                        $('#dia_insert_send_research').dialog('close');
+                                                                        $('#dia_select_research').dialog('close');
+                                                                    //    $('#panel_research').panel('open');
+                                                            
+                                                            
                                                            //  $('#dia_insert_excellence').dialog('open');
                                                           //  $('#dia_select_excellence').dialog('open');
                                                           
@@ -807,7 +854,7 @@ style="width:400px;height:500px;padding:10px">
             </div>
 
          <div style="margin-left:10px;margin-top: 10px;">
-                <input class="easyui-datebox" label="วันที่รับ "   id="date1_send21_research"  name="date1_send21_research"   labelPosition="top" style="width:70%;height:60px"  data-options=" required:true,  ">
+                <input class="easyui-datebox" label="วันที่ส่งออก "   id="date1_send21_research"  name="date1_send21_research"   labelPosition="top" style="width:70%;height:60px"  data-options=" required:true,  ">
          </div>
 
           <div style="margin-left: 10px;margin-top: 10px; ">
