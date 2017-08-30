@@ -200,8 +200,39 @@ style="width:400px;height:500px;padding:10px">
                     {  text:'Export',iconCls:'icon-print',size:'large',handler:function()
                            {
 
-                                window.open( '<?=base_url()?>index.php/welcome/export_data/'+  '1'  +  '/'  +  $('#type_document_foundation').combobox('getValue')  +  '/'    +    $('#to_foundation').combogrid('getValue') + '/' + $('#date_foundation').datebox('getValue')   );
-                            },
+                               // window.open( '<?=base_url()?>index.php/welcome/export_data/'+  '1'  +  '/'  +  $('#type_document_foundation').combobox('getValue')  +  '/'    +    $('#to_foundation').combogrid('getValue') + '/' + $('#date_foundation').datebox('getValue')   );
+                           
+                                var  to  =     $('#to_foundation').combogrid('getValue');
+                                var  date  =  $('#date_foundation').datebox('getValue');
+                                
+                                 if(  to == ''  &&  date == '' )
+                                    {
+                                    //ไม่ระบุอะไรเลย
+                                  
+                                      var  url= '<?=base_url()?>index.php/welcome/export_data1/'+  '3'  +  '/'  +   $('#type_document_foundation').combobox('getValue');
+                                     }
+                                     
+                                else if(  to == ''  &&  date != ''    )
+                                    {
+                                   //ระบุแค่วันที่
+                                     var  url= '<?=base_url()?>index.php/welcome/export_data2/'+  '3'  +  '/'  +  $('#type_document_foundation').combobox('getValue')  + '/'  +   date;
+                                    } 
+                                    
+                                    else if(    to != ''  &&  date == ''    )
+                                   {
+                                   //ระบุแค่ชื่อ
+                                    var  url= '<?=base_url()?>index.php/welcome/export_data3/'+  '3'  +  '/'  +  $('#type_document_foundation').combobox('getValue') + '/'  +   to;
+                                   }
+                                   
+                                   else if(   to != ''  &&  date != ''   )
+                                   {
+                                    //ระบุทั้งชื่อและวันที่
+                                   var  url = '<?=base_url()?>index.php/welcome/export_data/'+  '3'  +  '/'  +   $('#type_document_foundation').combobox('getValue')  +  '/'    +   to  + '/' +  date; 
+                                   }
+                                   
+                                    window.open(url);
+                               
+                           },
 
                      },
                      {

@@ -585,9 +585,13 @@ public function search_excellence()
                                                   //http://10.87.196.170/document2/index.php/welcome/json_to
 			public function json_to()//เอกสารถึงใคร
 			{
-         $tb="tb_main1";
-								 //$this->db->like('to');
-				$query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>1),10);
+                                                                      //$tb="tb_main1";
+                                                                      $tb=$this->tb;
+                                                                      $to=trim($this->input->get_post("to"));
+				$this->db->like("to",$to);				 //$this->db->like('to');
+				//$query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>1),10);
+                                                                      
+                                                                       $query=$this->db->get($tb,25);
 								 foreach($query->result() as $row)
 								 {
 										 $rows[]=$row;
@@ -597,7 +601,7 @@ public function search_excellence()
 			}
 
 
-
+                 
 
                  //http://10.87.196.170/document2/index.php/welcome/export_data
                  public function export_data()//พิ่มพ์หนังสือ
@@ -607,14 +611,14 @@ public function search_excellence()
                             header('Content-Type: text/html; charset=utf-8');
 
 
-                        echo     $type_record=trim($this->uri->segment(3));
-                        echo br();
+                       $type_record=trim($this->uri->segment(3));
                         
-                        echo     $type_document=trim($this->uri->segment(4));
-                        echo br();
+                        
+                          $type_document=trim($this->uri->segment(4));
+                      
 
-                        echo    $to=urldecode($this->uri->segment(5));
-                        echo br();
+                         $to=urldecode($this->uri->segment(5));
+                       
 
                              $m=trim($this->uri->segment(6));
                             //echo br();
@@ -664,6 +668,89 @@ public function search_excellence()
 
 
                 }
+                
+                  //http://10.87.196.170/document2/index.php/welcome/export_data1
+                  public function export_data1()// //ไม่ระบุอะไรเลย
+                    {
+                         $this->user_model->login();  //for checklogin
+                         $this->db->order_by("id_main1","DESC");
+
+                            header('Content-Type: text/html; charset=utf-8');
+                            $type_record=trim($this->uri->segment(3));
+                            $type_document=trim($this->uri->segment(4));
+                            /*
+                             $to=urldecode($this->uri->segment(5));
+                               $m=trim($this->uri->segment(6));
+                               $d=trim($this->uri->segment(7));
+                               $y=trim($this->uri->segment(8));
+                               $conv_date=$y."-".$m."-".$d;
+                             */
+
+                            $tb= $this->tb;
+                            $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document),20);
+                            $data["title"]=$this->title;
+                            $this->load->view("export",$data);
+                    }
+                  
+                  
+                       public function export_data2()// //ระบุแค่วันที่
+                        {
+                             $this->user_model->login();  //for checklogin
+                             $this->db->order_by("id_main1","DESC");
+
+                                header('Content-Type: text/html; charset=utf-8');
+                                $type_record=trim($this->uri->segment(3));
+
+                                $type_document=trim($this->uri->segment(4));
+
+
+                             /*
+                             echo     $to=urldecode($this->uri->segment(5));
+                             echo br(); 
+                              * 
+                              */
+
+                                   $m=trim($this->uri->segment(5));
+                                   $d=trim($this->uri->segment(6));
+                                   $y=trim($this->uri->segment(7));
+                                   $conv_date=$y."-".$m."-".$d;
+
+
+                               if(  strlen($conv_date) >  2  ) 
+                               {
+                             $tb= $this->tb;
+                             $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"date"=>$conv_date));
+                   $data["title"]=$this->title;
+                   $this->load->view("export",$data);
+                               }
+
+                        }
+                        
+                        public function export_data3()// //ระบุแค่ชื่อ
+                        {
+                             $this->user_model->login();  //for checklogin
+                             $this->db->order_by("id_main1","DESC");
+                                header('Content-Type: text/html; charset=utf-8');
+                                $type_record=trim($this->uri->segment(3));
+                                $type_document=trim($this->uri->segment(4));
+                                $to=urldecode($this->uri->segment(5));
+
+                                   /*
+                                   $m=trim($this->uri->segment(5));
+                                   $d=trim($this->uri->segment(6));
+                                   $y=trim($this->uri->segment(7));
+                                   $conv_date=$y."-".$m."-".$d;
+                                   */
+
+                                    if( $to != ""  ) 
+                                    {
+                                            $tb= $this->tb;
+                                            $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"to"=>$to));
+                                            $data["title"]=$this->title;
+                                            $this->load->view("export",$data);
+                                    }
+                               
+                        }
 
                 //http://10.87.196.170/document2/index.php/welcome/update_tb_main1_3
                 public function delete_tb_main1_3()

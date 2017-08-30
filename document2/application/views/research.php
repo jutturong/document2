@@ -203,8 +203,45 @@ style="width:400px;height:500px;padding:10px">
                     {  text:'Export',iconCls:'icon-print',size:'large',handler:function()
                            {
 
-                                window.open( '<?=base_url()?>index.php/welcome/export_data/'+  '2'  +  '/'  +  $('#type_document_research').combobox('getValue')  +  '/'    +    $('#to_research').combogrid('getValue') + '/' + $('#date_research').datebox('getValue')   );
-                            },
+                             //   window.open( '<?=base_url()?>index.php/welcome/export_data/'+  '2'  +  '/'  +  $('#type_document_research').combobox('getValue')  +  '/'    +    $('#to_research').combogrid('getValue') + '/' + $('#date_research').datebox('getValue')   );
+                           
+                                    var  to  =  $('#to_research').combogrid('getValue');
+                                    
+                                    //ค้นหาจากวันที่ 
+                                    var   date =  $('#date_research').datebox('getValue');
+                                    
+                                    // $('#type_document_research').combobox('getValue') 
+                                    //<?=base_url()?>index.php/welcome/export_data/'+  '2'  +  '/'  +  $('#type_document_research').combobox('getValue')  +  '/'    +    $('#to_research').combogrid('getValue') + '/' + $('#date_research').datebox('getValue') 
+                                
+                                     if(  to == ''  &&  date == '' )
+                                    {
+                                    //ไม่ระบุอะไรเลย
+                                    
+                                         var  url= '<?=base_url()?>index.php/welcome/export_data1/'+  '3'  +  '/'  +  $('#type_document_research').combobox('getValue');
+                                     }
+                                     
+                                     else if(  to == ''  &&  date != ''    )
+                                    {
+                                   //ระบุแค่วันที่
+                                         var  url= '<?=base_url()?>index.php/welcome/export_data2/'+  '3'  +  '/'  +  $('#type_document_research').combobox('getValue')  + '/'  +   date;
+                                    } 
+                                    
+                                    else if(    to != ''  &&  date == ''    )
+                                   {
+                                   //ระบุแค่ชื่อ
+                                    var  url= '<?=base_url()?>index.php/welcome/export_data3/'+  '3'  +  '/'  +  $('#type_document_research').combobox('getValue')  + '/'  +   to;
+                                   }
+                                   
+                                   
+                                   else if(   to != ''  &&  date != ''   )
+                                   {
+                                    //ระบุทั้งชื่อและวันที่
+                                   var  url = '<?=base_url()?>index.php/welcome/export_data/'+  '3'  +  '/'  + $('#type_document_research').combobox('getValue')   +  '/'    +    to   + '/' + date; 
+                                   }
+                                   
+                                    window.open(url);
+                                
+                           },
 
                      },
                      {
