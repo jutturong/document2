@@ -1,3 +1,15 @@
+<!--  
+
+  ##----------------- รายการคำนวณจากยุ้ย 
+
+(1->วันลาสะสม cumulative )  +  (2->วันลาพักผ่อนในปีนี้  rest  )   = (3->รวมวันลาเป็น total)
+
+(3->รวมวันลาเป็น total ) - (4->ในปีนี้ลามาแล้ว current)  = (5->คงเหลือวันลาอีก keep)
+ลามาแล้ววันทำการ  leave =   current->date_total_leave   ในปีนี้ลามาแล้ว
+ลาครั้งนี้  leave_thistime    =   wishes    มีความประสงค์จะขอลา
+
+
+-->
 
 
 
@@ -582,7 +594,7 @@
                 <td>
                 <!-- <input placeholder=""  id="cumulative" name="cumulative"   type="tel" class="validate"   >-->
                    <input class="easyui-numberbox"  style="width:250px;height: 40px;" labelAlign="right"  labelWidth="200px;"  label="มีวันลาสะสม (วัน) " labelPosition="left"
-                          id="cumulative" name="cumulative"  required="true"  />
+                          id="cumulative" name="cumulative"  required="true"  readonly="true"  />
               
                    <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
@@ -623,7 +635,7 @@
                    <input class="easyui-numberbox"  style="width:250px;height: 40px;" labelAlign="right"  labelWidth="200px;"  label="
 มีวันลาพักผ่อนในปีนี้ (วัน) " labelPosition="left"
  
-                        name="rest"    id="rest"    required="true"   />
+name="rest"    id="rest"    required="true"  readonly="true"  />
               
                    <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
@@ -664,7 +676,7 @@
                    <input class="easyui-numberbox"  style="width:250px;height: 40px;" labelAlign="right"  labelWidth="200px;"  label="
 รวมวันลาเป็น (วัน) " labelPosition="left"
  
-                        name="total"    id="total"  required="true"      />
+                        name="total"    id="total"  required="true"    readonly="true"    />
                    
                    
               
@@ -719,7 +731,7 @@
 ในปีนี้ลามาแล้ว (วัน) " labelPosition="left"
  
  
-                        name="current"    id="current"   required="true"  precision="1"   />
+                        name="current"    id="current"   required="true"  precision="1"   readonly="true"   />
                    
                    
               
@@ -779,7 +791,7 @@
  
  
  
-                        name="keep"    id="keep"   required="true"  precision="1"   />
+                        name="keep"    id="keep"   required="true"  precision="1" readonly="true"  />
                    
                    
               
@@ -976,7 +988,7 @@ labelPosition="left"  labelWidth="310px"
                 <tr>
                 <td>
                     <input class="easyui-numberbox"   label="ลามาแล้ว
-(วันทำการ)"   labelPosition="top"  labelWidth="150px;"   id="leave"  name="leave"   style="width:50px;height: 60px;"   required="true" >
+(วันทำการ)"   labelPosition="top"  labelWidth="150px;"   id="leave"  name="leave"   style="width:50px;height: 60px;"   required="true"   precision="1" readonly="true" >
                 
                     
                     <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
@@ -1026,7 +1038,7 @@ labelPosition="left"  labelWidth="310px"
                 <td>
                     
                       <input class="easyui-numberbox"   label="ลาครั้งนี้
-(วันทำการ) "   labelPosition="top"  labelWidth="150px;"   id="leave_thistime"  name="leave_thistime"   style="width:50px;height: 60px;"   required="true" >
+(วันทำการ) "   labelPosition="top"  labelWidth="150px;"   id="leave_thistime"  name="leave_thistime"   style="width:50px;height: 60px;"   required="true"  precision="1" readonly="true" >
                       
                          <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()
@@ -1045,7 +1057,7 @@ labelPosition="left"  labelWidth="310px"
                 <td>
                     
                       <input class="easyui-numberbox"   label="รวมเป็น 
-(วันทำการ) "   labelPosition="top"  labelWidth="150px;"  id="date_total_leave"   name="date_total_leave"   style="width:50px;height: 60px;"  required="true" >
+(วันทำการ) "   labelPosition="top"  labelWidth="150px;"  id="date_total_leave"   name="date_total_leave"   style="width:50px;height: 60px;"  required="true"  precision="1" readonly="true" >
                       
                         <a href="javascript:void(0)"  class="easyui-linkbutton"   data-options="  iconCls:'icon-ok'  ,labelPostion:'top',   iconAlign:'top' 
                          ,onClick:function()

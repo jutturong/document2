@@ -4,16 +4,16 @@ class Welcome extends CI_Controller {
 
         var   $title="TAWANCHAI";
 
-       //  var     $tb= "tb_main1";
-        var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
+         var     $tb= "tb_main1";
+       // var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
    
 
 
 
 
 
-      // var   $tb_vacation="tb_vacation";
-      var   $tb_vacation="tb_vacation_test";
+       var   $tb_vacation="tb_vacation";
+    //  var   $tb_vacation="tb_vacation_test";
 
 
 
@@ -3528,6 +3528,8 @@ $data=array(
 ในปีนี้ลามาแล้ว (วัน)= current
 
 คงเหลือวันลาอีก (วัน)=keep
+
+   $wishes=trim($this->input->get_post("wishes"));  //มีความประสงค์จะขอลาพักผ่อนมีกำหนด    17
                    */
 
 
@@ -3865,6 +3867,7 @@ $data=array(
             $first_name=trim($this->input->get_post("first_name"));
           //echo br();
             $this->db->order_by("id_vacation","DESC");
+            
             $q=$this->db->get_where($tb,array("first_name"=>$first_name),1);
             foreach($q->result() as $row)
             {

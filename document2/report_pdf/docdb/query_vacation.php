@@ -278,9 +278,9 @@ $cur_date=date("Y-m-d");
   $id_vacation=trim($_REQUEST["id_vacation"]);
   if(  $id_vacation > 0  )
   {
-                 //$tb="tb_vacation";
+                 $tb="tb_vacation";
                
-                  $tb="tb_vacation_test";
+               //  $tb="tb_vacation_test";
                   
                   
                 /*
