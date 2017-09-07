@@ -472,7 +472,7 @@ public function json_excellence()  //ศูนย์การดูแล AND ex
 }
 
 
-//http://10.87.196.170/document2/index.php/welcome/search_excellence
+//http://10.87.196.170/document2/index.php/welcome/
 public function search_excellence()
 {
       $this->user_model->login();  //for checklogin
@@ -520,8 +520,9 @@ public function search_excellence()
          	{
 		$this->db->order_by("id_main1","DESC");
                                     // $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"date"=>$conv_date));
-                                     $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"to"=>$to ));
-
+                                     $this->db->like("to",$to);
+                                     //$query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"to"=>$to ));
+                                     $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document ));
 
                                         $check = $query->num_rows();
                                       if( $check  > 0  )
@@ -537,7 +538,9 @@ public function search_excellence()
             else if(  $type_document  > 0  &&  $date   !=   ""   &&   $to   !=   ""      )
             {
                  $this->db->order_by("id_main1","DESC");
-                 $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"to"=>$to , "date"=>$conv_date  ));
+                  $this->db->like("to",$to);
+                // $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"to"=>$to , "date"=>$conv_date  ));
+                   $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document , "date"=>$conv_date  ));
                    $check = $query->num_rows();
                                       if( $check  > 0  )
                                       {
@@ -580,26 +583,80 @@ public function search_excellence()
 
 
 
-
+/*
+ type_record
+ 1 	มูลนิธิตะวันฉายฯ
+ 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
+ 3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
+ 
+ */
 
                                                   //http://10.87.196.170/document2/index.php/welcome/json_to
-			public function json_to()//เอกสารถึงใคร
+			public function json_to() //สำหรับ excellence  //เอกสารถึงใคร  type_record"=>3   ,  ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
+			{
+                                                                      //$tb="tb_main1";
+                                                                      $tb=$this->tb;                                                             
+                                                                       $to = isset($_POST['q']) ? strval($_POST['q']) : '';
+                                                                      $type_document=trim( $this->uri->segment(3) );
+                                                                      //$type_document=1;
+                                                                     //  $this->db->order_by("id_main1","desc"); 
+                                                                     // $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document),25);
+                                                                      $query=$this->db->query(" select   *   from    $tb      where      `type_record` = 3   AND    `type_document`=$type_document   AND  `to` like('%$to%')     ");
+				    foreach($query->result() as $row)
+				        {
+				              $rows[]=$row;
+				         }
+				     echo  json_encode($rows);
+
+			}
+                                                    //http://10.87.196.170/document3/index.php/welcome/json_to_research
+                                                     public function json_to_research()//เอกสารถึงใคร  type_record"=>2   ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
 			{
                                                                       //$tb="tb_main1";
                                                                       $tb=$this->tb;
-                                                                      $to=trim($this->input->get_post("to"));
-				$this->db->like("to",$to);				 //$this->db->like('to');
-				//$query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>1),10);
+                                                                    
+                                                                     $to = isset($_POST['q']) ? strval($_POST['q']) : '';
+                                                                   
+                                                                        $type_document=trim( $this->uri->segment(3) );
+                                                                       // $type_document=1;
+				//$this->db->like("to",$to);				 //$this->db->like('to');
+				
+                                                                      //$query=$this->db->get_where($tb,array("type_record"=>2,"type_document"=>$type_document),25);
+                                                                      $query=$this->db->query(" select   *   from    $tb      where      `type_record` = 2   AND    `type_document`=$type_document   AND  `to` like('%$to%')     ");
                                                                       
-                                                                       $query=$this->db->get($tb,25);
-								 foreach($query->result() as $row)
-								 {
-										 $rows[]=$row;
-								 }
-									echo  json_encode($rows);
+                                                                      
+				    foreach($query->result() as $row)
+				        {
+				              $rows[]=$row;
+				         }
+				               echo  json_encode($rows);
 
 			}
+                                                         //http://10.87.196.170/document3/index.php/welcome/json_to_foundation
+                                                        public function  json_to_foundation()//เอกสารถึงใคร  type_record"=>1 	มูลนิธิตะวันฉายฯ
+                                                        {
+                                                                                                      //$tb="tb_main1";
+                                                                                                      $tb=$this->tb;
+                                                                                                 
+                                                                                                       $to = isset($_POST['q']) ? strval($_POST['q']) : '';
+                                                                                            
+                                                                                                        $type_document=trim( $this->uri->segment(3) );
+                                                                                                      //  $type_document=1;
+                                                      		
+                                                              
+                                                                    //  $query=$this->db->get_where($tb,array("type_record"=>1,"type_document"=>$type_document),25);
+                                                                      $query=$this->db->query(" select   *   from    $tb      where      `type_record` = 1   AND    `type_document`=$type_document   AND  `to` like('%$to%')     ");     
+                                                                      
+                                                                      
+                                                                                                  
+                                                                    foreach($query->result() as $row)
+                                                                        {
+                                                                              $rows[]=$row;
+                                                                         }
+                                                                               echo  json_encode($rows);
 
+                                                        }
+                                                     
 
                  
 
@@ -731,9 +788,16 @@ public function search_excellence()
                              $this->user_model->login();  //for checklogin
                              $this->db->order_by("id_main1","DESC");
                                 header('Content-Type: text/html; charset=utf-8');
-                                $type_record=trim($this->uri->segment(3));
-                                $type_document=trim($this->uri->segment(4));
-                                $to=urldecode($this->uri->segment(5));
+                              $type_record=trim($this->uri->segment(3));
+                        
+                           
+                              $type_document=trim($this->uri->segment(4));
+                            
+                              
+                               echo    $too=trim(urldecode($this->uri->segment(5)));
+                               //นางดารณี ปราการกมานันท์ (ภาควิชาวิสัญญีวิทยา)
+                               
+                              echo br();
 
                                    /*
                                    $m=trim($this->uri->segment(5));
@@ -742,10 +806,14 @@ public function search_excellence()
                                    $conv_date=$y."-".$m."-".$d;
                                    */
 
-                                    if( $to != ""  ) 
+                                    if( $too != ""  ) 
                                     {
                                             $tb= $this->tb;
-                                            $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"to"=>$to));
+                                            $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"to"=>$too));
+                                         //    $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"to"=>"นางดารณี ปราการกมานันท์ (ภาควิชาวิสัญญีวิทยา)"));
+                                          
+                                             $data["q"]->num_rows();
+                                           // echo br();
                                             $data["title"]=$this->title;
                                             $this->load->view("export",$data);
                                     }
@@ -1323,7 +1391,7 @@ $data=array(
          */
 
         //http://10.87.196.170/document2/index.php/welcome/home/json_research
-        public function json_research()
+        public function json_research() // 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
         {
               $this->user_model->login();  //for checklogin
 
@@ -1338,10 +1406,30 @@ $data=array(
 			 //echo  json_encode($rows);
 			 echo json_encode($rows);
 
+        }
+        
+        /*
+         public function json_foundation() // 
+        {
+              $this->user_model->login();  //for checklogin
 
-
+               $tb=$this->tb;
+               $this->db->order_by("id_main1","DESC");
+			//$this->db->limit(30,0);
+			$query=$this->db->get_where($tb,array("type_record"=>2),5);
+			foreach($query->result() as $row)
+			{
+					$rows[]=$row;
+			}
+			 //echo  json_encode($rows);
+			 echo json_encode($rows);
 
         }
+        */
+        
+        
+        
+        
         //http://10.87.196.170/document2/index.php/welcome/home/search_research
         public function  search_research()
         {
@@ -1430,6 +1518,22 @@ $data=array(
                              echo  json_encode($rows);
                     }
                  }
+                 else  if(  $to != "" )
+                 {
+                   $this->db->order_by("id_main1","DESC");
+                   $query=$this->db->get_where($tb,array("type_record"=>2,"type_document"=>$type_document, "to"=>$to));
+                   $check = $query->num_rows();
+                  //echo br();
+                    if(  $check  > 0  )
+                    {
+                             foreach($query->result() as $row)
+                              {
+                                     $rows[]=$row;
+                              }
+                             echo  json_encode($rows);
+                    }
+                 }
+                 
                else  if( $to != ""  &&  $date != "" )
                  {
                    $this->db->order_by("id_main1","DESC");
@@ -2054,7 +2158,10 @@ $data=array(
                    // $type_record=3;
              //   1 	มูลนิธิตะวันฉายฯ
 	// 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
+     
+ 
  // http://10.87.196.170/document2/index.php/welcome/json_foundation
+ 
   public function json_foundation()
         {
               $this->user_model->login();  //for checklogin
@@ -2072,6 +2179,9 @@ $data=array(
 
 
         }
+      
+        
+        
    //  http://10.87.196.170/document2/index.php/welcome/search_foundation
   public function  search_foundation()
         {

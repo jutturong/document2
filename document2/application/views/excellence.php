@@ -14,7 +14,20 @@ style="width:400px;height:500px;padding:10px">
 
             <div style="margin-bottom:10px">
 
-<select class="easyui-combobox" name="type_document" id="type_document" label="ประเภท" labelPosition="top" style="width:50%;height:60px">
+<select class="easyui-combobox" name="type_document" id="type_document" label="ประเภท"
+        data-options="
+           onSelect:function()
+           {
+
+               var  url ='<?=base_url()?>index.php/welcome/json_to/' +  $('#type_document').combobox('getValue');
+               //alert( url );
+               //$('#to').combobox('reload', url  );
+               
+           }
+        "
+        
+        labelPosition="top" style="width:50%;height:60px">
+  <!--  <option  >เลือก</option> -->
     <option value="1">เอกสารรับ</option>
     <option value="2">เอกสารส่ง</option>
 </select>
@@ -24,19 +37,24 @@ style="width:400px;height:500px;padding:10px">
 
 <!--  ของ -->
 <div style="margin-bottom:10px">
-        <input class="easyui-combogrid"  id="to"   name="to"  labelPosition="left"  style="width:80%;height:60px"
+    <input class="easyui-combogrid"  type="autoCompleteBox"   id="to"   name="to"  labelPosition="left"  style="width:80%;height:60px"
                   data-options="
-                     url:'<?=base_url()?>index.php/welcome/json_to',
+                  
+                  
+                     url:'<?=base_url()?>index.php/welcome/json_to/' +  $('#type_document').combobox('getValue')  ,
                      method:'post',
                      //valueField:'id_academic',
                      //textField:'firstname_academic',
                      idField:'to',
                      textField:'to',
-                     panelHeight:'auto',
-                     labelPosition:'top',
+                   //  panelHeight:'auto',
+                   //  labelPosition:'top',
                      fitColumns:true,
                      label:'ของ',
                      labelPosition:'top',
+                     
+                     mode: 'remote',
+                     
                      columns:[[
                       // { field:'pre_academic',title:'คำนำหน้า',width:'80px'  },
                       // { field:'firstname_academic',title:'ชื่อ',width:'100px' },
@@ -48,6 +66,7 @@ style="width:400px;height:500px;padding:10px">
 
                   " >
  </div>
+
 
 
 
@@ -202,6 +221,7 @@ style="width:400px;height:500px;padding:10px">
                  ]],
                  toolbar:[
                      //{  text:'Refresh' ,iconCls:'icon-reload',handler:function(){  $('#datagrid_excellence').datagrid('reload');  }   },
+                 
                     {  text:'Export',iconCls:'icon-print',size:'large',handler:function()
                            {
                                 // alert('t');

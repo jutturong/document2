@@ -8,7 +8,20 @@ style="width:400px;height:500px;padding:10px">
 
             <div style="margin-bottom:10px">
 
-                <select    class="easyui-combobox"  required="true"   name="type_document_foundation" id="type_document_foundation" label="ประเภท" labelPosition="top" style="width:50%;height:60px">
+                <select    class="easyui-combobox"  required="true"   name="type_document_foundation" id="type_document_foundation" 
+                           
+                                data-options="
+               onSelect:function()
+               {
+
+                   var  url ='<?=base_url()?>index.php/welcome/json_to_foundation/' +  $('#type_document_foundation').combobox('getValue');
+                   //alert( url );
+                   //$('#to').combobox('reload', url  );
+
+               }
+            "
+                           
+                           label="ประเภท" labelPosition="top" style="width:50%;height:60px">
     <option value="1">เอกสารรับ</option>
     <option value="2">เอกสารส่ง</option>
 </select>
@@ -18,9 +31,13 @@ style="width:400px;height:500px;padding:10px">
 
 <!--  ของ -->
 <div style="margin-bottom:10px">
-    <input class="easyui-combogrid"  id="to_foundation"   name="to_foundation"  labelPosition="left"  style="width:80%;height:60px"
+    <input class="easyui-combogrid"   type="autoCompleteBox"    id="to_foundation"     name="to_foundation"  labelPosition="left"  style="width:80%;height:60px"
                   data-options="
-                     url:'<?=base_url()?>index.php/welcome/json_to',
+                  //   url:'<?=base_url()?>index.php/welcome/json_to',
+                  
+                    url:'<?=base_url()?>index.php/welcome/json_to_foundation' + '/' +  $('#type_document_foundation').combobox('getValue')  ,
+                    
+                    mode: 'remote',
                      method:'post',
                      //valueField:'id_academic',
                      //textField:'firstname_academic',
@@ -209,25 +226,25 @@ style="width:400px;height:500px;padding:10px">
                                     {
                                     //ไม่ระบุอะไรเลย
                                   
-                                      var  url= '<?=base_url()?>index.php/welcome/export_data1/'+  '3'  +  '/'  +   $('#type_document_foundation').combobox('getValue');
+                                      var  url= '<?=base_url()?>index.php/welcome/export_data1/'+  '1'  +  '/'  +   $('#type_document_foundation').combobox('getValue');
                                      }
                                      
                                 else if(  to == ''  &&  date != ''    )
                                     {
                                    //ระบุแค่วันที่
-                                     var  url= '<?=base_url()?>index.php/welcome/export_data2/'+  '3'  +  '/'  +  $('#type_document_foundation').combobox('getValue')  + '/'  +   date;
+                                     var  url= '<?=base_url()?>index.php/welcome/export_data2/'+  '1'  +  '/'  +  $('#type_document_foundation').combobox('getValue')  + '/'  +   date;
                                     } 
                                     
                                     else if(    to != ''  &&  date == ''    )
                                    {
                                    //ระบุแค่ชื่อ
-                                    var  url= '<?=base_url()?>index.php/welcome/export_data3/'+  '3'  +  '/'  +  $('#type_document_foundation').combobox('getValue') + '/'  +   to;
+                                    var  url= '<?=base_url()?>index.php/welcome/export_data3/'+  '1'  +  '/'  +  $('#type_document_foundation').combobox('getValue') + '/'  +   to;
                                    }
                                    
                                    else if(   to != ''  &&  date != ''   )
                                    {
                                     //ระบุทั้งชื่อและวันที่
-                                   var  url = '<?=base_url()?>index.php/welcome/export_data/'+  '3'  +  '/'  +   $('#type_document_foundation').combobox('getValue')  +  '/'    +   to  + '/' +  date; 
+                                   var  url = '<?=base_url()?>index.php/welcome/export_data/'+  '1'  +  '/'  +   $('#type_document_foundation').combobox('getValue')  +  '/'    +   to  + '/' +  date; 
                                    }
                                    
                                     window.open(url);

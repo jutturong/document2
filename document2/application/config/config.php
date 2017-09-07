@@ -24,7 +24,7 @@
 */
 //$config['base_url'] = 'http://10.87.196.170/document2/';
 //$config['base_url'] = 'http://192.168.2.120/document2/';
-$config['base_url'] = 'http://10.87.196.170/document2/';
+$config['base_url'] = 'http://10.87.196.170/document3/';
 
 
 /*
@@ -137,9 +137,13 @@ $config['subclass_prefix'] = 'MY_';
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+
+
+//$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 //$config['permitted_uri_chars'] = 'a-z 0-9~%.:&_\-';
 // $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-ก-ฮะาิีุูเะแำไใๆ่้๊๋ั็์ึื';
+
+
 
 /*
 |--------------------------------------------------------------------------
