@@ -601,7 +601,7 @@ public function search_excellence()
                                                                       //$type_document=1;
                                                                      //  $this->db->order_by("id_main1","desc"); 
                                                                      // $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document),25);
-                                                                      $query=$this->db->query(" select   *   from    $tb      where      `type_record` = 3   AND    `type_document`=$type_document   AND  `to` like('%$to%')     ");
+                                                                      $query=$this->db->query(" select   *   from    $tb      where      `type_record` = 3   AND    `type_document`=$type_document   AND  `to` like('%$to%')   LIMIT   30   ");
 				    foreach($query->result() as $row)
 				        {
 				              $rows[]=$row;
@@ -622,7 +622,7 @@ public function search_excellence()
 				//$this->db->like("to",$to);				 //$this->db->like('to');
 				
                                                                       //$query=$this->db->get_where($tb,array("type_record"=>2,"type_document"=>$type_document),25);
-                                                                      $query=$this->db->query(" select   *   from    $tb      where      `type_record` = 2   AND    `type_document`=$type_document   AND  `to` like('%$to%')     ");
+                                                                      $query=$this->db->query(" select   *   from    $tb      where      `type_record` = 2   AND    `type_document`=$type_document   AND  `to` like('%$to%')   LIMIT   30    ");
                                                                       
                                                                       
 				    foreach($query->result() as $row)
@@ -645,7 +645,7 @@ public function search_excellence()
                                                       		
                                                               
                                                                     //  $query=$this->db->get_where($tb,array("type_record"=>1,"type_document"=>$type_document),25);
-                                                                      $query=$this->db->query(" select   *   from    $tb      where      `type_record` = 1   AND    `type_document`=$type_document   AND  `to` like('%$to%')     ");     
+                                                                      $query=$this->db->query(" select   *   from    $tb      where      `type_record` = 1   AND    `type_document`=$type_document   AND  `to` like('%$to%')    LIMIT   30    ");     
                                                                       
                                                                       
                                                                                                   
@@ -794,10 +794,10 @@ public function search_excellence()
                               $type_document=trim($this->uri->segment(4));
                             
                               
-                               echo    $too=trim(urldecode($this->uri->segment(5)));
+                              $too=trim(urldecode($this->uri->segment(5)));
                                //นางดารณี ปราการกมานันท์ (ภาควิชาวิสัญญีวิทยา)
                                
-                              echo br();
+                              //echo br();
 
                                    /*
                                    $m=trim($this->uri->segment(5));
