@@ -128,6 +128,19 @@
              }
           
          },
+             
+         {
+               text:'Clear(ล้างข้อมูล)',
+               iconCls:'icon-man',
+               iconAlign:'top',
+               size:'large',
+               handler:function()
+                 {
+                      //alert('t');
+                 }
+          }
+          ,
+         
          { text:'Close(ปิด)',iconCls:'icon-cancel',size:'large',iconAlign:'top',handler:function()
                 {  
                         $('#dia_form_sick').dialog('close');  
@@ -198,17 +211,12 @@
                                    ,
                                    onChange:function()
                                    {
-                                   
-                                       
-                                  
-                                   
-                                   
 
-                                        //var  id_staff  =   $('#id_staff_sick').combogrid('getValue');
-                                        //alert(  id_staff   );    
-                                        
+                                        var  id_staff  =   $('#id_staff_sick').combogrid('getValue');
+
                                         $.ajax({
-                                            url:'<?=base_url()?>index.php/welcome/json_call_staff_sick',
+                                            //url:'<?=base_url()?>index.php/welcome/json_call_staff_sick/'  +   id_staff    ,
+                                             url:'<?=base_url()?>index.php/welcome/json_call_staff_sick/'    ,
                                             data:  $('#fr_sick').serialize(),
                                             method:'post',
                                             dataType:'json',
@@ -571,6 +579,47 @@
                     
                     <td>
                         <input  class="easyui-numberbox"   labelPosition="right"    id="sick1"  name="sick1"    type="text"  style="width:50px;height: 40px;" >
+                   
+                        <a href="javascript:void(0)"   class="easyui-linkbutton"  iconCls="icon-man"  data-options="
+                           iconAlign:'top',
+                           onClick:function()
+                           {
+                               //alert('t');
+                                   // var  url='<?=base_url()?>index.php/welcome/check_day_sick/' +  $('#id_staff_sick').combogrid('getValue')  ;
+                                    var  url='<?=base_url()?>index.php/welcome/check_day_sick/' ;
+                                 if( $('#id_staff_sick').combogrid('getValue') > 0 )
+                                 {
+                                 
+                                 
+                                        /*
+                                            $.ajax({
+                                               url:url,
+                                               dataType:'text',
+                                               data:$('#fr_sick').serialize(),
+                                               method:'post',
+
+
+                                            }).done(function(data){
+                                                  alert(data);
+                                                  // sick1
+                                       
+                                                  
+                                                  
+                                                  
+                                                  
+                                            });//end done
+                                            */
+                                 
+                                 }
+                                 else
+                                 {
+                                      $.messager.alert('ระบุชื่อเจ้าหน้าที่่','ระบุชื่อเจ้าหน้าที่ก่อน','info');
+                                 }
+                                 
+                                 
+                           }
+                           
+                           "   >Check</a>
                     </td>
                      <td>
                           <input  class="easyui-numberbox"   labelPosition="right"   id="sick2"   name="sick2"    type="text"  style="width:50px;height: 40px;" >
@@ -696,16 +745,16 @@
         
         <tr>
             <td>
-                <input   class="easyui-textbox"    id="first_name2"   name="first_name2"  label="(ลงชื่อ)"  labelPosition="left"   data-options="  value:'สุธีรา'  "    style="width:180px;height: 40px;" >
+                <input   class="easyui-textbox"    id="first_name2"   name="first_name2"  label="(ลงชื่อ)"  labelPosition="left"   data-options="  value:'สุธีรา' ,readonly:'true'   "    style="width:180px;height: 40px;" >
                 
-                <input    class="easyui-textbox"   id="last_name2"  name="last_name2"      data-options="  value:'ประดับวงษ์'  "    style="width:180px;height: 40px;" >
+                <input    class="easyui-textbox"   id="last_name2"  name="last_name2"      data-options="  value:'ประดับวงษ์' ,readonly:'true'    "    style="width:180px;height: 40px;" >
                 
             </td>
         </tr>
         
         <tr>
             <td>
-                <input     class="easyui-textbox"    label="ตำแหน่ง"  labelWidth="100px;"   id="postion2"  name="postion2"     value="กรรมการและเลขานุการ"   style="width:280px;height: 40px;" >
+                <input     class="easyui-textbox"    label="ตำแหน่ง"  labelWidth="100px;"   id="postion2"  name="postion2"  readonly="true"    value="กรรมการและเลขานุการ"   style="width:280px;height: 40px;" >
             </td>
         </tr>
         
@@ -730,9 +779,9 @@
         
         <tr>
             <td>
-                <input  class="easyui-textbox"   id="first_name3"   name="first_name3"   label="(ลงชื่อ)"  labelPosition="left" labelWidth="100px;"    data-options="   value:'รศ.พญ.นิรมล'    "    style="width:240px;height: 40px;"   >
+                <input  class="easyui-textbox"   id="first_name3"   name="first_name3"   label="(ลงชื่อ)"  labelPosition="left" labelWidth="100px;"    data-options="   value:'รศ.พญ.นิรมล' ,readonly:true   "    style="width:240px;height: 40px;"   >
             
-            <input    class="easyui-textbox"   id="last_name3"  name="last_name3"    data-options=" value:'พัจนสุนทร'      "      style="width:180px;height: 40px;" >
+            <input    class="easyui-textbox"   id="last_name3"  name="last_name3"    data-options=" value:'พัจนสุนทร' ,readonly:true,      "      style="width:180px;height: 40px;" >
             
             </td>
         </tr>
@@ -740,7 +789,7 @@
         
         <tr>
             <td>
-                    <input  class="easyui-textbox"  id="manager_position"  name="manager_position"    label="ตำแหน่ง"  labelPosition="left" labelWidth="100px;"    data-options="   value:'รองผู้อำนวยการฝ่ายบริหาร'    "    style="width:350px;height: 40px;"   >
+                    <input  class="easyui-textbox"  id="manager_position"  name="manager_position"    label="ตำแหน่ง"  labelPosition="left" labelWidth="100px;"    data-options="   value:'รองผู้อำนวยการฝ่ายบริหาร'  ,readonly:true,   "    style="width:350px;height: 40px;"   >
             </td>
         </tr>
         

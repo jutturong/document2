@@ -4063,11 +4063,15 @@ $data=array(
                          }
                          echo json_encode($rows);
                   }
-                  
-                  
         
-              
-                
+     }
+     
+     
+     public  function  check_day_sick()
+     {
+           echo $id_staff_sick=trim($this->iput->get_post("id_staff_sick"));
+           echo br();
+           
      }
 
 
@@ -4093,34 +4097,41 @@ $data=array(
           $this->user_model->login();  //for checklogin
             $tb="tb_staff";
             $id_staff=trim($this->input->get_post("id_staff"));
+            
+            if( $id_staff > 0 )
+            {
             $q=$this->db->get_where($tb,array("id_staff"=>$id_staff));
                         foreach($q->result() as $row)
                         {
                             $rows[]=$row;
                         }
                         echo json_encode($rows);
+            }           
+                        
 
      }
      
-         //  http://10.87.196.170/document3/index.php/welcome/json_call_staff
+         //  http://10.87.196.170/document3/index.php/welcome/json_call_staff_sick
      public function json_call_staff_sick()
      {
           $this->user_model->login();  //for checklogin
-            $tb="tb_staff";
+           $tb="tb_staff";
+     
             $id_staff=trim($this->input->get_post("id_staff_sick"));
+            // $id_staff=trim($this->uri->segment(3));
+          
+          
             $q=$this->db->get_where($tb,array("id_staff"=>$id_staff));
                         foreach($q->result() as $row)
                         {
                             $rows[]=$row;
                         }
                         echo json_encode($rows);
+                 
+                        
 
      }
      
-     
-  
-     
-
 
      //มีวันลาสะสม   ตรวจสอบวันลาสะสม
      public   function check_vacation()
