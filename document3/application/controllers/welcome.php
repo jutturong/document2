@@ -20,7 +20,9 @@ class Welcome extends CI_Controller {
         var  $total_day_vacation=10; //จำนวนวันลาทั้งหมดในปีแต่ละปี
         
         
-        var   $tb_sick="tb_sick";
+        //var   $tb_sick="tb_sick";
+         var   $tb_sick="tb_sick_test";
+        
 
 
          public function __construct()
@@ -4069,8 +4071,33 @@ $data=array(
      
      public  function  check_day_sick()
      {
-           echo $id_staff_sick=trim($this->iput->get_post("id_staff_sick"));
-           echo br();
+         
+            //id_staff_sick
+            $id_staff_sick=trim($this->input->get_post("id_staff_sick"));
+           //echo br();
+            //$tb_sick="tb_sick";
+              $tb_sick= $this->tb_sick;
+           $tb_staff="tb_staff";
+           
+           if( $id_staff_sick > 0 )
+           {
+                $this->db->join($tb_sick,  $tb_staff.".name=".$tb_sick.".first_name","right" );
+                
+                $q=$this->db->get_where($tb_staff,array(  $tb_staff.".id_staff"=>$id_staff_sick));
+                $this->db->order_by(  $tb_sick.".id_sick","desc");
+                //$q=$this->db->get();
+                  $check = $q->num_rows();
+                  if( $check > 0 )
+                  {
+                      foreach($q->result() as $row)
+                      {
+                          $rows[]=$row;
+                      }
+                      echo json_encode($rows);
+                  }
+             
+                
+           }
            
      }
 
@@ -4131,6 +4158,8 @@ $data=array(
                         
 
      }
+     
+     
      
 
      //มีวันลาสะสม   ตรวจสอบวันลาสะสม

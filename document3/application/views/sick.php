@@ -119,7 +119,21 @@
       ,maximizable:true
       ,collapsible:true
       ,buttons:[
-      
+         {
+            text:'แสดงข้อมูล',
+            //iconCls:'icon-large-picture',
+             iconCls:'icon-reload',
+            size:'large',
+            iconAlign:'top',
+            handler:function()
+            {
+                   //alert('t');
+                   //datagrid_sick
+                   $('#dia_main_sick').dialog('open');
+            }
+         
+         }
+         ,
         {
              text:'Save(บันทึก)',iconCls:'icon-save',size:'large',iconAlign:'top',handler:function()
              {
@@ -137,6 +151,28 @@
                handler:function()
                  {
                       //alert('t');
+                       $('#sick1').numberbox('setValue','');
+                       $('#sick2').numberbox('setValue','');
+                       $('#total_sick').numberbox('setValue','');
+                       
+                        $('#sick_person1').numberbox('setValue','');
+                        $('#sick_person2').numberbox('setValue','');
+                        $('#total_sick_person').numberbox('setValue');
+                        
+                         $('#confined1').numberbox('setValue','');
+                         $('#confined2').numberbox('setValue','');
+                         $('#total_confined').numberbox('setValue','');
+                         
+                         
+                         $('#first_name_sick').textbox('setValue','');
+                         $('#last_name_sick').textbox('setValue','');
+                         $('#position_sick').textbox('setValue','');
+                         
+                         $('#prename_sick').combobox('setValue','');
+                         
+                         $('#count_date').numberbox('setValue','');
+                         
+                      
                  }
           }
           ,
@@ -152,10 +188,10 @@
       "  style="width:700px;height: 600px;  "   >
     
     
-    <div class="easyui-panel"  >
+    
          <form  id="fr_sick">
         
-        <table   >
+        <table >
             <tr>
                 
                 <td colspan="3" align="right">
@@ -171,7 +207,7 @@
             
             <tr>
                 <td colspan="3" align="right">
-                    <input class="easyui-datebox"  id="date_write1"  name="date_write1"  style="width:170px;height: 40px;"  />
+                    <input class="easyui-datebox"  required="true"  id="date_write1"  name="date_write1"  style="width:170px;height: 40px;"  />
                 </td>
             </tr>
         
@@ -305,7 +341,7 @@
                     
                     
                      <select  class="easyui-combobox"  name="prename_sick"   id="prename_sick"    style="width:80px;height: 40px;"  >
-                             <option  > :: เลือก :: </option>
+                         <option  value=""> :: เลือก :: </option>
                              <option value="1">นาย</option>
                               <option value="2">นาง</option>
                               <option value="3">นางสาว</option>
@@ -334,27 +370,25 @@
                 </td>
             </tr>
             
+            
+           
             <tr>
-                <td>
+                <td colspan="3">
                     
                     
-                    <!--
-                    <select class="easyui-combobox"   label="ขอลา"  labelPosition="left"  style="width:220px;height: 40px;"  name="disease"  id="disease" >
-                                            <option  value="1" >ป่วยด้วยโรค</option>
-                                            <option  value="3" >กิจส่วนตัว</option>
-                                            <option  value="4" >คลอดบุตร</option>
-                    </select>
-                    -->
+                 
                     
-                    <input class="easyui-switchbutton"    id="disease1"  value="1" > ป่วยด้วยโรค
+                    <input    type="radio"   name="disease"    id="disease1"  value="1" > ป่วยด้วยโรค
                     
-                    <input class="easyui-textbox"   id="disease_detail"  name="disease_detail"  style="width:220px;height: 40px;"   />
+                    <input class="easyui-textbox"   id="disease_detail"  multiline="true"    name="disease_detail"  style="width:150px;height: 40px;"   />
                     
                    เกี่ยวข้องหรือมีสาเหตุจาก 
                    
-                   <input class="easyui-switchbutton"   id="sick_disease1" name="sick_disease"   value="1" > จากการทำงาน
+                   
+                   
+                   <input    type="radio"   id="sick_disease1" name="sick_disease"   value="1" > จากการทำงาน
                     
-                    <input class="easyui-switchbutton"   name="sick_disease"  id="sick_disease2"  > ไม่ใช่จากการทำงาน
+                    <input        type="radio"    name="sick_disease"  id="sick_disease2"  > ไม่ใช่จากการทำงาน
                     
                 </td>
             </tr>
@@ -363,7 +397,7 @@
                 <td>
                     
                     
-                     <input class="easyui-switchbutton"  name="disease"  id="disease3"  value="3" > กิจส่วนตัว
+                     <input    type="radio"  name="disease"  id="disease3"  value="3" > กิจส่วนตัว
                        
                         เนื่องจาก
                         
@@ -376,36 +410,30 @@
             
             <tr>
                 <td>
-                      <input   class="easyui-switchbutton"    type="radio"   id="disease4"   name="disease"  value="4"  />
+                    <input   type="radio"  name="disease"  id="disease4"   name="disease"  value="4"  />
                       คลอดบุตร
                 </td>
             </tr>
             
+            
+            
             <tr>
                 <td>
-                    <input class="easyui-datebox"    label="ตั่งแต่วันที่ "   id="begin_date1"  name="begin_date1"   style="width:200px;height: 40px;"   />
-                    <input class="easyui-datebox"    label="ถึงวันที่ "  id="end_date1"  name="end_date1"    style="width:200px;height: 40px;"   />
+                    <input class="easyui-datebox"    label="ตั่งแต่วันที่ "  required="true"  id="begin_date1"  name="begin_date1"   style="width:200px;height: 40px;"   />
+                    <input class="easyui-datebox"    label="ถึงวันที่ "   required="true"   id="end_date1"  name="end_date1"    style="width:200px;height: 40px;"   />
                     
-                    <input class="easyui-numberbox"  id="count_date"  name="count_date"    label="มีกำหนด (วัน)"   lebelPosition="left"   style="width:200px;height: 40px;" /> 
+                    <input class="easyui-numberbox"  id="count_date" required="true"  name="count_date"    label="มีกำหนด (วัน)"   lebelPosition="left"   style="width:130px;height: 40px;" /> 
                 </td>
             </tr>
             
             <tr>
-                <td>
+                
+                
+                <td colspan="3">
                     ข้าพเจ้าได้ลา  
-                    
-
-                      <input   class="easyui-switchbutton"  name="me_leave"    id="me_leave1"  value="1"  style="width: 90px;height: 40px;"  />
-                             ป่วย
-                    
-                       <input    class="easyui-switchbutton"    name="me_leave"    id="me_leave2"     value="2"   style="width: 90px;height: 40px;" />
-                            กิจส่วนตัว
-                            
-                            <input    class="easyui-switchbutton"   name="me_leave" type="radio"     id="me_leave3"     value="2"   style="width: 90px;height: 40px;" />
-                            คลอดบุตร  
-                            
-                            
-                    
+                    <input    type="radio"   name="me_leave"     id="me_leave1"  value="1"  style="width: 90px;height: 40px;"  >ป่วย
+                    <input     type="radio"    name="me_leave"    id="me_leave2"     value="2"   style="width: 90px;height: 40px;" >กิจส่วนตัว    
+                    <input     type="radio"    name="me_leave" type="radio"     id="me_leave3"     value="2"   style="width: 90px;height: 40px;" >คลอดบุตร  
                 </td>
             </tr>
             
@@ -578,55 +606,109 @@
                     </td>
                     
                     <td>
-                        <input  class="easyui-numberbox"   labelPosition="right"    id="sick1"  name="sick1"    type="text"  style="width:50px;height: 40px;" >
+                        <input  class="easyui-numberbox"   required="true"     id="sick1"  name="sick1"    type="text"  style="width:50px;height: 40px;" >
                    
-                        <a href="javascript:void(0)"   class="easyui-linkbutton"  iconCls="icon-man"  data-options="
+                        <a href="javascript:void(0)"   class="easyui-linkbutton"    iconCls="icon-man"  data-options="
+                        
                            iconAlign:'top',
                            onClick:function()
                            {
-                               //alert('t');
+                              
                                    // var  url='<?=base_url()?>index.php/welcome/check_day_sick/' +  $('#id_staff_sick').combogrid('getValue')  ;
-                                    var  url='<?=base_url()?>index.php/welcome/check_day_sick/' ;
-                                 if( $('#id_staff_sick').combogrid('getValue') > 0 )
-                                 {
+                                 var  url='<?=base_url()?>index.php/welcome/check_day_sick/' ;
+                                 // alert(url);
                                  
                                  
-                                        /*
-                                            $.ajax({
-                                               url:url,
-                                               dataType:'text',
-                                               data:$('#fr_sick').serialize(),
-                                               method:'post',
+                                 
+                                  if(   $('#id_staff_sick').combogrid('getValue') > 0 )
+                                  {
+                                        $.ajax({
+                                           url:url,
+                                           //dataType:'text',
+                                           dataType:'json',
+                                           method:'post',
+                                           data:$('#fr_sick').serialize(),
 
 
-                                            }).done(function(data){
-                                                  alert(data);
-                                                  // sick1
-                                       
-                                                  
-                                                  
-                                                  
-                                                  
-                                            });//end done
-                                            */
+                                        }).done(function(data)
+                                            { 
+                                                  //alert(data);  
+                                                    $.each(data,function(v,k)
+                                                      {
+                                                            var  sick1=k.sick1;
+                                                            //alert(sick1);
+                                                            $('#sick1').numberbox('setValue',sick1);
+                                                            
+                                                            
+                                                            
+                                                       });
+                                            });
+                                    }
+                                    else{
+                                       $.messager.alert('เลือกชื่อ-นามสกุลก่อน','เลือกชื่อ-นามสกุลก่อน','error');
+                                    }
+                                      
                                  
-                                 }
-                                 else
-                                 {
-                                      $.messager.alert('ระบุชื่อเจ้าหน้าที่่','ระบุชื่อเจ้าหน้าที่ก่อน','info');
-                                 }
+                                
                                  
                                  
                            }
                            
                            "   >Check</a>
+                       
                     </td>
                      <td>
-                          <input  class="easyui-numberbox"   labelPosition="right"   id="sick2"   name="sick2"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-numberbox"   required="true"   id="sick2"   name="sick2"    type="text"  style="width:50px;height: 40px;" >
+                         <a href="javascript:void(0)"     class="easyui-linkbutton"  iconCls="icon-man"  data-options=" 
+                              
+                               iconAlign:'top',
+                               onClick:function()
+                               {
+                                     //alert('t');
+                                     var  count_date=$('#count_date').numberbox('getValue');
+                                     if( count_date > 0 )
+                                     {
+                                         // alert(count_date);
+                                           $('#sick2').numberbox('setValue',count_date);
+                                           
+                                     }
+                                     else
+                                     {
+                                          $.messager.alert('ระบุจำนวนวันลา','ระบุจำนวนวันลาก่อน','error');
+                                     }
+                               },
+                             
+                             " >Check</a>
+                          
                     </td>
                     
                      <td>
-                         <input  class="easyui-numberbox"   labelPosition="right"    id="total_sick"   name="total_sick"     type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-numberbox"     id="total_sick"   name="total_sick"     type="text"  style="width:50px;height: 40px;" >
+                         
+                         <a href="javascript:void(0)"  id="btn_total_sick"   class="easyui-linkbutton"  iconCls="icon-ok"  data-options="  
+                                iconAlign:'top',
+                              
+                                  onClick:function()
+                                  {
+                                          
+                                          var  sick1=$('#sick1').numberbox('getValue');
+                                          var   sick2=$('#sick2').numberbox('getValue');
+                                          var   total_sick=  parseFloat(  sick1+ sick2 );
+                                          //alert(  total_sick  );
+                                          if( total_sick > 0 )
+                                          {
+                                                $('#total_sick').numberbox('setValue',total_sick);
+                                          }
+                                          else
+                                          {
+                                               $.messager.alert('ระบุข้อมูลให้ครบ','ระบบข้อมูลให้ครบ','error');
+                                          }
+                                          
+                                  }
+                            
+                            ">Check</a>
+                         
+                         
                     </td>
                     
                     
@@ -638,13 +720,108 @@
                     </td>
                     
                      <td>
-                          <input  class="easyui-numberbox"   labelPosition="right"    id="sick_person1"  name="sick_person1"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-numberbox"        id="sick_person1"  name="sick_person1"    type="text"  style="width:50px;height: 40px;" >
+                          
+                         <a href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-man"  data-options="  
+                              iconAlign:'top',
+                             
+                              onClick:function()
+                              {
+                                       var  url='<?=base_url()?>index.php/welcome/check_day_sick/' ;
+                                       //sick_person1
+                                       //sick_person1
+                                       
+                         
+                                      
+                                      
+                                   if(   $('#id_staff_sick').combogrid('getValue') > 0 )
+                                  {
+                                      
+                                                $.ajax({
+                                                   url:url,
+                                                   dataType:'json',
+                                                   method:'post',
+                                                   data:$('#fr_sick').serialize(),
+
+
+                                                }).done(function(data){
+                                                      // alert(data);
+                                                       //sick_person1
+                                                          $.each(data,function(v,k){
+                                                                 var  sick_person1=k.sick_person1;
+                                                               //  alert(sick_person1);
+                                                                  $('#sick_person1').numberbox('setValue',sick_person1);
+                                                                 
+                                                          });
+                                                      
+                                                });
+                                      
+                                   }
+                                   else
+                                   {
+                                         $.messager.alert('เลือกชื่อ-นามสกุลก่อน','เลือกชื่อ-นามสกุลก่อน','error');
+                                   }
+                                   
+                                      
+                                       
+                              },
+                             
+                             "  >Check</a>
+                          
                     </td>
                      <td>
-                         <input  class="easyui-numberbox"   labelPosition="right"    id="sick_person2"  name="sick_person2"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-numberbox"        id="sick_person2"  name="sick_person2"    type="text"  style="width:50px;height: 40px;" >
+                         
+                         <a href="javascript:void(0)"    class="easyui-linkbutton"  iconCls="icon-man"  data-options="   
+                              iconAlign:'top',
+                            
+                              onClick:function()
+                              {
+                                     var  count_date=$('#count_date').numberbox('getValue');
+                                    
+                                     
+                                     if( count_date != '' )
+                                     {
+                                         $('#sick_person2').numberbox('setValue',count_date);
+                                     }
+                                     else if(  count_date  == ''   )
+                                     {
+                                         $.messager.alert('ระบุจำนวนวันก่อน','ระบุจำนวนวันก่อน','error');
+                                     }
+                                     
+                              },
+                              
+                            "  >Check</a>
+                         
+                         
                     </td>
                      <td>
-                         <input  class="easyui-numberbox"   labelPosition="right"    id="total_sick_person"  name="total_sick_person"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-numberbox"     id="total_sick_person"  name="total_sick_person"    type="text"  style="width:50px;height: 40px;" >
+                         
+                         <a href="javascript:void(0)"      class="easyui-linkbutton"    iconCls="icon-ok"  data-options="
+                               iconAlign:'top',
+                               disabled:false,
+                              onClick:function()
+                              {
+                              
+                                    if(   $('#id_staff_sick').combogrid('getValue') != ''   )
+                                    {
+                                     var   sick_person1=    parseFloat  (  $('#sick_person1').numberbox('getValue') );
+                                     var   sick_person2=   parseFloat   (  $('#sick_person2').numberbox('getValue') );
+                                     var    total_sick_person=  parseFloat (  sick_person1 +  sick_person2  );
+                                     //alert( total_sick_person  );
+                                     $('#total_sick_person').numberbox('setValue', total_sick_person);
+                                     
+                                     }
+                                     else
+                                     {
+                                           $.messager.alert('ระบุข้อมูลให้ครบ','ระบุข้อมูลให้ครบ','error'); 
+                                     }
+                              }
+                            
+                            " >Check</a>
+                         
+                         
                     </td>
                     
                     
@@ -656,13 +833,100 @@
                     </td>
                     
                      <td>
-                        <input  class="easyui-numberbox"   labelPosition="right"    id="confined1"  name="confined1"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-numberbox"    readonly="true"      id="confined1"  name="confined1"    type="text"  style="width:50px;height: 40px;" >
+                        <!--   $confined1=trim($this->input->get_post("confined1"));  // ลามาแล้ว  วันทำการ  -->
+                        <a href="javascript:void(0)"     class="easyui-linkbutton"    iconCls="icon-man"  data-options="  
+                                iconAlign:'top',
+                          
+                                onClick:function()
+                                {
+                                
+                                      
+                                   if(   $('#id_staff_sick').combogrid('getValue') > 0 )
+                                  {
+                                      
+                                       var  url='<?=base_url()?>index.php/welcome/check_day_sick/' ;
+                                       $.ajax({
+                                               url:url,
+                                               dataType:'json',
+                                               data:$('#fr_sick').serialize(),
+                                               method:'post',
+                                       
+                                          }).done(function(data)
+                                         {
+                                                 // alert(data);
+                                                  $.each(data,function(v,k){
+                                                         $('#confined1').numberbox('setValue',k.confined1);
+                                                         
+                                                  });
+                                         });  
+                                   
+                                  }
+                                  else
+                                  {
+                                       $.messager.alert('เลือกชื่อ-นามสกุลก่อน','เลือกชื่อ-นามสกุลก่อน','error');
+                                  }
+                                         
+                                          
+                                          
+                                }
+                           ">Check</a>
+                        
                     </td>
                      <td>
-                        <input  class="easyui-numberbox"   labelPosition="right"    id="confined2"  name="confined2"    type="text"  style="width:50px;height: 40px;" >
+                        <input  class="easyui-numberbox"   readonly="true"     id="confined2"  name="confined2"    type="text"  style="width:50px;height: 40px;" >
+                        <a href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-man"  iconAlign="top"   style="width:50px;height: 40px;"   onclick="
+                           javascript:
+                                  // alert('t');
+                                       var  count_date=$('#count_date').numberbox('getValue');
+                                      // alert(count_date);
+                                      if(    count_date  != '' )
+                                      {
+                                           $('#confined2').numberbox('setValue',count_date);
+                                       } 
+                                       else if(   count_date  == ''  )
+                                       {
+                                           $.messager.alert('ระบุจำนวนวันก่อน','ระบุจำนวนวันก่อน','error');
+                                       }
+                                       
+                                       
+                           "    >Check</a>
+                        
                     </td>
                      <td>
-                        <input  class="easyui-numberbox"   labelPosition="right"    id="total_confined"  name="total_confined"    type="text"  style="width:50px;height: 40px;" >
+                        <input  class="easyui-numberbox"   readonly="true"    labelPosition="right"    id="total_confined"  name="total_confined"    type="text"  style="width:50px;height: 40px;" >
+                        <a href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-ok"  iconAlign="top"   onclick="
+                             javascript:
+                                     
+            
+                                      //alert('t');
+                                     //  $.messager.alert('ระบุข้อมูลให้ครบ','ระบุข้อมูลให้ครบ','error');  
+
+                                     //alert(  total_confined  );
+                                     
+                                    if(   $('#id_staff_sick').combogrid('getValue')  !=   ''    )
+                                    {
+                                                                             var     confined1=  parseFloat( $('#confined1').numberbox('getValue') );
+                                     //alert( confined1 );
+                                          var      confined2= parseFloat(  $('#confined2').numberbox('getValue')   );
+                                     
+                                          var    total_confined  =  parseFloat(   confined1  +  confined2    );
+                                     
+                                           $('#total_confined').numberbox('setValue' ,  total_confined  );
+                                        
+                                    }
+                                    else
+                                    {
+                                          $.messager.alert('ระบุข้อมูลให้ครบ','ระบุข้อมูลให้ครบ','error');
+                                    }
+                                   
+                             
+                                      
+                                
+                                     
+                           
+                           "  >Check</a>
+                        
                     </td>
                     
                     
@@ -821,7 +1085,7 @@
         
          </form>
         
-    </div>
+ 
     
     
 </div>
