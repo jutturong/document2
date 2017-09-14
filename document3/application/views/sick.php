@@ -151,18 +151,36 @@
                handler:function()
                  {
                       //alert('t');
-                       $('#sick1').numberbox('setValue','');
-                       $('#sick2').numberbox('setValue','');
-                       $('#total_sick').numberbox('setValue','');
+                      
+                      
+                    //   $('#sick1').numberbox('setValue','');
+                     $('#sick1').textbox('setValue','');
                        
-                        $('#sick_person1').numberbox('setValue','');
-                        $('#sick_person2').numberbox('setValue','');
-                        $('#total_sick_person').numberbox('setValue');
-                        
-                         $('#confined1').numberbox('setValue','');
-                         $('#confined2').numberbox('setValue','');
-                         $('#total_confined').numberbox('setValue','');
+                       
+                     //  $('#sick2').numberbox('setValue','');
+                         $('#sick2').textbox('setValue','');
                          
+                         
+                    //   $('#total_sick').numberbox('setValue','');
+                        $('#total_sick').textbox('setValue','');
+                       
+                      //  $('#sick_person1').numberbox('setValue','');
+                          $('#sick_person1').textbox('setValue','');
+                        
+                       // $('#sick_person2').numberbox('setValue','');
+                         $('#sick_person2').textbox('setValue','');
+                         
+                    
+                       //  $('#total_sick_person').numberbox('setValue');
+                            $('#total_sick_person').textbox('setValue');
+                        
+                            
+                         //$('#confined1').numberbox('setValue','');
+                           $('#confined1').textbox('setValue','');
+                         //$('#confined2').numberbox('setValue','');
+                          $('#confined2').textbox('setValue','');
+                       //  $('#total_confined').numberbox('setValue','');
+                         $('#total_confined').textbox('setValue','');
                          
                          $('#first_name_sick').textbox('setValue','');
                          $('#last_name_sick').textbox('setValue','');
@@ -171,6 +189,10 @@
                          $('#prename_sick').combobox('setValue','');
                          
                          $('#count_date').numberbox('setValue','');
+                         
+                         $('#sign_prename').combobox('setValue','');
+                         
+                          
                          
                       
                  }
@@ -340,7 +362,7 @@
                     </select>
                     
                     
-                     <select  class="easyui-combobox"  name="prename_sick"   id="prename_sick"    style="width:80px;height: 40px;"  >
+                    <select  class="easyui-combobox"  name="prename_sick"   id="prename_sick"    required="true"  style="width:80px;height: 40px;"  >
                          <option  value=""> :: เลือก :: </option>
                              <option value="1">นาย</option>
                               <option value="2">นาง</option>
@@ -348,12 +370,12 @@
                               
                     </select>
                     
-                    <input class="easyui-textbox"   id="first_name_sick"  name="first_name_sick"    style="width:100px;height: 40px;"  >
+                    <input class="easyui-textbox"   id="first_name_sick"  name="first_name_sick"   required="true"  style="width:100px;height: 40px;"  >
                     
                     
-                    <input class="easyui-textbox"   id="last_name_sick"  name="last_name_sick"    style="width:100px;height: 40px;"  >
+                    <input class="easyui-textbox"   id="last_name_sick"  name="last_name_sick"   required="true"   style="width:100px;height: 40px;"  >
                     
-                    <input class="easyui-textbox"   id="position_sick"  name="position_sick"    style="width:200px;height: 40px;"  >
+                    <input class="easyui-textbox"   id="position_sick"  name="position_sick"    required="true"  style="width:200px;height: 40px;"  >
                     
                     
                 </td>
@@ -431,9 +453,43 @@
                 
                 <td colspan="3">
                     ข้าพเจ้าได้ลา  
-                    <input    type="radio"   name="me_leave"     id="me_leave1"  value="1"  style="width: 90px;height: 40px;"  >ป่วย
-                    <input     type="radio"    name="me_leave"    id="me_leave2"     value="2"   style="width: 90px;height: 40px;" >กิจส่วนตัว    
-                    <input     type="radio"    name="me_leave" type="radio"     id="me_leave3"     value="2"   style="width: 90px;height: 40px;" >คลอดบุตร  
+                    <input    type="radio"   name="me_leave"    onclick="
+                              javascript:
+                                     // alert('t');
+                                     $('#btn_total_sick').linkbutton({ 'disabled':false  });
+                                     $('#btn_total_sick_person').linkbutton({ 'disabled':true  });
+                                     $('#btn_total_confined').linkbutton({ 'disabled':true  });
+                                     
+                                     
+                                     $('#total_sick').textbox('setValue','');
+                                     $('#total_sick_person').textbox('setValue','');
+                                     $('#total_confined').textbox('setValue','');
+
+                                     
+                              "  id="me_leave1"  value="1"  style="width: 90px;height: 40px;"  >ป่วย
+                    <input     type="radio"    name="me_leave"  onclick="
+                                 javascript:
+                                     $('#btn_total_sick').linkbutton({ 'disabled':true  });
+                                     $('#btn_total_sick_person').linkbutton({ 'disabled':false  });
+                                     $('#btn_total_confined').linkbutton({ 'disabled':true  });
+                                     
+                                     $('#total_sick').textbox('setValue','');
+                                     $('#total_sick_person').textbox('setValue','');
+                                     $('#total_confined').textbox('setValue','');
+                                     
+                               
+                               "   id="me_leave2"     value="2"   style="width: 90px;height: 40px;" >กิจส่วนตัว    
+                    <input     type="radio"    name="me_leave"  onclick="
+                                 javascript:
+                                     $('#btn_total_sick').linkbutton({ 'disabled':true  });
+                                     $('#btn_total_sick_person').linkbutton({ 'disabled':true  });
+                                     $('#btn_total_confined').linkbutton({ 'disabled':false  });
+                                     
+                                     $('#total_sick').textbox('setValue','');
+                                     $('#total_sick_person').textbox('setValue','');
+                                     $('#total_confined').textbox('setValue','');
+                               
+                               "  type="radio"     id="me_leave3"     value="2"   style="width: 90px;height: 40px;" >คลอดบุตร  
                 </td>
             </tr>
             
@@ -557,7 +613,7 @@
                 <td>
                    
                     <select class="easyui-combobox"    name="sign_prename"    id="sign_prename"   style="width: 140px;height: 40px;"  >
-                        
+                         <option value=""> :: เลือก :: </option>
                         <option value="1">นาย</option>
                         <option value="2">นาง</option>
                         <option value="3">นางสาว</option>
@@ -606,7 +662,7 @@
                     </td>
                     
                     <td>
-                        <input  class="easyui-numberbox"   required="true"     id="sick1"  name="sick1"    type="text"  style="width:50px;height: 40px;" >
+                        <input  class="easyui-textbox"       id="sick1"  name="sick1"    type="text"  style="width:50px;height: 40px;" >
                    
                         <a href="javascript:void(0)"   class="easyui-linkbutton"    iconCls="icon-man"  data-options="
                         
@@ -636,10 +692,13 @@
                                                     $.each(data,function(v,k)
                                                       {
                                                             var  sick1=k.sick1;
-                                                            //alert(sick1);
-                                                            $('#sick1').numberbox('setValue',sick1);
+                                                            // alert(sick1);
+                                                            // $('#sick1').numberbox('setValue',sick1);
                                                             
-                                                            
+                                                             //$('#sick1').textbox('setValue', sick1 );
+                                                             $('#sick1').textbox('setValue', k.total_sick );
+                                                          
+                                                         
                                                             
                                                        });
                                             });
@@ -658,7 +717,7 @@
                        
                     </td>
                      <td>
-                         <input  class="easyui-numberbox"   required="true"   id="sick2"   name="sick2"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"    id="sick2"   name="sick2"    type="text"  style="width:50px;height: 40px;" >
                          <a href="javascript:void(0)"     class="easyui-linkbutton"  iconCls="icon-man"  data-options=" 
                               
                                iconAlign:'top',
@@ -669,7 +728,8 @@
                                      if( count_date > 0 )
                                      {
                                          // alert(count_date);
-                                           $('#sick2').numberbox('setValue',count_date);
+                                         //  $('#sick2').numberbox('setValue',count_date);
+                                             $('#sick2').textbox('setValue',count_date);
                                            
                                      }
                                      else
@@ -683,21 +743,22 @@
                     </td>
                     
                      <td>
-                         <input  class="easyui-numberbox"     id="total_sick"   name="total_sick"     type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"     id="total_sick"   name="total_sick"     type="text"  style="width:50px;height: 40px;" >
                          
                          <a href="javascript:void(0)"  id="btn_total_sick"   class="easyui-linkbutton"  iconCls="icon-ok"  data-options="  
                                 iconAlign:'top',
-                              
+                                disabled:true,
                                   onClick:function()
                                   {
                                           
-                                          var  sick1=$('#sick1').numberbox('getValue');
-                                          var   sick2=$('#sick2').numberbox('getValue');
+                                          var  sick1=  parseFloat( $('#sick1').textbox('getValue') );
+                                          var   sick2= parseFloat(   $('#sick2').textbox('getValue') );
                                           var   total_sick=  parseFloat(  sick1+ sick2 );
                                           //alert(  total_sick  );
                                           if( total_sick > 0 )
                                           {
-                                                $('#total_sick').numberbox('setValue',total_sick);
+                                                 // $('#total_sick').numberbox('setValue',total_sick);
+                                                   $('#total_sick').textbox('setValue',total_sick);
                                           }
                                           else
                                           {
@@ -720,7 +781,7 @@
                     </td>
                     
                      <td>
-                         <input  class="easyui-numberbox"        id="sick_person1"  name="sick_person1"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"        id="sick_person1"  name="sick_person1"    type="text"  style="width:50px;height: 40px;" >
                           
                          <a href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-man"  data-options="  
                               iconAlign:'top',
@@ -750,7 +811,10 @@
                                                           $.each(data,function(v,k){
                                                                  var  sick_person1=k.sick_person1;
                                                                //  alert(sick_person1);
-                                                                  $('#sick_person1').numberbox('setValue',sick_person1);
+                                                                  // $('#sick_person1').numberbox('setValue',sick_person1);
+                                                                  //  $('#sick_person1').textbox('setValue',sick_person1);
+                                                                    //total_sick_person
+                                                                     $('#sick_person1').textbox('setValue',k.total_sick_person);
                                                                  
                                                           });
                                                       
@@ -770,7 +834,7 @@
                           
                     </td>
                      <td>
-                         <input  class="easyui-numberbox"        id="sick_person2"  name="sick_person2"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"        id="sick_person2"  name="sick_person2"    type="text"  style="width:50px;height: 40px;" >
                          
                          <a href="javascript:void(0)"    class="easyui-linkbutton"  iconCls="icon-man"  data-options="   
                               iconAlign:'top',
@@ -782,11 +846,12 @@
                                      
                                      if( count_date != '' )
                                      {
-                                         $('#sick_person2').numberbox('setValue',count_date);
+                                          //$('#sick_person2').numberbox('setValue',count_date);
+                                           $('#sick_person2').textbox('setValue',count_date);
                                      }
                                      else if(  count_date  == ''   )
                                      {
-                                         $.messager.alert('ระบุจำนวนวันก่อน','ระบุจำนวนวันก่อน','error');
+                                          $.messager.alert('ระบุจำนวนวันก่อน','ระบุจำนวนวันก่อน','error');
                                      }
                                      
                               },
@@ -796,11 +861,12 @@
                          
                     </td>
                      <td>
-                         <input  class="easyui-numberbox"     id="total_sick_person"  name="total_sick_person"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"     id="total_sick_person"  name="total_sick_person"    type="text"  style="width:50px;height: 40px;" >
                          
-                         <a href="javascript:void(0)"      class="easyui-linkbutton"    iconCls="icon-ok"  data-options="
+                         <a href="javascript:void(0)"    id="btn_total_sick_person"  class="easyui-linkbutton"    iconCls="icon-ok"  data-options="
                                iconAlign:'top',
                                disabled:false,
+                               disabled:true,
                               onClick:function()
                               {
                               
@@ -810,7 +876,8 @@
                                      var   sick_person2=   parseFloat   (  $('#sick_person2').numberbox('getValue') );
                                      var    total_sick_person=  parseFloat (  sick_person1 +  sick_person2  );
                                      //alert( total_sick_person  );
-                                     $('#total_sick_person').numberbox('setValue', total_sick_person);
+                                     // $('#total_sick_person').numberbox('setValue', total_sick_person);
+                                      $('#total_sick_person').textbox('setValue', total_sick_person);
                                      
                                      }
                                      else
@@ -833,7 +900,7 @@
                     </td>
                     
                      <td>
-                         <input  class="easyui-numberbox"    readonly="true"      id="confined1"  name="confined1"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"      id="confined1"  name="confined1"    type="text"  style="width:50px;height: 40px;" >
                         <!--   $confined1=trim($this->input->get_post("confined1"));  // ลามาแล้ว  วันทำการ  -->
                         <a href="javascript:void(0)"     class="easyui-linkbutton"    iconCls="icon-man"  data-options="  
                                 iconAlign:'top',
@@ -856,8 +923,8 @@
                                          {
                                                  // alert(data);
                                                   $.each(data,function(v,k){
-                                                         $('#confined1').numberbox('setValue',k.confined1);
-                                                         
+                                                         //$('#confined1').numberbox('setValue',k.confined1);
+                                                          $('#confined1').textbox('setValue',k.total_confined );
                                                   });
                                          });  
                                    
@@ -874,7 +941,7 @@
                         
                     </td>
                      <td>
-                        <input  class="easyui-numberbox"   readonly="true"     id="confined2"  name="confined2"    type="text"  style="width:50px;height: 40px;" >
+                        <input  class="easyui-textbox"      id="confined2"  name="confined2"    type="text"  style="width:50px;height: 40px;" >
                         <a href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-man"  iconAlign="top"   style="width:50px;height: 40px;"   onclick="
                            javascript:
                                   // alert('t');
@@ -882,7 +949,8 @@
                                       // alert(count_date);
                                       if(    count_date  != '' )
                                       {
-                                           $('#confined2').numberbox('setValue',count_date);
+                                           //$('#confined2').numberbox('setValue',count_date);
+                                           $('#confined2').textbox('setValue',count_date);
                                        } 
                                        else if(   count_date  == ''  )
                                        {
@@ -894,8 +962,8 @@
                         
                     </td>
                      <td>
-                        <input  class="easyui-numberbox"   readonly="true"    labelPosition="right"    id="total_confined"  name="total_confined"    type="text"  style="width:50px;height: 40px;" >
-                        <a href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-ok"  iconAlign="top"   onclick="
+                        <input  class="easyui-textbox"     labelPosition="right"    id="total_confined"  name="total_confined"    type="text"  style="width:50px;height: 40px;" >
+                        <a href="javascript:void(0)"  disabled='true'   class="easyui-linkbutton"  id="btn_total_confined"  iconCls="icon-ok"  iconAlign="top"   onclick="
                              javascript:
                                      
             
@@ -906,13 +974,13 @@
                                      
                                     if(   $('#id_staff_sick').combogrid('getValue')  !=   ''    )
                                     {
-                                                                             var     confined1=  parseFloat( $('#confined1').numberbox('getValue') );
+                                                                             var     confined1=  parseFloat( $('#confined1').textbox('getValue') );
                                      //alert( confined1 );
-                                          var      confined2= parseFloat(  $('#confined2').numberbox('getValue')   );
+                                          var      confined2= parseFloat(  $('#confined2').textbox('getValue')   );
                                      
                                           var    total_confined  =  parseFloat(   confined1  +  confined2    );
                                      
-                                           $('#total_confined').numberbox('setValue' ,  total_confined  );
+                                           $('#total_confined').textbox('setValue' ,  total_confined  );
                                         
                                     }
                                     else
