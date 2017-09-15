@@ -137,7 +137,122 @@
         {
              text:'Save(บันทึก)',iconCls:'icon-save',size:'large',iconAlign:'top',handler:function()
              {
-                       //alert('t');
+                       var   url='<?=base_url()?>index.php/welcome/insert_sick';
+                       //alert(url);
+                       $.ajax({
+                            url:url,
+                           // dataType:'text',
+                             dataType:'json',
+                            data:$('#fr_sick').serialize(),
+                            method:'post',
+                            
+                          }).done(function(data)
+                          { 
+                                    // alert(data); 
+                                   
+                                    // alert(data.success); 
+                                    
+                                     var  res=data.success ;
+                                     if(  res == 1  )
+                                     {
+                                     
+                                           $('#dia_main_sick').dialog('open');          
+                                       
+                                       
+                                           $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลแล้ว','info');
+                                           
+                                           
+                                              
+                    //   $('#sick1').numberbox('setValue','');
+                     $('#sick1').textbox('setValue','');
+                       
+                       
+                     //  $('#sick2').numberbox('setValue','');
+                         $('#sick2').textbox('setValue','');
+                         
+                         
+                    //   $('#total_sick').numberbox('setValue','');
+                        $('#total_sick').textbox('setValue','');
+                       
+                      //  $('#sick_person1').numberbox('setValue','');
+                          $('#sick_person1').textbox('setValue','');
+                        
+                       // $('#sick_person2').numberbox('setValue','');
+                         $('#sick_person2').textbox('setValue','');
+                         
+                    
+                       //  $('#total_sick_person').numberbox('setValue');
+                            $('#total_sick_person').textbox('setValue');
+                        
+                            
+                         //$('#confined1').numberbox('setValue','');
+                           $('#confined1').textbox('setValue','');
+                         //$('#confined2').numberbox('setValue','');
+                          $('#confined2').textbox('setValue','');
+                       //  $('#total_confined').numberbox('setValue','');
+                         $('#total_confined').textbox('setValue','');
+                         
+                         $('#first_name_sick').textbox('setValue','');
+                         $('#last_name_sick').textbox('setValue','');
+                         $('#position_sick').textbox('setValue','');
+                         
+                         $('#prename_sick').combobox('setValue','');
+                         
+                         $('#count_date').numberbox('setValue','');
+                         
+                         $('#sign_prename').combobox('setValue','');
+                         
+                          
+                         $('#supervisor_sick1').attr('checked',false);
+                         $('#supervisor_sick2').attr('checked',false);
+                         
+                         $('#supervisor_agree1').attr('checked',false);
+                         $('#supervisor_agree2').attr('checked',false);
+                         
+                         $('#manager_allow1').attr('checked',false);
+                         $('#manager_allow2').attr('checked',false);
+                         
+                         
+                         $('#house_number').textbox('setValue','');
+                         
+                         $('#road_sick').textbox('setValue','');
+                         
+                          $('#district_sick').textbox('setValue','');
+                         
+                          $('#district2_sick').textbox('setValue','');
+                         
+                          $('#province_sick').textbox('setValue','');
+                      
+                           $('#tel2_sick').textbox('setValue', ''  );
+                           
+                           $('#count_date').numberbox('setValue','');
+                           
+                           $('#begin_date1').datebox('setValue','');
+                           
+                           $('#end_date1').datebox('setValue','');
+                           
+                          $('#count_date2').numberbox('setValue','');
+                          
+                          $('#begin_date2').datebox('setValue','');
+                          
+                          $('#begin_date2').datebox('setValue','');
+                            
+                          $('#end_date2').datebox('setValue','');
+                          
+                          $('#me_leave1').attr('checked',false);
+                          $('#me_leave2').attr('checked',false);
+                          $('#me_leave3').attr('checked',false);
+                                           
+                                           
+                                     }
+                                     else
+                                     {
+                                          $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','บันทึกข้อมูลผิดพลาด','error');
+                                     }
+                                     
+                                    
+                                 
+                           });
                        
              }
           
@@ -193,8 +308,46 @@
                          $('#sign_prename').combobox('setValue','');
                          
                           
+                         $('#supervisor_sick1').attr('checked',false);
+                         $('#supervisor_sick2').attr('checked',false);
                          
+                         $('#supervisor_agree1').attr('checked',false);
+                         $('#supervisor_agree2').attr('checked',false);
+                         
+                         $('#manager_allow1').attr('checked',false);
+                         $('#manager_allow2').attr('checked',false);
+                         
+                         
+                         $('#house_number').textbox('setValue','');
+                         
+                         $('#road_sick').textbox('setValue','');
+                         
+                          $('#district_sick').textbox('setValue','');
+                         
+                          $('#district2_sick').textbox('setValue','');
+                         
+                          $('#province_sick').textbox('setValue','');
                       
+                           $('#tel2_sick').textbox('setValue', ''  );
+                           
+                           $('#count_date').numberbox('setValue','');
+                           
+                           $('#begin_date1').datebox('setValue','');
+                           
+                           $('#end_date1').datebox('setValue','');
+                           
+                          $('#count_date2').numberbox('setValue','');
+                          
+                          $('#begin_date2').datebox('setValue','');
+                          
+                          $('#begin_date2').datebox('setValue','');
+                            
+                          $('#end_date2').datebox('setValue','');
+                          
+                           $('#me_leave1').attr('checked',false);
+                          $('#me_leave2').attr('checked',false);
+                          $('#me_leave3').attr('checked',false);
+      
                  }
           }
           ,
@@ -400,7 +553,24 @@
                     
                  
                     
-                    <input    type="radio"   name="disease"    id="disease1"  value="1" > ป่วยด้วยโรค
+                    <input    type="radio"   name="disease"  
+                              onclick="
+                                 javascript:
+                                           $('#disease_person').textbox('setValue','');
+                                           $('#disease_person').textbox({ disabled:true ,iconCls:'icon-cancel' });
+                                           $('#disease_detail').textbox({ disabled:false,iconCls:'icon-ok' });
+                                           
+                                       //  $('#sick_disease1').attr('checked',false);
+                                         $('#sick_disease1').attr('readonly',false);
+                                         
+                                         
+                                       //   $('#sick_disease2').attr('checked',false);
+                                           $('#sick_disease2').attr('readonly',false);
+                                           
+                                 
+                              "
+                              
+                              id="disease1"  value="1" > ป่วยด้วยโรค
                     
                     <input class="easyui-textbox"   id="disease_detail"  multiline="true"    name="disease_detail"  style="width:150px;height: 40px;"   />
                     
@@ -410,7 +580,7 @@
                    
                    <input    type="radio"   id="sick_disease1" name="sick_disease"   value="1" > จากการทำงาน
                     
-                    <input        type="radio"    name="sick_disease"  id="sick_disease2"  > ไม่ใช่จากการทำงาน
+                    <input        type="radio"    name="sick_disease"  id="sick_disease2"  value="2" > ไม่ใช่จากการทำงาน
                     
                 </td>
             </tr>
@@ -419,11 +589,36 @@
                 <td>
                     
                     
-                     <input    type="radio"  name="disease"  id="disease3"  value="3" > กิจส่วนตัว
+                     <input    type="radio"  name="disease"  id="disease3" 
+                               onclick="
+                                         javascript:
+                                         //alert('t');
+                                         
+                                          $('#sick_disease1').attr('checked',false);
+                                          $('#sick_disease2').attr('checked',false);
+                                          $('#disease_detail').textbox('setValue','');
+                                          
+                                          $('#disease_person').textbox({ disabled:false ,iconCls:'icon-ok' });
+                                          $('#disease_detail').textbox('setValue','');
+                                           $('#disease_detail').textbox({ disabled:true , iconCls:'icon-cancel'  });
+                                           
+                                          $('#sick_disease1').attr('checked',false);
+                                         $('#sick_disease1').attr('readonly',true);
+                                         
+                                         
+                                          $('#sick_disease2').attr('checked',false);
+                                           $('#sick_disease2').attr('readonly',true);
+                                  
+                               "
+                               
+                               value="3" > กิจส่วนตัว
                        
                         เนื่องจาก
                         
-                         <input class="easyui-textbox"  id="disease_person"   name="disease_person"    style="width:220px;height: 40px;"   />
+                         <input class="easyui-textbox"  id="disease_person"   name="disease_person"  
+                               
+                                
+                                style="width:220px;height: 40px;"   />
                      
                      
                 </td>
@@ -432,7 +627,30 @@
             
             <tr>
                 <td>
-                    <input   type="radio"  name="disease"  id="disease4"   name="disease"  value="4"  />
+                    <input   type="radio"  name="disease"  id="disease4"   name="disease" 
+                             onclick="
+                                javascript:
+                                        
+                                         $('#sick_disease1').attr('checked',false);
+                                         $('#sick_disease1').attr('readonly',true);
+                                         
+                                         
+                                          $('#sick_disease2').attr('checked',false);
+                                           $('#sick_disease2').attr('readonly',true);
+                                          
+                                          
+                                          $('#disease_detail').textbox('setValue','');
+                                           $('#disease_person').textbox('setValue','');
+                                           
+                                             $('#disease_person').textbox({ disabled:true,iconCls:'icon-cancel' });
+                                             
+                                             $('#disease_detail').textbox( {  disabled:true,iconCls:'icon-cancel' })
+                                         
+                                          
+                                          
+                             "
+                             
+                             value="4"  />
                       คลอดบุตร
                 </td>
             </tr>
@@ -489,7 +707,7 @@
                                      $('#total_sick_person').textbox('setValue','');
                                      $('#total_confined').textbox('setValue','');
                                
-                               "  type="radio"     id="me_leave3"     value="2"   style="width: 90px;height: 40px;" >คลอดบุตร  
+                               "  type="radio"     id="me_leave3"     value="3"   style="width: 90px;height: 40px;" >คลอดบุตร  
                 </td>
             </tr>
             
@@ -537,7 +755,9 @@
                                             }).done(function(data)
                                                  { 
                                                        $.each(data,function(v,k){
-                                                               //alert(k.house_number);
+                                                               
+                                                             //alert(k.house_number);
+                                                             
                                                               $('#house_number').textbox('setValue',k.house_number);
                                                               //alert(k.road);
                                                               $('#road_sick').textbox('setValue',k.road);
@@ -662,7 +882,7 @@
                     </td>
                     
                     <td>
-                        <input  class="easyui-textbox"       id="sick1"  name="sick1"    type="text"  style="width:50px;height: 40px;" >
+                        <input  class="easyui-textbox"   readonly="true"    id="sick1"  name="sick1"    type="text"  style="width:50px;height: 40px;" >
                    
                         <a href="javascript:void(0)"   class="easyui-linkbutton"    iconCls="icon-man"  data-options="
                         
@@ -717,7 +937,7 @@
                        
                     </td>
                      <td>
-                         <input  class="easyui-textbox"    id="sick2"   name="sick2"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"   readonly="true"    id="sick2"   name="sick2"    type="text"  style="width:50px;height: 40px;" >
                          <a href="javascript:void(0)"     class="easyui-linkbutton"  iconCls="icon-man"  data-options=" 
                               
                                iconAlign:'top',
@@ -743,7 +963,7 @@
                     </td>
                     
                      <td>
-                         <input  class="easyui-textbox"     id="total_sick"   name="total_sick"     type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"    readonly="true"   id="total_sick"   name="total_sick"     type="text"  style="width:50px;height: 40px;" >
                          
                          <a href="javascript:void(0)"  id="btn_total_sick"   class="easyui-linkbutton"  iconCls="icon-ok"  data-options="  
                                 iconAlign:'top',
@@ -781,7 +1001,7 @@
                     </td>
                     
                      <td>
-                         <input  class="easyui-textbox"        id="sick_person1"  name="sick_person1"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"    readonly="true"      id="sick_person1"  name="sick_person1"    type="text"  style="width:50px;height: 40px;" >
                           
                          <a href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-man"  data-options="  
                               iconAlign:'top',
@@ -834,7 +1054,7 @@
                           
                     </td>
                      <td>
-                         <input  class="easyui-textbox"        id="sick_person2"  name="sick_person2"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"   readonly="true"      id="sick_person2"  name="sick_person2"    type="text"  style="width:50px;height: 40px;" >
                          
                          <a href="javascript:void(0)"    class="easyui-linkbutton"  iconCls="icon-man"  data-options="   
                               iconAlign:'top',
@@ -861,7 +1081,7 @@
                          
                     </td>
                      <td>
-                         <input  class="easyui-textbox"     id="total_sick_person"  name="total_sick_person"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"    readonly="true"   id="total_sick_person"  name="total_sick_person"    type="text"  style="width:50px;height: 40px;" >
                          
                          <a href="javascript:void(0)"    id="btn_total_sick_person"  class="easyui-linkbutton"    iconCls="icon-ok"  data-options="
                                iconAlign:'top',
@@ -900,7 +1120,7 @@
                     </td>
                     
                      <td>
-                         <input  class="easyui-textbox"      id="confined1"  name="confined1"    type="text"  style="width:50px;height: 40px;" >
+                         <input  class="easyui-textbox"    readonly="true"    id="confined1"  name="confined1"    type="text"  style="width:50px;height: 40px;" >
                         <!--   $confined1=trim($this->input->get_post("confined1"));  // ลามาแล้ว  วันทำการ  -->
                         <a href="javascript:void(0)"     class="easyui-linkbutton"    iconCls="icon-man"  data-options="  
                                 iconAlign:'top',
@@ -941,7 +1161,7 @@
                         
                     </td>
                      <td>
-                        <input  class="easyui-textbox"      id="confined2"  name="confined2"    type="text"  style="width:50px;height: 40px;" >
+                        <input  class="easyui-textbox"    readonly="true"    id="confined2"  name="confined2"    type="text"  style="width:50px;height: 40px;" >
                         <a href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-man"  iconAlign="top"   style="width:50px;height: 40px;"   onclick="
                            javascript:
                                   // alert('t');
@@ -962,7 +1182,7 @@
                         
                     </td>
                      <td>
-                        <input  class="easyui-textbox"     labelPosition="right"    id="total_confined"  name="total_confined"    type="text"  style="width:50px;height: 40px;" >
+                        <input  class="easyui-textbox"   readonly="true"    labelPosition="right"    id="total_confined"  name="total_confined"    type="text"  style="width:50px;height: 40px;" >
                         <a href="javascript:void(0)"  disabled='true'   class="easyui-linkbutton"  id="btn_total_confined"  iconCls="icon-ok"  iconAlign="top"   onclick="
                              javascript:
                                      
@@ -1042,14 +1262,14 @@
         </tr>
         <tr>
             <td>
-                <input class="easyui-switchbutton"  id="supervisor_sick1"  name="supervisor_sick1"  data-options=" value:1   "  />  เห็นด้วยกับเหตุผลการลาป่วยที่ระบุมีสาเหตุจากการทำงาน
+                <input   type="radio"  readonly="true"   id="supervisor_sick1"  name="supervisor_sick"   value="1"   checked="false"   />  เห็นด้วยกับเหตุผลการลาป่วยที่ระบุมีสาเหตุจากการทำงาน
             </td>
         </tr>
         
         
         <tr>
             <td>
-                <input class="easyui-switchbutton"  id="supervisor_sick2"  name="supervisor_sick2"  data-options=" value:1   "  />  ไม่เห็นด้วยกับเหตุผลการลาป่วยที่เกิดจากการทำงาน
+                <input    type="radio"     readonly="true"    id="supervisor_sick2"  name="supervisor_sick"  value="2"  checked="false"   />  ไม่เห็นด้วยกับเหตุผลการลาป่วยที่เกิดจากการทำงาน
             </td>
         </tr>
         
@@ -1063,11 +1283,11 @@
         <tr>
             <td>
                 
-                 <input class="easyui-switchbutton"  id="supervisor_agree1"  name="supervisor_agree1"  data-options=" value:1   "  />
+                <input   type="radio"     readonly="true"     id="supervisor_agree1"  name="supervisor_agree"   value="1"  />
                  เห็นด้วยควรอนุญาต
                  
                  
-                 <input class="easyui-switchbutton"  id="supervisor_agree2"  name="supervisor_agree2"  data-options=" value:2   "  />
+                 <input    type="radio"      readonly="true"    id="supervisor_agree2"  name="supervisor_agree"    value="2"   />
                  เห็นด้วยควรไม่อนุญาต
                  
                  
@@ -1101,9 +1321,9 @@
             <td>
                 
                 <!-- <input   id="manager_allow1" class="with-gap" name="manager_allow" value="1" type="radio"> -->
-                <input class="easyui-switchbutton"    id="manager_allow1"  name="manager_allow1"  data-options="value:1    "   />  อนุญาต
+                <input    type="radio"  readonly="true"   id="manager_allow1"  name="manager_allow"    value="1"  />  อนุญาต
                 
-                 <input class="easyui-switchbutton"   id="manager_allow2"  name="manager_allow2"  data-options="value:2    "   />  ไม่อนุญาต
+                 <input     type="radio"    readonly="true"   id="manager_allow2"  name="manager_allow"     value="2"   />  ไม่อนุญาต
                 
             </td>
         </tr>
