@@ -4185,6 +4185,46 @@ $data=array(
 
 
      }
+     
+     //http://10.87.196.170/document3/index.php/welcome/call_update_tbsick
+     public function call_update_tbsick()
+     {
+              $this->user_model->login();  //for checklogin
+             //echo  $id_sick=trim($this->input->get_post("id_sick_update"));
+              $id_sick=trim(  $this->uri->segment(3) );
+              //echo br();
+              
+              if( $id_sick > 0 )
+              {
+                  
+                     $tb=$this->tb_sick;
+                     $q = $this->db->get_where($tb,array("id_sick"=>$id_sick));
+                     $check = $q->num_rows();
+                     //echo $check;
+                     if($check > 0 )
+                     {
+                         foreach($q->result() as $row)
+                         {
+                             $rows[]=$row;
+                         }
+                              echo json_encode($rows);
+                          
+                     }
+                     
+              }
+             
+     }
+    //http://10.87.196.170/document3/index.php/welcome/update_tbsick
+     public  function  update_tbsick()
+     {
+           $this->user_model->login();  //for checklogin
+          // echo $id_sick_update=trim($this->input->get_post("id_sick_update"));
+         //  echo br();
+           
+         
+     }
+     
+     
       //http://10.87.196.170/document3/index.php/welcome/insert_sick
      public   function  insert_sick()
      {

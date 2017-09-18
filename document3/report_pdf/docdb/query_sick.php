@@ -292,7 +292,8 @@ $cur_date=date("Y-m-d");
   $id_sick=trim($_REQUEST["id_sick"]);
   if(  $id_sick > 0  )
   {
-                $tb="tb_sick";
+                 $tb="tb_sick";
+                 // $tb="tb_sick_test";
                
                 /*
                    $str2="select  *  from  $tb  where  type_record=$type_record  and   type_document=$type_document     and   `date` >=  '$select_date'   limit 14,14   ";
