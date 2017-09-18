@@ -157,7 +157,7 @@
                                      {
                                      
                                            $('#dia_main_sick').dialog('open');          
-                                       
+                                           $('#datagrid_sick').datagrid('reload');
                                        
                                            $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลแล้ว','info');
                                            
@@ -347,6 +347,24 @@
                            $('#me_leave1').attr('checked',false);
                           $('#me_leave2').attr('checked',false);
                           $('#me_leave3').attr('checked',false);
+                          
+                          
+                          $('#disease1').attr('checked',false);
+                          $('#disease_detail').textbox('setValue','');
+                          $('#sick_disease1').attr('checked',false);
+                          $('#sick_disease2').attr('checked',false);
+                          $('#disease3').attr('checked',false);
+                          $('#disease_person').textbox('setValue','');
+                          $('#disease4').attr('checked',false);
+                          
+                          $('#supervisor_sick2').attr('checked',false);
+                          
+                          $('#sign_name').textbox('setValue','');
+                          $('#sign_lastname').textbox('setValue','');
+                          $('#sign_prename').combobox('setValue','');
+                          $('#firstname3').textbox('setValue','');
+                          $('#lastname3').textbox('setValue','');
+                          
       
                  }
           }
@@ -894,7 +912,7 @@
                                  var  url='<?=base_url()?>index.php/welcome/check_day_sick/' ;
                                  // alert(url);
                                  
-                                 
+                                 //alert(  $('#id_staff_sick').combogrid('getValue') );
                                  
                                   if(   $('#id_staff_sick').combogrid('getValue') > 0 )
                                   {
@@ -908,7 +926,7 @@
 
                                         }).done(function(data)
                                             { 
-                                                  //alert(data);  
+                                                    //alert(data);  
                                                     $.each(data,function(v,k)
                                                       {
                                                             var  sick1=k.sick1;
@@ -916,12 +934,23 @@
                                                             // $('#sick1').numberbox('setValue',sick1);
                                                             
                                                              //$('#sick1').textbox('setValue', sick1 );
+                                                             alert(  k.total_sick );
                                                              $('#sick1').textbox('setValue', k.total_sick );
-                                                          
+                                                             
+                                                             /*
+                                                             if( k.total_sick == '' )
+                                                             {
+                                                                $('#sick1').textbox('setValue', 0 );
+                                                             }
+                                                          */
                                                          
                                                             
                                                        });
+                                                       
+                                                       
+                                                       
                                             });
+                                            
                                     }
                                     else{
                                        $.messager.alert('เลือกชื่อ-นามสกุลก่อน','เลือกชื่อ-นามสกุลก่อน','error');
@@ -972,18 +1001,33 @@
                                   {
                                           
                                           var  sick1=  parseFloat( $('#sick1').textbox('getValue') );
+                                          
+                                      
+                                          
                                           var   sick2= parseFloat(   $('#sick2').textbox('getValue') );
                                           var   total_sick=  parseFloat(  sick1+ sick2 );
+                                          
                                           //alert(  total_sick  );
-                                          if( total_sick > 0 )
+                                          
+                                          if(  isNaN(total_sick) )
+                                          {
+                                             // alert('t');
+                                              
+                                               $('#total_sick').textbox('setValue', sick2  );
+                                          
+                                          }
+                                        else   if(   total_sick > 0  ||  !isNaN( total_sick )    ) 
                                           {
                                                  // $('#total_sick').numberbox('setValue',total_sick);
                                                    $('#total_sick').textbox('setValue',total_sick);
                                           }
-                                          else
+                                          else 
                                           {
                                                $.messager.alert('ระบุข้อมูลให้ครบ','ระบบข้อมูลให้ครบ','error');
                                           }
+                                          
+                                          
+                                          
                                           
                                   }
                             
@@ -1095,10 +1139,23 @@
                                      var   sick_person1=    parseFloat  (  $('#sick_person1').numberbox('getValue') );
                                      var   sick_person2=   parseFloat   (  $('#sick_person2').numberbox('getValue') );
                                      var    total_sick_person=  parseFloat (  sick_person1 +  sick_person2  );
-                                     //alert( total_sick_person  );
-                                     // $('#total_sick_person').numberbox('setValue', total_sick_person);
+                                   
+                                    
+                                     
+                                     if(  !isNaN(total_sick_person)    )
+                                     {
+
                                       $('#total_sick_person').textbox('setValue', total_sick_person);
                                      
+                                      }
+                                      else if( isNaN(total_sick_person)  ||  total_sick_person < 1  )
+                                      {
+                                          $('#total_sick_person').textbox('setValue', sick_person2  );
+                                      
+                                      }
+                                      
+                                      
+                                      
                                      }
                                      else
                                      {
@@ -1194,13 +1251,20 @@
                                      
                                     if(   $('#id_staff_sick').combogrid('getValue')  !=   ''    )
                                     {
-                                                                             var     confined1=  parseFloat( $('#confined1').textbox('getValue') );
+                                         var     confined1=  parseFloat( $('#confined1').textbox('getValue') );
                                      //alert( confined1 );
                                           var      confined2= parseFloat(  $('#confined2').textbox('getValue')   );
                                      
                                           var    total_confined  =  parseFloat(   confined1  +  confined2    );
-                                     
-                                           $('#total_confined').textbox('setValue' ,  total_confined  );
+                                          
+                                          if(  isNaN(  total_confined  )     )
+                                          {
+                                                 $('#total_confined').textbox('setValue' ,  confined2  );
+                                          }
+                                          else if(  !isNaN( total_confined  )  ||   total_confined < 1    )
+                                          {
+                                                $('#total_confined').textbox('setValue' ,  total_confined  );
+                                          }
                                         
                                     }
                                     else
