@@ -14,7 +14,12 @@
     
     <div style="margin-left: 15px ;margin-top: 15px;">
         
-        <a href="#"  onclick="javascript: alert('t');  "  class="easyui-linkbutton" data-options=" iconCls:'icon-large-chart'  ,size:'large' , iconAlign:'top'  "   >ยืนใบลา</a>  
+        <a href="#"  onclick="
+            javascript: 
+                    $('#dia_form_sick').dialog('open');
+                    $('#id_sick_update').textbox('setValue','');
+              
+           "  class="easyui-linkbutton" data-options=" iconCls:'icon-large-chart'  ,size:'large' , iconAlign:'top'  "   >ยืนใบลา</a>  
         
         <a href="#"  onclick="
             javascript: 
@@ -40,8 +45,8 @@
 <div  class="easyui-dialog"   id="dia_main_sick" 
       style="width:520px;height: 400px;"
       data-options=" 
-       closed:false, 
-       title:'หน้าหลักลาพักผ่อนประจำปี' 
+       closed:true, 
+       title:'หน้าหลัก ลาป่วย/ลาคลอดบุตร/' 
        ,maximizable:false
        ,minimizable:true
       ,iconCls:'icon-large-shapes' 
@@ -67,7 +72,7 @@
                             {  field:'last_name',title:'นามสกุล', align: 'left' ,    },
                             {  field:'total_sick',title:'ลาป่วยทั้งหมด',align:'left',    },
                             {  field:'total_sick_person',title:'ลากิจทั้งหมด',align:'left',    },
-                            {  field:'total_sick_person',title:'ลาคลอดบุตรทั้้้งหมด',align:'left', width:200   },
+                            {  field:'total_confined',title:'ลาคลอดบุตรทั้้้งหมด',align:'left', width:200   },
                              
                              
                           ]],
@@ -212,6 +217,9 @@
                               $.each(data,function(v,k){
                                         var  prename=k.prename;
                                        //alert(prename);
+                                       
+                                        $('#id_sick_update').textbox('setValue',k.id_sick);
+                                         
                                         $('#prename_sick').combobox('setValue',prename);  
                                         $('#first_name_sick').textbox('setValue', k.first_name);
                                         $('#last_name_sick').textbox('setValue',k.last_name);
@@ -385,7 +393,44 @@
                                                 
                                             }
                                      } },
-                             { text:'Delete (ลบ)',   iconAlign:'top'  , iconCls:'icon-cancel',handler:function(){   } },
+                             { text:'Delete (ลบ)',   iconAlign:'top'  , iconCls:'icon-cancel',handler:function()
+                                 {  //----begin function----------   
+                                       var   row=$('#datagrid_sick').datagrid('getSelected');
+                                       if( row )
+                                       {
+                                             // alert('t');
+                                             var  id_sick=row.id_sick;
+                                             //alert( id_sick );
+                                              if(  parseInt( id_sick ) > 0 )
+                                              {
+                                                    var  url='<?=base_url()?>index.php/welcome/del_tbsick/' + id_sick ;
+                                                   // alert(url);
+                                                    $.ajax({
+                                                      url:url,
+                                                      method:'post',
+                                                    //  dataType:'text',
+                                                       dataType:'json',
+                                                       
+                                                    }).done(function(data)
+                                                    {
+                                                           //alert(data.success);
+                                                            if(   data.success == 1 )
+                                                            {
+                                                                 $.messager.alert('สถานะการลบข้อมูลสำเร็จ','การลบข้อมูลสำเร็จ','info');
+                                                                 $('#datagrid_sick').datagrid('reload');
+                                                            }
+                                                            else if(   data.success == 0  )
+                                                            {
+                                                                 $.messager.alert('สถานะการลบข้อมูล','การลบข้อมูลผิดพลาด','error');
+                                                                 $('#datagrid_sick').datagrid('reload');
+                                                            }
+                                                    });
+                                                    
+                                              }
+                                       }
+                                 
+                                 }  //------end function ----------
+                             },
                              {  text:'Search (ค้นหา)' , iconAlign:'top',iconCls:'icon-search',handler:function(){  alert('t'); }  },
                              {  text:'Report (ออกรายงาน)',iconAlign:'top',iconCls:'icon-print',handler:function()
                                    {
@@ -423,7 +468,7 @@
 <!-- dia หน้าหลัก ลาพักผ่อนประจำปี -->
 <div  id="dia_form_sick"  title="  ยื่นใบลาป่วย/ลาคลอดบุตร/ลากิจส่วนตัว  "  class="easyui-dialog"  
       data-options=" 
-      closed:false
+      closed:true
       ,iconCls:'icon-print' 
       ,resizable:true
       ,modal:'true' 
@@ -442,6 +487,8 @@
                    //alert('t');
                    //datagrid_sick
                    $('#dia_main_sick').dialog('open');
+                   
+                   $('#datagrid_sick').datagrid('reload');
             }
          
          }
@@ -449,6 +496,12 @@
         {
              text:'Save(บันทึก)',iconCls:'icon-save',size:'large',iconAlign:'top',handler:function()
              {
+             
+               if( $('#id_sick_update').textbox('getValue') == '' ||   $('#id_sick_update').textbox('getValue')  <  1   )
+               { //------------ begin if--------------------------------
+               
+               
+                //---------------- begin -----------------------------------------
                        var   url='<?=base_url()?>index.php/welcome/insert_sick';
                        //alert(url);
                        $.ajax({
@@ -567,6 +620,12 @@
                            });
                        
              }
+             
+             
+            } //------------end if-----------------------------
+            
+            
+           //------------------------- end --------------------------------------------  
           
          },
           {
@@ -576,18 +635,39 @@
                size:'large',
                handler:function()
                {
-                     var  url='<?=base_url()?>index.php/welcome/update_tbsick';
-                     $.ajax({
-                         url:'url',
-                         method:'post',
-                         dataType:'text',
-                         data:$('#fr_sick').serialize(),
-                     
-                     }).done(function(data){
-                     
-                            alert(data);
-                     
-                     });
+                       //alert('t');
+                       $.ajax({
+                          url:'<?=base_url()?>index.php/welcome/update_tbsick',
+                          method:'post',
+                        // dataType:'text',
+                           dataType:'json',
+                          //data:$('fr_sick').serialize(),
+                          data:  $('#fr_sick').serialize(),    
+                          
+                       }).done(function(data)
+                       {
+                               // alert(data);
+                               
+                               if(  $('#id_sick_update').textbox('getValue') > 0   )
+                               {
+                                        if( data.success == '1' )
+                                        {
+                                               // alert('t');
+                                               //$('#dia_form_sick').dialog('close');
+                                               //  $.messager.alert('สถานะการแก้ไขข้อมูลสำเร็จ','แ้ก้ไขข้อมูลสำเร็จแล้ว','info');
+                                               $.messager.alert('สถานะการแก้ไขข้อมูล','แก้ไขข้อมูลสำเร็จ','info');
+                                        }
+                                        else if( data.success == 0 )
+                                        {
+                                               //  alert('f');
+                                              // $('#dia_form_sick').dialog('close');
+                                              //  $.messager.alert('สถานะการแก้ไขข้อมูล',การแก้ไขข้อมูลผิดพลาด'','error');
+                                              $.messager.alert('สถานะการแก้ไขข้อผิดพลาด','แก้ไขข้อมูลผิดพลาด','error');
+                                        }
+                                 }
+                               
+                               
+                       });
                }
           },  
          {
@@ -598,6 +678,7 @@
                handler:function()
                  {
                  
+                    $('#id_sick_update').textbox('setValue','');
                  
                       //alert('t');
                       
@@ -1764,7 +1845,7 @@
         
         <tr>
             <td>
-                <input class="easyui-textbox"   id="id_sick_update"  data-options=" 
+                <input class="easyui-textbox"   id="id_sick_update"   name="id_sick_update"  data-options=" 
                        readonly:true,  
                        iconCls:'icon-man',
                        

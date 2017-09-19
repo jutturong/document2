@@ -4018,7 +4018,7 @@ $data=array(
      {
                  $this->user_model->login();  //for checklogin
                 // $tb="tb_sick";
-                   $tb=$this->tb_sick;
+                        $tb=$this->tb_sick;
                         $this->db->order_by("id_sick","DESC");
                         $q=$this->db->get($tb,30);
                         foreach($q->result() as $row)
@@ -4217,13 +4217,451 @@ $data=array(
     //http://10.87.196.170/document3/index.php/welcome/update_tbsick
      public  function  update_tbsick()
      {
-           $this->user_model->login();  //for checklogin
-          // echo $id_sick_update=trim($this->input->get_post("id_sick_update"));
-         //  echo br();
+              $this->user_model->login();  //for checklogin
+              //id_sick_update
+               header('Content-Type: text/html; charset=UTF-8');
+               
+               
+              $id_sick=trim($this->input->get_post("id_sick_update"));
+              //echo br();
+              
+              /* #---------------------------------------------------------- code insert ---------------------------------------------- */
+              
+                $type_person=trim($this->input->get_post("type_person"));  //ประเภทของพนักงาน
+                  //echo br();     
+                     $write=trim($this->input->get_post("write"));  //เขึยนที่
+                  //echo br();
+                   $date_write1=trim($this->input->get_post("date_write1"));  //วันที่ 
+                  //echo br();
+                              if(    $date_write1  != ""  )  //09/15/2017
+                              {
+                                       $ex=explode("/",$date_write1);
+                                       $conv_date_write1 =  $ex[2]."-".$ex[0]."-".$ex[1];
+                                       //echo br();
+                                  
+                              } 
+                             else {
+                                       $conv_date_write1 ="";
+                                 
+                             }
+                             
+                     $subject=trim($this->input->get_post("subject"));  //เรื่อง   3
+                   // echo br();    
+                      $study=trim($this->input->get_post("study"));  //เรียน   4
+                   // echo br();
+                    
+                    //  เรียกจาก   id_staff_sick  
+                      $prename=trim($this->input->get_post("prename_sick")); //คำนำหน้าชื่อ   5
+                    //echo br();
+                     $first_name=trim($this->input->get_post("first_name_sick"));  //ชื่อ    6
+                  //  echo br();
+                                          
+                     $last_name=trim($this->input->get_post("last_name_sick")); //นามสกุล   7
+                   // echo br();
+                                          
+                      $position=trim($this->input->get_post("position_sick"));  //ตำแหน่ง   8
+                    //echo br();
+                                          
+                     $affiliation=trim($this->input->get_post("affiliation")); //สังกัด   9
+                  //  echo br();
+                                          
+                    $work=trim($this->input->get_post("work")); //งาน   10
+                   // echo br(); 
+                                          
+                     $tel=trim($this->input->get_post("tel")); //โทร    11
+                   // echo br(); 
+                                       
+                    /*                      
+                    echo  $cumulative=trim($this->input->get_post("cumulative")); //วันลาสะสม   12
+                    echo br();
+                    */
+                    
+                                            //--------------------------------------------------------------------------
+                       $disease=trim($this->input->get_post("disease"));    //  1=ป่วยด้วยโรค   2=จากการทำงาน   3=กิจส่วนตัว  4=คลอดบุตร
+                    // echo br();
+
+                                          //------------- เพิ่มเติม ----------------------
+                       $sick_disease=trim($this->input->get_post("sick_disease"));  // ป่วย  1=จากการทำงาน  2=ไม่ใช่จากการทำงาน
+                   //  echo br();                    
+                                          
+                                         
+                           $disease_detail=trim($this->input->get_post("disease_detail"));  // เกี่ยวข้องหรือมีสาเหตุจาก
+                   //  echo br();
+                     
+                     
+                     
+                                         
+                        $disease_person=trim($this->input->get_post("disease_person")); //กิจส่วนตัว เนื่องจาก
+                    // echo br();
+                                          
+                                         
+                          $begin_date1=trim($this->input->get_post("begin_date1"));  //ตั้งแต่วันที่ 
+                   //  echo br();   
+                      if(     $begin_date1  != ""  )  //09/15/2017
+                              {
+                                       $ex=explode("/", $begin_date1 );
+                                       $conv_begin_date1 =  $ex[2]."-".$ex[0]."-".$ex[1];
+                                      // echo br();
+                                  
+                              } 
+                    else {
+
+                              $conv_begin_date1="";
+                    }
+                     
+                     
+                                         
+                  $end_date1=trim($this->input->get_post("end_date1"));  //ถึงวันที่
+                  //echo br();
+                         if(     $end_date1  != ""  )  //09/15/2017
+                              {
+                                       $ex=explode("/", $end_date1 );
+                                        $conv_end_date1 =  $ex[2]."-".$ex[0]."-".$ex[1];
+                                     //  echo br();
+                                  
+                              } 
+                              else
+                              {
+                                    $conv_end_date1 = "";
+                              }
+                              
+                              
+                                         //-----------------------------------------------------------------------------
+                                         
+                   $count_date=trim($this->input->get_post("count_date"));  //มีกำหนด วัน
+                // echo br();
+                                         
+                                         
+                   $me_leave=trim($this->input->get_post("me_leave"));  //1=ป่วย  2=กิจส่วนตัว  3=คลอดบุตร      //ข้าพเจ้าไ้ด้ลา
+              //  echo br(); 
+                                         
+                                         //----------------- ข้าพเจ้าได้ลา มีกำหนดวัน 
+                        $begin_date2=trim($this->input->get_post("begin_date2"));  //ตั้งแต่วันที่ 
+               // echo br();
+                    if(      $begin_date2  != ""  )  //09/15/2017
+                              {
+                                       $ex=explode("/",  $begin_date2 );
+                                        $conv_begin_date2 =  $ex[2]."-".$ex[0]."-".$ex[1];
+                                       //echo br();
+                                  
+                              } 
+                              else
+                              {
+                                  $conv_begin_date2="";
+                              }
+                                         
+                 $end_date2=trim($this->input->get_post("end_date2"));  //ถึงวันที่
+               // echo br();
+                     if(      $end_date2  != ""  )  //09/15/2017
+                              {
+                                       $ex=explode("/",  $end_date2 );
+                                        $conv_end_date2 =  $ex[2]."-".$ex[0]."-".$ex[1];
+                                      // echo br();
+                                  
+                              } 
+ else {
+     $conv_end_date2="";
+ }
+                              
+                              
+                                         
+                          $count_date2=trim($this->input->get_post("count_date2"));   //กำหนด วัน
+                   //  echo br();
+                                         //----------------------------------------------------------------------------------
+                                         
+                       $house_number=trim($this->input->get_post("house_number"));  //บ้านเลขที่
+                  //  echo br();
+                                         
+                                         
+                          $road=trim($this->input->get_post("road_sick"));  //ถนน
+                  //   echo br();
+                                         
+                         $district=trim($this->input->get_post("district_sick"));  //ตำบล
+                  //  echo br();                 
+                                         
+                      $district2=trim($this->input->get_post("district2_sick"));  //อำเภอ
+                 //   echo br();
+                                         
+                     $province=trim($this->input->get_post("province_sick"));  //จังหวัด
+                  //  echo br();
+                                         
+                                         //-------------------------------------------------------------------------------------
+                                         
+                     $tel2=trim($this->input->get_post("tel2_sick")); //โทรศํพท์
+                   // echo br();
+                                         
+                   $sign_name=trim($this->input->get_post("sign_name"));  //ขอแสดงความนับถือ  ชื่อ
+                 //  echo br();
+                                         
+                    $sign_lastname=trim($this->input->get_post("sign_lastname"));   //ขอแสดงความนับถือ  นามสกุล
+                //  echo br();
+                                         
+                    $sign_prename=trim($this->input->get_post("sign_prename"));  //คำนำหน้าลงท้าย ช่ื่อ  1=นาย  2=นาง  3=นางสาว
+                //  echo br();
+                                         
+                    $firstname3=trim($this->input->get_post("firstname3"));  //  ลงชื่อ  ชื่อ
+               //   echo br();
+                                          
+                                          //-------------------------------------------------------------------------------------------------------------
+                                          
+                     $lastname3=trim($this->input->get_post("lastname3"));  //  ลงชื่อ  นามสกุล
+                 // echo br();
+                                         
+                                         
+                                         //---------------- ป่วย------------------------
+                   $sick1=trim($this->input->get_post("sick1"));  // ป่วย  ลามาแล้ว  วันทำการ
+               //  echo br();
+                                         
+                   $sick2=trim($this->input->get_post("sick2"));  // ป่วย     ลาครั้งนี้   วันทำการ
+                 //echo br();
+                                          
+                  $total_sick=trim($this->input->get_post("total_sick"));  //รวมเป็น  วันทำการ
+                // echo br();
+                                          //---------------- ป่วย------------------------
+                                          
+                                          //----------------กิจส่วนตัว--------------------
+                  $sick_person1=trim($this->input->get_post("sick_person1"));  // ลามาแล้ว  วันทำการ
+              //   echo br();
+                                          
+                                          //------------------------------------------------------------------------------------------------------------------
+                                          
+                                          
+                    $sick_person2=trim($this->input->get_post("sick_person2")); //  ลาครั้งนี้   วันทำการ
+                // echo br();
+                                          
+                  $total_sick_person=trim($this->input->get_post("total_sick_person"));  //รวมเป็น  วันทำการ
+               //  echo br();                       
+                                          //----------------กิจส่วนตัว--------------------
+                                          
+                                          
+                                          //----------------- คลอดบุตร---------------------
+                $confined1=trim($this->input->get_post("confined1"));  // ลามาแล้ว  วันทำการ
+               //  echo br();
+                                          
+                     $confined2=trim($this->input->get_post("confined2"));  // ลามาแล้ว  วันทำการ
+                 // echo br();
+                                          
+                   $total_confined=trim($this->input->get_post("total_confined"));  //รวมเป็น  วันทำการ
+                 // echo br();
+                                          
+                                          //--------------------------------------------------------------------------------------------------------------------
+                                          
+                       $inspector_name=trim($this->input->get_post("inspector_name"));  //ชื่อ ผู้ตรวจสอบ
+               //  echo br();
+                 
+                     $inspector_lastname=trim($this->input->get_post("inspector_lastname"));   //นามสกุล ผู้ตรวจสอบ
+                // echo br();
+                                          
+                                          
+                      $inspector_position=trim($this->input->get_post("inspector_position"));  //  ตำแหน่ง   ผู้ตรวจสอบ
+                 // echo br();
+                                          
+                                          
+                     $date_inspector=trim($this->input->get_post("date_inspector"));  //  วัน เดือน ปี   ผู้ตรวจสอบ 
+                //  echo br();
+                  
+                           if(       $date_inspector  != ""  )  //09/15/2017
+                              {
+                                       $ex=explode("/",   $date_inspector );
+                                      $conv_date_inspector =  $ex[2]."-".$ex[0]."-".$ex[1];
+                                      // echo br();
+                                  
+                              } 
+                              else
+                              {
+                                   $conv_date_inspector ="";
+                              }
+                                          
+                                          
+                                          //-------------ความเห็นของผู้บังคับบัญชาชั้นต้น (โปรดระบุ ข้อ ก และ ข้อ ข)
+                                     $supervisor_sick=trim($this->input->get_post("supervisor_sick"));  // 1=เห็นด้วยกับเหตุผลการลาป่วยที่ระบุมีสาเหตุจากการทำงาน     2=ไม่เห็นด้วยกับเหตุผลการลาป่วยที่เกิดจากการทำงาน   
+                                 //  echo br(); 
+                                          
+                                          //--------------------------------------------------------------------------------------------------------------------
+                                          
+                                    $supervisor_agree=trim($this->input->get_post("supervisor_agree"));  //1=เห็นด้วยควรอนุญาต    2=เห็นด้วยควรไม่อนุญาต
+                                //   echo br();    
+                                          
+                                          
+                                       $first_name2=trim($this->input->get_post("first_name2"));  //ลงชื่อ  ความเห็นของผู้บังคับบัญชา
+                                   // echo br();    
+                                          
+                                       $last_name2=trim($this->input->get_post("last_name2"));   //ลงชื่อ  นามสกุล ผู้บังคับบัญชา
+                                    //echo br();   
+                                          
+                                         $postion2=trim($this->input->get_post("postion2"));  //ตำแหน่ง ผู้บังคับบัญชา
+                                   //  echo br();  
+                                     
+                                     /*
+                                     echo       $commander_date=trim($this->input->get_post("commander_date"));  //วัน เดือน ปี   ความเห็นของผู้บังคับบัญชาชั้นต้น
+                                     echo br();  
+                                       */    
+                                           //--------------------------------------------------------------------------------------------------------------------
+                                           
+                                           
+                                      $manager_allow=trim($this->input->get_post("manager_allow"));   // คำสั่งผู้บริหาร  1=อนุญาต  2=ไม่อนุญาต
+                                     // echo  br();
+                                      
+                                           
+                                       $first_name3=trim($this->input->get_post("first_name3"));   //ลงชื่อ  คำสั่งผู้บริหาร
+                                     // echo  br();
+                                           
+                                          $last_name3=trim($this->input->get_post("last_name3"));  //ลงชื่อ นามสกุล
+                                       //echo  br();
+                                           
+                                         $manager_position=trim($this->input->get_post("manager_position")); //ตำแหน่ง
+                                      // echo  br();
+                                           
+                                        //    $date_manager=trim($this->input->get_post("date_manager"));  //วัน เดือน ปี คำสั่งผู้บริหาร
+                                          // echo  br();
+
+                                            
+                                     //       $id_staff_sick=trim($this->input->get_post("id_staff_sick"));  
+                                            
+                                            
+                                            
+                                             $data=array(
+                                                 "type_person"=>$type_person,   //ประเภทของพนักงาน        2
+                                                 "write"=> $write    , //เขึยนที่  
+                                                 //                                      3
+                                                 "date_write1"=>$conv_date_write1,    //วันที่                   4
+                                                 
+                                                 
+                                                 "subject"=>$subject,  //เรื่อง   3                             5
+                                                 "study"=>$study,     //เรียน   4 
+                                                  "prename"=>$prename,   //คำนำหน้าชื่อ   5
+                                                 "first_name"=> $first_name,  //ชื่อ    6
+                                                "last_name"=>$last_name,   //นามสกุล   7
+                                                  "position"=>  $position,   //ตำแหน่ง   8
+                                                 "affiliation"=>$affiliation, //สังกัด   9
+                                                  "work"=>$work,  //งาน   10
+                                                  "tel"=>$tel,  //โทร    11     
+                                                 "disease"=>$disease,   //  1=ป่วยด้วยโรค   2=จากการทำงาน   3=กิจส่วนตัว  4=คลอดบุตร                                        13
+                                                 "disease_detail"=>$disease_detail, // สาเหตุป่วยด้วยโรค                                          
+                                                 "disease_person"=> $disease_person,//กิจส่วนตัว เนื่องจาก
+                                                 
+                                                 "begin_date1"=> $conv_begin_date1, //ตั้งแต่วันที่ 
+                                                 
+                                                 
+                                                 
+                                                // "end_date1"=>$end_date1, //ถึงวันที่
+                                                   "end_date1"=>$conv_end_date1, //ถึงวันที่
+                                                 
+                                                 
+                                                 "count_date"=> $count_date,   //มีกำหนด วัน
+                                                 "me_leave"=>$me_leave,  //1=ป่วย  2=กิจส่วนตัว  3=คลอดบุตร      //ข้าพเจ้าไ้ด้ลา
+                                                 
+                                                  //     "cumulative"=>$cumulative, //วันลาสะสม   12
+
+                                                  //  "begin_date2"=> $begin_date2,  //ตั้งแต่วันที่ 
+                                                   "begin_date2"=> $conv_begin_date2,  //ตั้งแต่วันที่ 
+                                                 
+                                                 
+                                                  //  "end_date2"=>$end_date2,   //ถึงวันที่
+                                                      "end_date2"=>$conv_end_date2,   //ถึงวันที่
+                                                 
+                                                 
+                                                   "count_date2"=> $count_date2,  //กำหนด วัน
+                                                   
+                                                   
+                                                   "house_number"=>$house_number, //บ้านเลขที่
+                                                    "road"=> $road, //ถนน
+                                                    "district"=> $district,  //ตำบล
+                                                    "district2"=> $district2, //อำเภอ
+                                                    "province"=> $province, //จังหวัด
+                                                    "tel2"=> $tel2, //โทรศํพท์
+                                                    "sign_name"=>$sign_name,  //ขอแสดงความนับถือ  ชื่อ
+                                                    "sign_lastname"=>  $sign_lastname,  //ขอแสดงความนับถือ  นามสกุล
+                                                    "sign_prename"=> $sign_prename, //คำนำหน้าลงท้าย ช่ื่อ  1=นาย  2=นาง  3=นางสาว
+                                                    "firstname3"=>$firstname3, //  ลงชื่อ  ชื่อ
+                                                    "lastname3"=> $lastname3, //  ลงชื่อ  นามสกุล
+                                                     "sick1"=>$sick1, // ป่วย  ลามาแล้ว  วันทำการ
+                                                     "sick2"=>$sick2, // ป่วย     ลาครั้งนี้   วันทำการ
+                                                     "total_sick"=> $total_sick, //รวมเป็น  วันทำการ
+                                                     "sick_person1"=> $sick_person1,  // ลามาแล้ว  วันทำการ
+                                                     "sick_person2"=>$sick_person2,//  ลาครั้งนี้   วันทำการ
+                                                     "total_sick_person"=> $total_sick_person, //รวมเป็น  วันทำการ
+                                                     "confined1"=> $confined1, // ลามาแล้ว  วันทำการ
+                                                      "confined2"=> $confined2, // ลามาแล้ว  วันทำการ
+                                                      "total_confined"=>  $total_confined, //รวมเป็น  วันทำการ
+                                                     "inspector_name"=>$inspector_name,//ชื่อ ผู้ตรวจสอบ
+                                                    "inspector_lastname"=>  $inspector_lastname,  //นามสกุล ผู้ตรวจสอบ
+                                                    "inspector_position"=>  $inspector_position, //  ตำแหน่ง   ผู้ตรวจสอบ
+                                                 
+                                                 
+                                                  // "date_inspector"=>$date_inspector, //  วัน เดือน ปี   ผู้ตรวจสอบ 
+                                                   "date_inspector"=>$conv_date_inspector, //  วัน เดือน ปี   ผู้ตรวจสอบ 
+                                                 
+                                                 
+                                                 
+                                                    "supervisor_sick"=> $supervisor_sick, // 1=เห็นด้วยกับเหตุผลการลาป่วยที่ระบุมีสาเหตุจากการทำงาน     2=ไม่เห็นด้วยกับเหตุผลการลาป่วยที่เกิดจากการทำงาน  
+                                                    "supervisor_agree"=>$supervisor_agree, //1=เห็นด้วยควรอนุญาต    2=เห็นด้วยควรไม่อนุญาต
+                                                    "first_name2"=> $first_name2,//ลงชื่อ  ความเห็นของผู้บังคับบัญชา
+                                                    "last_name2"=>$last_name2,   //ลงชื่อ  นามสกุล ผู้บังคับบัญชา
+                                                    "postion2"=>$postion2,   //ตำแหน่ง ผู้บังคับบัญชา
+                                                  //  "commander_date"=>$commander_date,  //วัน เดือน ปี   ความเห็นของผู้บังคับบัญชาชั้นต้น
+                                                    "manager_allow"=>$manager_allow,    // คำสั่งผู้บริหาร  1=อนุญาต  2=ไม่อนุญาต
+                                                    "first_name3"=>$first_name3,  //ลงชื่อ  คำสั่งผู้บริหาร
+                                                   "last_name3"=> $last_name3,  //ลงชื่อ นามสกุล
+                                                    "manager_position"=> $manager_position,   //ตำแหน่ง
+                                                  //  "date_manager"=>$date_manager,  //วัน เดือน ปี คำสั่งผู้บริหาร
+                                               
+                                                    "sick_disease"=>$sick_disease,        //   $sick_disease=trim($this->input->get_post("sick_disease"));  // ป่วย  1=จากการทำงาน  2=ไม่ใช่จากการทำงาน
+                                              
+                                                  // "id_staff"=>$id_staff_sick,
+                                           );
+                                             
+                                             
+                                             // print_r($data);
+                                           //  $id_sick=trim($this->input->get_post("id_sick_update"));
+                                             
+                                       if(  $id_sick  > 0   )     
+                                       {   
+                                              $tb=$this->tb_sick;
+                                              $this->db->where("id_sick" , $id_sick  );
+                                              $ck=$this->db->update($tb,$data);
+                                              if( $ck )
+                                              {
+                                                  echo json_encode(array("success"=>1));
+                                              }
+                                              else
+                                              {
+                                                  echo json_encode(array("success"=>0));
+                                              }
+                                       }     
+                                              
+                                              
+                                              
+              
+               /* #---------------------------------------------------------- code insert ---------------------------------------------- */
+              
+              
+      
            
          
      }
      
+    //http://10.87.196.170/document3/index.php/welcome/del_tbsick
+     public  function del_tbsick()
+     {
+             $this->user_model->login();  //for checklogin
+              $id_sick=$this->uri->segment(3);
+            // echo br();
+             if( $id_sick > 0 )
+             {
+                  $tb=$this->tb_sick;
+                  $this->db->where("id_sick",$id_sick);
+                  $ck=$this->db->delete($tb);
+                  if( $ck )
+                  {
+                      echo json_encode(array("success"=>1));
+                  }
+                  elseif( !$ck ){
+                      echo  json_encode(array("success"=>0));
+                  }
+             }
+         
+     }
      
       //http://10.87.196.170/document3/index.php/welcome/insert_sick
      public   function  insert_sick()
