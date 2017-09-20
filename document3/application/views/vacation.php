@@ -82,8 +82,13 @@
                           
                             {  field:'first_name', title:'ชื่อ',align:'left',    },
                             {  field:'last_name',title:'นามสกุล', align: 'left' ,    },
-                            {  field:'keep',title:'วันลาคงเหลือ',align:'left',    },
-                            { field:'cumulative',title:'วันลาสะสม',align:'left', },
+                            
+                         //   {  field:'keep',title:'วันลาคงเหลือ',align:'left',    },
+                            
+                          //  { field:'cumulative',title:'วันลาสะสม',align:'left', },
+                              { field:'date_total_leave', title:'ปีนี้ลามาแล้ว',  },
+                          //    { field:'keep' , title:'คงเหลือวันลา (วัน)',   },
+                             
                             
                           ]],
                           toolbar:[
@@ -158,10 +163,11 @@
                                           {
                                                   
                                                    var  id_vacation=row.id_vacation;
-                                                   //$.messager.progress({ value:100, });
-                                                  // alert(id_vacation);
-                                                  var  url='<?=base_url()?>report_pdf/docdb/report_vacation.php?id_vacation='  + id_vacation   ;
-                                                 //location.href=url;
+                                             
+                                                 // var  url='<?=base_url()?>report_pdf/docdb/report_vacation.php?id_vacation='  + id_vacation   ;
+                                                 
+                                                   var  url='http://10.87.196.170/document3/report_pdf/docdb/report_vacation.php?id_vacation='  + id_vacation   ;
+                                               
                                                  window.open(url);
                                                   
                                                     

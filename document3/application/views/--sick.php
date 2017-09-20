@@ -18,7 +18,6 @@
             javascript: 
                     $('#dia_form_sick').dialog('open');
                     $('#id_sick_update').textbox('setValue','');
-                    $('#supervisor_sick2').attr('checked',false);
               
            "  class="easyui-linkbutton" data-options=" iconCls:'icon-large-chart'  ,size:'large' , iconAlign:'top'  "   >ยืนใบลา</a>  
         
@@ -498,29 +497,28 @@
         {
              text:'Save(บันทึก)',iconCls:'icon-save',size:'large',iconAlign:'top',handler:function()
              {
-                    // alert('t');
-                    
-               if(   $('#id_sick_update').textbox('getValue') ==  ''    )
+             
+               if( $('#id_sick_update').textbox('getValue') == '' ||   $('#id_sick_update').textbox('getValue')  <  1   )
                { //------------ begin if--------------------------------
                
                
-                
+                //---------------- begin -----------------------------------------
                        var   url='<?=base_url()?>index.php/welcome/insert_sick';
-           
+                       //alert(url);
                        $.ajax({
                             url:url,
-                      
+                           // dataType:'text',
                              dataType:'json',
-                          //  dataType:'text',
                             data:$('#fr_sick').serialize(),
                             method:'post',
                             
                           }).done(function(data)
                           { 
-                                    //alert(data);
-
-                                    var  res=data.success ;
-                                   // res=1;
+                                    // alert(data); 
+                                   
+                                    // alert(data.success); 
+                                    
+                                     var  res=data.success ;
                                      if(  res == 1  )
                                      {
                                      
@@ -628,7 +626,7 @@
             } //------------end if-----------------------------
             
             
-   
+           //------------------------- end --------------------------------------------  
           
          },
           {
@@ -1113,14 +1111,13 @@
                     ข้าพเจ้าได้ลา  
                     <input    type="radio"   name="me_leave"    onclick="
                               javascript:
-          
-                            
-                                    var  count_date=$('#count_date').numberbox('getValue');
-                                    $('#sick2').textbox('setValue',count_date);
-                                    $('#sick_person2').textbox('setValue',0);
-                                    $('#confined2').textbox('setValue',0);
+                                     // alert('t');
+                                     $('#btn_total_sick').linkbutton({ 'disabled':false  });
+                                     $('#btn_total_sick_person').linkbutton({ 'disabled':true  });
+                                     $('#btn_total_confined').linkbutton({ 'disabled':true  });
                                      
-                                  
+                                     
+                                     $('#total_sick').textbox('setValue','');
                                      $('#total_sick_person').textbox('setValue','');
                                      $('#total_confined').textbox('setValue','');
 
@@ -1128,39 +1125,25 @@
                               "  id="me_leave1"  value="1"  style="width: 90px;height: 40px;"  >ป่วย
                     <input     type="radio"    name="me_leave"  onclick="
                                  javascript:
-                                         
-                                         /*
                                      $('#btn_total_sick').linkbutton({ 'disabled':true  });
                                      $('#btn_total_sick_person').linkbutton({ 'disabled':false  });
                                      $('#btn_total_confined').linkbutton({ 'disabled':true  });
-                                     */
                                      
                                      $('#total_sick').textbox('setValue','');
                                      $('#total_sick_person').textbox('setValue','');
                                      $('#total_confined').textbox('setValue','');
                                      
-                                    var  count_date=$('#count_date').numberbox('getValue');
-                                    $('#sick2').textbox('setValue',0);
-                                    $('#sick_person2').textbox('setValue',count_date);
-                                    $('#confined2').textbox('setValue',0);
                                
                                "   id="me_leave2"     value="2"   style="width: 90px;height: 40px;" >กิจส่วนตัว    
                     <input     type="radio"    name="me_leave"  onclick="
                                  javascript:
-                                         /*
                                      $('#btn_total_sick').linkbutton({ 'disabled':true  });
                                      $('#btn_total_sick_person').linkbutton({ 'disabled':true  });
                                      $('#btn_total_confined').linkbutton({ 'disabled':false  });
-                                     */
                                      
                                      $('#total_sick').textbox('setValue','');
                                      $('#total_sick_person').textbox('setValue','');
                                      $('#total_confined').textbox('setValue','');
-                                     
-                                    var  count_date=$('#count_date').numberbox('getValue');
-                                    $('#sick2').textbox('setValue',0);
-                                    $('#sick_person2').textbox('setValue',0);
-                                    $('#confined2').textbox('setValue',count_date);
                                
                                "  type="radio"     id="me_leave3"     value="3"   style="width: 90px;height: 40px;" >คลอดบุตร  
                 </td>
@@ -1211,19 +1194,26 @@
                                                  { 
                                                        $.each(data,function(v,k){
                                                                
-                                                    
+                                                             //alert(k.house_number);
                                                              
                                                               $('#house_number').textbox('setValue',k.house_number);
-                                                           
+                                                              //alert(k.road);
                                                               $('#road_sick').textbox('setValue',k.road);
                                                               $('#district_sick').textbox('setValue',k.district);
                                                               
                                                               $('#district2_sick').textbox('setValue',k.district2);
-                                                      
+                                                              //alert( k.district2 );
                                                               $('#province_sick').textbox('setValue',k.province);
-                                                            
+                                                              //alert(k.province);
                                                               $('#tel2_sick').textbox('setValue',k.tel2);
-                       
+                                                              //alert(k.tel2);
+                                                              
+                                                
+                                                              // alert(k.last_name);
+                                                              
+                                                              //sign_prename
+                                                              
+                                                               //alert(k.prename);
                                                                
                                                               
                                                        });
@@ -1392,40 +1382,28 @@
                     </td>
                      <td>
                          <input  class="easyui-textbox"   readonly="true"    id="sick2"   name="sick2"    type="text"  style="width:50px;height: 40px;" >
-                         
-                         <!--
                          <a href="javascript:void(0)"     class="easyui-linkbutton"  iconCls="icon-man"  data-options=" 
                               
                                iconAlign:'top',
                                onClick:function()
                                {
-                                   
-                                       var  count_date=$('#count_date').numberbox('getValue');
-                                 
-                                       if( $('#me_leave1').attr('checked',true)  )
-                                       {
-                                             alert('t');
-                                       }
-                                       
-                                       
-                                       
-                                       /*
+                                     //alert('t');
+                                     var  count_date=$('#count_date').numberbox('getValue');
+                                   //  if( count_date > 0 )
                                        if( count_date != '' )
                                      {
+                                         // alert(count_date);
                                          //  $('#sick2').numberbox('setValue',count_date);
-                                               
+                                             $('#sick2').textbox('setValue',count_date);
+                                           
                                      }
                                      else
                                      {
                                           $.messager.alert('ระบุจำนวนวันลา','ระบุจำนวนวันลาก่อน','error');
                                      }
-                                     */
-                                     
-                                     
                                },
                              
                              " >Check</a>
-                          -->
                           
                     </td>
                     
@@ -1434,41 +1412,39 @@
                          
                          <a href="javascript:void(0)"  id="btn_total_sick"   class="easyui-linkbutton"  iconCls="icon-ok"  data-options="  
                                 iconAlign:'top',
-                                disabled:false,
+                                disabled:true,
                                   onClick:function()
                                   {
+                                          
                                           var  sick1=  parseFloat( $('#sick1').textbox('getValue') );
+                                          
+                                      
+                                          
                                           var   sick2= parseFloat(   $('#sick2').textbox('getValue') );
                                           var   total_sick=  parseFloat(  sick1+ sick2 );
-                                          // $('#total_sick').textbox('setValue',total_sick);
                                           
-                                          if(  $('#sick1').textbox('getValue')  != ''   &&  $('#sick2').textbox('getValue') != ''   )
-                                          {
-                                              $('#total_sick').textbox('setValue',total_sick);
-                                          }
-                                          else
-                                          {
-                                               $.messager.alert('ระบุข้อมูลให้ครบ','ชื่อ-นามสกุล, ลามาแล้วกี่วัน , ระบบว่าลาแบบไหน  ป่วย,กิจส่วนตัว, คลอดบุตร  ','error');
-                                          }
+                                          //alert(  total_sick  );
                                           
-                                          
-                                          
-                                          /*
                                           if(  isNaN(total_sick) )
                                           {
+                                             // alert('t');
+                                              
                                                $('#total_sick').textbox('setValue', sick2  );
+                                          
                                           }
                                         else   if(   total_sick > 0  ||  !isNaN( total_sick )    ) 
                                           {
+                                                 // $('#total_sick').numberbox('setValue',total_sick);
                                                    $('#total_sick').textbox('setValue',total_sick);
                                           }
                                           else 
                                           {
-                                                  $.messager.alert('ระบุข้อมูลให้ครบ','ระบบข้อมูลให้ครบ','error');
+                                               $.messager.alert('ระบุข้อมูลให้ครบ','ระบบข้อมูลให้ครบ','error');
                                           }
-                                          */
                                           
-     
+                                          
+                                          
+                                          
                                   }
                             
                             ">Check</a>
@@ -1540,7 +1516,6 @@
                      <td>
                          <input  class="easyui-textbox"   readonly="true"      id="sick_person2"  name="sick_person2"    type="text"  style="width:50px;height: 40px;" >
                          
-                         <!--
                          <a href="javascript:void(0)"    class="easyui-linkbutton"  iconCls="icon-man"  data-options="   
                               iconAlign:'top',
                             
@@ -1562,7 +1537,7 @@
                               },
                               
                             "  >Check</a>
-                         -->
+                         
                          
                     </td>
                      <td>
@@ -1571,19 +1546,18 @@
                          <a href="javascript:void(0)"    id="btn_total_sick_person"  class="easyui-linkbutton"    iconCls="icon-ok"  data-options="
                                iconAlign:'top',
                                disabled:false,
-                            
+                               disabled:true,
                               onClick:function()
                               {
                               
-                                    if(   $('#id_staff_sick').combogrid('getValue') != ''  &&  $('#sick_person1').numberbox('getValue') != ''   &&  $('#sick_person2').numberbox('getValue')  != ''   )
+                                    if(   $('#id_staff_sick').combogrid('getValue') != ''   )
                                     {
                                      var   sick_person1=    parseFloat  (  $('#sick_person1').numberbox('getValue') );
                                      var   sick_person2=   parseFloat   (  $('#sick_person2').numberbox('getValue') );
                                      var    total_sick_person=  parseFloat (  sick_person1 +  sick_person2  );
                                    
-                                    $('#total_sick_person').textbox('setValue', total_sick_person);
                                     
-                                     /*
+                                     
                                      if(  !isNaN(total_sick_person)    )
                                      {
 
@@ -1595,13 +1569,13 @@
                                           $('#total_sick_person').textbox('setValue', sick_person2  );
                                       
                                       }
-                                      */
-
+                                      
+                                      
+                                      
                                      }
                                      else
                                      {
-                                          // $.messager.alert('ระบุข้อมูลให้ครบ','ระบุข้อมูลให้ครบ','error'); 
-                                           $.messager.alert('ระบุข้อมูลให้ครบ','ชื่อ-นามสกุล, ลามาแล้วกี่วัน , ระบบว่าลาแบบไหน  ป่วย,กิจส่วนตัว, คลอดบุตร  ','error');
+                                           $.messager.alert('ระบุข้อมูลให้ครบ','ระบุข้อมูลให้ครบ','error'); 
                                      }
                               }
                             
@@ -1661,8 +1635,6 @@
                     </td>
                      <td>
                         <input  class="easyui-textbox"    readonly="true"    id="confined2"  name="confined2"    type="text"  style="width:50px;height: 40px;" >
-                       
-                        <!--
                         <a href="javascript:void(0)"  class="easyui-linkbutton"  iconCls="icon-man"  iconAlign="top"   style="width:50px;height: 40px;"   onclick="
                            javascript:
                                   // alert('t');
@@ -1680,12 +1652,11 @@
                                        
                                        
                            "    >Check</a>
-                        -->
                         
                     </td>
                      <td>
                         <input  class="easyui-textbox"   readonly="true"    labelPosition="right"    id="total_confined"  name="total_confined"    type="text"  style="width:50px;height: 40px;" >
-                        <a href="javascript:void(0)"     class="easyui-linkbutton"  id="btn_total_confined"  iconCls="icon-ok"  iconAlign="top"   onclick="
+                        <a href="javascript:void(0)"  disabled='true'   class="easyui-linkbutton"  id="btn_total_confined"  iconCls="icon-ok"  iconAlign="top"   onclick="
                              javascript:
                                      
             
@@ -1694,13 +1665,14 @@
 
                                      //alert(  total_confined  );
                                      
-                                    if(   $('#id_staff_sick').combogrid('getValue')  !=   ''  &&  $('#confined1').textbox('getValue') != ''  &&   $('#confined2').textbox('getValue')  != ''   )
+                                    if(   $('#id_staff_sick').combogrid('getValue')  !=   ''    )
                                     {
-                                          var     confined1=  parseFloat( $('#confined1').textbox('getValue') );
+                                         var     confined1=  parseFloat( $('#confined1').textbox('getValue') );
+                                     //alert( confined1 );
                                           var      confined2= parseFloat(  $('#confined2').textbox('getValue')   );
+                                     
                                           var    total_confined  =  parseFloat(   confined1  +  confined2    );
-                                           $('#total_confined').textbox('setValue' ,  confined2  );
-                                          /*
+                                          
                                           if(  isNaN(  total_confined  )     )
                                           {
                                                  $('#total_confined').textbox('setValue' ,  confined2  );
@@ -1709,14 +1681,18 @@
                                           {
                                                 $('#total_confined').textbox('setValue' ,  total_confined  );
                                           }
-                                          */ 
+                                        
                                     }
                                     else
                                     {
-                                          //$.messager.alert('ระบุข้อมูลให้ครบ','ระบุข้อมูลให้ครบ','error');
-                                           $.messager.alert('ระบุข้อมูลให้ครบ','ชื่อ-นามสกุล, ลามาแล้วกี่วัน , ระบบว่าลาแบบไหน  ป่วย,กิจส่วนตัว, คลอดบุตร  ','error');
+                                          $.messager.alert('ระบุข้อมูลให้ครบ','ระบุข้อมูลให้ครบ','error');
                                     }
-
+                                   
+                             
+                                      
+                                
+                                     
+                           
                            "  >Check</a>
                         
                     </td>
@@ -1766,14 +1742,14 @@
         </tr>
         <tr>
             <td>
-                <input   type="radio"  disabled="true"   readonly="true"   id="supervisor_sick1"  name="supervisor_sick"   value="1"   checked="false"   />  เห็นด้วยกับเหตุผลการลาป่วยที่ระบุมีสาเหตุจากการทำงาน
+                <input   type="radio"  readonly="true"   id="supervisor_sick1"  name="supervisor_sick"   value="1"   checked="false"   />  เห็นด้วยกับเหตุผลการลาป่วยที่ระบุมีสาเหตุจากการทำงาน
             </td>
         </tr>
         
         
         <tr>
             <td>
-                <input    type="radio"   disabled="true"   readonly="true"    id="supervisor_sick2"  name="supervisor_sick"  value="2"  checked="false"   />  ไม่เห็นด้วยกับเหตุผลการลาป่วยที่เกิดจากการทำงาน
+                <input    type="radio"     readonly="true"    id="supervisor_sick2"  name="supervisor_sick"  value="2"  checked="false"   />  ไม่เห็นด้วยกับเหตุผลการลาป่วยที่เกิดจากการทำงาน
             </td>
         </tr>
         
@@ -1787,11 +1763,11 @@
         <tr>
             <td>
                 
-                <input   type="radio"   disabled="true"   readonly="true"     id="supervisor_agree1"  name="supervisor_agree"   value="1"  />
+                <input   type="radio"     readonly="true"     id="supervisor_agree1"  name="supervisor_agree"   value="1"  />
                  เห็นด้วยควรอนุญาต
                  
                  
-                 <input    type="radio"   disabled="true"    readonly="true"    id="supervisor_agree2"  name="supervisor_agree"    value="2"   />
+                 <input    type="radio"      readonly="true"    id="supervisor_agree2"  name="supervisor_agree"    value="2"   />
                  เห็นด้วยควรไม่อนุญาต
                  
                  
@@ -1825,9 +1801,9 @@
             <td>
                 
                 <!-- <input   id="manager_allow1" class="with-gap" name="manager_allow" value="1" type="radio"> -->
-                <input    type="radio"   disabled="true"   readonly="true"   id="manager_allow1"  name="manager_allow"    value="1"  />  อนุญาต
+                <input    type="radio"  readonly="true"   id="manager_allow1"  name="manager_allow"    value="1"  />  อนุญาต
                 
-                 <input     type="radio"   disabled="true"   readonly="true"   id="manager_allow2"  name="manager_allow"     value="2"   />  ไม่อนุญาต
+                 <input     type="radio"    readonly="true"   id="manager_allow2"  name="manager_allow"     value="2"   />  ไม่อนุญาต
                 
             </td>
         </tr>
@@ -1873,6 +1849,8 @@
                 <input class="easyui-textbox"   id="id_sick_update"   name="id_sick_update"  data-options=" 
                        readonly:true,  
                        iconCls:'icon-man',
+                       
+                       
                        "  style=" width: 60px; height: 40px;"  >
             </td>
         </tr>
