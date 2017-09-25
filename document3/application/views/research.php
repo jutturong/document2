@@ -1,6 +1,7 @@
 <div id="dlg_content_research" class="easyui-dialog" title="ศูนย์วิจัย ฯ "
-data-options="iconCls:'icon-print' , closed:true,  "
-style="width:400px;height:500px;padding:10px">
+data-options="iconCls:'icon-print' , 
+closed:true,  "
+style="width:400px;height:350px;padding:10px">
 
     <form id="f_search_research"  method="post"   novalidate="novalidate"    enctype="multipart/form-data" >
 
@@ -30,6 +31,9 @@ style="width:400px;height:500px;padding:10px">
 
 <!--  ของ -->
 <div style="margin-bottom:10px">
+    
+    
+    <!--
     <input class="easyui-combogrid"  type="autoCompleteBox"   id="to_research"   name="to_research"  labelPosition="left"  style="width:80%;height:60px"
                   data-options="
                      //  url:'<?=base_url()?>index.php/welcome/json_to/' +  $('#type_document').combobox('getValue')  ,
@@ -58,11 +62,25 @@ style="width:400px;height:500px;padding:10px">
 
 
                   " >
+           -->
+           
+           <input class="easyui-searchbox"   id="to_research"   name="to_research" 
+                  data-options="
+                      size:'large',
+             label:'ของ',
+             labelPosition:'top',
+             iconAlign:'right',
+             labelWidth:'50px',
+                  "
+                  
+                  style="widht:40px;height: 60px;"/>
+    
+    
  </div>
 
 
 
-
+            <!--
             <div style="margin-bottom:10px">
                   <input class="easyui-textbox" label="เรื่อง:" labelPosition="top" style="width:90%;height:60px">
             </div>
@@ -71,11 +89,14 @@ style="width:400px;height:500px;padding:10px">
             <div style="margin-bottom:10px">
                   <input class="easyui-textbox" label="จาก/ถึง" labelPosition="top" style="width:90%;height:60px">
             </div>
+            -->
 
             <div style="margin-bottom:10px">
 
                 <input class="easyui-datebox"    label="วันที่/เดือน/ปี "  name="date_research"  id="date_research" labelPosition="top" style="width:80%;height:60px">
             </div>
+            
+
 
 
         </form>
@@ -85,7 +106,7 @@ style="width:400px;height:500px;padding:10px">
     <div style="text-align:center;padding:5px 0">
 
 
-              <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',size:'large',iconAlign:'left' "  onclick="
+              <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search',size:'large',iconAlign:'left' "  style="width: 80px;height: 40px;"    onclick="
                  javascript:
 
                var   type_document= $('#type_document_research').val() ;
@@ -110,7 +131,7 @@ style="width:400px;height:500px;padding:10px">
                                }
 
 
-
+/*
                                   $.ajax({
                                  type:'POST',
                                  data:$('#f_search_research').serialize(),
@@ -122,44 +143,61 @@ style="width:400px;height:500px;padding:10px">
                                                        $('#dia_datagrid_research').dialog('open');
                                                        $('#datagrid_research').datagrid('loadData',data);
                                            });
+*/
+   
+                                   var  url='<?=base_url()?>index.php/welcome/search_research2';                    
+                                    $.ajax({
+                                      type:'POST',   
+                                      data:$('#f_search_research').serialize(), 
+                                     // url:'<?=base_url()?>index.php/welcome/search_research',
+                                      url:url,
+                                      dataType:'json',
+                                    //  dataType:'text',
+                                                
+                                    }).done(function(data)
+                                    { 
+                                            // alert(data); 
+                                           
+                                           
+                                            $('#dia_datagrid_research').dialog('open');
+                                            $('#datagrid_research').datagrid('loadData',data);
+                                            
+                                            
+                                            
+                                     });
 
 
 
-
-                                /*
-                                                       $.ajax({
-                                 type:'POST',
-                                 data:$('#f_search_research').serialize(),
-                                 url:'<?=base_url()?>index.php/welcome/search_research',
-                                 dataType:'text'}).done(function(data)
-                                          {
-
-                                                   //alert(data);
-                                                   // $('#dia_datagrid_research').dialog('open');
-                                                   // $('#datagrid_research').datagrid('loadData',data);
-                                           });
-                                           */
 
 
 
                           }
 
 
-              " >Search(ค้นหา)</a>
+              " >ค้นหา</a>
+
+        <a href="javascript:void(0)"   class="easyui-linkbutton"  
+           onclick="
+           javascript:
+                    $('#type_document_research').combobox('setValue','');
+                    $('#to_research').textbox('setValue','');
+                    $('#date_research').datebox('setValue','');
+                    
+           "
+           style="width: 80px;height: 40px;"    >ล้าง</a>
 
 
 
-
-
-              <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',size:'large',iconAlign:'left'"
+              <a href="#" class="easyui-linkbutton" style="width: 80px;height: 40px;"  data-options="iconCls:'icon-cancel',size:'large',iconAlign:'left'"
                  onclick="javascript:
 
-                        $('#to_research').combogrid('setValue','');
-                         $('#date_research').datebox('setValue','');
+                       // $('#to_research').combogrid('setValue','');
+                      //   $('#date_research').datebox('setValue','');
+                         //dlg_content_research
                         $('#dlg_content_research').dialog('close');
 
 
-                        ">Close(ปิด)</a>
+                        ">ปิด</a>
 
 
 
@@ -179,7 +217,7 @@ style="width:400px;height:500px;padding:10px">
     maximizable:true,
     resizable:true,
     buttons:[{
-      text:'Close(ปิด)',
+      text:'ปิด',
       iconCls:'icon-cancel',
 
       handler:function()
@@ -217,12 +255,14 @@ style="width:400px;height:500px;padding:10px">
                  ]],
                  toolbar:[
                      //{  text:'Refresh' ,iconCls:'icon-reload',handler:function(){  $('#datagrid_research').datagrid('reload');  }   },
-                    {  text:'Export',iconCls:'icon-print',size:'large',handler:function()
+                    {  text:'ส่งออก',iconCls:'icon-print',size:'large',handler:function()
                            {
 
                              //   window.open( '<?=base_url()?>index.php/welcome/export_data/'+  '2'  +  '/'  +  $('#type_document_research').combobox('getValue')  +  '/'    +    $('#to_research').combogrid('getValue') + '/' + $('#date_research').datebox('getValue')   );
                            
-                                    var  to  =  $('#to_research').combogrid('getValue');
+                                    //var  to  =  $('#to_research').combogrid('getValue');
+                                     var  to  =  $('#to_research').textbox('getValue');
+                                  //  var  to  =   $('#to').textbox('getValue') ; 
                                     
                                     //ค้นหาจากวันที่ 
                                     var   date =  $('#date_research').datebox('getValue');
@@ -262,7 +302,7 @@ style="width:400px;height:500px;padding:10px">
 
                      },
                      {
-                        text:'Download file',iconCls:'icon-large-picture',size:'lagre',handler:function()
+                        text:'ดาวน์โหลด',iconCls:'icon-large-picture',size:'lagre',handler:function()
                          {
                               var  row=$('#datagrid_research').datagrid('getSelected');
                               if( row )
@@ -279,7 +319,7 @@ style="width:400px;height:500px;padding:10px">
                          }
                      },
                      {
-                        text:'Edit(แก้ไขข้อมูล)', size:'large'  ,iconCls:'icon-edit',handler:function()
+                        text:'แก้ไขข้อมูล', size:'large'  ,iconCls:'icon-edit',handler:function()
                          {
                               var  row=$('#datagrid_research').datagrid('getSelected');
                               var  id_main1=row.id_main1;
@@ -367,7 +407,7 @@ style="width:400px;height:500px;padding:10px">
                           }
                      },
                      {
-                        text:'Delete (ลบข้อมูล)',  iconCls:'icon-cancel',size:'large',handler:function()
+                        text:'ลบข้อมูล',  iconCls:'icon-cancel',size:'large',handler:function()
                                 {
                                         var  row=$('#datagrid_research').datagrid('getSelected');
 
@@ -532,7 +572,7 @@ style="width:400px;height:500px;padding:10px">
                   }
             " >ต่อไป</a>
 
-            <a href="javascript:void(0)" iconCls='icon-cancel' style="margin-left:10px;width:100px;height:40px" class="easyui-linkbutton"  onclick=" javascript: $('#dia_select_research').dialog('close');  "  >Close(ปิด)</a>
+            <a href="javascript:void(0)" iconCls='icon-cancel' style="margin-left:10px;width:100px;height:40px" class="easyui-linkbutton"  onclick=" javascript: $('#dia_select_research').dialog('close');  "  >ปิด</a>
 
        </div>
 </div>
@@ -553,7 +593,7 @@ style="width:400px;height:500px;padding:10px">
 
 
        {
-           text:'Insert (บันทึก)',
+           text:'บันทึก',
            iconCls:'icon-save',
            size:'large',
 
@@ -564,80 +604,36 @@ style="width:400px;height:500px;padding:10px">
                     url:'<?=base_url()?>index.php/welcome/insert_tb_main1_2/',
                     success:function(data)
                     {
+                    
+                    
+                     
                           //$registration_receive21
                           //  $('#registration_receive21').textbox('setValue','<?=@$number_add_21?>');
 
-                           //alert(data);
-
-
+                          // alert(data);
 
                           if( data == 1)
                           {
                           
-                          
-                          
-                          /*
-                             $.messager.confirm('บันทึกข้อมูลสำเร็จ (Success Insert)','บันทึกข้อมูลแล้ว คุณต้องการบันทึกข้อมูลอีกหรือไม่',function(r)
-                             {
-                                  if(r)
-                                  {
+                                        $.messager.alert('บันทึกข้อมูลสำเร็จ','สถานะการบันทึกข้อมูลสำเร็จ','info');
+
                                          $('#registration_research_receive21').textbox('setText','');  //registration_research_receive21
-
                                          $('#date1_research_receive21').datebox('setValue','');
-
-
                                          $('#at_research_receive21').textbox('setText',''); //เลขที่เอกสาร
                                          $('#from_research_receive21').textbox('setText',''); //จาก       4
                                          $('#to_research_receive21').textbox('setText',''); //ถึง        5
                                          $('#subject_research_receive21').textbox('setText',''); //เรื่อง       6
                                          $('#practice_research_receive21').textbox('setText',''); //การปฏฺิบัติ       7
                                          $('#note_research_receive21').textbox('setText',''); //หมายเหตุ      8
-
-
-                                   
-                                       
                                           $('#dia_insert_research').dialog('close');
-                                          $('#dia_select_research').dialog('close');
-
-                                  }
-
-                             });
-                             */
-                             
-                             
-                              $('#registration_research_receive21').textbox('setText','');  //registration_research_receive21
-
-                                         $('#date1_research_receive21').datebox('setValue','');
-
-
-                                         $('#at_research_receive21').textbox('setText',''); //เลขที่เอกสาร
-                                         $('#from_research_receive21').textbox('setText',''); //จาก       4
-                                         $('#to_research_receive21').textbox('setText',''); //ถึง        5
-                                         $('#subject_research_receive21').textbox('setText',''); //เรื่อง       6
-                                         $('#practice_research_receive21').textbox('setText',''); //การปฏฺิบัติ       7
-                                         $('#note_research_receive21').textbox('setText',''); //หมายเหตุ      8
-
-
-                                   
-                                       
-                                          $('#dia_insert_research').dialog('close');
-                                          $('#dia_select_research').dialog('close');
-                                          
-                                          
-                                          
-
+                                       //   $('#dia_select_research').dialog('close');
 
                           }
-                          else if( data == 0 )
+                          else 
                           {
-                            //$.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลผิดพลาด ( Error  Insert )');
-                            //$('#registration_receive21').textbox('setText','');
-                            $.messager.alert({
-                              title:'สถานะการบันทึกข้อมูล',
-                              iconCls:'icon-cancel',
-                              msg:'บันทึกข้อมูลผิดพลาด (Error Insert)',
-
-                            });
+                                    // $('#dia_insert_research').dialog('close');
+                                     $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลผิดพลาด ( Error  Insert )','error');
+                            
                           }
 
 
@@ -649,7 +645,7 @@ style="width:400px;height:500px;padding:10px">
            }
         },
         {
-            text:'Update (แก้ไข)',
+            text:'แก้ไข',
             iconCls:'icon-edit',
             size:'large',
             handler:function()
@@ -711,7 +707,7 @@ style="width:400px;height:500px;padding:10px">
         }
         ,
     {
-      text:'Close(ปิด)',
+      text:'ปิด',
       iconCls:'icon-cancel',
       size:'large',
       handler:function()
@@ -730,7 +726,7 @@ style="width:400px;height:500px;padding:10px">
 
 
 
-<form id="f_insert_research"  method="post" action="<?=base_url()?>index.php/welcome/insert_tb_main1_3" novalidate="novalidate"    enctype="multipart/form-data" >
+<form id="f_insert_research"  method="post"  novalidate="novalidate"    enctype="multipart/form-data" >
 
              <div style="margin-left:10px;margin-top: 10px;">
                  <input class="easyui-textbox"   name="registration_research_receive21" id="registration_research_receive21"  style="width:70% ; height: 60px;"  data-options=" label:'เลขรับ'  ,  labelPosition:'top'  ,     "   value="<?=@$number_add_21?>"  />
@@ -791,7 +787,7 @@ style="width:400px;height:500px;padding:10px">
        closed:true,
        buttons:[
            {
-                      text:'Insert (บันทึก)',
+                      text:'บันทึก',
                       iconCls:'icon-save',
                       size:'large',
                       handler:function(){
@@ -799,39 +795,15 @@ style="width:400px;height:500px;padding:10px">
                                    url:'<?=base_url()?>index.php/welcome/insert_tb_main1_send_research',
                                    success:function(data)
                                    {
-                                          //alert(data);
+                                          
+                                       //alert(data);
                                           
                                           
                                        if( data == 1 )
                                        {  
                                        
-                                       
-                                       
-                                       
-                                            /*
-                                            $.messager.confirm('บันทึกข้อมูลสำเร็จ (Success Insert)','คุณต้องการบันทึกข้อมูลอีกหรือไม่',function(r)
-                                                {
-                                                     if(r)
-                                                     {
+                                              $.messager.alert('สถานะการบันทึกข้อมูลสำเร็จ','สถานะการบันทึกข้อมูลสำเร็จ','info');
 
-                                                            $('#registration_send21_research').textbox('setValue','<?=@$number_add_22?>');
-                                                            
-                                                           
-                                                            $('#date1_send21_research').datebox('setText','');
-                                                      
-                                                          
-                                                            $('#from_send21_research').textbox('setText',''); //จาก       4
-                                                            $('#to_send21_research').textbox('setText',''); //ถึง        5
-                                                            $('#subject_send21_research').textbox('setText',''); //เรื่อง       6
-                                                            $('#practice_send21_research').textbox('setText',''); //การปฏฺิบัติ       7
-                                                            $('#note_send21_research').textbox('setText',''); //หมายเหตุ      8
-
-                                                     }
-                                                     
-                                                 });
-                                                 */
-                                                 
-                                                 
                                                  // $('#registration_send21_research').textbox('setValue','<?=@$number_add_22?>');
                                                             
                                                            
@@ -845,12 +817,16 @@ style="width:400px;height:500px;padding:10px">
                                                             $('#note_send21_research').textbox('setText',''); //หมายเหตุ      8
                                                             
                                                              $('#dia_insert_send_research').dialog('close');
-                                                             $('#dia_select_research').dialog('close');
+                                                         //    $('#dia_select_research').dialog('close');
                                                              
                                                       
                                                  
                                                  
-                                              }//end if
+                                     }//end if
+                                     else
+                                     {
+                                             $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','สถานะการบันทึกข้อมูลผิดพลาด','error');
+                                     }
           
                                                 
                                    }//end success
@@ -863,7 +839,7 @@ style="width:400px;height:500px;padding:10px">
 
             },
             {
-            text:'Update (แก้ไข)',
+            text:'แก้ไข',
             iconCls:'icon-edit',
             size:'large',
             handler:function()
@@ -917,7 +893,7 @@ style="width:400px;height:500px;padding:10px">
                     }
             },
             {
-                    text:'Close(ปิด)',
+                    text:'ปิด',
                     iconCls:'icon-cancel',
                     size:'large',
                     handler:function()

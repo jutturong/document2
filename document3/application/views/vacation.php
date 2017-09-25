@@ -20,7 +20,7 @@
       ,iconCls:'icon-print' 
       ,modal:'true' 
       ,buttons:[
-         { text:'Close(ปิด)',iconCls:'icon-cancel',size:'large',iconAlign:'right',handler:function()
+         { text:'ปิด',iconCls:'icon-cancel',size:'large',iconAlign:'right',handler:function()
                 {  
                      $('#dia_vacation').dialog('close');  
                 }  
@@ -64,7 +64,7 @@
       
       ,buttons:[
       
-        { text:'Close(ปิด)',  iconCls:'icon-cancel' ,iconAlign:'top',handler:function(){   $('#dia_main_vacation').dialog('close'); }  },
+        { text:'ปิด',  iconCls:'icon-cancel' ,iconAlign:'top',handler:function(){   $('#dia_main_vacation').dialog('close'); }  },
         {  text:'ยื่นใบลาพักร้อน',iconCls:'icon-man' , iconAlign:'top', handler:function(){  $('#dia_fr_vacation').dialog('open');   }    },
         
       ]
@@ -93,8 +93,8 @@
                           ]],
                           toolbar:[
                           
-                            { text:'Reload', iconAlign:'top'   , iconCls:'icon-reload',handler:function(){ $('#datagrid_vacation').datagrid('reload'); }   },
-                            { text:'Edit (แก้ไข)',  iconAlign:'top' ,  iconCls:'icon-edit',handler:function()
+                            { text:'รีโหลด', iconAlign:'top'   , iconCls:'icon-reload',handler:function(){ $('#datagrid_vacation').datagrid('reload'); }   },
+                            { text:'แก้ไข',  iconAlign:'top' ,  iconCls:'icon-edit',handler:function()
                                       {   //begin     
                                                  var  row=$('#datagrid_vacation').datagrid('getSelected');
                                                  if(row)
@@ -122,7 +122,7 @@
                                       
                                       }  //end
                              },
-                             { text:'Delete (ลบ)',   iconAlign:'top'  , iconCls:'icon-cancel',handler:function()
+                             { text:'ลบ',   iconAlign:'top'  , iconCls:'icon-cancel',handler:function()
                                  {   
                                       $.messager.confirm('คุณต้อการลบข้อมูล','คุณต้องการลบข้อมูลหรือไม่',function(r)
                                           { 
@@ -154,8 +154,8 @@
                                           });
                                  } 
                               },
-                             {  text:'Search (ค้นหา)' , iconAlign:'top',iconCls:'icon-search',handler:function(){  alert('t'); }  },
-                             {  text:'Report (ออกรายงาน)',iconAlign:'top',iconCls:'icon-print',handler:function()
+                             {  text:'ค้นหา' , iconAlign:'top',iconCls:'icon-search',handler:function(){  alert('t'); }  },
+                             {  text:'ออกรายงาน',iconAlign:'top',iconCls:'icon-print',handler:function()
                                    {
                                         
                                           var  row=$('#datagrid_vacation').datagrid('getSelected');
@@ -206,7 +206,7 @@
          
          buttons:[
                {
-                   text:'(update) แก้ไข้ข้อมูล',iconCls:'icon-edit', iconAlign:'top', handler:function()
+                   text:'แก้ไข้ข้อมูล',iconCls:'icon-edit', iconAlign:'top', handler:function()
                    { 
                           //alert('t');  
                           
@@ -306,7 +306,7 @@
                           });
                     }},
                 {
-                     text:'Clear(ล้าง)',
+                     text:'ล้าง',
                      iconAlign:'top',
                      iconCls:'icon-ok',
                      handler:function()
@@ -397,8 +397,8 @@
                      }
                 },    
                     
-               { text:'Close(ปิด)',iconCls:'icon-cancel',iconAlign:'top',handler:function(){ $('#dia_fr_vacation').dialog('close'); }  },
-               {  text:'Show(การแสดงผล)' , iconCls:'icon-print', iconAlign:'top'  , handler:function(){   $('#dia_main_vacation').dialog('open');     $('#datagrid_vacation').datagrid('reload');  } },
+               { text:'ปิด',iconCls:'icon-cancel',iconAlign:'top',handler:function(){ $('#dia_fr_vacation').dialog('close'); }  },
+               {  text:'การแสดงผล' , iconCls:'icon-print', iconAlign:'top'  , handler:function(){   $('#dia_main_vacation').dialog('open');     $('#datagrid_vacation').datagrid('reload');  } },
                
          ]
      "
@@ -1383,7 +1383,7 @@ labelPosition="left"  labelWidth="310px"
              }//end function
          },
          {
-              text:'Clear(ล้าง)', iconCls:'icon-reload',iconAlign:'top', handler:function()
+              text:'ล้าง', iconCls:'icon-reload',iconAlign:'top', handler:function()
                {
                      $('#pass_update').passwordbox('clear');
                }

@@ -4,7 +4,7 @@
       ,iconCls:'icon-print' 
       ,modal:'true' 
       ,buttons:[
-         { text:'Close(ปิด)',iconCls:'icon-cancel',size:'large',iconAlign:'right',handler:function()
+         { text:'ปิด',iconCls:'icon-cancel',size:'large',iconAlign:'right',handler:function()
                 {  
                      $('#dia_sick').dialog('close');  
                 }  
@@ -54,7 +54,7 @@
       ,collapsible:false
       ,buttons:[
       
-        { text:'Close(ปิด)',  iconCls:'icon-cancel' ,iconAlign:'top',handler:function(){   $('#dia_main_sick').dialog('close'); }  },
+        { text:'ปิด',  iconCls:'icon-cancel' ,iconAlign:'top',handler:function(){   $('#dia_main_sick').dialog('close'); }  },
         
       ]
       
@@ -79,8 +79,8 @@
                           ]],
                           toolbar:[
                           
-                            { text:'Reload', iconAlign:'top'   , iconCls:'icon-reload',handler:function(){ $('#datagrid_sick').datagrid('reload'); }   },
-                            { text:'Edit (แก้ไข)',  iconAlign:'top' ,  iconCls:'icon-edit',handler:function()
+                            { text:'รีโหลด', iconAlign:'top'   , iconCls:'icon-reload',handler:function(){ $('#datagrid_sick').datagrid('reload'); }   },
+                            { text:'แก้ไข',  iconAlign:'top' ,  iconCls:'icon-edit',handler:function()
                                      {      
                                           
                                             
@@ -394,7 +394,7 @@
                                                 
                                             }
                                      } },
-                             { text:'Delete (ลบ)',   iconAlign:'top'  , iconCls:'icon-cancel',handler:function()
+                             { text:'ลบ',   iconAlign:'top'  , iconCls:'icon-cancel',handler:function()
                                  {  //----begin function----------   
                                        var   row=$('#datagrid_sick').datagrid('getSelected');
                                        if( row )
@@ -432,8 +432,8 @@
                                  
                                  }  //------end function ----------
                              },
-                             {  text:'Search (ค้นหา)' , iconAlign:'top',iconCls:'icon-search',handler:function(){  alert('t'); }  },
-                             {  text:'Report (ออกรายงาน)',iconAlign:'top',iconCls:'icon-print',handler:function()
+                             {  text:'ค้นหา' , iconAlign:'top',iconCls:'icon-search',handler:function(){  alert('t'); }  },
+                             {  text:'ออกรายงาน',iconAlign:'top',iconCls:'icon-print',handler:function()
                                    {
                                         
                                           var  row=$('#datagrid_sick').datagrid('getSelected');
@@ -496,7 +496,7 @@
          }
          ,
         {
-             text:'Save(บันทึก)',iconCls:'icon-save',size:'large',iconAlign:'top',handler:function()
+             text:'บันทึก',iconCls:'icon-save',size:'large',iconAlign:'top',handler:function()
              {
                     // alert('t');
                     
@@ -674,7 +674,7 @@
                }
           },  
          {
-               text:'Clear(ล้างข้อมูล)',
+               text:'ล้างข้อมูล',
                iconCls:'icon-man',
                iconAlign:'top',
                size:'large',
@@ -792,7 +792,7 @@
           }
           ,
          
-         { text:'Close(ปิด)',iconCls:'icon-cancel',size:'large',iconAlign:'top',handler:function()
+         { text:'ปิด',iconCls:'icon-cancel',size:'large',iconAlign:'top',handler:function()
                 {  
                         $('#dia_form_sick').dialog('close');  
                         //alert('t');

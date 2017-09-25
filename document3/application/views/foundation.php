@@ -1,6 +1,6 @@
 <div id="dlg_content_foundation" class="easyui-dialog" title="มูลนิธิตะวันฉาย ฯ "
 data-options="iconCls:'icon-print' , closed:true,  "
-style="width:400px;height:500px;padding:10px">
+style="width:400px;height:350px;padding:10px">
 
     <form id="f_search_foundation"  method="post"   novalidate="novalidate"    enctype="multipart/form-data" >
 
@@ -31,6 +31,9 @@ style="width:400px;height:500px;padding:10px">
 
 <!--  ของ -->
 <div style="margin-bottom:10px">
+    
+    
+    <!--
     <input class="easyui-combogrid"   type="autoCompleteBox"    id="to_foundation"     name="to_foundation"  labelPosition="left"  style="width:80%;height:60px"
                   data-options="
                   //   url:'<?=base_url()?>index.php/welcome/json_to',
@@ -58,10 +61,25 @@ style="width:400px;height:500px;padding:10px">
 
 
                   " >
+        -->
+        
+        <input class="easyui-searchbox" 
+               data-options="
+          //   iconCls:'icon-man',
+             size:'large',
+             label:'ของ',
+             labelPosition:'top',
+             iconAlign:'right',
+             labelWidth:'50px',
+           "
+               
+               id="to_foundation"     name="to_foundation"   style="widht:40px;height: 60px;"    />
+    
+    
  </div>
 
 
-
+<!--
 <div style="margin-bottom:10px">
                   <input class="easyui-textbox" label="เรื่อง:" labelPosition="top" style="width:90%;height:60px">
             </div>
@@ -70,6 +88,8 @@ style="width:400px;height:500px;padding:10px">
             <div style="margin-bottom:10px">
                   <input class="easyui-textbox" label="จาก/ถึง" labelPosition="top" style="width:90%;height:60px">
             </div>
+-->
+
 
             <div style="margin-bottom:10px">
 
@@ -109,7 +129,7 @@ style="width:400px;height:500px;padding:10px">
                                }
 
 
-
+                                 /*
                                   $.ajax({
                                  type:'POST',
                                  data:$('#f_search_foundation').serialize(),
@@ -121,44 +141,64 @@ style="width:400px;height:500px;padding:10px">
                                                        $('#dia_datagrid_foundation').dialog('open');
                                                        $('#datagrid_foundation').datagrid('loadData',data);
                                            });
-
-
-
-
-                                /*
-                                                       $.ajax({
+                               */
+                                  
+                                  var  url='<?=base_url()?>index.php/welcome/search_foundation2';
+                                 $.ajax({
                                  type:'POST',
                                  data:$('#f_search_foundation').serialize(),
-                                 url:'<?=base_url()?>index.php/welcome/search_foundation',
-                                 dataType:'text'}).done(function(data)
+                                 url:url,
+                                 
+                                 dataType:'json'
+                                // dataType:'text',
+                             
+                                  }).done(function(data)
                                           {
 
-                                                   //alert(data);
-                                                   // $('#dia_datagrid_foundation').dialog('open');
-                                                   // $('#datagrid_foundation').datagrid('loadData',data);
+                                                    // alert(data);
+                                                  
+                                                      
+                                                       $('#dia_datagrid_foundation').dialog('open');
+                                                       $('#datagrid_foundation').datagrid('loadData',data);
+                                                      
+                                                       
                                            });
-                                           */
+
+
+
+
+                               
 
 
 
                           }
 
 
-              " >Search(ค้นหา)</a>
+              "  style="width: 80px;height: 40px;"  >ค้นหา</a>
 
-
+              <a href="javascript:void(0)"  iconCls="icon-man"  size="large"  class="easyui-linkbutton"  onclick="
+                   javascript:
+                           
+                          $('#type_document_foundation').combobox('setValue','') ;
+                          $('#to_foundation').textbox('setValue','');
+                          $('#date_foundation').datebox('setValue','');
+                          
+                           
+                 "  style="width: 80px;height: 40px;"   >ล้าง</a>
 
 
 
               <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',size:'large',iconAlign:'left'"
                  onclick="javascript:
 
-                        $('#to_foundation').combogrid('setValue','');
-                         $('#date_foundation').datebox('setValue','');
+                       // $('#to_foundation').combogrid('setValue','');
+                      //   $('#date_foundation').datebox('setValue','');
+                        //$('#dlg_content_foundation').dialog('close');
+                        
                         $('#dlg_content_foundation').dialog('close');
 
 
-                        ">Close(ปิด)</a>
+                        "  style="width: 80px;height: 40px;"  >ปิด</a>
 
 
 
@@ -177,9 +217,9 @@ style="width:400px;height:500px;padding:10px">
     maximizable:true,
     resizable:true,
     buttons:[{
-      text:'Close(ปิด)',
+      text:'ปิด',
       iconCls:'icon-cancel',
-
+      size:'large',
       handler:function()
       {
           
@@ -214,7 +254,7 @@ style="width:400px;height:500px;padding:10px">
                  ]],
                  toolbar:[
                      //{  text:'Refresh' ,iconCls:'icon-reload',handler:function(){  $('#datagrid_foundation').datagrid('reload');  }   },
-                    {  text:'Export',iconCls:'icon-print',size:'large',handler:function()
+                    {  text:'ส่งออก',iconCls:'icon-print',size:'large',handler:function()
                            {
 
                                // window.open( '<?=base_url()?>index.php/welcome/export_data/'+  '1'  +  '/'  +  $('#type_document_foundation').combobox('getValue')  +  '/'    +    $('#to_foundation').combogrid('getValue') + '/' + $('#date_foundation').datebox('getValue')   );
@@ -253,7 +293,7 @@ style="width:400px;height:500px;padding:10px">
 
                      },
                      {
-                        text:'Download file',iconCls:'icon-large-picture',size:'lagre',handler:function()
+                        text:'ดาวน์โหลด',iconCls:'icon-large-picture',size:'lagre',handler:function()
                          {
                               var  row=$('#datagrid_foundation').datagrid('getSelected');
                               if( row )
@@ -270,7 +310,7 @@ style="width:400px;height:500px;padding:10px">
                          }
                      },
                      {
-                        text:'Edit(แก้ไขข้อมูล)', size:'large'  ,iconCls:'icon-edit',handler:function()
+                        text:'แก้ไขข้อมูล', size:'large'  ,iconCls:'icon-edit',handler:function()
                          {
                               var  row=$('#datagrid_foundation').datagrid('getSelected');
                               var  id_main1=row.id_main1;
@@ -358,7 +398,7 @@ style="width:400px;height:500px;padding:10px">
                           }
                      },
                      {
-                        text:'Delete (ลบข้อมูล)',  iconCls:'icon-cancel',size:'large',handler:function()
+                        text:'ลบข้อมูล',  iconCls:'icon-cancel',size:'large',handler:function()
                                 {
                                         var  row=$('#datagrid_foundation').datagrid('getSelected');
 
@@ -548,7 +588,7 @@ style="width:400px;height:500px;padding:10px">
                   }
             " >ต่อไป</a>
 
-            <a href="javascript:void(0)" iconCls='icon-cancel' style="margin-left:10px;width:100px;height:40px" class="easyui-linkbutton"  onclick=" javascript: $('#dia_select_foundation').dialog('close');  "  >Close(ปิด)</a>
+            <a href="javascript:void(0)" iconCls='icon-cancel' style="margin-left:10px;width:100px;height:40px" class="easyui-linkbutton"  onclick=" javascript: $('#dia_select_foundation').dialog('close');  "  >ปิด</a>
 
        </div>
 </div>
@@ -570,7 +610,7 @@ style="width:400px;height:500px;padding:10px">
 
 
        {
-           text:'Insert (บันทึก)',
+           text:'บันทึก',
            iconCls:'icon-save',
            size:'large',
 
@@ -584,37 +624,12 @@ style="width:400px;height:500px;padding:10px">
                           //$registration_receive21
                           //  $('#registration_receive21').textbox('setValue','<?=@$number_add_21?>');
 
-                           //alert(data);
+                         //  alert(data);
 
-
-                        
                           if( data == 1)
                           {
-                          
-                          
-                          
-                          /*
-                             $.messager.confirm('บันทึกข้อมูลสำเร็จ (Success Insert)','บันทึกข้อมูลแล้ว คุณต้องการบันทึกข้อมูลอีกหรือไม่',function(r)
-                             {
-                                  if(r)
-                                  {
-                                         $('#registration_foundation_receive21').textbox('setText','');  //registration_foundation_receive21
 
-                                         $('#date1_foundation_receive21').datebox('setValue','');
-
-                                         $('#at_foundation_receive21').textbox('setText',''); //เลขที่เอกสาร
-                                         $('#from_foundation_receive21').textbox('setText',''); //จาก       4
-                                         $('#to_foundation_receive21').textbox('setText',''); //ถึง        5
-                                         $('#subject_foundation_receive21').textbox('setText',''); //เรื่อง       6
-                                         $('#practice_foundation_receive21').textbox('setText',''); //การปฏฺิบัติ       7
-                                         $('#note_foundation_receive21').textbox('setText',''); //หมายเหตุ      8
-
-                                          $('#dia_insert_foundation').dialog('close');
-                                          $('#dia_select_foundation').dialog('close');   
-                                  }
-
-                             });
-                             */
+                               $.messager.alert('บันทึกข้อมูลสำเร็จ','สถานะการบันทึกข้อมูลสำเร็จ','info');
                              
                              
                                          $('#registration_foundation_receive21').textbox('setText','');  //registration_foundation_receive21
@@ -629,7 +644,7 @@ style="width:400px;height:500px;padding:10px">
                                          $('#note_foundation_receive21').textbox('setText',''); //หมายเหตุ      8
 
                                           $('#dia_insert_foundation').dialog('close');
-                                          $('#dia_select_foundation').dialog('close');   
+                                       //   $('#dia_select_foundation').dialog('close');   
                                           
                              
 
@@ -637,14 +652,13 @@ style="width:400px;height:500px;padding:10px">
                           }
                           else if( data == 0 )
                           {
-                            //$.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลผิดพลาด ( Error  Insert )');
-                            //$('#registration_receive21').textbox('setText','');
-                            $.messager.alert({
-                              title:'สถานะการบันทึกข้อมูล',
-                              iconCls:'icon-cancel',
-                              msg:'บันทึกข้อมูลผิดพลาด (Error Insert)',
-
-                            });
+                          
+                          
+                           $.messager.alert('บันทึกข้อมูลผิดพลาด','สถานะการบันทึกข้อมูลผิดพลาด','error');
+                            
+                      
+                            
+                            
                           }
                          
 
@@ -656,7 +670,7 @@ style="width:400px;height:500px;padding:10px">
            }
         },
         {
-            text:'Update (แก้ไข)',
+            text:'แก้ไข',
             iconCls:'icon-edit',
             size:'large',
             handler:function()
@@ -769,7 +783,7 @@ style="width:400px;height:500px;padding:10px">
         }
         ,
     {
-      text:'Close(ปิด)',
+      text:'ปิด',
       iconCls:'icon-cancel',
       size:'large',
       handler:function()
@@ -850,7 +864,7 @@ style="width:400px;height:500px;padding:10px">
        closed:true,
        buttons:[
            {
-                      text:'Insert (บันทึก)',
+                      text:'บันทึก',
                       iconCls:'icon-save',
                       size:'large',
                       handler:function(){
@@ -858,6 +872,7 @@ style="width:400px;height:500px;padding:10px">
                                    url:'<?=base_url()?>index.php/welcome/insert_tb_main1_send_foundation',
                                    success:function(data)
                                    {
+                                   
                                           //alert(data);
                                           
                                          
@@ -865,34 +880,7 @@ style="width:400px;height:500px;padding:10px">
                                        {  
                                        
                                        
-                                       /*
-                                            $.messager.confirm('บันทึกข้อมูลสำเร็จ (Success Insert)','คุณต้องการบันทึกข้อมูลอีกหรือไม่',function(r)
-                                                {
-                                                     if(r)
-                                                     {
-
-                                                        
-                                                            //$('#registration_send21_foundation').textbox('setValue','<?=@$number_add_22?>');
-                                                            
-                                                           
-                                                            $('#date1_send21_foundation').datebox('setText','');
-                                                         
-                                                          
-                                                            $('#from_send21_foundation').textbox('setText',''); //จาก       4
-                                                            $('#to_send21_foundation').textbox('setText',''); //ถึง        5
-                                                            $('#subject_send21_foundation').textbox('setText',''); //เรื่อง       6
-                                                            $('#practice_send21_foundation').textbox('setText',''); //การปฏฺิบัติ       7
-                                                            $('#note_send21_foundation').textbox('setText',''); //หมายเหตุ      8
-
-                                                                 $('#dia_select_foundation').dialog('close'); 
-                                                                 $('#dia_insert_send_foundation').dialog('close');
-                                                                 
-                                                                 
-
-                                                     }
-                                                     
-                                                });
-                                                */
+                                                         $.messager.alert('สถานะการบันทึกข้อมูลสำเร็จ','สถานะการบันทึกข้อมูลสำเร็จ','info');
                                                 
                                                 
                                                 
@@ -905,7 +893,7 @@ style="width:400px;height:500px;padding:10px">
                                                             $('#practice_send21_foundation').textbox('setText',''); //การปฏฺิบัติ       7
                                                             $('#note_send21_foundation').textbox('setText',''); //หมายเหตุ      8
 
-                                                                 $('#dia_select_foundation').dialog('close'); 
+                                                             //   $('#dia_select_foundation').dialog('close'); 
                                                                  $('#dia_insert_send_foundation').dialog('close');
                                                                  
                                                                  
@@ -913,11 +901,9 @@ style="width:400px;height:500px;padding:10px">
                                                 
                                            }
                                            else{
-                                                 $.messager.alert({
-                                                     title:'สถานะการบันทึกข้อมูลผิดพลาด',
-                                                     msg:'บันทึกข้อมูลล้มเหลว',
-                                                     
-                                                 });
+                                           
+                                                     $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','สถานะการบันทึกข้อมูลผิดพลาด','error');
+                                               
                                            }
                                               
                                                 
@@ -929,7 +915,7 @@ style="width:400px;height:500px;padding:10px">
 
             },
             {
-            text:'Update (แก้ไข)',
+            text:'แก้ไข',
             iconCls:'icon-edit',
             size:'large',
             handler:function()
@@ -985,7 +971,7 @@ style="width:400px;height:500px;padding:10px">
                     }
             },
             {
-                    text:'Close(ปิด)',
+                    text:'ปิด',
                     iconCls:'icon-cancel',
                     size:'large',
                     handler:function()

@@ -5,7 +5,7 @@ class Welcome extends CI_Controller {
         var   $title="ระบบโปรแกรมธุรการอิเล็กทรอนิค";
 
          var     $tb= "tb_main1";
-      //  var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
+     //   var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
 
 
 
@@ -476,129 +476,237 @@ public function json_excellence()  //ศูนย์การดูแล AND ex
 			 echo json_encode($rows);
 }
 
- public function search_excellence2()
-        { //begin function
-                        $this->user_model->login();  //for checklogin
-                         $tb=$this->tb;
-                        $to=trim($this->input->get_post("to"));
-                     // echo br();
-     
-                        $date=trim($this->input->get_post("date"));
-                      //echo br();
-                      if( $date != "" )    //  09/13/2017
-                      {
-                            $ex=explode("/",$date);
-                            $conv_date=$ex[2]."-".$ex[0]."-".$ex[1];
 
-                      }
-                      else
-                      {
-                          $conv_date = "";
-                      }
-                      
-                      //echo $conv_date;
-                     // echo br();
-
-                      $type_record=3;
-                      
-                       $type_document=trim($this->input->get_post("type_document")); ;
-                
-                      
-                      
-                      $tb=$this->tb;
-                      
-                      if(   $to  != ""   &&    $conv_date == "" )
-                      {
-
-                              $str="  SELECT   *  FROM  $tb  WHERE `to` LIKE ('%$to%')     AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";
-                              $query=$this->db->query( $str);
-                              $num=$query->num_rows();
-                              if( $num > 0 )
-                              {
-                                  foreach( $query -> result() as $row)
-                                  {
-                                      $rows[]=$row;
-                                  }
-                                     echo  json_encode($rows);
-                              }
-                        
-                      }
-                      elseif(   $conv_date != ""  &&   $to == ""   )  
-                      {
-                               $str="  SELECT   *  FROM  $tb  WHERE   `date`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";
-                               $query=$this->db->query( $str);
-                               $num=$query->num_rows();
-                                 if( $num > 0 )
-                                    {
-                                        foreach( $query -> result() as $row)
-                                        {
-                                            $rows[]=$row;
-                                        }
-                                           echo  json_encode($rows);
-                                    }
-                               
-                      }
-                      elseif( $to  != ""   &&    $conv_date != "" )  //ข้อมูลทดสอบ  ,   ส   ,   08/02/2017
-                      {
-                               $str="  SELECT   *  FROM  $tb  WHERE       `to` LIKE ('%$to%')     AND      `date`='$conv_date'   AND       `type_record`=$type_record   AND   `type_document`=$type_document    ";
-                               $query=$this->db->query( $str);
-                               $num=$query->num_rows();
-                               if( $num > 0 )
-                                    {
-                                        foreach( $query -> result() as $row)
-                                        {
-                                            $rows[]=$row;
-                                        }
-                                           echo  json_encode($rows);
-                                    }
-                      }
-                     elseif( $to  == ""   &&    $conv_date == "" ) 
-                      {
-                           $str="  SELECT   *  FROM  $tb  WHERE      `type_record`=$type_record   AND   `type_document`=$type_document   ORDER  BY   `id_main1`   DESC   LIMIT  20   ";
-                               $query=$this->db->query( $str);
-                               $num=$query->num_rows();
-                               if( $num > 0 )
-                                    {
-                                        foreach( $query -> result() as $row)
-                                        {
-                                            $rows[]=$row;
-                                        }
-                                           echo  json_encode($rows);
-                                    }
-                          
-                      }
-
-    
-        } //end function  
-
-
-//http://10.87.196.170/document2/index.php/welcome/
-public function search_excellence()
+//http://10.87.196.170/document3/index.php/welcome/search_excellence2
+public function search_excellence2()
 {
       $this->user_model->login();  //for checklogin
+      
+          $tb=$this->tb;
+          
+     $to=trim($this->input->get_post("to"));
+   //  echo br();
+     
+        $date=trim($this->input->get_post("date"));
+      //echo br();
+      if( $date != "" )    //  09/13/2017
+      {
+            $ex=explode("/",$date);
+            $conv_date=$ex[2]."-".$ex[0]."-".$ex[1];
+           
+      }
+      else
+      {
+          $conv_date = "";
+      }
+      
+      $type_record=3;
+      //echo br();
+     
+        $type_document=trim($this->input->get_post("type_document")); //ประเภทเอกสาร  รับ=1,ส่ง=2
+      // echo br();
 
-        // $tb="tb_main1";
-				 // $tb="tb_main1_test";
+        if( $date == ""  &&  $to != "" )
+        {
+                $this->db->where("type_record",3);
+                $this->db->where("type_document",$type_document);
+                $this->db->like("to",$to);
+                $query=$this->db->get($tb);
+
+                 $num= $query->num_rows();
+                //echo br();
+                  if( $num > 0 )
+                    {
+                         foreach($query->result() as $row )
+                         {
+                             $rows[]=$row;
+                         }
+                            echo json_encode($rows);
+
+                    }
+        }
+        elseif(     $date != ""  &&  $to == ""   )
+        {
+            
+                $this->db->where("type_record",3);
+                $this->db->where("type_document",$type_document);
+             //   $this->db->like("to",$to);
+                $this->db->where("date",$conv_date);
+                $query=$this->db->get($tb);
+
+                  $num=  $query->num_rows();
+                //echo br();
+                   if( $num > 0 )
+                    {
+                         foreach($query->result() as $row )
+                         {
+                             $rows[]=$row;
+                         }
+                            echo json_encode($rows);
+
+                    }
+        }
+        else if( $date != ""  &&  $to != ""  )
+        {
+                $this->db->where("type_record",3);
+                $this->db->where("type_document",$type_document);
+                $this->db->like("to",$to);
+                $this->db->where("date",$conv_date);
+                $query=$this->db->get($tb);
+
+                $num=  $query->num_rows();
+                //echo br();
+                
+                 if( $num > 0 )
+                    {
+                         foreach($query->result() as $row )
+                         {
+                             $rows[]=$row;
+                         }
+                            echo json_encode($rows);
+
+                    }
+            
+        }
+        elseif( $date == ""  &&  $to == ""  ){
+            
+                $this->db->where("type_record",3);
+                $this->db->where("type_document",$type_document);
+              //  $this->db->like("to",$to);
+            //    $this->db->where("date",$conv_date);
+                $query=$this->db->get($tb,30);
+
+                $num=  $query->num_rows();
+                
+                
+                 if( $num > 0 )
+                    {
+         $type_document=trim($this->input->get_post("type_document")); //ประเภทเอกสาร  รับ=1,ส่ง=2
+      // echo br();
+
+        if( $date == ""  &&  $to != "" )
+        {
+                $this->db->where("type_record",3);
+                $this->db->where("type_document",$type_document);
+                $this->db->like("to",$to);
+                $query=$this->db->get($tb);
+
+                 $num= $query->num_rows();
+                //echo br();
+                  if( $num > 0 )
+                    {
+                         foreach($query->result() as $row )
+                         {
+                             $rows[]=$row;
+                         }
+                            echo json_encode($rows);
+
+                    }
+        }
+        elseif(     $date != ""  &&  $to == ""   )
+        {
+            
+                $this->db->where("type_record",3);
+                $this->db->where("type_document",$type_document);
+             //   $this->db->like("to",$to);
+                $this->db->where("date",$conv_date);
+                $query=$this->db->get($tb);
+
+                  $num=  $query->num_rows();
+                //echo br();
+                   if( $num > 0 )
+                    {
+                         foreach($query->result() as $row )
+                         {
+                             $rows[]=$row;
+                         }
+                            echo json_encode($rows);
+
+                    }
+        }
+        else if( $date != ""  &&  $to != ""  )
+        {
+                $this->db->where("type_record",3);
+                $this->db->where("type_document",$type_document);
+                $this->db->like("to",$to);
+                $this->db->where("date",$conv_date);
+                $query=$this->db->get($tb);
+
+                $num=  $query->num_rows();
+                //echo br();
+                
+                 if( $num > 0 )
+                    {
+                         foreach($query->result() as $row )
+                         {
+                             $rows[]=$row;
+                         }
+                            echo json_encode($rows);
+
+                    }
+            
+        }
+        elseif( $date == ""  &&  $to == ""  ){
+            
+                $this->db->where("type_record",3);
+                $this->db->where("type_document",$type_document);
+              //  $this->db->like("to",$to);
+            //    $this->db->where("date",$conv_date);
+                $query=$this->db->get($tb,30);
+
+                             foreach($query->result() as $row )
+                         {
+                             $rows[]=$row;
+                         }
+                            echo json_encode($rows);
+
+                    }
+            
+        }
+        
+       //echo $num;
+      // echo br();
+        
+        }  
+       
+   
+        
+ 
+
+
+//http://10.87.196.170/document3/index.php/welcome/search_excellence
+public  function  search_excellence()
+{
+    
+    
+    
+/*
+ type_record
+ 1 	มูลนิธิตะวันฉายฯ
+ 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
+ 3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
+
+ */
+    
+    
+
+           $this->user_model->login();  //for checklogin
+
            $tb=$this->tb;
 
             $type_document=trim($this->input->get_post("type_document"));
           //echo br();
             $date=trim($this->input->get_post("date"));  //การรับค่า => 07/28/2017
           //echo br();
-          if(  $date != "" ) //ต้องแปลงให้เป็น  2017-01-26
+          if(  $date   !=   "" ) //ต้องแปลงให้เป็น  2017-01-26
                                   {
                                           $ex=explode("/",$date);
 		       $conv_date=$ex[2]."-".$ex[0]."-".$ex[1];
 		 }
-          //echo    $conv_date;
-          //echo br();
 
           $to=trim($this->input->get_post("to"));
-          //echo br();
 
-
-
-           if( $type_document  > 0  &&  $date !=   ""   &&   $to == ""    )
+           if(   $type_document  > 0   &&    $date !=   ""   &&   $to ==  ""    )
          	{
 		$this->db->order_by("id_main1","DESC");
                                     // $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"date"=>$conv_date));
@@ -614,9 +722,9 @@ public function search_excellence()
                                         }
                                            echo  json_encode($rows);
                                       }
-            }
+                   }
 
-        else  if( $type_document  > 0  &&     $to != ""   &&  $date == ""  )
+        elseif( $type_document  > 0  &&     $to != ""   &&  $date == ""  )
          	{
 		$this->db->order_by("id_main1","DESC");
                                     // $query=$this->db->get_where($tb,array("type_record"=>3,"type_document"=>$type_document,"date"=>$conv_date));
@@ -633,7 +741,7 @@ public function search_excellence()
                                         }
                                            echo  json_encode($rows);
                                       }
-            }
+                  }
 
             else if(  $type_document  > 0  &&  $date   !=   ""   &&   $to   !=   ""      )
             {
@@ -679,17 +787,11 @@ public function search_excellence()
 
 
 
-}
+    }
 
 
 
-/*
- type_record
- 1 	มูลนิธิตะวันฉายฯ
- 2 	ศูนย์วิจัยผู้่ป่วยปากแหว่งเพดานโหว่ฯ
- 3 	ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
 
- */
 
                                                   //http://10.87.196.170/document2/index.php/welcome/json_to
 			public function json_to() //สำหรับ excellence  //เอกสารถึงใคร  type_record"=>3   ,  ศูนย์การดูแลผู้ป่วยปากแหว่งเพดานโหว่ฯ
@@ -1530,95 +1632,33 @@ $data=array(
         }
         */
 
-             public function  search_research2()
-              {
-                     $this->user_model->login();  //for checklogin
-                     $tb=$this->tb;
-                       $to=trim($this->input->get_post("to_research"));
-                      //echo br();
-                       $date=trim($this->input->get_post("date_research"));
-                      //echo br();
-                      if( $date != "" )    //  09/13/2017
-                      {
-                            $ex=explode("/",$date);
-                            $conv_date=$ex[2]."-".$ex[0]."-".$ex[1];
+//http://10.87.196.170/document3/index.php/welcome/search_research2
+         public function  search_research2()
+         {
+              $this->user_model->login();  //for checklogin
+              $tb=$this->tb;
+                $to=trim($this->input->get_post("to_research"));
 
-                      }
-                      else
-                      {
-                          $conv_date = "";
-                      }
-                       //echo  $conv_date;
-                       
-                       //"type_record"=>2
-                       $type_record=2;
-                      
-                        $type_document=trim($this->input->get_post("type_document_research")); 
-                      // echo br();
-                       
-                       if(   $to  != ""   &&    $conv_date == "" )
-                      {
+                $date=trim($this->input->get_post("date_research"));
+     
+             
+                     if( $date != "" )    //  09/13/2017
+                     {
+                           $ex=explode("/",$date);
+                           $conv_date=$ex[2]."-".$ex[0]."-".$ex[1];
 
-                              $str="  SELECT   *  FROM  $tb  WHERE `to` LIKE ('%$to%')     AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";
-                              $query=$this->db->query( $str);
-                              $num=$query->num_rows();
-                            
-                              if( $num > 0 )
-                              {
-                                  foreach( $query -> result() as $row)
-                                  {
-                                      $rows[]=$row;
-                                  }
-                                     echo  json_encode($rows);
-                              }
-                            
-                      }
-                      elseif(   $conv_date != ""  &&   $to == ""   )    //2017-03-16
-                      {
-                               $str="  SELECT   *  FROM  $tb  WHERE   `date`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";
-                               $query=$this->db->query( $str);
-                               $num=$query->num_rows();
-                                 if( $num > 0 )
-                                    {
-                                        foreach( $query -> result() as $row)
-                                        {
-                                            $rows[]=$row;
-                                        }
-                                           echo  json_encode($rows);
-                                    }  
-                      }
-                      elseif( $to  != ""   &&    $conv_date != "" )  //ข้อมูลทดสอบ  ,   ส   ,   08/02/2017
-                      {
-                               $str="  SELECT   *  FROM  $tb  WHERE       `to` LIKE ('%$to%')     AND      `date`='$conv_date'   AND       `type_record`=$type_record   AND   `type_document`=$type_document    ";
-                               $query=$this->db->query( $str);
-                               $num=$query->num_rows();
-                               if( $num > 0 )
-                                    {
-                                        foreach( $query -> result() as $row)
-                                        {
-                                            $rows[]=$row;
-                                        }
-                                           echo  json_encode($rows);
-                                    }
-                      }
-                                         elseif( $to  == ""   &&    $conv_date == "" ) 
-                      {
-                           $str="  SELECT   *  FROM  $tb  WHERE      `type_record`=$type_record   AND   `type_document`=$type_document   ORDER  BY   `id_main1`   DESC   LIMIT  20   ";
-                               $query=$this->db->query( $str);
-                               $num=$query->num_rows();
-                               if( $num > 0 )
-                                    {
-                                        foreach( $query -> result() as $row)
-                                        {
-                                            $rows[]=$row;
-                                        }
-                                           echo  json_encode($rows);
-                                    }
-                          
-                      }
-                       
-                 
-               }
+                     }
+                     else
+                     {
+                         $conv_date = "";
+                     }
+                     
+                   
+                     
+                    $type_document=trim($this->input->get_post("type_document_research")); //ประเภทเอกสาร  รับ=1,ส่ง=2
+
+      
+         }
 
 
         //http://10.87.196.170/document2/index.php/welcome/home/search_research
@@ -2372,101 +2412,141 @@ $data=array(
 
 
         }
-
         
-        public function  search_foundation2()
+        
+  //  http://10.87.196.170/document3/index.php/welcome/search_foundation2
+public function  search_foundation2()
+{
+        $this->user_model->login();  //for checklogin
+        $tb=$this->tb;
+         
+          $type_document=trim($this->input->get_post("type_document_foundation"));
+        //echo  br();
+        //to_foundation
+         $to=trim($this->input->get_post("to_foundation"));
+        //echo br();
+        //date_foundation
+         $date=trim($this->input->get_post("date_foundation"));
+       //echo br();
+       
+            if( $date != "" )    //  09/13/2017
+      {
+            $ex=explode("/",$date);
+            $conv_date=$ex[2]."-".$ex[0]."-".$ex[1];
+           
+      }
+      else
+      {
+          $conv_date = "";
+      }
+      
+       //"type_record"=>1
+       $type_record=1;
+       
+       
+      
+         if( $date == ""  &&  $to != "" )
         {
-              $this->user_model->login();  //for checklogin
-              $tb=$this->tb;
-             $to=trim($this->input->get_post("to_foundation"));
-             
-               $date=trim($this->input->get_post("date_foundation"));
-             // echo br();
-              if( $date != "" )    //  09/13/2017
-                      {
-                            $ex=explode("/",$date);
-                            $conv_date=$ex[2]."-".$ex[0]."-".$ex[1];
+                $this->db->where("type_record",1);
+                $this->db->where("type_document",$type_document);
+                $this->db->like("to",$to);
+                $query=$this->db->get($tb);
 
-                      }
-                         else
-                      {
-                          $conv_date = "";
-                      }
-                      
-                       //echo $conv_date; 
-                       //echo br();
-                       
-                       //"type_record"=>1
-                        $type_record=1;
-                        
-                      $type_document=trim($this->input->get_post("type_document_foundation")); 
-                     //echo br(); 
-                     
-                      if(   $to  != ""   &&    $conv_date == "" )
-                      {
+                 $num= $query->num_rows();
+                //echo br();
+                  if( $num > 0 )
+                            {
+                                 foreach($query->result() as $row )
+                                 {
+                                     $rows[]=$row;
+                                 }
+                                    echo json_encode($rows);
 
-                              $str="  SELECT   *  FROM  $tb  WHERE `to` LIKE ('%$to%')     AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";
-                              $query=$this->db->query( $str);
-                              $num=$query->num_rows();
-                              if( $num > 0 )
-                              {
-                                  foreach( $query -> result() as $row)
-                                  {
-                                      $rows[]=$row;
-                                  }
-                                     echo  json_encode($rows);
-                              }
-                        
-                      }
-                      elseif(   $conv_date != ""  &&   $to == ""   )  //2017-01-26
-                      {
-                               $str="  SELECT   *  FROM  $tb  WHERE   `date`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";
-                               $query=$this->db->query( $str);
-                               $num=$query->num_rows();
-                                 if( $num > 0 )
-                                    {
-                                        foreach( $query -> result() as $row)
-                                        {
-                                            $rows[]=$row;
-                                        }
-                                           echo  json_encode($rows);
-                                    }
-                               
-                      }
-                      elseif( $to  != ""   &&    $conv_date != "" )  //ข้อมูลทดสอบ  ,   ส   ,   08/02/2017
-                      {
-                               $str="  SELECT   *  FROM  $tb  WHERE       `to` LIKE ('%$to%')     AND      `date`='$conv_date'   AND       `type_record`=$type_record   AND   `type_document`=$type_document    ";
-                               $query=$this->db->query( $str);
-                               $num=$query->num_rows();
-                               if( $num > 0 )
-                                    {
-                                        foreach( $query -> result() as $row)
-                                        {
-                                            $rows[]=$row;
-                                        }
-                                           echo  json_encode($rows);
-                                    }
-                      }
-                     elseif( $to  == ""   &&    $conv_date == "" ) 
-                      {
-                           $str="  SELECT   *  FROM  $tb  WHERE      `type_record`=$type_record   AND   `type_document`=$type_document   ORDER  BY   `id_main1`   DESC   LIMIT  20   ";
-                               $query=$this->db->query( $str);
-                               $num=$query->num_rows();
-                               if( $num > 0 )
-                                    {
-                                        foreach( $query -> result() as $row)
-                                        {
-                                            $rows[]=$row;
-                                        }
-                                           echo  json_encode($rows);
-                                    }
-                          
-                      }
-                     
-                     
-                
+                            }
         }
+        elseif(     $date != ""  &&  $to == ""   )
+        {
+            
+              /*
+                $this->db->where("type_record",1);
+                $this->db->where("type_document",$type_document);
+           
+                $this->db->where("date",$conv_date);
+                
+                
+               $query=$this->db->get_where($tb);
+                */
+            
+            
+                $query=$this->db->get_where($tb,array("type_record"=>1,"type_document"=>$type_document,"date"=>$conv_date));
+                
+                
 
+                  $num=  $query->num_rows();
+                //echo br();
+                   if( $num > 0 )
+                            {
+                                 foreach($query->result() as $row )
+                                 {
+                                     $rows[]=$row;
+                                 }
+                                    echo json_encode($rows);
+
+                            }
+        }
+        else if( $date != ""  &&  $to != ""  )
+        {
+                $this->db->where("type_record",1);
+                $this->db->where("type_document",$type_document);
+                $this->db->like("to",$to);
+                $this->db->where("date",$conv_date);
+                $query=$this->db->get($tb);
+
+                $num=  $query->num_rows();
+                //echo br();
+                
+                 if( $num > 0 )
+                            {
+                                 foreach($query->result() as $row )
+                                 {
+                                     $rows[]=$row;
+                                 }
+                                    echo json_encode($rows);
+
+                            }
+            
+        }
+        elseif( $date == ""  &&  $to == ""  ){
+            
+                $this->db->where("type_record",1);
+                $this->db->where("type_document",$type_document);
+              //  $this->db->like("to",$to);
+            //    $this->db->where("date",$conv_date);
+                $query=$this->db->get($tb,30);
+
+                $num=  $query->num_rows();
+                
+                       if( $num > 0 )
+                            {
+                                 foreach($query->result() as $row )
+                                 {
+                                     $rows[]=$row;
+                                 }
+                                    echo json_encode($rows);
+
+                            }
+            
+        }
+        
+       //echo $num;
+      // echo br();
+        
+ 
+        
+    
+}
+        
+        
 
    //  http://10.87.196.170/document2/index.php/welcome/search_foundation
   public function  search_foundation()
@@ -5364,3 +5444,6 @@ $data=array(
 
 
 }
+
+
+

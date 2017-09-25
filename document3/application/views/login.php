@@ -104,8 +104,8 @@
            
            "
            
-           data-options="iconCls:'icon-large-chart',size:'large',iconAlign:'top'">Login (เข้าสู่ระบบ)</a>
-        <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-remove',size:'large',iconAlign:'top'  " >Clear (ล้าง)</a>
+           data-options="iconCls:'icon-lock', selected:true , size:'large',iconAlign:'top'"  style="width:100px;height: 60px;  " >Login</a>
+           <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',size:'large',iconAlign:'top'  " style="width:100px;height: 60px;"  >Clear</a>
         </div>
       </form>
 
