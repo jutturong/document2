@@ -46,16 +46,26 @@ table, td, th {
                        //date_total_leave
                        $str2=" SELECT   *   FROM   `tb_vacation`   WHERE  `first_name`='$name'      ORDER   BY     `id_vacation`    DESC   LIMIT  1   ";
                        $query2=$this->db->query($str2);
-                       // $query2->num_rows();
-                       //echo br();
+                         $num= $query2->num_rows();
+                      
                       // $row=$query2->row();
                      // $rows->date_total_leave;
-                       foreach($query2->result() as $row)
-                       {
-                              $date_total_leave=$row->date_total_leave;
-                           
-                       }
-                       
+                      if( $num > 0)
+                      {
+                            foreach($query2->result() as $row)
+                            {
+                                   $date_total_leave=$row->date_total_leave;
+
+                            }
+                      }
+                      else{
+                          $date_total_leave=0;
+                          
+                      }
+                   
+                      
+                      if( $num > 0     )
+                      {
           ?>
 
           <tr>
@@ -65,7 +75,8 @@ table, td, th {
           </tr>
 
           <?php
-          
+                      }
+                      
           
           
                 }

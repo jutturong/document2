@@ -74,31 +74,27 @@
                  <!-- datagird  ลาพักผ่อน -->
                  <div  class="easyui-datagrid"  id="datagrid_vacation"
                        data-options="
-                       
-                        //  url:'<?=base_url()?>index.php/welcome/json_vacation',
-                          
-                       //   url:'<?=base_url()?>index.php/welcome/json_vacation2',
-                       
-                     //  url:'json_staff'
+
                           url:'<?=base_url()?>index.php/welcome/json_staff',
                            
                            
                           rownumbers:true,
                           singleSelect:true,
+                          
+                          
+                          <?php
+                          if( $this->session->userdata("sess_permission")  == 1  )
+                          {//begin if
+                          ?>
                           columns:[[
-                          
-                           
-                          /*
-                            {  field:'first_name', title:'ชื่อ',align:'left',    },
-                            {  field:'last_name',title:'นามสกุล', align: 'left' ,    },
-                          */
-                          
                               {  field:'name', title:'ชื่อ',align:'left',    },
                               {  field:'lastname', title:'ชื่อ',align:'left',    },
                               {  field:'position', title:'ตำแหน่ง',align:'left',    },
-                          
-                            
                           ]],
+                          <?php
+                          }//end if
+                          ?>
+                          
                           
                           
                           toolbar:[
@@ -158,13 +154,15 @@
                              {  text:'ค้นหา' , iconAlign:'top',iconCls:'icon-search',handler:function(){  alert('t'); }  },
                              */
                              
-                             { text:'รีโหลด', iconAlign:'top'   , iconCls:'icon-reload',handler:function(){ $('#datagrid_vacation').datagrid('reload'); }   },
+                        
                              
                              <?php
                                if(   $this->session->userdata("sess_permission") == 1     )
                                {
                              ?>
-                             
+                               { text:'รีโหลด', iconAlign:'top'   , iconCls:'icon-reload',handler:function(){ $('#datagrid_vacation').datagrid('reload'); }   },
+                                  
+                                  
                                { 
                                     text:'แสดงวันลาทั้งหมด' ,
                                     iconCls:'icon-man', 
@@ -251,10 +249,8 @@
                                           var  row=$('#datagrid_vacation').datagrid('getSelected');
                                           if( row )
                                           {    
-                                               //    var  id_vacation=row.id_vacation;
-                                                 // var  url='<?=base_url()?>report_pdf/docdb/report_vacation.php?id_vacation='  + id_vacation   ;
-                                                   var  url='http://10.87.196.170/document3/report_pdf/docdb/report_vacation.php?id_vacation='  + id_vacation   ;
-                                                 window.open(url);    
+                                                   var  url='http://10.87.196.170/document2/report_pdf/docdb/report_vacation.php?id_vacation='  + id_vacation   ;
+                                                   window.open(url);    
                                            }
                                    } 
                               }
@@ -1552,13 +1548,9 @@ labelPosition="left"  labelWidth="310px"
                    var  row=$('#datagrid_user_vacation').datagrid('getSelected');
                    if(row)
                    {
-                   
-                          //alert('t');
                            var  	id_vacation=row.id_vacation;
-                          // alert( id_vacation  );
-                           var  url='http://10.87.196.170/document3/report_pdf/docdb/report_vacation.php?id_vacation='  + id_vacation   ;
+                           var  url='http://10.87.196.170/document2/report_pdf/docdb/report_vacation.php?id_vacation='  + id_vacation   ;
                            window.open(url); 
-                        
                    }
                    
                    

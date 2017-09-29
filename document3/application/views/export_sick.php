@@ -30,8 +30,9 @@ table, td, th {
           <tr>
               <th>ชื่อ-นามสกุล</th>
               <th>ลาป่วย   ทั้งหมด</th>
+              <th>ลากิจส่วนตัว   ทั้งหมด</th>
               <th>ลาคลอดบุตร   ทั้งหมด</th>
-               <th>ลากิจส่วนตัว   ทั้งหมด</th>
+               
           </tr>
         </thead>
 
@@ -48,13 +49,27 @@ table, td, th {
                      $str2=" SELECT    *    FROM    $tb_sick   WHERE  `first_name`='$name'     ";
                    // echo br();
                      $query2=$this->db->query( $str2);
+                     $num=$query2->num_rows();
+                     if( $num > 0)
+                     {
                      foreach($query2->result() as $row)
                        {
                               $total_sick=$row->total_sick;
                               $total_sick_person=$row->total_sick_person;
                               $total_confined=$row->total_confined;
                        }
+                     }
+                     else
+                     {
+                              $total_sick=0;
+                              $total_sick_person=0;
+                              $total_confined=0;
+  
+                     }
                      
+                     
+                     if(    $num  >  0  )
+                     {
           ?>
 
           <tr>
@@ -65,7 +80,7 @@ table, td, th {
           </tr>
 
           <?php
-          
+                     }
           
           
                 }

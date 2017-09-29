@@ -64,27 +64,23 @@
                  <!-- datagird  ลาพักผ่อน -->
                  <div  class="easyui-datagrid"  id="datagrid_sick"
                        data-options="
-                       
-                        //  url:'<?=base_url()?>index.php/welcome/json_sick',
-                          
                           url:'<?=base_url()?>index.php/welcome/json_staff',
-                          
                           rownumbers:true,
                           singleSelect:true,
-                          columns:[[
                           
-                          
-                 
-                            
-                             { field:'name' ,title:'ชื่อ'  },
-                             { field:'lastname' , title:'นามสกุล' },
-                             {  field:'position' ,title:'ตำแหน่ง'  },
-                             
-                             
-                          ]],
-                          
-                          
-                          
+                         <?php
+                            if( $this->session->userdata("sess_permission")  == 1   )
+                            {
+                         ?>
+                                columns:[[
+                                   { field:'name' ,title:'ชื่อ'  },
+                                   { field:'lastname' , title:'นามสกุล' },
+                                   {  field:'position' ,title:'ตำแหน่ง'  },
+                                ]],
+                          <?php
+                            }//end if
+                          ?>
+
                           /*
                           toolbar:[
                             { text:'รีโหลด', iconAlign:'top'   , iconCls:'icon-reload',handler:function(){ $('#datagrid_sick').datagrid('reload'); }   },
@@ -388,6 +384,8 @@
                          {
                        ?>
                               toolbar:[
+                              
+                                 /*
                                  {
                                       text:'โหลดใหม่',
                                       iconCls:'icon-reload',
@@ -399,6 +397,10 @@
                                       }
                                  
                                   },
+                                  */
+                                  
+                                  
+                                  
                                   {
                                       text:'ตรวจสอบวันลาของตนเอง',
                                       iconCls:'icon-ok',
@@ -1999,7 +2001,7 @@
                                        // alert(id_sick);
                                         if( id_sick > 0 )
                                         {
-                                                   var  url='http://10.87.196.170/document3/report_pdf/docdb/report_sick.php?id_sick='  + id_sick   ;
+                                                   var  url='http://10.87.196.170/document2/report_pdf/docdb/report_sick.php?id_sick='  + id_sick   ;
                                                    window.open(url);  
                                         }//end if
                                        
