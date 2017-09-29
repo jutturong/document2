@@ -53,13 +53,13 @@
 
 <!-- datagrid  หลัก ในการลาทั้งหมด -->
 <div  class="easyui-dialog"   id="dia_main_vacation" 
-      style="width:500px;height: 400px;"
+      style="width:450px;height: 400px;"
       data-options="
-         closed:true
+         closed: true
        , title : 'หน้าหลักลาพักผ่อนประจำปี'
        ,maximizable:false
        ,minimizable:true
-      ,iconCls:'icon-large-shapes' 
+      ,iconCls:'icon-ok' 
       ,collapsible:false
       
       ,buttons:[
@@ -75,46 +75,47 @@
                  <div  class="easyui-datagrid"  id="datagrid_vacation"
                        data-options="
                        
-                          url:'<?=base_url()?>index.php/welcome/json_vacation',
+                        //  url:'<?=base_url()?>index.php/welcome/json_vacation',
+                          
+                       //   url:'<?=base_url()?>index.php/welcome/json_vacation2',
+                       
+                     //  url:'json_staff'
+                          url:'<?=base_url()?>index.php/welcome/json_staff',
+                           
+                           
                           rownumbers:true,
                           singleSelect:true,
                           columns:[[
                           
+                           
+                          /*
                             {  field:'first_name', title:'ชื่อ',align:'left',    },
                             {  field:'last_name',title:'นามสกุล', align: 'left' ,    },
-                            
-                         //   {  field:'keep',title:'วันลาคงเหลือ',align:'left',    },
-                            
-                          //  { field:'cumulative',title:'วันลาสะสม',align:'left', },
-                              { field:'date_total_leave', title:'ปีนี้ลามาแล้ว',  },
-                          //    { field:'keep' , title:'คงเหลือวันลา (วัน)',   },
-                             
+                          */
+                          
+                              {  field:'name', title:'ชื่อ',align:'left',    },
+                              {  field:'lastname', title:'ชื่อ',align:'left',    },
+                              {  field:'position', title:'ตำแหน่ง',align:'left',    },
+                          
                             
                           ]],
+                          
+                          
                           toolbar:[
                           
-                            { text:'รีโหลด', iconAlign:'top'   , iconCls:'icon-reload',handler:function(){ $('#datagrid_vacation').datagrid('reload'); }   },
+                         
+                           
+                            
+                            /*
                             { text:'แก้ไข',  iconAlign:'top' ,  iconCls:'icon-edit',handler:function()
                                       {   //begin     
                                                  var  row=$('#datagrid_vacation').datagrid('getSelected');
                                                  if(row)
                                                  {
                                                       var  id_vacation=row.id_vacation;
-                                                     
                                                         if( id_vacation > 0 )
                                                         {
-                                                              //alert(id_vacation);
-                                                              $('#dia_correct_vacation').dialog('open');
-                                                              
-                                                             /*
-                                                              $('#dia_correct_vacation').dialog({
-                                                                 title:'คุณต้องการแก้ไขข้อมูลการลาของเจ้าหน้าที่ภายในหน่วยงาน',
-                                                                 
-                                                              });
-                                                              */
-                                                              
-                                                              
-                                                              
+                                                              $('#dia_correct_vacation').dialog('open');  
                                                         }//end if2
                                                  
                                                  }//endif
@@ -155,31 +156,159 @@
                                  } 
                               },
                              {  text:'ค้นหา' , iconAlign:'top',iconCls:'icon-search',handler:function(){  alert('t'); }  },
+                             */
+                             
+                             { text:'รีโหลด', iconAlign:'top'   , iconCls:'icon-reload',handler:function(){ $('#datagrid_vacation').datagrid('reload'); }   },
+                             
+                             <?php
+                               if(   $this->session->userdata("sess_permission") == 1     )
+                               {
+                             ?>
+                             
+                               { 
+                                    text:'แสดงวันลาทั้งหมด' ,
+                                    iconCls:'icon-man', 
+                                    iconAlign:'top',
+                                    handler:function()
+                                    { //begin 
+                                          //alert('t');
+                                          var   url='<?=base_url()?>index.php/welcome/export_vacation';
+                                          //alert(url);
+                                          window.open(url);
+                                    
+                                       //end
+                                    } 
+                               },
+                             
+                             <?php
+                               }
+                             ?>
+                              
+                             <?php
+                             //    "sess_us"=>$us,
+                             //   $sess_login=$this->session->userdata("sess_login");  //test check  authentication login
+                             if(   $this->session->userdata("sess_permission") == 1     )
+                             {
+                             ?>
+                             {  text:'ตรวจสอบวันลา', iconCls:'icon-ok',  disabled:false  , iconAlign:'top', 
+                                  handler:function()
+                                 {   
+                                       var  row=$('#datagrid_vacation').datagrid('getSelected');
+                                       if( row )
+                                       {
+                                             // var  name=row.first_name;
+                                              var  name=row.name;
+                                              //alert(  name  );
+                                              $.post('<?=base_url()?>index.php/welcome/check_date_vacation',{  name:name  },function(data)
+                                                 {
+                                                      var  date_total_leave=data.date_total_leave;
+                                                      //alert( date_total_leave );
+                                                        $.messager.alert('จำนวนวันลาพักผ่อนประจำปี', ' ลาพักผ่อนประจำปีทัั้งหมด  '  + date_total_leave + ' วัน' ,'info');
+                                                 },'json'); 
+                                       }
+                                 }  
+                             },
+                             <?php
+                             }
+                             else
+                             {
+                             ?>
+                             
+                                {   
+                                     text:'ตรวจสอบวันลาของตนเอง ' ,iconAlign:'top' , iconCls:'icon-ok' ,  
+                                     handler:function(data)
+                                     {
+                                          var  url='<?=base_url()?>index.php/welcome/call_name_user';
+                                          var   username='<?=$this->session->userdata("sess_us")?>';
+                                          //alert(  username );
+                                          $.post(url,{ username:username },function(data)
+                                          {  
+                                                 // alert(data); 
+                                                 $.each(data,function(v,k){
+                                                       var  firstname=k.firstname;
+                                                       //alert( firstname );
+                                                          $.post('<?=base_url()?>index.php/welcome/check_date_vacation',{  name: firstname  },function(data)
+                                                 {
+                                                      var  date_total_leave=data.date_total_leave;
+                                                      //alert( date_total_leave );
+                                                        $.messager.alert('จำนวนวันลาพักผ่อนประจำปี', ' ลาพักผ่อนประจำปีทัั้งหมด  '  + date_total_leave + ' วัน' ,'info');
+                                                 },'json'); 
+   
+                                                 });
+                                          },'json');
+                                            
+                                     }//end function
+                                 },
+                             
+                             <?php
+                             }
+                             ?>
+                             
+                             /*
                              {  text:'ออกรายงาน',iconAlign:'top',iconCls:'icon-print',handler:function()
                                    {
                                         
                                           var  row=$('#datagrid_vacation').datagrid('getSelected');
                                           if( row )
-                                          {
-                                                  
-                                                   var  id_vacation=row.id_vacation;
-                                             
+                                          {    
+                                               //    var  id_vacation=row.id_vacation;
                                                  // var  url='<?=base_url()?>report_pdf/docdb/report_vacation.php?id_vacation='  + id_vacation   ;
-                                                 
                                                    var  url='http://10.87.196.170/document3/report_pdf/docdb/report_vacation.php?id_vacation='  + id_vacation   ;
-                                               
-                                                 window.open(url);
-                                                  
-                                                    
-                                                    
+                                                 window.open(url);    
                                            }
                                    } 
                               }
-
-                          ]
-                         
-                          
-                          
+                              */
+                              
+                              
+                              <?php
+                                if(   $this->session->userdata("sess_permission") == 1  )
+                                {
+                              ?>
+                              {     text:'เลือกรายชื่อเพื่อจะออกรายงาน',iconAlign:'top',iconCls:'icon-print',handler:function()
+                                     {
+                                          //alert('t');
+                                           //datagrid_vacation
+                                           var  row=$('#datagrid_vacation').datagrid('getSelected');
+                                           if( row )
+                                           {
+                                                //  var  first_name=row.first_name;
+                                                  var  first_name=row.name;
+                                                   //alert( first_name );
+                                                                $.post('<?=base_url()?>index.php/welcome/call_user_vacation', { firstname:first_name  } ,function(data)
+                                                                     {
+                                                                                   $('#dia_user_vacation').dialog('open');
+                                                                                   $('#datagrid_user_vacation').datagrid('loadData',data);
+                                                                     },'json');  
+                                           }
+                                     } //end  function
+                              }
+                              <?php
+                                }elseif(  $this->session->userdata("sess_permission") == 2  ) 
+                                {
+                              ?>
+                              {
+                                   text:'ตรวจสอบการลาทั้งหมดของตนเอง',iconAlign:'top',iconCls:'icon-print',handler:function(data)
+                                   {
+                                             var   username='<?=$this->session->userdata("sess_us")?>';
+                                             var  url='<?=base_url()?>index.php/welcome/call_name_user';
+                                             $.post(url,{  username:username  },function(data)
+                                             {
+                                                           $.each(data,function(v,k){  
+                                                                     var    firstname=k.firstname;
+                                                                     $.post('<?=base_url()?>index.php/welcome/call_user_vacation', { firstname:firstname  } ,function(data)
+                                                                     {
+                                                                                $('#dia_user_vacation').dialog('open');
+                                                                                $('#datagrid_user_vacation').datagrid('loadData',data);
+                                                                     },'json'); //end post function
+                                                           }); //end function each
+                                             },'json');//end function     
+                                    }        
+                              }
+                              <?php
+                                }
+                              ?>
+                          ] 
                        "
                        >
                  </div>
@@ -195,7 +324,6 @@
      style="width: 800px;height: 600px;"
      data-options="
          iconCls:'icon-print',
-         
          closed:true,
          modal:true,
          minimizable:true,
@@ -856,7 +984,7 @@ name="rest"    id="rest"    required="true"  readonly="true"  />
                    <input class="easyui-numberbox"  style="width:300px;height: 40px;" labelAlign="right"  labelWidth="250px;" 
                         
                           label="
-                          มีความประสงค์จะขอลาพักผ่อนมีกำหนด (วัน) " labelPosition="left"      id="wishes" name="wishes"   required="true"    />
+                          มีความประสงค์จะขอลาพักผ่อนมีกำหนด (วัน) " labelPosition="left"    precision="2"    id="wishes" name="wishes"   required="true"    />
  
  
  
@@ -1249,8 +1377,10 @@ labelPosition="left"  labelWidth="310px"
                    if( row )
                    {
                    
-                            var   id_vacation=row.id_vacation;
+                          //  var   id_vacation=row.id_vacation;
                              // alert(id_vacation);
+                             
+                             
                               
                              if( id_vacation > 0 )
                              {
@@ -1402,3 +1532,261 @@ labelPosition="left"  labelWidth="310px"
 
 
 <!--  dialog  password  แก้ไขข้อมุล การลาพักผ่อน -->
+
+
+
+<!--  ##################   dialog  วันลาส่วนตัว ################ -->
+
+<div class="easyui-dialog"  id="dia_user_vacation"  data-options="
+     
+     iconCls:'icon-man',
+     closed:true,
+     title:'จำนวนครั้งที่ลาในแต่ละครั้ง',
+     toolbar:[
+     
+     
+       {  text:'ออกรายงาน',iconCls:'icon-print',   iconAlign:'top'  , handler:function(data)
+            {  
+                 // alert('test'); 
+                   //datagrid_user_vacation
+                   var  row=$('#datagrid_user_vacation').datagrid('getSelected');
+                   if(row)
+                   {
+                   
+                          //alert('t');
+                           var  	id_vacation=row.id_vacation;
+                          // alert( id_vacation  );
+                           var  url='http://10.87.196.170/document3/report_pdf/docdb/report_vacation.php?id_vacation='  + id_vacation   ;
+                           window.open(url); 
+                        
+                   }
+                   
+                   
+             }   
+       }
+       
+       <?php
+            if( $this->session->userdata("sess_permission") == 1   )         
+            {
+       ?>
+             ,{
+                 text:'แก้ไขข้อมูล',
+                 iconCls:'icon-edit',
+                 iconAlign:'top',
+                 handler:function()
+                 {
+                     
+                      // id_vacation
+                      var  row=$('#datagrid_user_vacation').datagrid('getSelected');
+                      if( row )
+                      {
+                              var  id_vacation=row.id_vacation;
+                              if(    id_vacation  >  0  )
+                              {
+                              
+                                   //$('#dia_correct_vacation').dialog('open');
+                                       $.post('<?=base_url()?>index.php/welcome/update_vacation',{   id_vacation : id_vacation    },function(data)
+                                       {  //begin function
+                                       
+                                                 //alert(data);
+                                                 
+                                                  $.each(data,function(v,k){
+                                                  
+                                                       //-------------------------begin----------------------
+                                                      $('#dia_fr_vacation').dialog('open');
+                                                       
+                                                       var  date_write=k.date_write;  // format  date 08/25/2017
+                                                       
+                                                            
+                                                            if( date_write.length > 0 )
+                                                            {
+                                                                 var  ex=date_write.split('-');
+                                                                 var  date_write_conv= ex[1]  +   '/'  +  ex[2]  +  '/'  +  ex[0]  ;
+                                                                 $('#date_write').datebox('setValue',date_write_conv);
+                                                            }
+                                                               //alert(  date_write_conv   );
+                                                               
+                                                               var   id_vacation=k.id_vacation;
+                                                            $('#id_vacation_update').textbox('setValue',k.id_vacation);
+                                                            
+                                                            
+                                                            var  prename=k.prename;
+                                                            //alert(prename);
+                                                            $('#prename').combobox('setValue',prename);
+                                                            
+                                                            $('#first_name').textbox('setValue',k.first_name);
+                                                            
+                                                            $('#last_name').textbox('setValue',k.last_name);
+                                                            
+                                                            $('#position').textbox('setValue',k.position);
+                                                            
+                                                            $('#affiliation').textbox('setValue',k.affiliation);
+                                                            
+                                                            $('#work').textbox('setValue',k.work);
+                                                            
+                                                            
+                                                           $('#tel').numberbox('setValue',k.tel);
+                                                           
+                                                           $('#cumulative').numberbox('setValue',k.cumulative);
+                                                           
+                                                           
+                                                           $('#rest').numberbox('setValue',k.rest);
+                                                           
+                                                            $('#total').numberbox('setValue',k.total);
+                                                            
+                                                            
+                                                           $('#current').numberbox('setValue',k.current);
+                                                           
+                                                           
+                                                            $('#keep').numberbox('setValue',k.keep);
+                                                            
+                                                            
+                                                            $('#wishes').numberbox('setValue',k.wishes);
+                                                            
+                                                            
+                                                            //date_begin
+                                                            var  date_begin=k.date_begin;
+                                                             if( date_begin.length > 0 )
+                                                            {
+                                                                 var  ex=date_begin.split('-');
+                                                                 var  date_begin_conv= ex[1]  +   '/'  +  ex[2]  +  '/'  +  ex[0]  ;
+                                                                 $('#date_begin').datebox('setValue',date_write_conv);
+                                                            }
+                                                            
+                                                            
+                                                            //end_date
+                                                            var  end_date=k.end_date;
+                                                              if( end_date.length > 0 )
+                                                            {
+                                                                 var  ex=date_begin.split('-');
+                                                                 var  date_begin_conv= ex[1]  +   '/'  +  ex[2]  +  '/'  +  ex[0]  ;
+                                                                 $('#end_date').datebox('setValue',date_write_conv);
+                                                            }
+                                                            
+                                                            
+                                                            $('#house_number').textbox('setValue',k.house_number);
+                                                            
+                                                            $('#road').textbox('setValue',k.road);
+                                                            
+                                                              $('#district').textbox('setValue',k.district);
+                                                            
+                                                            $('#city').textbox('setValue',k.city);
+                                                            
+                                                            $('#province').textbox('setValue',k.province);
+                                                            
+                                                            $('#tel_address').textbox('setValue',k.tel_address);
+                                                            
+                                                            $('#leave').numberbox('setValue',k.leave);
+                                                            
+                                                            $('#leave_thistime').numberbox('setValue',k.leave_thistime);
+                                                            
+                                                            $('#date_total_leave').numberbox('setValue',k.date_total_leave);
+                                                            
+                                                            $('#presign').combobox('setValue',k.presign);
+                                                            
+                                                            $('#sign').textbox('setValue',k.sign);
+                                                            
+                                                            $('#presign').combobox('setValue',k.presign);
+                                                            
+                                                            $('#name_sign').textbox('setValue',k.name_sign);
+                                                            
+                                                            $('#lastname_sign').textbox('setValue',k.lastname_sign);
+                                                               
+                                                               
+                                                       
+                                                       
+                                                       //--------------------------end-------------------------
+                                                       
+                                                  
+                                                  });  //end each
+
+                                        },'json'); //end post
+                                  
+                                   
+                                   
+                              }
+    
+                      }
+                 }
+             },
+             {
+                   text:'ลบ',  iconCls:'icon-cancel',iconAlign:'top',
+                   handler:function()
+                   { //begin function 
+                           //alert('t');
+                           var    row=$('#datagrid_user_vacation').datagrid('getSelected');
+                           if( row )
+                           {
+                                 var  id_vacation=row.id_vacation;
+                                // alert( id_vacation );
+                                 var  url='<?=base_url()?>index.php/welcome/delete_vacation/';
+                                 $.post(url,{id_vacation:id_vacation  },function(data){
+                                 
+                                         //alert(data);
+                                         if( data == 1 )
+                                         {
+                                                    $.messager.alert('สถานะการลบข้อมูล','การลบข้อมูลสำเร็จ','info');
+                                                    $('#dia_user_vacation').dialog('close');
+                                               
+                                         }//end if
+                                         else{
+                                                     $.messager.alert('สถานะการลบข้อมูล','การลบข้อมูลผิดพลาด','error');
+                                                     $('#dia_user_vacation').dialog('close');
+                                         }
+  
+                                 });//end function
+                           } //end if
+                   } //end function
+             
+             }
+       
+       <?php
+            }
+       ?>
+       
+ 
+       ]
+          ,
+          
+       buttons:[
+         {  
+         
+         text:'ปิดหน้าต่าง',
+         iconCls:'icon-cancel',
+         iconAlign:'top',
+         handler:function( data )
+                    {
+                           $('#dia_user_vacation').dialog('close');
+
+                    }
+       
+         
+         }
+       
+       ]
+         
+       "  style="width:400px;height: 300px;"    >
+    
+    <div  class="easyui-datagrid"
+          id="datagrid_user_vacation"
+          data-options="
+            url:'<?=base_url()?>index.php/welcome/json_vacation',
+            singleSelect:true,
+            rownumbers:true,
+            columns:[[  
+            
+               
+                     {  field:'first_name',title:'ชื่อ'    },
+                     {  field:'last_name',title:'นามสกุล'  },
+                     { field:'date_total_leave', title:'วันลาที่เหลือ' },
+                     
+            
+            ]]
+          
+          "
+            >
+        
+    </div>
+    
+</div>
+<!--  ##################   dialog  วันลาส่วนตัว ################ -->

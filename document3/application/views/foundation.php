@@ -259,7 +259,8 @@ style="width:400px;height:350px;padding:10px">
 
                                // window.open( '<?=base_url()?>index.php/welcome/export_data/'+  '1'  +  '/'  +  $('#type_document_foundation').combobox('getValue')  +  '/'    +    $('#to_foundation').combogrid('getValue') + '/' + $('#date_foundation').datebox('getValue')   );
                            
-                                var  to  =     $('#to_foundation').combogrid('getValue');
+                                //var  to  =     $('#to_foundation').combogrid('getValue');
+                                 var  to  =     $('#to_foundation').textbox('getValue');
                                 var  date  =  $('#date_foundation').datebox('getValue');
                                 
                                  if(  to == ''  &&  date == '' )

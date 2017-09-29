@@ -7,11 +7,7 @@ class Welcome extends CI_Controller {
          var     $tb= "tb_main1";
       //  var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
 
-
-
-
-
-
+         
       var   $tb_vacation="tb_vacation";
       // var   $tb_vacation="tb_vacation_test";
 
@@ -43,6 +39,7 @@ class Welcome extends CI_Controller {
                                                                      "sess_us"=>"",
                                                                      "sess_ps"=>"",
                                                                      //"sess_per"=> $check_per,
+                                                                      
                                                                       "sess_login"=>0,
                                                                );
 
@@ -70,7 +67,11 @@ class Welcome extends CI_Controller {
                      //echo br();
 
                      $query=$this->db->get_where($tb_user,array("username"=>$us));
+                     $row=$query->row();
+                     $id_permission=$row->id_permission;
+                     
                      $check_rows=$query->num_rows();
+                     
                     //echo br();
                       if( $check_rows == 1 )
                       {
@@ -80,7 +81,10 @@ class Welcome extends CI_Controller {
                                    "sess_us"=>$us,
                                    "sess_ps"=>$ps,
                                    //"sess_per"=> $check_per,
+                                    "sess_permission"=>$id_permission, //1=admin,2=user
                                     "sess_login"=>1,
+                                    
+                              
                              );
 
 
@@ -104,6 +108,52 @@ class Welcome extends CI_Controller {
 
                  }
 
+                #http://10.87.196.170/document3/index.php/welcome/call_name_user
+                 public  function call_name_user()
+                 {
+                       $this->user_model->login();  //for checklogin
+                       $username=trim($this->input->get_post("username"));
+                      //echo br();
+                       $tb="tb_user";
+                       $query=$this->db->get_where($tb,array("username"=>$username));
+                       $num=$query->num_rows();
+                       if( $num > 0 )
+                       {
+                                    foreach($query->result() as $row)
+                                    {
+                                        $rows[]=$row;
+                                    }
+                                     echo json_encode($rows);  
+                       }
+                 }
+                 
+                 #http://10.87.196.170/document3/index.php/welcome/call_user_vacation
+                 public function call_user_vacation()
+                 {
+                      $this->user_model->login();  //for checklogin
+                      $firstname=trim($this->input->get_post("firstname"));
+                       if( $firstname != ""  )
+                       {
+                            $tb = $this->tb_vacation;
+                            $query=$this->db->get_where($tb,array("first_name"=>$firstname));
+                            $num=  $query->num_rows();
+                            
+                            
+                              foreach($query->result() as $row )
+                              {
+                                   $rows[]=$row;
+                                  
+                              }
+                                   echo json_encode($rows);
+                              
+                             
+                       }
+                       
+                     
+                 }
+                 
+            
+                 
                   //-----------------------------excellence---------------------------------------------------
                #http://10.87.196.170/document2/index.php/welcome/number_excellence_receive
                  #http://10.87.196.170/document/index.php/welcome/number_excellence_receive
@@ -756,9 +806,48 @@ public function search_excellence()
                                                                                echo  json_encode($rows);
 
                                                         }
+                //http://10.87.196.170/document3/index.php/welcome/export_sick
+                 public function export_sick()
+                 {
+                          $this->user_model->login();  //for checklogin
+                          $tb=$this->tb_sick;
+                          $tb1="tb_staff";
+                          $str1=" SELECT   *  FROM   $tb1    ";
+                          $query1=$this->db->query($str1);
+                          $num=$query1->num_rows();
+                            if( $num > 0 )
+                            {
+                                  $data["q"]= $query1;
+                                  $data["title"]=$this->title;
+                                  $this->load->view("export_sick",$data);
+                                
+                            }
+                 }
+                                                        
 
-
-
+               //http://10.87.196.170/document3/index.php/welcome/export_vacation
+                public  function export_vacation()  //แสดงจำนวนวันลาทั้งหมด
+                {
+                        $this->user_model->login();  //for checklogin
+                        $tb=$this->tb_vacation;
+                        
+                        $tb1="tb_staff";
+                        $str1=" SELECT   *  FROM   $tb1    ";
+                        $query1=$this->db->query($str1);
+                        
+                        $num=$query1->num_rows();
+                        if( $num > 0 )
+                        {
+                               $data["q"]= $query1;
+                               $data["title"]=$this->title;
+                                
+                                  //export_vacation
+                                $this->load->view("export_vacation",$data);
+                        }
+                       
+                        
+                    
+                }
 
                  //http://10.87.196.170/document2/index.php/welcome/export_data
                  public function export_data()//พิ่มพ์หนังสือ
@@ -790,41 +879,51 @@ public function search_excellence()
                             //echo $dmy;
                              //echo br();
 
+                             // $tb="tb_main1";
+                             //$tb="tb_main1_test";
+                               $tb= $this->tb;
+                            
 
+                               //$this->db->order_by("id_main1","DESC");
+                               
+                               
+/*
+		if(  $type_record > 0  && $type_document > 0   &&  strlen($to) == 0   &&   strlen($conv_date) <= 2   )
+		{
+		     $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document));
+		     $data["title"]=$this->title;
+		     $this->load->view("export",$data);
+	                   }
+		  else if( $type_record > 0  &&  $type_document > 0   &&  strlen($to) > 0   &&   strlen($conv_date) <= 2   )
+		 {
+			  $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"to"=>$to));
+			  $data["title"]=$this->title;
+			  $this->load->view("export",$data);
+		  }
+		   else if( $type_record > 0  &&  $type_document > 0   &&  strlen($to) > 0   &&   strlen($conv_date) > 2 )
+		 {
+                                                                                                                                                            
+		     //  $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"to"=>$to,"date"=>$conv_date));
+                                         $data["q"]=$this->db->query("  SELECT  *  FROM  $tb  WHERE  `to`  LIKE('%$to%')   AND   `type_record`=$type_record   AND  `type_document`=$type_document   AND  'date'='$conv_date'     ");
+		      $data["title"]=$this->title;
+		     $this->load->view("export",$data);
+		 }
+ 
+ */
+                               
+                               
+                        if( $to != ""  &&  $type_record != ""  &&   $type_document != ""   &&   $conv_date != ""    )   
+                        {    
+                                     $str="   SELECT   *  FROM    $tb    WHERE    `to`   LIKE('%$to%')    AND   `type_record`=$type_record     AND  `type_document`=$type_document   AND  `date`='$conv_date'     ;";
+                                     $data["q"]=$this->db->query($str);
+                                   
+                                    // $data["q"]->num_rows();
+                                     $data["title"]=$this->title;
+                                     $this->load->view("export",$data);
+                        }            
+                               
 
-
-
-                              // $tb="tb_main1";
-															 //$tb="tb_main1_test";
-															$tb= $this->tb;
-
-                               $this->db->order_by("id_main1","DESC");
-
-																			if(  $type_record > 0  && $type_document > 0   &&  strlen($to) == 0   &&   strlen($conv_date) <= 2   )
-																			{
-																				    $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document));
-																			      $data["title"]=$this->title;
-																			 		  $this->load->view("export",$data);
-																			}
-																			else if( $type_record > 0  &&  $type_document > 0   &&  strlen($to) > 0   &&   strlen($conv_date) <= 2   )
-																			{
-																				    $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"to"=>$to));
-													 						      $data["title"]=$this->title;
-													 							    $this->load->view("export",$data);
-																			}
-																			else if( $type_record > 0  &&  $type_document > 0   &&  strlen($to) > 0   &&   strlen($conv_date) > 2 )
-																			{
-																						$data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"to"=>$to,"date"=>$conv_date));
-																						$data["title"]=$this->title;
-																						$this->load->view("export",$data);
-																			}
-
-
-
-
-
-
-                }
+                }//end function 
 
                   //http://10.87.196.170/document2/index.php/welcome/export_data1
                   public function export_data1()// //ไม่ระบุอะไรเลย
@@ -906,6 +1005,8 @@ public function search_excellence()
                                    $conv_date=$y."-".$m."-".$d;
                                    */
 
+                              
+                              /*
                                     if( $too != ""  )
                                     {
                                             $tb= $this->tb;
@@ -917,6 +1018,22 @@ public function search_excellence()
                                             $data["title"]=$this->title;
                                             $this->load->view("export",$data);
                                     }
+                                   */
+                              
+                               if( $too != ""  )
+                               {
+                                     $tb= $this->tb;
+                                     $str=" SELECT  *  FROM    $tb   WHERE   `to`    like('%$too%')   AND   `type_record`=$type_record   AND   `type_document`=$type_document  ;    ";
+                                     $data["q"]=$this->db->query($str);
+                                       //echo    $data["q"]->num_rows();
+                                       $data["title"]=$this->title;
+                                        $this->load->view("export",$data);
+                                     
+                               }
+                                   
+                                   
+                                    
+                                    
 
                         }
 
@@ -3149,7 +3266,102 @@ $data=array(
 
 }
           }//end function
+      
+     //http://10.87.196.170/document3/index.php/welcome/check_date_sick  
+     public  function check_date_sick()  //ตรวจสอบ วันลาป่วย
+     {
+          $this->user_model->login();  //for checklogin
+             $name=trim($this->input->get_post("first_name"));
+            //echo br();
+            $tb=$this->tb_sick;
+             $this->db->order_by("id_sick","DESC");
+            $query= $this->db->get_where($tb,array("first_name"=>$name),1);
+             $num= $query->num_rows();
+             if( $num > 0 )
+             {
+                     foreach($query->result() as $row)
+                     {
+                         $rows[]=$row;
+                     }
+                     echo json_encode($rows);
+             }
+            
+         
+     }
+          
+          
+          
+      //http://10.87.196.170/document3/index.php/welcome/check_date_vacation
+     public function check_date_vacation()
+     {
+             $this->user_model->login();  //for checklogin
+          //  header('Content-Type: text/html; charset=utf-8');
+                   $tb_vacation=$this->tb_vacation;
+                   $tb_staff="tb_staff";
+                   
+               $name=trim($this->input->get_post("name"));
+             //echo br();
+             
+             $this->db->order_by("id_vacation","DESC");
+             $query=$this->db->get_where($tb_vacation,array("first_name"=>$name));
+              $num=$query->num_rows();
+             if( $num > 0 )
+             {
+                  $row=$query->row();
+                   $date_total_leave=$row->date_total_leave;
+                   echo  json_encode(array("date_total_leave"=>$date_total_leave)); 
+             }
+          
+             
+    
+         
+     }
+         
+     //http://10.87.196.170/document3/index.php/welcome/json_vacation2
+     public function json_vacation2()
+             {
+         
+         
+                 $this->user_model->login();  //for checklogin
+                   $tb_vacation=$this->tb_vacation;
+                   $tb_staff="tb_staff";
+                 
+                  
+                 $str=" SELECT    DISTINCT   `first_name`,`last_name`   FROM      $tb_vacation    order by     `id_vacation`  DESC  ; ";
+                 $query=$this->db->query( $str);
+                 $num=$query->num_rows();
+                 if( $num > 0)
+                 {
+                     foreach($query->result()as $row)
+                     {
+                         $rows[]=$row;
+                     }
+                       echo json_encode($rows);      
+                 }
+                 
 
+                 /*
+                  $this->db->join($tb_vacation,  $tb_staff.".name=".$tb_vacation.".first_name"   ,"left");
+                  $query = $this->db->get( $tb_staff );
+                  foreach( $query->result() as $row )
+                  {
+                       $rows[]=$row;
+                  }
+                  echo  json_encode($rows);
+                 */
+                 
+                 
+                  /* 
+                 $query=$this->db->get($tb_staff);
+                    foreach( $query->result() as $row )
+                           {
+                                $rows[]=$row;
+                           }
+                   echo  json_encode($rows);
+                   */
+                   
+         
+             }     
 
    #--------------- vacation ลาพักผ่อนประจำปี-----------------------
     //http://10.87.196.170/document2/index.php/welcome/json_vacation
@@ -3347,10 +3559,10 @@ $data=array(
        public function  update_vacation()
        {
               $this->user_model->login();  //for checklogin
-              $pass_update=trim($this->input->get_post("pass_update"));
+             // $pass_update=trim($this->input->get_post("pass_update"));
               $id_vacation=trim($this->input->get_post("id_vacation"));
-              if(  $pass_update  == "update1234"   )
-                  {
+            //  if(  $pass_update  == "update1234"   )
+                //  {
                           $tb=$this->tb_vacation;
                           $q=$this->db->get_where($tb,array("id_vacation"=>$id_vacation));
                           foreach($q->result() as $row)
@@ -3359,7 +3571,7 @@ $data=array(
                           }
                               echo  json_encode($rows);
                           //echo  json_encode(array("test"=>"success"));
-                  }
+                //  }
 
        }
 
@@ -4267,10 +4479,6 @@ $data=array(
 
       } //end function
 
-      public function test()
-      {
-          echo "t";
-      }
 
    #---------delete-------------------------
       //http://10.87.196.170/document2/index.php/welcome/delete_vacation
@@ -4284,6 +4492,8 @@ $data=array(
                {
                    $this->db->where("id_vacation",$id_vacation);
                    $ck=$this->db->delete($tb);
+                   //$ck=true;
+                   //$ck=false;
                    if( $ck )
                    {
                        echo 1;
@@ -4296,6 +4506,24 @@ $data=array(
     }
 
    #-------------sick  ลาป่วยประจำปี---------------------------------------
+    //http://192.168.2.120/document3/index.php/welcome/name_call_sick
+   public  function   name_call_sick() // เรียกข้อมูลจาก sick ด้วย ชื่อ
+   {
+          $this->user_model->login();  //for checklogin
+           $first_name=trim($this->input->get_post("first_name"));
+           $tb=$this->tb_sick;
+             $query=$this->db->get_where($tb,array("first_name"=>$first_name));
+             $num=$query->num_rows();
+             if( $num > 0 )
+                 { //if
+                       foreach($query->result() as $row)
+                       {
+                           $rows[]=$row;
+                       }//end  foreach
+                        echo  json_encode($rows);
+                 }//end if
+   }
+    
      //http://10.87.196.170/document2/index.php/welcome/json_sick
      public   function   json_sick()
      {
@@ -4310,49 +4538,60 @@ $data=array(
                         }
                         echo json_encode($rows);
      }
+     
+    // http://10.87.196.170/document3/index.php/welcome/call_date_sick
+     public  function   call_date_sick()  //ดึงวันลาป่วยตามวันที่ลา
+     {
+                $this->user_model->login();  //for checklogin 
+                 $first_name=$this->input->get_post("first_name");
+                //echo br();
+                
+                $tb_sick=$this->tb_sick;
+                $this->db->order_by("id_sick","DESC");
+                $query=$this->db->get_where($tb_sick,array("first_name"=>$first_name));
+                $num =   $query->num_rows();
+                
+                if(  $num > 0 )
+                {
+                    foreach($query->result() as $row)
+                    {
+                        $rows[]=$row;
+                    }
+                    echo json_encode($rows);
+                }   
+                
+         
+     }
+     
+     
+     
 
        //http://10.87.196.170/document2/index.php/welcome/json_call_sick/74
           public   function   json_call_sick()
-     {
-                 $this->user_model->login();  //for checklogin
+                {
+                            $this->user_model->login();  //for checklogin
 
-                // $tb="tb_sick";
-                 //  $tb_sick=$this->tb_sick;
-                      $tb_sick=$this->tb_sick;
-
-                 //id_staff_sick
-                   $id_sick=trim($this->uri->segment(3));
-
-                 /*
-                 $this->db->order_by("id_sick","DESC");
-
-                        $q=$this->db->get_where($tb,array("id_sick"=>$id_sick),10);
-
-                        foreach($q->result() as $row)
-                        {
-                            $rows[]=$row;
-                        }
-                        echo json_encode($rows);
-                  *
-                  */
+                                 $tb_sick=$this->tb_sick;
 
 
-                //  $this->db->order_by("id_sick","DESC");
-                   $first_name_sick=trim($this->input->get_post("first_name_sick"));
-                   $this->db->order_by("id_sick","ASC");
-                   $q=$this->db->get_where($tb_sick,array("first_name"=> $first_name_sick),1);
+                              $id_sick=trim($this->uri->segment(3));
 
-                   $check =  $q->num_rows();
-                  if( $check > 0 )
-                  {
-                         foreach($q->result() as $row )
-                         {
-                             $rows[]=$row;
-                         }
-                         echo json_encode($rows);
-                  }
 
-     }
+                              $first_name_sick=trim($this->input->get_post("first_name_sick"));
+                              $this->db->order_by("id_sick","ASC");
+                              $q=$this->db->get_where($tb_sick,array("first_name"=> $first_name_sick),1);
+
+                              $check =  $q->num_rows();
+                             if( $check > 0 )
+                             {
+                                    foreach($q->result() as $row )
+                                    {
+                                        $rows[]=$row;
+                                    }
+                                    echo json_encode($rows);
+                             }
+
+                }
 
 
      public  function  check_day_sick()
@@ -4445,6 +4684,7 @@ $data=array(
 
      }
 
+     
 
 
 
@@ -4935,6 +5175,8 @@ $data=array(
                   $tb=$this->tb_sick;
                   $this->db->where("id_sick",$id_sick);
                   $ck=$this->db->delete($tb);
+               //  $ck=true;
+                 // $ck=false;
                   if( $ck )
                   {
                       echo json_encode(array("success"=>1));

@@ -50,11 +50,12 @@
        title:'หน้าหลัก ลาป่วย/ลาคลอดบุตร/' 
        ,maximizable:false
        ,minimizable:true
-      ,iconCls:'icon-large-shapes' 
+      ,iconCls:'icon-man' 
       ,collapsible:false
+      ,singleSelect:true
       ,buttons:[
       
-        { text:'ปิด',  iconCls:'icon-cancel' ,iconAlign:'top',handler:function(){   $('#dia_main_sick').dialog('close'); }  },
+        {  size:'large',  text:' ปิด ',  iconCls:'icon-cancel' ,iconAlign:'top',handler:function(){   $('#dia_main_sick').dialog('close'); }  },
         
       ]
       
@@ -64,134 +65,84 @@
                  <div  class="easyui-datagrid"  id="datagrid_sick"
                        data-options="
                        
-                          url:'<?=base_url()?>index.php/welcome/json_sick',
+                        //  url:'<?=base_url()?>index.php/welcome/json_sick',
+                          
+                          url:'<?=base_url()?>index.php/welcome/json_staff',
+                          
                           rownumbers:true,
                           singleSelect:true,
                           columns:[[
                           
-                            {  field:'first_name', title:'ชื่อ',align:'left',    },
-                            {  field:'last_name',title:'นามสกุล', align: 'left' ,    },
-                            {  field:'total_sick',title:'ลาป่วยทั้งหมด',align:'left',    },
-                            {  field:'total_sick_person',title:'ลากิจทั้งหมด',align:'left',    },
-                            {  field:'total_confined',title:'ลาคลอดบุตรทั้้้งหมด',align:'left', width:200   },
+                          
+                 
+                            
+                             { field:'name' ,title:'ชื่อ'  },
+                             { field:'lastname' , title:'นามสกุล' },
+                             {  field:'position' ,title:'ตำแหน่ง'  },
                              
                              
                           ]],
-                          toolbar:[
                           
+                          
+                          
+                          /*
+                          toolbar:[
                             { text:'รีโหลด', iconAlign:'top'   , iconCls:'icon-reload',handler:function(){ $('#datagrid_sick').datagrid('reload'); }   },
                             { text:'แก้ไข',  iconAlign:'top' ,  iconCls:'icon-edit',handler:function()
                                      {      
-                                          
-                                            
-                                            //$('#dia_main_sick').dialog('close');
-                                            
                                             var  row=$('#datagrid_sick').datagrid('getSelected');
                                             if( row )
                                             {
-                                                //alert('t');
                                                 var  id_sick=row.id_sick;
-                                                //alert(id_sick);
                                                  if( id_sick > 0  && parseInt(id_sick)   )
                                                  {
                                                          var  url='<?=base_url()?>index.php/welcome/call_update_tbsick/' +   id_sick    ;
-                                                         
                                                          $.ajax({
                                                             url:url,
                                                             data:$('#fr_sick').serialize(),
                                                             //dataType:'text',
                                                             dataType:'json',
                                                             method:'post',
-                                                            
-                                                         }).done(function(data){
+                                                         }).done(function(data){                                                       
+                    
                                                          
-                                                             
-                                                        
-                                                             
-                       //$('#id_sick_update').textbox('setValue',id_sick);
-                                                                  
-                                                                    
-                      /*--------------------------------------- ล้างข้อมูล */
-                                                                      $('#sick1').textbox('setValue','');
-                       
-                       
-                  
+                         $('#sick1').textbox('setValue','');
                          $('#sick2').textbox('setValue','');
-                         
-                         
-                 
                         $('#total_sick').textbox('setValue','');
-                       
-                     
                           $('#sick_person1').textbox('setValue','');
-                        
-                    
                          $('#sick_person2').textbox('setValue','');
-                         
-                    
-                      
                             $('#total_sick_person').textbox('setValue');
-                        
-                            
-                      
                            $('#confined1').textbox('setValue','');
-                       
                           $('#confined2').textbox('setValue','');
-                     
                          $('#total_confined').textbox('setValue','');
-                         
                          $('#first_name_sick').textbox('setValue','');
                          $('#last_name_sick').textbox('setValue','');
                          $('#position_sick').textbox('setValue','');
-                         
                          $('#prename_sick').combobox('setValue','');
-                         
                          $('#count_date').numberbox('setValue','');
-                         
                          $('#sign_prename').combobox('setValue','');
-                         
-                          
                          $('#supervisor_sick1').attr('checked',false);
                          $('#supervisor_sick2').attr('checked',false);
-                         
                          $('#supervisor_agree1').attr('checked',false);
                          $('#supervisor_agree2').attr('checked',false);
-                         
                          $('#manager_allow1').attr('checked',false);
                          $('#manager_allow2').attr('checked',false);
-                         
-                         
-                         $('#house_number').textbox('setValue','');
-                         
-                         $('#road_sick').textbox('setValue','');
-                         
+                          $('#house_number').textbox('setValue','');
+                          $('#road_sick').textbox('setValue','');
                           $('#district_sick').textbox('setValue','');
-                         
                           $('#district2_sick').textbox('setValue','');
-                         
                           $('#province_sick').textbox('setValue','');
-                      
-                           $('#tel2_sick').textbox('setValue', ''  );
-                           
-                           $('#count_date').numberbox('setValue','');
-                           
-                           $('#begin_date1').datebox('setValue','');
-                           
-                           $('#end_date1').datebox('setValue','');
-                           
+                          $('#tel2_sick').textbox('setValue', ''  );
+                          $('#count_date').numberbox('setValue','');
+                          $('#begin_date1').datebox('setValue','');
+                          $('#end_date1').datebox('setValue','');
                           $('#count_date2').numberbox('setValue','');
-                          
                           $('#begin_date2').datebox('setValue','');
-                          
                           $('#begin_date2').datebox('setValue','');
-                            
                           $('#end_date2').datebox('setValue','');
-                          
                            $('#me_leave1').attr('checked',false);
                           $('#me_leave2').attr('checked',false);
                           $('#me_leave3').attr('checked',false);
-                          
-                          
                           $('#disease1').attr('checked',false);
                           $('#disease_detail').textbox('setValue','');
                           $('#sick_disease1').attr('checked',false);
@@ -199,69 +150,43 @@
                           $('#disease3').attr('checked',false);
                           $('#disease_person').textbox('setValue','');
                           $('#disease4').attr('checked',false);
-                          
                           $('#supervisor_sick2').attr('checked',false);
-                          
                           $('#sign_name').textbox('setValue','');
                           $('#sign_lastname').textbox('setValue','');
                           $('#sign_prename').combobox('setValue','');
                           $('#firstname3').textbox('setValue','');
                           $('#lastname3').textbox('setValue','');
+                          $('#id_staff_sick').combogrid('setValue','');      
                           
-                          
-                          $('#id_staff_sick').combogrid('setValue','');
-                                                                    
-                        /*--------------------------------------- ล้างข้อมูล */
+                     
                         
                               $('#dia_main_sick').dialog('close');
-                              //alert(data);
                               $.each(data,function(v,k){
                                         var  prename=k.prename;
-                                       //alert(prename);
-                                       
                                         $('#id_sick_update').textbox('setValue',k.id_sick);
-                                         
                                         $('#prename_sick').combobox('setValue',prename);  
                                         $('#first_name_sick').textbox('setValue', k.first_name);
                                         $('#last_name_sick').textbox('setValue',k.last_name);
                                         $('#position_sick').textbox('setValue',k.position);
-                                       
                                         $('#affiliation').textbox('setValue',k.affiliation);
-                                        
                                         $('#work').textbox('setValue',k.work);
-                                        
                                         $('#tel').textbox('setValue',k.tel);
-                                        
                                         var  disease=k.disease;
-
                                         if( disease == '1' )   //ป่วยด้วยโรค
                                         {
-                                               //alert( disease );
                                                $('#disease1').attr('checked',true);
                                         }
                                         else if (   disease  == '3' )    //กิจส่วนตัว
                                         {
-                                                 //alert( disease );
-                                                 $('#disease3').attr('checked',true);
-                                                
+                                                 $('#disease3').attr('checked',true);      
                                          }  
                                          else if(  disease  == '4'     )   //  คลอดบุตร
                                          {
-                                                //disease4
                                                  $('#disease4').attr('checked',true);
                                           }
-                                          
-                                          
                                           var  disease_detail=k.disease_detail;  //เกี่ยวข้องหรือมีสาเหตุมาจาก
                                           $('#disease_detail').textbox('setValue',disease_detail);
-                                          
-                                          
                                           var  sick_disease=k.sick_disease;  
-                                          //alert( sick_disease );
-                                          
-                                          //sick_disease1  จากการทำงาน
-                                          //sick_disease2  ไ่ม่ใช่จากการทำงาน
-                                          
                                           if(  sick_disease  == 1 )
                                           {
                                                $('#sick_disease1').attr('checked',true);
@@ -269,19 +194,15 @@
                                            else if(  sick_disease  == 2 )
                                           {
                                                $('#sick_disease2').attr('checked',true);
-                                          }
-                                          
+                                          }                                          
                                           var  begin_date1=k.begin_date1; //ตั้งแต่วันที่
                                           $('#begin_date1').datebox('setValue',begin_date1);
-                                          
                                           var  end_date1=k.end_date1;  
                                           $('#end_date1').datebox('setValue',end_date1);
-                                          
                                           var  count_date=k.count_date;
                                           $('#count_date').numberbox('setValue',count_date);
-                                          
                                           var  me_leave=k.me_leave;
-                                         // alert( me_leave  );
+                                        
                                           if(  me_leave  == 1 )  //ป่วย
                                           {
                                                $('#me_leave1').attr('checked',true);
@@ -294,49 +215,29 @@
                                           {
                                                 $('#me_leave3').attr('checked',true);
                                           }
-                                          
-                                          
                                           var  begin_date2=k.begin_date2;
                                           $('#begin_date2').datebox('setValue',begin_date2);
-                                          
-                                          
                                           var   end_date2=k.end_date2;
                                           $('#end_date2').datebox('setValue',end_date2);
-                                          
                                           var    count_date2=k.count_date2;  //มีกำหนด กี่วัน  ลาครั้งที่ 2
                                           $('#count_date2').numberbox('setValue',count_date2);
-                                          
                                           var  house_number=k.house_number;
                                           $('#house_number').textbox('setValue',house_number);
-                                          
                                           var  road_sick=k.road;
                                           $('#road_sick').textbox('setValue', road_sick );
-                                          
                                           var  district_sick=k.district;
                                           $('#district_sick').textbox('setValue',district_sick);
-                                          
                                           var  district2_sick=k.district2;
                                           $('#district2_sick').textbox('setValue',district2_sick);
-                                          
                                           var   province_sick=k.province;
                                           $('#province_sick').textbox('setValue',province_sick);
-                                          
                                           var  tel2_sick=k.tel2;
                                           $('#tel2_sick').textbox('setValue',tel2_sick);
-                                          
                                           var  sign_name=k.sign_name;
                                           $('#sign_name').textbox('setValue',sign_name);
-                                          
                                           var  sign_lastname=k.sign_lastname;
                                           $('#sign_lastname').textbox('setValue',sign_lastname);
-                                          
                                           var   sign_prename=k.sign_prename;
-                                          //alert( sign_prename );
-                                          
-                                          //sign_prename
-                                          //sign_prename
-                                          
-                                          
                                           if(  sign_prename == 'นาย' )
                                           {
                                                 $('#sign_prename').combobox('setValue',1);
@@ -349,51 +250,26 @@
                                           {
                                                 $('#sign_prename').combobox('setValue',3);
                                           }
-                                          
-                                          
                                           var  firstname3=k.firstname3;
                                           $('#firstname3').textbox('setValue',firstname3);
-                                          
                                           var  lastname3=k.lastname3;
-                                          $('#lastname3').textbox('setValue',lastname3);
-                                          
-                                          
+                                          $('#lastname3').textbox('setValue',lastname3); 
                                           $('#sick1').textbox('setValue',k.sick1);
-                                          
                                           $('#sick2').textbox('setValue',k.sick2);
-                                          
-                                          
                                           $('#total_sick').textbox('setValue',k.total_sick);
-                                          
-                                          
                                           $('#sick_person1').textbox('setValue',k.sick_person1);
-                                          
                                           $('#sick_person2').textbox('setValue',k.sick_person2);
-                                          
                                           $('#total_sick_person').textbox('setValue',k.total_sick_person);
-                                          
                                           $('#confined1').textbox('setValue',k.confined1);
-                                          
                                           $('#confined2').textbox('setValue',k.confined2);
-                                          
                                           $('#total_confined').textbox('setValue',k.total_confined);
-                                           
-                                         // alert( k.date_inspector );
-                                          $('#date_inspector').datebox('setValue',k.date_inspector);
-                                          
+                                          $('#date_inspector').datebox('setValue',k.date_inspector);                                        
                               });
-                              
-                              
-                
-                        
-                        
-                                                             
-                                                         });
-                                                         
-                                                 }
-                                                
+                                                         });    
+                                                 } 
                                             }
-                                     } },
+                                     }                                    
+                                     },                                    
                              { text:'ลบ',   iconAlign:'top'  , iconCls:'icon-cancel',handler:function()
                                  {  //----begin function----------   
                                        var   row=$('#datagrid_sick').datagrid('getSelected');
@@ -432,30 +308,188 @@
                                  
                                  }  //------end function ----------
                              },
-                             {  text:'ค้นหา' , iconAlign:'top',iconCls:'icon-search',handler:function(){  alert('t'); }  },
+
                              {  text:'ออกรายงาน',iconAlign:'top',iconCls:'icon-print',handler:function()
                                    {
-                                        
                                           var  row=$('#datagrid_sick').datagrid('getSelected');
                                           if( row )
                                           {
-                                                  
                                                    var  id_sick=row.id_sick;
-                                             
                                                   //  var  url='<?=base_url()?>report_pdf/docdb/report_sick.php?id_sick='  + id_sick   ;
                                                   //http://10.87.196.170/document3/index.php/welcome/home/#
                                                      var  url='http://10.87.196.170/document3/report_pdf/docdb/report_sick.php?id_sick='  + id_sick   ;
-                                               
-                                                  window.open(url);
-      
+                                                  window.open(url);  
                                            }
                                    } 
                               }
-
                           ]
+                         */
+                          
+                          
+                      <?php
+                         if(  $this->session->userdata("sess_permission") == 1  )  //admin
+                         {
+                      ?>
+                              toolbar:[
+                              
+                                  {
+                                          size:'large',
+                                           text:'โหลดใหม่',
+                                           iconCls:'icon-reload',
+                                           iconAlign:'top',
+                                           handler:function()
+                                           { 
+                                                 //alert('t'); 
+                                                $('#datagrid_sick').datagrid('reload');
+                                           }
+                                   },
+                                   {
+                                       text:'แสดงการลาทั้งหมด',
+                                       iconCls:'icon-man',
+                                       size:'large',
+                                       iconAlign:'top',
+                                       handler:function()
+                                       { //begin
+                                             //alert('t');
+                                               var  url='<?=base_url()?>index.php/welcome/export_sick';
+                                               //alert( url );
+                                               window.open(url);
+                                             
+                                       } //end
+                                   }
+                                   ,
+                                   {
+                                      text:'แก้ไข',iconCls:'icon-edit',iconAlign:'top',size:'large',handler:function()
+                                      {   //begin function
+                                                //alert('t');
+                                             var  row=$('#datagrid_sick').datagrid('getSelected');
+                                             if( row )
+                                             { //begin if
+                                                    var name=row.name;
+                                                     // alert( name );
+                                                     var  url='<?=base_url()?>index.php/welcome/name_call_sick';
+                                                     //alert(url);
+                                                     $.post(url,{ first_name:name  },function(data)
+                                                     {//begin function
+                                                            //alert(data);
+                                                               $('#dia_list_date_user').dialog('open');
+                                                               $('#datagrid_list_date_user').datagrid('loadData',data);
+                                                               
+                                                     },'json');  //end function
+                                             }//end if
+
+                                      } //end  function
+                                   }
+                                  
+                              ]
+                      <?php
+                         }
+                         elseif(   $this->session->userdata("sess_permission") == 2   ) //user
+                         {
+                       ?>
+                              toolbar:[
+                                 {
+                                      text:'โหลดใหม่',
+                                      iconCls:'icon-reload',
+                                      iconAlign:'top',
+                                      handler:function()
+                                      {
+                                             // alert('t'); 
+                                             $('#datagrid_sick').datagrid('reload');
+                                      }
+                                 
+                                  },
+                                  {
+                                      text:'ตรวจสอบวันลาของตนเอง',
+                                      iconCls:'icon-ok',
+                                      iconAlign:'top',
+                                      handler:function()
+                                      {
+
+                                           var  user='<?=$this->session->userdata("sess_us")?>';
+                                           //alert(user);
+                                           var   url='<?=base_url()?>index.php/welcome/call_name_user'
+                                          // alert(url);
+                                           $.post(url,{ username:user },function(data)
+                                           { // begin function
+                                           
+                                                 //alert(data);
+                                                 //firstname
+                                                 
+                                                    $.each(data,function(v,k){
+                                                    
+                                                           var  firstname=k.firstname;
+                                                           
+                                                           //alert(firstname);
+                                                           
+                                                             var  url='<?=base_url()?>index.php/welcome/check_date_sick';
+                                                             
+                                                              $.post(url,{ first_name:firstname  },function( data )
+                                                                    { //begin function
+
+                                                                          //alert(data);
+
+                                                                           $('#dia_user_sick').dialog('open');
+                                                                           $('#datagrid_user_sick').datagrid('loadData',data);
+
+                                                                    },'json'); //end post
+                                                           
+                                                           
+                                                    
+                                                    });//end each
+                                           
+                                           },'json'); //end function  post
+                                           
+                                           
+                                      }//end function
+                                  
+                                  },
+                                  {
+                                            text:'พิมพ์ใบลา',   iconAlign:'top'  ,   iconCls:'icon-print',handler:function()
+                                        {
+                                                    
+                                                  //   $('#dia_list_date_user').dialog('open');
+
+                                                     
+                                                    
+                                                      var  user='<?=$this->session->userdata("sess_us")?>';
+                                                      var   url='<?=base_url()?>index.php/welcome/call_name_user'
+                  
+                                                       $.post(url,{ username:user },function(data)
+                                                        {
+                                           
+                                                                  $.each(data,function(v,k){
+                                                                       var   firstname=k.firstname;
+
+                                                                        var  url='<?=base_url()?>index.php/welcome/call_date_sick';
+                                                                        //alert(url);
+                                                                        $.post(url,{ first_name:firstname  },function(data)
+                                                                          {
+                                                                          
+                                                                                 // alert(data);
+                                                                                 $('#dia_list_date_user').dialog('open');
+                                                                                 $('#datagrid_list_date_user').datagrid('loadData',data);
+                                                                                
+                                                                                
+                                                                          },'json'); //end post
+                                                                  
+                                                                  }); // each
+  
+                                                        },'json');//end post
+                                                      
+                                                      
+                                                      
+                                                                     
+                                                                   
+            
+                                        } //end function
+                                  }
+                              
+                              ]
+                       <?php
+                         }
+                       ?>
                          
-                          
-                          
                        "
                        >
                  </div>
@@ -674,7 +708,7 @@
                }
           },  
          {
-               text:'ล้างข้อมูล',
+               text:'ล้าง',
                iconCls:'icon-man',
                iconAlign:'top',
                size:'large',
@@ -1102,7 +1136,7 @@
                     <input class="easyui-datebox"    label="ตั่งแต่วันที่ "  required="true"  id="begin_date1"  name="begin_date1"   style="width:200px;height: 40px;"   />
                     <input class="easyui-datebox"    label="ถึงวันที่ "   required="true"   id="end_date1"  name="end_date1"    style="width:200px;height: 40px;"   />
                     
-                    <input class="easyui-numberbox"  id="count_date" required="true"  name="count_date"    label="มีกำหนด (วัน)"   lebelPosition="left"   style="width:130px;height: 40px;" /> 
+                    <input class="easyui-numberbox"  id="count_date" required="true"  name="count_date"    label="มีกำหนด (วัน)"   precision="2"    lebelPosition="left"   style="width:130px;height: 40px;" /> 
                 </td>
             </tr>
             
@@ -1177,7 +1211,7 @@
                      <input    class="easyui-datebox"  id="end_date2"  name="end_date2"    style="width: 130px;height: 40px;" />
                      
                      
-                     <input class="easyui-numberbox"   label="มีกำหนด(วัน)"        id="count_date2"  name="count_date2"   style="width: 150px;height: 40px;"   />
+                     <input class="easyui-numberbox"   label="มีกำหนด(วัน)"    precision="2"    id="count_date2"  name="count_date2"   style="width: 150px;height: 40px;"   />
                     
                     
                 </td>
@@ -1892,3 +1926,354 @@
 </div>
 
 <!--  ยื่นใบลาพักผ่อน -->
+
+
+
+<!--   แสดงรายละเอียดของตนเอง -->
+<div class="easyui-dialog"  id="dia_user_sick"  
+     data-options="
+        closed:true,
+        iconCls:'icon-man',
+        size:'large',
+        title:'แสดงจำนวนวัน  ลาป่วย/ลากิจ/ลาคลอด ',
+        buttons:[
+           {  size:'large',text:'ปิด',iconCls:'icon-cancel',handler:function(){  $('#dia_user_sick').dialog('close');  }  }
+        ]
+        
+     "
+     
+     style="width:400px;height: 200px;" >
+    
+    <div class="easyui-datagrid"  id="datagrid_user_sick"
+         data-options="
+            url:'<?=base_url()?>index.php/welcome/json_sick',
+            columns:[[
+               { field:'total_sick', title:'ลาป่วยทั้งหมด(วัน)' },
+               { field:'total_sick_person', title:'ลากิจทั้งหมด(วัน)'   },
+               { field:'total_confined' , title:'ลาคลอดทั้งหมด(วัน)'   },
+            ]]
+            
+         "
+         style="width:380px;height: 120px;"
+         >
+        
+    </div>
+    
+</div>
+
+<!--   แสดงรายละเอียดของตนเอง -->
+
+
+<!--  แสดงรายละเอียด ของวันลาทั้งหมด -->
+<div class="easyui-dialog" 
+     data-options="
+        title:'รายละเอียดของวันลาทั้งหมด',
+        iconCls:'icon-man',
+        size:'large',
+        closed:true,
+        buttons:[
+          { text:' ปิด ',iconCls:'icon-cancel',size:'large',handler:function(){  $('#dia_list_date_user').dialog('close');   }  }
+        ]
+     "
+     id="dia_list_date_user"   style="width:400px;height: 300px;">
+    
+    <div class="easyui-datagrid" 
+         data-options="
+            url:'<?=base_url()?>index.php/welcome/json_sick',
+            singleSelect:true,
+            rownumbers:true,
+            
+              toolbar:[
+                   {    text:'สั่งพิมพ์',
+                         size:'large',
+                         iconAlign:'top',
+                         
+                         iconCls:'icon-print',  
+                         handler:function()
+                           {
+                                  //id_sick
+                                  var  row =  $('#datagrid_list_date_user').datagrid('getSelected');
+                                  if( row )
+                                  {
+                                       id_sick=row.id_sick;
+                                       // alert(id_sick);
+                                        if( id_sick > 0 )
+                                        {
+                                                   var  url='http://10.87.196.170/document3/report_pdf/docdb/report_sick.php?id_sick='  + id_sick   ;
+                                                   window.open(url);  
+                                        }//end if
+                                       
+                                  }//end if
+                           
+                           } //end function
+                   },
+                   
+                   <?php
+                       if(  $this->session->userdata("sess_permission")==1  )
+                       {
+                   ?>
+                        { size:'large', text:'แก้ไขข้อมูล',iconCls:'icon-edit',iconAlign:'top', handler:function()
+                             {
+                                   var  row=$('#datagrid_list_date_user').datagrid('getSelected');
+                                   if( row )
+                                   {
+                                       //alert('t');
+                                          var  id_sick=row.id_sick;
+                                          //-----------------------------begin-----------------------------
+                                               var  url='<?=base_url()?>index.php/welcome/call_update_tbsick/' +   id_sick    ;
+                                               //alert(url);
+                                               $.ajax({
+                                                            url:url,
+                                                            data:$('#fr_sick').serialize(),
+                                                           // dataType:'text',
+                                                            dataType:'json',
+                                                            method:'post',
+                                                         }).done(function(data)
+                                                         { //begin function  
+                        //--------------- begin function-------------------         
+                         $('#dia_form_sick').dialog('open');
+                         
+                        $('#sick1').textbox('setValue','');
+                         $('#sick2').textbox('setValue','');
+                        $('#total_sick').textbox('setValue','');
+                          $('#sick_person1').textbox('setValue','');
+                         $('#sick_person2').textbox('setValue','');
+                            $('#total_sick_person').textbox('setValue');
+                           $('#confined1').textbox('setValue','');
+                          $('#confined2').textbox('setValue','');
+                         $('#total_confined').textbox('setValue','');
+                         $('#first_name_sick').textbox('setValue','');
+                         $('#last_name_sick').textbox('setValue','');
+                         $('#position_sick').textbox('setValue','');
+                         $('#prename_sick').combobox('setValue','');
+                         $('#count_date').numberbox('setValue','');
+                         $('#sign_prename').combobox('setValue','');
+                         $('#supervisor_sick1').attr('checked',false);
+                         $('#supervisor_sick2').attr('checked',false);
+                         $('#supervisor_agree1').attr('checked',false);
+                         $('#supervisor_agree2').attr('checked',false);
+                         $('#manager_allow1').attr('checked',false);
+                         $('#manager_allow2').attr('checked',false);
+                          $('#house_number').textbox('setValue','');
+                          $('#road_sick').textbox('setValue','');
+                          $('#district_sick').textbox('setValue','');
+                          $('#district2_sick').textbox('setValue','');
+                          $('#province_sick').textbox('setValue','');
+                          $('#tel2_sick').textbox('setValue', ''  );
+                          $('#count_date').numberbox('setValue','');
+                          $('#begin_date1').datebox('setValue','');
+                          $('#end_date1').datebox('setValue','');
+                          $('#count_date2').numberbox('setValue','');
+                          $('#begin_date2').datebox('setValue','');
+                          $('#begin_date2').datebox('setValue','');
+                          $('#end_date2').datebox('setValue','');
+                           $('#me_leave1').attr('checked',false);
+                          $('#me_leave2').attr('checked',false);
+                          $('#me_leave3').attr('checked',false);
+                          $('#disease1').attr('checked',false);
+                          $('#disease_detail').textbox('setValue','');
+                          $('#sick_disease1').attr('checked',false);
+                          $('#sick_disease2').attr('checked',false);
+                          $('#disease3').attr('checked',false);
+                          $('#disease_person').textbox('setValue','');
+                          $('#disease4').attr('checked',false);
+                          $('#supervisor_sick2').attr('checked',false);
+                          $('#sign_name').textbox('setValue','');
+                          $('#sign_lastname').textbox('setValue','');
+                          $('#sign_prename').combobox('setValue','');
+                          $('#firstname3').textbox('setValue','');
+                          $('#lastname3').textbox('setValue','');
+                          $('#id_staff_sick').combogrid('setValue','');  
+                          
+                          //alert(data);
+                          
+                            $.each(data,function(v,k)
+                            {  //begin each
+                                 
+                                        var  prename=k.prename;
+                                        //alert( prename );
+                                        $('#id_sick_update').textbox('setValue',k.id_sick);
+                                        $('#prename_sick').combobox('setValue',prename);  
+                                        $('#first_name_sick').textbox('setValue', k.first_name);
+                                        $('#last_name_sick').textbox('setValue',k.last_name);
+                                        $('#position_sick').textbox('setValue',k.position);
+                                        $('#affiliation').textbox('setValue',k.affiliation);
+                                        $('#work').textbox('setValue',k.work);
+                                        $('#tel').textbox('setValue',k.tel);
+
+                                         var  disease=k.disease;
+                                        if( disease == '1' )   //ป่วยด้วยโรค
+                                        {
+                                               $('#disease1').attr('checked',true);
+                                        }
+                                        else if (   disease  == '3' )    //กิจส่วนตัว
+                                        {
+                                                 $('#disease3').attr('checked',true);      
+                                         }  
+                                         else if(  disease  == '4'     )   //  คลอดบุตร
+                                         {
+                                                 $('#disease4').attr('checked',true);
+                                          }
+                                          var  disease_detail=k.disease_detail;  //เกี่ยวข้องหรือมีสาเหตุมาจาก
+                                          $('#disease_detail').textbox('setValue',disease_detail);
+                                          var  sick_disease=k.sick_disease;  
+                                          if(  sick_disease  == 1 )
+                                          {
+                                               $('#sick_disease1').attr('checked',true);
+                                          }
+                                           else if(  sick_disease  == 2 )
+                                          {
+                                               $('#sick_disease2').attr('checked',true);
+                                          }                                          
+                                          var  begin_date1=k.begin_date1; //ตั้งแต่วันที่
+                                          $('#begin_date1').datebox('setValue',begin_date1);
+                                          var  end_date1=k.end_date1;  
+                                          $('#end_date1').datebox('setValue',end_date1);
+                                          var  count_date=k.count_date;
+                                          $('#count_date').numberbox('setValue',count_date);
+                                          var  me_leave=k.me_leave;
+                                        
+                                          if(  me_leave  == 1 )  //ป่วย
+                                          {
+                                               $('#me_leave1').attr('checked',true);
+                                          }
+                                          else if(  me_leave  == 2 )  //กิจส่วนตัว
+                                          {
+                                               $('#me_leave2').attr('checked',true);
+                                          }
+                                          else if(  me_leave  == 3 )     //me_leave3  คลอดบุตร
+                                          {
+                                                $('#me_leave3').attr('checked',true);
+                                          }
+                                          var  begin_date2=k.begin_date2;
+                                          $('#begin_date2').datebox('setValue',begin_date2);
+                                          var   end_date2=k.end_date2;
+                                          $('#end_date2').datebox('setValue',end_date2);
+                                          var    count_date2=k.count_date2;  //มีกำหนด กี่วัน  ลาครั้งที่ 2
+                                          $('#count_date2').numberbox('setValue',count_date2);
+                                          var  house_number=k.house_number;
+                                          $('#house_number').textbox('setValue',house_number);
+                                          var  road_sick=k.road;
+                                          $('#road_sick').textbox('setValue', road_sick );
+                                          var  district_sick=k.district;
+                                          $('#district_sick').textbox('setValue',district_sick);
+                                          var  district2_sick=k.district2;
+                                          $('#district2_sick').textbox('setValue',district2_sick);
+                                          var   province_sick=k.province;
+                                          $('#province_sick').textbox('setValue',province_sick);
+                                          var  tel2_sick=k.tel2;
+                                          $('#tel2_sick').textbox('setValue',tel2_sick);
+                                          var  sign_name=k.sign_name;
+                                          $('#sign_name').textbox('setValue',sign_name);
+                                          var  sign_lastname=k.sign_lastname;
+                                          $('#sign_lastname').textbox('setValue',sign_lastname);
+                                          var   sign_prename=k.sign_prename;
+                                          if(  sign_prename == 'นาย' )
+                                          {
+                                                $('#sign_prename').combobox('setValue',1);
+                                          }
+                                          else  if(  sign_prename == 'นาง' )
+                                          {
+                                                $('#sign_prename').combobox('setValue',2);
+                                          }
+                                              else  if(  sign_prename == 'นางสาว' )
+                                          {
+                                                $('#sign_prename').combobox('setValue',3);
+                                          }
+                                          var  firstname3=k.firstname3;
+                                          $('#firstname3').textbox('setValue',firstname3);
+                                          var  lastname3=k.lastname3;
+                                          $('#lastname3').textbox('setValue',lastname3); 
+                                          $('#sick1').textbox('setValue',k.sick1);
+                                          $('#sick2').textbox('setValue',k.sick2);
+                                          $('#total_sick').textbox('setValue',k.total_sick);
+                                          $('#sick_person1').textbox('setValue',k.sick_person1);
+                                          $('#sick_person2').textbox('setValue',k.sick_person2);
+                                          $('#total_sick_person').textbox('setValue',k.total_sick_person);
+                                          $('#confined1').textbox('setValue',k.confined1);
+                                          $('#confined2').textbox('setValue',k.confined2);
+                                          $('#total_confined').textbox('setValue',k.total_confined);
+                                          $('#date_inspector').datebox('setValue',k.date_inspector);     
+
+                            }); //end  each
+                          //----------------------end function-------------------------------
+                                                         });//end  function
+                                          //----------------------------end--------------------------------
+                                   }//end if
+                             } //end  menu
+                         },
+                         {
+                             text:'ลบข้อมูล',
+                             iconCls:'icon-cancel',
+                             size:'large',
+                             iconAlign:'top',
+                             handler:function()
+                             {
+                                   // alert('t');
+                                   var  row=$('#datagrid_list_date_user').datagrid('getSelected');
+                                   if( row )
+                                   {//begin if
+                                       var  id_sick=row.id_sick;
+                                          //alert( id_sick );
+                                          if( id_sick > 0  )
+                                          {
+                                               $.messager.confirm('คุณแน่ใจว่าต้องการลบข้อมูล','คุณแน่ใจว่าต้องการลบข้อมูลหรือไม่',function(r){
+                                                     if( r )
+                                                     {
+                                                             //alert('t');
+                                                              var  url='<?=base_url()?>index.php/welcome/del_tbsick/' + id_sick ;
+                                                              //alert(url);
+                                                              $.post(url,function(data)
+                                                               {
+                                                                   // alert(data);
+                                                                   var  success=data.success;
+                                                                   //alert(success);
+                                                                   if(  success == 1 )
+                                                                   {
+                                                                                $.messager.alert('สถานะการลบข้อมูลสำเร็จ','ลบข้อมูลแล้ว','info');
+                                                                                $('#dia_list_date_user').dialog('close');
+                                                                                
+                                                                   }//end if
+                                                                   else {
+                                                                                $.messager.alert('สถานะการลบข้อมูลผิดพลาด','สถานะการลบข้อมูลผิดพลาด','error');
+                                                                                 $('#dia_list_date_user').dialog('close');
+                                                                                 
+                                                                   }//end if
+                                                               },'json'); //end post
+                                                              
+                                                     }
+                                               }); //end  function
+                                          }//end if
+                                          
+                                   }//end if
+                             }
+                         }
+                   <?php
+                       }
+                   ?>
+              ],
+            columns:[[
+            
+                 { field:'begin_date1', title:'ลาตั้งแต่วันที่่',  },
+                 { field:'end_date1', title:'ลาถึงวันที่',  },
+                 
+               
+                  { field:'total_sick', title:'วันลาป่วย', },
+                  {  field:'total_sick_person', title:'วันลากิจ' },
+                  {  field:'total_confined', title:'วันลาคลอด' },
+               
+                  
+                 
+            ]]
+            
+            
+         "
+         
+         id="datagrid_list_date_user"  ></div>
+    
+</div>
+
+
+<!--  แสดงรายละเอียด ของวันลาทั้งหมด -->
+
+

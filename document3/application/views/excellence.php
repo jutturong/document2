@@ -301,7 +301,7 @@ style="width:400px;height:350px;padding:10px">
                                    else if(   to != ''  &&  date != ''   )
                                    {
                                     //ระบุทั้งชื่อและวันที่
-                                   var  url = '<?=base_url()?>index.php/welcome/export_data/'+  '3'  +  '/'  +  $('#type_document').combobox('getValue')  +  '/'    +    $('#to').combogrid('getValue') + '/' + $('#date').datebox('getValue'); 
+                                   var  url = '<?=base_url()?>index.php/welcome/export_data/'+  '3'  +  '/'  +  $('#type_document').combobox('getValue')  +  '/'    +    $('#to').textbox('getValue') + '/' + $('#date').datebox('getValue'); 
                                    }
                                     
                                        // alert( url );  
