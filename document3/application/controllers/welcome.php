@@ -4,8 +4,8 @@ class Welcome extends CI_Controller {
 
         var   $title="ระบบโปรแกรมธุรการอิเล็กทรอนิค";
 
-         var     $tb= "tb_main1";
-      //  var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
+        var     $tb= "tb_main1";
+       //    var   $tb= "tb_main1_test";   // `tb_main1_test`     // `tb_main1`
 
          
       var   $tb_vacation="tb_vacation";
@@ -528,8 +528,10 @@ public function json_excellence()  //ศูนย์การดูแล AND ex
 
  public function search_excellence2()
         { //begin function
+     
+     
                         $this->user_model->login();  //for checklogin
-                         $tb=$this->tb;
+                        $tb=$this->tb;
                         $to=trim($this->input->get_post("to"));
                      // echo br();
      
@@ -551,9 +553,10 @@ public function json_excellence()  //ศูนย์การดูแล AND ex
 
                       $type_record=3;
                       
-                       $type_document=trim($this->input->get_post("type_document")); ;
+                     $type_document=trim($this->input->get_post("type_document")); 
                 
-                      
+                     $subject=trim($this->input->get_post("subject"));
+                   
                       
                       $tb=$this->tb;
                       
@@ -602,7 +605,42 @@ public function json_excellence()  //ศูนย์การดูแล AND ex
                                            echo  json_encode($rows);
                                     }
                       }
-                     elseif( $to  == ""   &&    $conv_date == "" ) 
+                      //subject
+                      elseif(  $subject  != ""      )
+                      {
+                            $str="  SELECT   *  FROM  $tb  WHERE     `subject`    LIKE ('%$subject%')      AND       `type_record`=$type_record   AND   `type_document`=$type_document    ";
+                                $query=$this->db->query( $str);
+                                     $num=$query->num_rows();
+                                     if( $num > 0 )
+                                          {
+                                              foreach( $query -> result() as $row)
+                                              {
+                                                  $rows[]=$row;
+                                              }
+                                                 echo  json_encode($rows);
+                                          }
+                          
+                      }
+                      
+                      elseif(  $subject  != ""     &&    $conv_date != ""      )
+                      {
+                          
+                            $str="  SELECT   *  FROM  $tb      WHERE     `subject`    LIKE ('%$subject%')          AND          `date`='$conv_date'        AND         `type_record`=$type_record   AND   `type_document`=$type_document    ";
+                                $query=$this->db->query( $str);
+                                     $num=$query->num_rows();
+                                     if( $num > 0 )
+                                          {
+                                              foreach( $query -> result() as $row)
+                                              {
+                                                  $rows[]=$row;
+                                              }
+                                                 echo  json_encode($rows);
+                                          }
+                          
+                      } 
+                      
+                      
+                     elseif( $to  == ""   &&    $conv_date == ""  &&   $subject  == ""   ) 
                       {
                            $str="  SELECT   *  FROM  $tb  WHERE      `type_record`=$type_record   AND   `type_document`=$type_document   ORDER  BY   `id_main1`   DESC   LIMIT  20   ";
                                $query=$this->db->query( $str);
@@ -1192,13 +1230,9 @@ public function search_excellence()
 	public function insert_tb_main1_3() //excellence  "type_record"=>3
 	{
 	      $this->user_model->login();  //for checklogin
-          								    /*
-                      echo   $registration_receive21=trim($this->input->get_post('registration_receive21'));
-											echo br();
-										 //echo  't';
-										 */
 
-										 header('Content-Type: text/html; charset=UTF-8');
+
+	     header('Content-Type: text/html; charset=UTF-8');
 
 																			 //echo print_r($_POST);
 																			 //echo  "<hr>";

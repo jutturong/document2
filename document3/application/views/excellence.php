@@ -4,7 +4,7 @@ _
 <div id="dlg_content_excellence" class="easyui-dialog" title="ศูนย์การดูแล ฯ และศูนย์ความเป็นเลิศ"
 data-options="iconCls:'icon-print' ,
 closed:true,  "
-style="width:400px;height:350px;padding:10px">
+style="width:400px;height:380px;padding:10px">
 
 
 
@@ -80,12 +80,12 @@ style="width:400px;height:350px;padding:10px">
 
 
 
-<!--
+
             <div style="margin-bottom:10px">
-                  <input class="easyui-textbox" label="เรื่อง:" labelPosition="top" style="width:90%;height:60px">
+                <input class="easyui-textbox" label="เรื่อง:"  id="subject"   name="subject"   labelPosition="top" style="width:90%;height:60px">
             </div>
 
-
+<!--
             <div style="margin-bottom:10px">
                   <input class="easyui-textbox" label="จาก/ถึง" labelPosition="top" style="width:90%;height:60px">
             </div>
@@ -149,7 +149,7 @@ style="width:400px;height:350px;padding:10px">
                                          url:url,
                                          method:'post',
                                      //    dataType:'text',
-                                         dataType:'json',
+                                        dataType:'json',
                                          
                                     }).done(function(data){
                                         
@@ -158,6 +158,8 @@ style="width:400px;height:350px;padding:10px">
                                              
                                              $('#dia_datagrid_excellence').dialog('open');
                                              $('#datagrid_excellence').datagrid('loadData',data);   
+                                             
+                                             $('#dlg_content_excellence').dialog('close');                                          
                                             
                                         
                                     });
@@ -470,8 +472,8 @@ style="width:400px;height:350px;padding:10px">
                                                                        
                                                                       //$.messager.alert('สถานะการลบขอ้มูล','ลบข้อมูลสำเร็จ');
 
-                                                                    //$('#datagrid_excellence').datagrid('reload');
-                                                                      location.reload();
+                                                                       $('#datagrid_excellence').datagrid('reload');
+                                                                    //  location.reload();
                                                                     
                                                                     
                                                                    }
@@ -659,11 +661,8 @@ style="width:400px;height:350px;padding:10px">
                     url:'<?=base_url()?>index.php/welcome/insert_tb_main1_3/',
                     success:function(data)
                     {
-                    
-                          //$registration_receive21
-                          //$('#registration_receive21').textbox('setValue','<?=@$number_add?>');
 
-                         // alert(data);
+                           //alert(data);
                     
                           if( data == 1)
                           {
@@ -682,13 +681,7 @@ style="width:400px;height:350px;padding:10px">
                                          $('#practice_receive21').textbox('setText',''); //การปฏฺิบัติ       7
                                          $('#note_receive21').textbox('setText',''); //หมายเหตุ      8
 
-                                       
-                                     //   $('#dia_select_excellence').dialog('close');   // เลือกเพิ่มหรือรับหนังสือ
-                                        
-                                        $('#dia_insert_excellence').dialog('close');
-                             
-                                         
-
+                                         $('#dia_insert_excellence').dialog('close');
 
                           }
                           else if( data == 0 )
