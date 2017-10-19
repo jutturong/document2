@@ -25,11 +25,12 @@ table, td, th {
 
 
 
-<table  style="width:500px;" >
+<table  style="width:700px;" >
         <thead>
           <tr>
               <th>ชื่อ-นามสกุล</th>
               <th>ลาพักผ่อนมาแล้วทั้งหมด</th>
+              <th>มีวันลาสะสม</th>
    
           </tr>
         </thead>
@@ -55,7 +56,7 @@ table, td, th {
                             foreach($query2->result() as $row)
                             {
                                    $date_total_leave=$row->date_total_leave;
-
+                                   $cumulative=$row->cumulative;
                             }
                       }
                       else{
@@ -69,8 +70,9 @@ table, td, th {
           ?>
 
           <tr>
-              <td style="width:30px; " align="left" ><?=nbs(3)?><?=$name?><?=nbs(10)?><?= $lastname?></td>
-            <td  style="width:150px;"    align="center"  ><?=$date_total_leave?></td>
+              <td style="width:100px; " align="left" ><?=nbs(3)?><?=$name?><?=nbs(10)?><?= $lastname?></td>
+            <td  style="width:200px;"    align="center"  ><?=$date_total_leave?></td>
+             <td  style="width:150px;"    align="center"  ><?=$cumulative?></td>
 
           </tr>
 

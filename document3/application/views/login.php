@@ -26,10 +26,10 @@
       
       <form id="fr_login"  method="post">
         <div style="margin-bottom:20px">
-            <input class="easyui-textbox" id="us" name="us" data-options=" value:'root',  "  prompt="Username" iconWidth="28" style="width:100%;height:34px;padding:10px;">
+            <input class="easyui-textbox" id="us" name="us" data-options="  "  prompt="Username" iconWidth="28" style="width:100%;height:34px;padding:10px;">
         </div>
         <div style="margin-bottom:20px">
-            <input id="pass" class="easyui-passwordbox"  id="ps"  name="ps"  data-options=" value:'1234' "   prompt="Password" iconWidth="28" style="width:100%;height:34px;padding:10px">
+            <input id="pass" class="easyui-passwordbox"  id="ps"  name="ps"  data-options="  "   prompt="Password" iconWidth="28" style="width:100%;height:34px;padding:10px">
         </div>
 
         <div style="margin:10px">
@@ -105,7 +105,16 @@
            "
            
            data-options="iconCls:'icon-lock', selected:true , size:'large',iconAlign:'top'"  style="width:100px;height: 60px;  " >Login</a>
-           <a href="javascript:void(0);" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',size:'large',iconAlign:'top'  " style="width:100px;height: 60px;"  >Clear</a>
+           <a href="javascript:void(0);" class="easyui-linkbutton"  onclick="
+                 javascript:
+                         //alert('t');
+                        $('#us').textbox('setValue','');
+                        $('#ps').passwordbox('setValue','');
+                 
+              " data-options="iconCls:'icon-cancel',size:'large',iconAlign:'top' ,
+             
+              
+              " style="width:100px;height: 60px;"  >Clear</a>
         </div>
       </form>
 

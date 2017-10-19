@@ -39,29 +39,7 @@ style="width:400px;height:380px;padding:10px">
 <!--  ของ -->
 <div style="margin-bottom:10px">
     
-    <!--
-    <input class="easyui-combogrid"  type="autoCompleteBox"   id="to"   name="to"  labelPosition="left"  style="width:80%;height:60px"
-                  data-options="
-                     url:'<?=base_url()?>index.php/welcome/json_to/' +  $('#type_document').combobox('getValue')  ,
-                     method:'post',
-                     //valueField:'id_academic',
-                     //textField:'firstname_academic',
-                     idField:'to',
-                     textField:'to',
-                   //  panelHeight:'auto',
-                   //  labelPosition:'top',
-                     fitColumns:true,
-                     label:'ของ',
-                     labelPosition:'top',
-                     mode: 'remote',
-                     columns:[[
-                      // { field:'pre_academic',title:'คำนำหน้า',width:'80px'  },
-                      // { field:'firstname_academic',title:'ชื่อ',width:'100px' },
-                      // { field:'lastname_academic',title:'นามสกุล',width:'100px' },
-                         { field:'to',title:'ชื่อ-นามสกุล',widht:'150px' },
-                     ]]
-                  " >
-    -->
+
     
     <input class="easyui-searchbox"    
            data-options="
@@ -72,7 +50,7 @@ style="width:400px;height:380px;padding:10px">
              iconAlign:'right',
              labelWidth:'50px',
            "
-           id="to"   name="to"  style="widht:40px;height: 60px;"  />
+           id="to"   name="to"  style="width:250px;height: 60px;"  />
     
     
  </div>
@@ -82,7 +60,7 @@ style="width:400px;height:380px;padding:10px">
 
 
             <div style="margin-bottom:10px">
-                <input class="easyui-textbox" label="เรื่อง:"  id="subject"   name="subject"   labelPosition="top" style="width:90%;height:60px">
+                <input class="easyui-textbox" label="เรื่อง:"  id="subject"   name="subject"   labelPosition="top" style="width:250px;height:60px">
             </div>
 
 <!--
@@ -94,7 +72,7 @@ style="width:400px;height:380px;padding:10px">
 
             <div style="margin-bottom:10px">
 
-                    <input class="easyui-datebox" label="วันที่/เดือน/ปี "  name="date"  id="date" labelPosition="top" style="width:80%;height:60px">
+                    <input class="easyui-datebox" label="วันที่/เดือน/ปี (ที่ลงรับ/ส่งเอกสาร)"  name="date"  id="date" labelPosition="top" style="width:80%;height:60px">
             </div>
 
 
@@ -110,8 +88,11 @@ style="width:400px;height:380px;padding:10px">
                  javascript:
 
                var   type_document= $('#type_document').val() ;
+       
                var   date=$('#date').val();
                var   to= $('#to').val();
+               
+               
 
                      //alert(type_document);
                      
@@ -249,6 +230,7 @@ style="width:400px;height:380px;padding:10px">
                                    { field:'registration',title:'เลขส่ง',align:'left'  },
                                    { field:'at',title:'เลขที่เอกสาร',align:'left' },
                                    { field:'date',title:'วันที่',align:'left' },
+                                   { field:'date_record',title:'วันที่ลงรับ/ส่งเอกสาร',align:'left' },
                                    {  field:'from',title:'จาก',align:'left' },
                                     {  field:'to',title:'ของ', align:'left' },
                                     {  field:'subject',title:'เรื่อง',align:'left' },
@@ -341,15 +323,7 @@ style="width:400px;height:380px;padding:10px">
                                {
                                       //alert(id_main1);
                                       $('#dia_insert_excellence').dialog('open');
-                                      /*
-                                           $('#at_receive21').textbox('setText',''); //เลขที่เอกสาร
-                                         $('#from_receive21').textbox('setText',''); //จาก       4
-                                         $('#to_receive21').textbox('setText',''); //ถึง        5
-                                         $('#subject_receive21').textbox('setText',''); //เรื่อง       6
-                                         $('#practice_receive21').textbox('setText',''); //การปฏฺิบัติ       7
-                                         $('#note_receive21').textbox('setText',''); //หมายเหตุ      8
- 
-                                      */
+                                      
                                       
                                         $('#registration_receive21').textbox('setValue',row.registration); //เลขรับ
                                         $('#at_receive21').textbox('setValue',row.at);  //เลขที่เอกสาร
@@ -396,15 +370,7 @@ style="width:400px;height:380px;padding:10px">
                                      //dia_insert_send_excellence
                                      $('#dia_insert_send_excellence').dialog('open');
                                      
-                                     /*
-                                                            $('#date1_send21').datebox('setValue','');  
-                                                          //   $('#to_send21').textbox('setText',''); //เลขที่เอกสาร
-                                                         //   $('#from_send21').textbox('setText',''); //จาก       4
-                                                         //   $('#to_send21').textbox('setText',''); //ถึง        5
-                                                        //    $('#subject_send21').textbox('setText',''); //เรื่อง       6
-                                                          //  $('#practice_send21').textbox('setText',''); //การปฏฺิบัติ       7
-                                                            $('#note_send21').textbox('setText',''); //หมายเหตุ      8
-                                     */
+                                    
                                      
                                          //alert(row.registration);
                                          $('#registration_send21').textbox('setText', '' );   
@@ -525,8 +491,9 @@ style="width:400px;height:380px;padding:10px">
             <input class="easyui-combobox" id="select_excellence" style="width:100px;height:60px;" data-options="
                  showItemIcon:true,
                  data:[
-                     { value:'1',text:'รับ',iconCls:'icon-edit',size:'large' },
-                     { value:'2',text:'ส่ง',iconCls:'icon-print',size:'large' },
+                     { value:'',text:'เลือก' },
+                     { value:'1',text:'รับ' },
+                     { value:'2',text:'ส่ง' },
                  ],
                  editable:false,
                  panelHeight:'auto',
@@ -682,12 +649,19 @@ style="width:400px;height:380px;padding:10px">
                                          $('#note_receive21').textbox('setText',''); //หมายเหตุ      8
 
                                          $('#dia_insert_excellence').dialog('close');
+                                         $('#dia_select_excellence').dialog('close');
+                                         
+                                         
 
                           }
                           else if( data == 0 )
                           {
                               $('#dia_insert_excellence').dialog('close');
                               $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','สถานะการบันทึกข้อมูลผิดพลาด','error');
+                              
+                              
+                                   $('#dia_insert_excellence').dialog('close');
+                                    $('#dia_select_excellence').dialog('close');
 
                           }
 
@@ -734,10 +708,15 @@ style="width:400px;height:380px;padding:10px">
                                          
                                          //$('#dia_insert_excellence').dialog('close');
                                        //  $('#dia_select_excellence').datagrid('reload');
+                                       
+                                       
+                                       $('#dia_insert_excellence').dialog('close');
+                                       $('#datagrid_excellence').datagrid('reload');
+                                       
                                          
-                                         $.messager.progress(); 
+                                        // $.messager.progress(); 
                                          
-                                         location.reload();
+                                     //   location.reload();
                                            
                                        //  $('#dia_insert_excellence').dialog('open');
                                       //  $('#dia_select_excellence').dialog('open'); 
@@ -760,7 +739,8 @@ style="width:400px;height:380px;padding:10px">
 
                             });
                             
-                            
+                                $('#dia_insert_excellence').dialog('close');
+                                $('#datagrid_excellence').datagrid('reload');
                             
                           }      
                                      
@@ -861,51 +841,49 @@ style="width:400px;height:380px;padding:10px">
                                    url:'<?=base_url()?>index.php/welcome/insert_tb_main1_send_3',
                                    success:function(data)
                                    {
-
                                                             $('#registration_send21').textbox('setText','');
                                                             $('#date1_send21').datebox('setValue','');  
-                                                    
                                                             $('#from_send21').textbox('setText',''); //จาก       4
                                                             $('#to_send21').textbox('setText',''); //ถึง        5
                                                             $('#subject_send21').textbox('setText',''); //เรื่อง       6
                                                             $('#practice_send21').textbox('setText',''); //การปฏฺิบัติ       7
-                                                            $('#note_send21').textbox('setText',''); //หมายเหตุ      8
-                                                     
+                                                            $('#note_send21').textbox('setText',''); //หมายเหตุ      8   
+  
+                                                           //  alert(data);
 
-                                                            // alert(data);
-                                                             
-                                                             
                                                             if( data == 1 )
                                                             {
-                                                            
-                                                                 $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลสำเร็จ','info');
+                                                                 $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลสำเร็จ','info'); 
+                                                                 $('#dia_insert_send_excellence').dialog('close');
+                                                                 $('#dia_select_excellence').dialog('close');
                                                                  
                                                                  
                                                             }
                                                             else if( data == 0   )
                                                             {
-                                                                  $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลสำเร็จ','error');
+                                                                  $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลผิดพลาด','error');
+                                                                  
+                                                                  $('#dia_insert_send_excellence').dialog('close');
+                                                                    $('#dia_select_excellence').dialog('close');
+                                                                  
                                                             }
-                                                            
-                                                            
-                                                            //  $('#dia_select_excellence').dialog('close');
-                                                              $('#dia_insert_send_excellence').dialog('close');
-                                                
-                                                
-                                                
+
+                                                           
+            
                                    }
                             });
                   
                       },
                       
             },
+            
             {
             text:'แก้ไข',
-            iconCls:'icon-edit',
+         
             size:'large',
             handler:function()
                     {
-                           //alert('t');
+                         
                            $('#f_insert_send_excellence').form('submit',{
                              url:'<?=base_url()?>index.php/welcome/update_tb_main1_send_3',
                              success:function(data)
@@ -925,7 +903,15 @@ style="width:400px;height:380px;padding:10px">
                                                             $('#subject_send21').textbox('setText',''); //เรื่อง       6
                                                             $('#practice_send21').textbox('setText',''); //การปฏฺิบัติ       7
                                                             $('#note_send21').textbox('setText',''); //หมายเหตุ      8 
-                                                            location.reload();
+                                                            
+                                                            
+                                                            $('#dia_insert_send_excellence').dialog('close');
+                                                            
+                                                            
+                                                            $('#datagrid_excellence').datagrid('reload');
+                                                            
+                                                            
+                                                       
                                                     }
                                   
                                                });
@@ -935,13 +921,17 @@ style="width:400px;height:380px;padding:10px">
                                                       $.messager.alert('สถานะการแก้ไขข้อมูล',' แ้ก้ไขข้อมูลผิดพลาด (Error Update!)  ','error');
                                                       //$('#registration_receive21').textbox('setText','');
                                                       
+                                                         $('#dia_insert_send_excellence').dialog('close');
+                                                         
                                     }
                              }
                              
                            });
                           
                     }
-            },
+            }
+            ,
+            
             {
                     text:'ปิด',
                     iconCls:'icon-cancel',

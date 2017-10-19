@@ -53,7 +53,23 @@ $active_record = TRUE;
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = '1234';
-$db['default']['database'] = 'docdb';
+$db['default']['database'] = 'docdb2';
+
+
+/*
+$db['default']['hostname'] = '10.87.196.210';
+$db['default']['username'] = 'root';
+$db['default']['password'] = 'his_trial';
+$db['default']['database'] = 'docdb2';
+*/
+
+
+/*
+$db['default']['hostname'] = '้้10.87.196.135';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '1234';
+$db['default']['database'] = 'docdb2';
+*/
 
 
 /*

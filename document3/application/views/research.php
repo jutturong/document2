@@ -1,7 +1,7 @@
 <div id="dlg_content_research" class="easyui-dialog" title="ศูนย์วิจัย ฯ "
 data-options="iconCls:'icon-print' , 
 closed:true,  "
-style="width:400px;height:350px;padding:10px">
+style="width:400px;height:380px;padding:10px">
 
     <form id="f_search_research"  method="post"   novalidate="novalidate"    enctype="multipart/form-data" >
 
@@ -73,7 +73,7 @@ style="width:400px;height:350px;padding:10px">
              labelWidth:'50px',
                   "
                   
-                  style="widht:40px;height: 60px;"/>
+                  style="width:250px;height: 60px;"/>
     
     
  </div>
@@ -90,10 +90,14 @@ style="width:400px;height:350px;padding:10px">
                   <input class="easyui-textbox" label="จาก/ถึง" labelPosition="top" style="width:90%;height:60px">
             </div>
             -->
+            
+            <div style="margin-bottom:10px">
+                <input class="easyui-textbox" label="เรื่อง:" labelPosition="top"   id="subject_research"   name="subject_research"  style="width:250px;height:60px">
+            </div>
 
             <div style="margin-bottom:10px">
 
-                <input class="easyui-datebox"    label="วันที่/เดือน/ปี "  name="date_research"  id="date_research" labelPosition="top" style="width:80%;height:60px">
+                <input class="easyui-datebox"    label="วันที่/เดือน/ปี (ที่ลงรับ/ส่ง เอกสาร) "  name="date_research"  id="date_research" labelPosition="top" style="width:80%;height:60px">
             </div>
             
 
@@ -161,7 +165,7 @@ style="width:400px;height:350px;padding:10px">
                                            
                                             $('#dia_datagrid_research').dialog('open');
                                             $('#datagrid_research').datagrid('loadData',data);
-                                            
+                                            $('#dlg_content_research').dialog('close');
                                             
                                             
                                      });
@@ -243,6 +247,7 @@ style="width:400px;height:350px;padding:10px">
                                    { field:'registration',title:'เลขส่ง',align:'left'  },
                                    { field:'at',title:'เลขที่เอกสาร',align:'left' },
                                    { field:'date',title:'วันที่',align:'left' },
+                                    { field:'date_record',title:'วันที่(ลงรับ/ส่งเอกสาร)',align:'left' },
                                    {  field:'from',title:'จาก',align:'left' },
                                     {  field:'to',title:'ของ', align:'left' },
                                     {  field:'subject',title:'เรื่อง',align:'left' },
@@ -437,8 +442,8 @@ style="width:400px;height:350px;padding:10px">
 
                                                                       //$.messager.alert('สถานะการลบขอ้มูล','ลบข้อมูลสำเร็จ');
 
-                                                                    //$('#datagrid_research').datagrid('reload');
-                                                                      location.reload();
+                                                                    $('#datagrid_research').datagrid('reload');
+                                                                    //  location.reload();
 
 
                                                                    }
@@ -483,8 +488,9 @@ style="width:400px;height:350px;padding:10px">
             <input class="easyui-combobox" id="select_research" style="width:100px;height:60px;" data-options="
                  showItemIcon:true,
                  data:[
-                     { value:'1',text:'รับ',iconCls:'icon-edit',size:'large' },
-                     { value:'2',text:'ส่ง',iconCls:'icon-print',size:'large' },
+                     { value:'',text:'เลือก' },
+                     { value:'1',text:'รับ' },
+                     { value:'2',text:'ส่ง'  },
                  ],
                  editable:false,
                  panelHeight:'auto',
@@ -625,15 +631,22 @@ style="width:400px;height:350px;padding:10px">
                                          $('#subject_research_receive21').textbox('setText',''); //เรื่อง       6
                                          $('#practice_research_receive21').textbox('setText',''); //การปฏฺิบัติ       7
                                          $('#note_research_receive21').textbox('setText',''); //หมายเหตุ      8
+                                         
+                                         
                                           $('#dia_insert_research').dialog('close');
-                                       //   $('#dia_select_research').dialog('close');
+                                         $('#dia_select_research').dialog('close');
 
                           }
                           else 
                           {
+                          
                                     // $('#dia_insert_research').dialog('close');
                                      $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลผิดพลาด ( Error  Insert )','error');
-                            
+                                     $('#dia_insert_research').dialog('close');
+                                     
+                                     $('#dia_select_research').dialog('close');
+                                     
+                                     
                           }
 
 
@@ -673,10 +686,15 @@ style="width:400px;height:350px;padding:10px">
                                                            $('#note_research_receive21').textbox('setText',''); //หมายเหตุ      8
 
 
-                                                           $.messager.progress();
-                                                           location.reload();
+                                                         //  $.messager.progress();
+                                                         //  location.reload();
                                                          //  $('#dia_insert_excellence').dialog('open');
                                                         //  $('#dia_select_excellence').dialog('open');
+                                                        
+                                                         $('#dia_select_research').dialog('close');
+                                                         $('#dia_insert_research').dialog('close');
+                                                         $('#datagrid_research').datagrid('reload');
+                                                        
 
                                                     }
                                         });
@@ -695,9 +713,12 @@ style="width:400px;height:350px;padding:10px">
 
                                       });
 
-                                       $.messager.progress();
-                                       location.reload();
+                                       //$.messager.progress();
+                                     //  location.reload();
 
+                                                         $('#dia_select_research').dialog('close');
+                                                         $('#dia_insert_research').dialog('close');
+                                                         $('#datagrid_research').datagrid('reload');
 
                                     }
 
@@ -819,13 +840,30 @@ style="width:400px;height:350px;padding:10px">
                                                              $('#dia_insert_send_research').dialog('close');
                                                          //    $('#dia_select_research').dialog('close');
                                                              
-                                                      
+                                                        //    $('#dia_insert_send_research').dialog('close');
+                                                            
+                                                           $('#dia_insert_send_research').dialog('close');
+                                                         //  $('#datagrid_excellence').datagrid('reload');
+                                                         
+                                                         $('#dia_select_research').dialog('close');
                                                  
                                                  
                                      }//end if
                                      else
                                      {
-                                             $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','สถานะการบันทึกข้อมูลผิดพลาด','error');
+                                                $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','สถานะการบันทึกข้อมูลผิดพลาด','error');
+                                             
+                                                $('#dia_insert_send_research').dialog('close');
+                                             //  $('#datagrid_excellence').datagrid('reload');
+                                                
+                                                
+                                              //   $('#dia_insert_send_research').dialog('close');
+                                              
+                                              
+                                                     $('#dia_insert_send_research').dialog('close');
+                                                
+                                                     $('#dia_select_research').dialog('close');
+                                                
                                      }
           
                                                 
@@ -866,8 +904,16 @@ style="width:400px;height:350px;padding:10px">
                                                             $('#subject_send21_research').textbox('setText',''); //เรื่อง       6
                                                             $('#practice_send21_research').textbox('setText',''); //การปฏฺิบัติ       7
                                                             $('#note_send21_research').textbox('setText',''); //หมายเหตุ      8
-                                                            $.messager.progress(); 
-                                                            location.reload();
+                                                         //   $.messager.progress(); 
+                                                         //   location.reload();
+                                                         
+                                                         
+                                                         $('#datagrid_research').datagrid('reload');
+                                                         
+                                                         $('#dia_insert_send_research').dialog('close');
+                                                         
+                                                         $('#dia_select_research').dialog('close');
+                                                         
                                                     }
 
                                                });
@@ -882,6 +928,13 @@ style="width:400px;height:350px;padding:10px">
                                                         msg:'บันทึกข้อมูลผิดพลาด (Error Insert)',
 
                                                       });
+                                                      
+                                                         $('#datagrid_research').datagrid('reload');
+                                                         
+                                                         $('#dia_insert_send_research').dialog('close');
+                                                         
+                                                         $('#dia_select_research').dialog('close');
+                                                         
                                     }
                                     
                                     

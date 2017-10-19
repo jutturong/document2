@@ -28,13 +28,13 @@ table, td, th {
 <table  style="width:1160px;" >
         <thead>
           <tr>
-              <th   >เลขส่ง</th>
-              <th      >วันที่</th>
-              <th   >จาก</th>
-              <th >ถึง</th>
-              <th  >เรื่อง</th>
-              <th   >ผู้รับ</th>
-              <th    >หมายเหตุ</th>
+              <th    ><font size="4">  เลขส่ง</font></th>
+              <th      ><font size="4"> วันที่</font></th>
+              <th   ><font size="4">จาก</font></th>
+              <th ><font size="4">ถึง</font></th>
+              <th  ><font size="4">เรื่อง</font></th>
+              <th   ><font size="4">ผู้รับ</font></th>
+              <th    ><font size="4">หมายเหตุ</font></th>
           </tr>
         </thead>
 
@@ -67,11 +67,11 @@ table, td, th {
           ?>
 
           <tr>
-              <td style="width:30px;"><?=$registration?></td>
-            <td  style="width:30px;"  ><?=$date?></td>
-            <td  style="width:200px;"><?=$from?></td>
-            <td style="width:200px;"><?=$to?></td>
-            <td  style="width:500px;"><?= $subject?></td>
+              <td style="width:30px;"><font size="4"><?=$registration?></font></td>
+            <td  style="width:30px;"  ><font size="4"><?=$date?></font></td>
+            <td  style="width:200px;"><font size="4"><?=$from?></font></td>
+            <td style="width:200px;"><font size="4"><?=$to?></font></td>
+            <td  style="width:500px;"><font size="4"><?= $subject?></font></td>
             <td style="width:100px;"></td>
             <td  style="width:100px;"></td>
           </tr>

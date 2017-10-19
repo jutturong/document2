@@ -1,0 +1,202 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset222 Thonburi;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww20340\viewh13600\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 datagrid_list_date_user\
+\
+\
+dia_list_date_user\
+\
+\
+\
+dia_form_sick\
+\
+\
+\
+
+\f1 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'9790\
+\{ text:'\'e1\'a1\'e9\'e4\'a2',  iconAlign:'top' ,  iconCls:'icon-edit',handler:function()\
+                                     \{      \
+                                            var  row=$('#datagrid_sick').datagrid('getSelected');\
+                                            if( row )\
+                                            \{\
+                                                var  id_sick=row.id_sick;\
+                                                 if( id_sick > 0  && parseInt(id_sick)   )\
+                                                 \{\
+                                                         var  url='<?=base_url()?>index.php/welcome/call_update_tbsick/' +   id_sick    ;\
+                                                         $.ajax(\{\
+                                                            url:url,\
+                                                            data:$('#fr_sick').serialize(),\
+                                                            //dataType:'text',\
+                                                            dataType:'json',\
+                                                            method:'post',\
+                                                         \}).done(function(data)\{                                                       \
+                    \
+                                                         \
+                         $('#sick1').textbox('setValue','');\
+                         $('#sick2').textbox('setValue','');\
+                        $('#total_sick').textbox('setValue','');\
+                          $('#sick_person1').textbox('setValue','');\
+                         $('#sick_person2').textbox('setValue','');\
+                            $('#total_sick_person').textbox('setValue');\
+                           $('#confined1').textbox('setValue','');\
+                          $('#confined2').textbox('setValue','');\
+                         $('#total_confined').textbox('setValue','');\
+                         $('#first_name_sick').textbox('setValue','');\
+                         $('#last_name_sick').textbox('setValue','');\
+                         $('#position_sick').textbox('setValue','');\
+                         $('#prename_sick').combobox('setValue','');\
+                         $('#count_date').numberbox('setValue','');\
+                         $('#sign_prename').combobox('setValue','');\
+                         $('#supervisor_sick1').attr('checked',false);\
+                         $('#supervisor_sick2').attr('checked',false);\
+                         $('#supervisor_agree1').attr('checked',false);\
+                         $('#supervisor_agree2').attr('checked',false);\
+                         $('#manager_allow1').attr('checked',false);\
+                         $('#manager_allow2').attr('checked',false);\
+                          $('#house_number').textbox('setValue','');\
+                          $('#road_sick').textbox('setValue','');\
+                          $('#district_sick').textbox('setValue','');\
+                          $('#district2_sick').textbox('setValue','');\
+                          $('#province_sick').textbox('setValue','');\
+                          $('#tel2_sick').textbox('setValue', ''  );\
+                          $('#count_date').numberbox('setValue','');\
+                          $('#begin_date1').datebox('setValue','');\
+                          $('#end_date1').datebox('setValue','');\
+                          $('#count_date2').numberbox('setValue','');\
+                          $('#begin_date2').datebox('setValue','');\
+                          $('#begin_date2').datebox('setValue','');\
+                          $('#end_date2').datebox('setValue','');\
+                           $('#me_leave1').attr('checked',false);\
+                          $('#me_leave2').attr('checked',false);\
+                          $('#me_leave3').attr('checked',false);\
+                          $('#disease1').attr('checked',false);\
+                          $('#disease_detail').textbox('setValue','');\
+                          $('#sick_disease1').attr('checked',false);\
+                          $('#sick_disease2').attr('checked',false);\
+                          $('#disease3').attr('checked',false);\
+                          $('#disease_person').textbox('setValue','');\
+                          $('#disease4').attr('checked',false);\
+                          $('#supervisor_sick2').attr('checked',false);\
+                          $('#sign_name').textbox('setValue','');\
+                          $('#sign_lastname').textbox('setValue','');\
+                          $('#sign_prename').combobox('setValue','');\
+                          $('#firstname3').textbox('setValue','');\
+                          $('#lastname3').textbox('setValue','');\
+                          $('#id_staff_sick').combogrid('setValue','');      \
+                          \
+                     \
+                        \
+                              $('#dia_main_sick').dialog('close');\
+                              $.each(data,function(v,k)\{\
+                                        var  prename=k.prename;\
+                                        $('#id_sick_update').textbox('setValue',k.id_sick);\
+                                        $('#prename_sick').combobox('setValue',prename);  \
+                                        $('#first_name_sick').textbox('setValue', k.first_name);\
+                                        $('#last_name_sick').textbox('setValue',k.last_name);\
+                                        $('#position_sick').textbox('setValue',k.position);\
+                                        $('#affiliation').textbox('setValue',k.affiliation);\
+                                        $('#work').textbox('setValue',k.work);\
+                                        $('#tel').textbox('setValue',k.tel);\
+                                        var  disease=k.disease;\
+                                        if( disease == '1' )   //\'bb\'e8\'c7\'c2\'b4\'e9\'c7\'c2\'e2\'c3\'a4\
+                                        \{\
+                                               $('#disease1').attr('checked',true);\
+                                        \}\
+                                        else if (   disease  == '3' )    //\'a1\'d4\'a8\'ca\'e8\'c7\'b9\'b5\'d1\'c7\
+                                        \{\
+                                                 $('#disease3').attr('checked',true);      \
+                                         \}  \
+                                         else if(  disease  == '4'     )   //  \'a4\'c5\'cd\'b4\'ba\'d8\'b5\'c3\
+                                         \{\
+                                                 $('#disease4').attr('checked',true);\
+                                          \}\
+                                          var  disease_detail=k.disease_detail;  //\'e0\'a1\'d5\'e8\'c2\'c7\'a2\'e9\'cd\'a7\'cb\'c3\'d7\'cd\'c1\'d5\'ca\'d2\'e0\'cb\'b5\'d8\'c1\'d2\'a8\'d2\'a1\
+                                          $('#disease_detail').textbox('setValue',disease_detail);\
+                                          var  sick_disease=k.sick_disease;  \
+                                          if(  sick_disease  == 1 )\
+                                          \{\
+                                               $('#sick_disease1').attr('checked',true);\
+                                          \}\
+                                           else if(  sick_disease  == 2 )\
+                                          \{\
+                                               $('#sick_disease2').attr('checked',true);\
+                                          \}                                          \
+                                          var  begin_date1=k.begin_date1; //\'b5\'d1\'e9\'a7\'e1\'b5\'e8\'c7\'d1\'b9\'b7\'d5\'e8\
+                                          $('#begin_date1').datebox('setValue',begin_date1);\
+                                          var  end_date1=k.end_date1;  \
+                                          $('#end_date1').datebox('setValue',end_date1);\
+                                          var  count_date=k.count_date;\
+                                          $('#count_date').numberbox('setValue',count_date);\
+                                          var  me_leave=k.me_leave;\
+                                        \
+                                          if(  me_leave  == 1 )  //\'bb\'e8\'c7\'c2\
+                                          \{\
+                                               $('#me_leave1').attr('checked',true);\
+                                          \}\
+                                          else if(  me_leave  == 2 )  //\'a1\'d4\'a8\'ca\'e8\'c7\'b9\'b5\'d1\'c7\
+                                          \{\
+                                               $('#me_leave2').attr('checked',true);\
+                                          \}\
+                                          else if(  me_leave  == 3 )     //me_leave3  \'a4\'c5\'cd\'b4\'ba\'d8\'b5\'c3\
+                                          \{\
+                                                $('#me_leave3').attr('checked',true);\
+                                          \}\
+                                          var  begin_date2=k.begin_date2;\
+                                          $('#begin_date2').datebox('setValue',begin_date2);\
+                                          var   end_date2=k.end_date2;\
+                                          $('#end_date2').datebox('setValue',end_date2);\
+                                          var    count_date2=k.count_date2;  //\'c1\'d5\'a1\'d3\'cb\'b9\'b4 \'a1\'d5\'e8\'c7\'d1\'b9  \'c5\'d2\'a4\'c3\'d1\'e9\'a7\'b7\'d5\'e8 2\
+                                          $('#count_date2').numberbox('setValue',count_date2);\
+                                          var  house_number=k.house_number;\
+                                          $('#house_number').textbox('setValue',house_number);\
+                                          var  road_sick=k.road;\
+                                          $('#road_sick').textbox('setValue', road_sick );\
+                                          var  district_sick=k.district;\
+                                          $('#district_sick').textbox('setValue',district_sick);\
+                                          var  district2_sick=k.district2;\
+                                          $('#district2_sick').textbox('setValue',district2_sick);\
+                                          var   province_sick=k.province;\
+                                          $('#province_sick').textbox('setValue',province_sick);\
+                                          var  tel2_sick=k.tel2;\
+                                          $('#tel2_sick').textbox('setValue',tel2_sick);\
+                                          var  sign_name=k.sign_name;\
+                                          $('#sign_name').textbox('setValue',sign_name);\
+                                          var  sign_lastname=k.sign_lastname;\
+                                          $('#sign_lastname').textbox('setValue',sign_lastname);\
+                                          var   sign_prename=k.sign_prename;\
+                                          if(  sign_prename == '\'b9\'d2\'c2' )\
+                                          \{\
+                                                $('#sign_prename').combobox('setValue',1);\
+                                          \}\
+                                          else  if(  sign_prename == '\'b9\'d2\'a7' )\
+                                          \{\
+                                                $('#sign_prename').combobox('setValue',2);\
+                                          \}\
+                                              else  if(  sign_prename == '\'b9\'d2\'a7\'ca\'d2\'c7' )\
+                                          \{\
+                                                $('#sign_prename').combobox('setValue',3);\
+                                          \}\
+                                          var  firstname3=k.firstname3;\
+                                          $('#firstname3').textbox('setValue',firstname3);\
+                                          var  lastname3=k.lastname3;\
+                                          $('#lastname3').textbox('setValue',lastname3); \
+                                          $('#sick1').textbox('setValue',k.sick1);\
+                                          $('#sick2').textbox('setValue',k.sick2);\
+                                          $('#total_sick').textbox('setValue',k.total_sick);\
+                                          $('#sick_person1').textbox('setValue',k.sick_person1);\
+                                          $('#sick_person2').textbox('setValue',k.sick_person2);\
+                                          $('#total_sick_person').textbox('setValue',k.total_sick_person);\
+                                          $('#confined1').textbox('setValue',k.confined1);\
+                                          $('#confined2').textbox('setValue',k.confined2);\
+                                          $('#total_confined').textbox('setValue',k.total_confined);\
+                                          $('#date_inspector').datebox('setValue',k.date_inspector);                                        \
+                              \});\
+                                                         \});    \
+                                                 \} \
+                                            \}\
+                                     \}                                    \
+                                     \},      }

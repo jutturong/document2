@@ -355,7 +355,7 @@
                                    }
                                    ,
                                    {
-                                      text:'แก้ไข',iconCls:'icon-edit',iconAlign:'top',size:'large',handler:function()
+                                      text:'ข้อมูลส่วนตัวรายบุคคล',iconCls:'icon-lock',iconAlign:'top',size:'large',handler:function()
                                       {   //begin function
                                                 //alert('t');
                                              var  row=$('#datagrid_sick').datagrid('getSelected');
@@ -447,7 +447,7 @@
                                   
                                   },
                                   {
-                                            text:'พิมพ์ใบลา',   iconAlign:'top'  ,   iconCls:'icon-print',handler:function()
+                                            text:'พิมพ์ใบลา/ยกเลิกวันลา',   iconAlign:'top'  ,   iconCls:'icon-print',handler:function()
                                         {
                                                     
                                                   //   $('#dia_list_date_user').dialog('open');
@@ -674,40 +674,33 @@
                size:'large',
                handler:function()
                {
-                       //alert('t');
+
                        $.ajax({
                           url:'<?=base_url()?>index.php/welcome/update_tbsick',
                           method:'post',
-                        // dataType:'text',
+                      //   dataType:'text',
                            dataType:'json',
-                          //data:$('fr_sick').serialize(),
-                          data:  $('#fr_sick').serialize(),    
-                          
+                          data:  $('#fr_sick').serialize(),     
                        }).done(function(data)
                        {
                                // alert(data);
-                               
-                               if(  $('#id_sick_update').textbox('getValue') > 0   )
-                               {
-                                        if( data.success == '1' )
+                                   
+                                    if( data.success == '1' )
                                         {
-                                               // alert('t');
-                                               //$('#dia_form_sick').dialog('close');
-                                               //  $.messager.alert('สถานะการแก้ไขข้อมูลสำเร็จ','แ้ก้ไขข้อมูลสำเร็จแล้ว','info');
+                                            
                                                $.messager.alert('สถานะการแก้ไขข้อมูล','แก้ไขข้อมูลสำเร็จ','info');
+                                               $('#dia_form_sick').dialog('close');
                                         }
                                         else if( data.success == 0 )
                                         {
-                                               //  alert('f');
-                                              // $('#dia_form_sick').dialog('close');
-                                              //  $.messager.alert('สถานะการแก้ไขข้อมูล',การแก้ไขข้อมูลผิดพลาด'','error');
-                                              $.messager.alert('สถานะการแก้ไขข้อผิดพลาด','แก้ไขข้อมูลผิดพลาด','error');
+                                              
+                                                $.messager.alert('สถานะการแก้ไขข้อผิดพลาด','แก้ไขข้อมูลผิดพลาด','error');
+                                                $('#dia_form_sick').dialog('close');
+                                                
                                         }
-                                 }
-                               
-                               
-                       });
-               }
+
+                       }); // end done function
+               }//end function handler
           },  
          {
                text:'ล้าง',
@@ -1986,6 +1979,7 @@
             rownumbers:true,
             
               toolbar:[
+              
                    {    text:'สั่งพิมพ์',
                          size:'large',
                          iconAlign:'top',
@@ -2009,7 +2003,53 @@
                            
                            } //end function
                    },
-                   
+                   {
+                             text:'ยกเลิกวันลา',
+                             iconCls:'icon-cancel',
+                             size:'large',
+                             iconAlign:'top',
+                             handler:function()
+                             {
+                                   // alert('t');
+                                   var  row=$('#datagrid_list_date_user').datagrid('getSelected');
+                                   if( row )
+                                   {//begin if
+                                       var  id_sick=row.id_sick;
+                                          //alert( id_sick );
+                                          if( id_sick > 0  )
+                                          {
+                                               $.messager.confirm('คุณแน่ใจว่าต้องการลบข้อมูล','คุณแน่ใจว่าต้องการลบข้อมูลหรือไม่',function(r){
+                                                     if( r )
+                                                     {
+                                                             //alert('t');
+                                                              var  url='<?=base_url()?>index.php/welcome/del_tbsick/' + id_sick ;
+                                                              //alert(url);
+                                                              $.post(url,function(data)
+                                                               {
+                                                                   // alert(data);
+                                                                   var  success=data.success;
+                                                                   //alert(success);
+                                                                   if(  success == 1 )
+                                                                   {
+                                                                                $.messager.alert('สถานะการลบข้อมูลสำเร็จ','ลบข้อมูลแล้ว','info');
+                                                                                $('#dia_list_date_user').dialog('close');
+                                                                                
+                                                                   }//end if
+                                                                   else {
+                                                                                $.messager.alert('สถานะการลบข้อมูลผิดพลาด','สถานะการลบข้อมูลผิดพลาด','error');
+                                                                                 $('#dia_list_date_user').dialog('close');
+                                                                                 
+                                                                   }//end if
+                                                               },'json'); //end post
+                                                              
+                                                     }
+                                               }); //end  function
+                                          }//end if
+                                          
+                                   }//end if
+                             }
+                         },
+                         
                    <?php
                        if(  $this->session->userdata("sess_permission")==1  )
                        {
@@ -2204,8 +2244,10 @@
                                    }//end if
                              } //end  menu
                          },
+                         
+                         /*
                          {
-                             text:'ลบข้อมูล',
+                             text:'ยกเลิกวันลา',
                              iconCls:'icon-cancel',
                              size:'large',
                              iconAlign:'top',
@@ -2250,6 +2292,8 @@
                                    }//end if
                              }
                          }
+                         */
+                         
                    <?php
                        }
                    ?>

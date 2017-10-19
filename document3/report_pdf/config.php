@@ -11,7 +11,7 @@
  $host="localhost";
 	  $us="root";
 	  $ps="1234";
-	  $DB="docdb";
+	  $DB="docdb2";
          
 
       //$DB="kkhp";
