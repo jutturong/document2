@@ -1118,6 +1118,55 @@ public function json_excellence()  //ศูนย์การดูแล AND ex
 			 echo json_encode($rows);
 }
 
+//http://10.87.196.170/document3/index.php/welcome/search_excellence_date_in  ค้นหาจากวันที่หนังสือเข้าและออก     ศูนย์การดูแลฯ
+ public function search_excellence_date_in()  //ค้นหาจากวันที่หนังสือเข้าและออก     ศูนย์การดูแลฯ
+         {
+                 $this->user_model->login();  //for checklogin
+               //  $date_book=trim($this->input->get_post("date_book")); //11/08/2017<br />
+                 
+                 
+                 
+                  $date_book=trim($this->input->get_post("date")); //11/08/2017<br />
+                if(   strlen(   $date_book  )  >  0 )
+                {
+                       $ex=explode("/",$date_book);
+                       $conv_date=   $ex[2]."-".$ex[0]."-".$ex[1];
+                }
+                else{
+                    
+                        $conv_date=  "";
+                }
+                
+                   $type_record=3;  //ของจริง
+                 //  $type_record=2; //simulate
+                //echo br();
+                
+                   $type_document=trim($this->input->get_post("type_document")); 
+                // echo br();
+                 
+                   
+             
+                $tb=$this->tb;
+               
+                 $q=$this->db->get_where($tb,array("date"=> $conv_date, "type_record"=>$type_record, "type_document"=>$type_document  ));  // ของจริง
+               //  $q=$this->db->get($tb,10);
+                 $num=$q->num_rows();
+                
+                
+                if( $num > 0 ) //พบการค้นหา
+               { 
+                                foreach($q->result() as $row)
+                                {
+                                    $rows[]=$row;
+                                }
+                                  echo  json_encode($rows);
+                }
+                
+     
+                
+
+         }
+
  public function search_excellence2()
         { //begin function
      
@@ -1604,15 +1653,17 @@ public function search_excellence()
                             $this->load->view("export",$data);
                     }
 
-
+                     //  http://10.87.196.170/document3/index.php/welcome/export_data2/2/2/11/01/2017
                        public function export_data2()// //ระบุแค่วันที่
                         {
                              $this->user_model->login();  //for checklogin
                              $this->db->order_by("id_main1","DESC");
 
                                 header('Content-Type: text/html; charset=utf-8');
-                                $type_record=trim($this->uri->segment(3));
-
+                           
+                               $type_record=trim($this->uri->segment(3));
+                               // echo br();
+                                
                                 $type_document=trim($this->uri->segment(4));
 
 
@@ -1627,14 +1678,22 @@ public function search_excellence()
                                    $y=trim($this->uri->segment(7));
                                    $conv_date=$y."-".$m."-".$d;
 
+                                  //echo   $conv_date;
+                                //   echo br();
 
-                               if(  strlen($conv_date) >  2  )
+                              if(  strlen($conv_date) >  2  )
                                {
+                                   
+                                   
                              $tb= $this->tb;
-                             $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"date"=>$conv_date));
+                             $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"date_record"=>$conv_date));
                    $data["title"]=$this->title;
                    $this->load->view("export",$data);
+                   
+                   
                                }
+                   
+                   
 
                         }
 
@@ -2454,6 +2513,60 @@ $data=array(
                        
                  
                }
+               
+        //------------------- ค้นหาจาก วันที่ลงรับหนังสือ       
+                public function search_research_date_in()  //ค้นหาจากวันที่หนังสือเข้าและออก     ศูนย์การดูแลฯ
+         {
+                 $this->user_model->login();  //for checklogin
+               //  $date_book=trim($this->input->get_post("date_book")); //11/08/2017<br />
+                 
+                 
+                 
+                  $date_book=trim($this->input->get_post("date_research")); //11/08/2017<br />
+                if(   strlen(   $date_book  )  >  0 )
+                {
+                       $ex=explode("/",$date_book);
+                       $conv_date=   $ex[2]."-".$ex[0]."-".$ex[1];
+                }
+                else{
+                    
+                        $conv_date=  "";
+                }
+                
+               // echo    $conv_date;
+               // echo br();
+                
+                  $type_record=2;  //ของจริง
+             
+         
+                
+                   $type_document=trim($this->input->get_post("type_document_research")); 
+                // echo br();
+                 
+                   
+             
+                $tb=$this->tb;
+               
+                $q=$this->db->get_where($tb,array("date"=> $conv_date, "type_record"=>$type_record, "type_document"=>$type_document  ));  // ของจริง
+               // $q=$this->db->get($tb,10);
+                 $num=$q->num_rows();
+                
+                
+                if( $num > 0 ) //พบการค้นหา
+               { 
+                                foreach($q->result() as $row)
+                                {
+                                    $rows[]=$row;
+                                }
+                                  echo  json_encode($rows);
+                }
+                
+     
+                
+
+         }
+               
+               
 
 
         //http://10.87.196.170/document2/index.php/welcome/home/search_research
@@ -3208,6 +3321,56 @@ $data=array(
 
         }
 
+        
+        
+        public function search_foundation_date_in()  //ค้นหาจากวันที่หนังสือเข้าและออก     ศูนย์การดูแลฯ
+         {
+                 $this->user_model->login();  //for checklogin
+               //  $date_book=trim($this->input->get_post("date_book")); //11/08/2017<br />
+                 
+                 
+                 
+                  $date_book=trim($this->input->get_post("date_foundation")); //11/08/2017<br />
+                if(   strlen(   $date_book  )  >  0 )
+                {
+                       $ex=explode("/",$date_book);
+                       $conv_date=   $ex[2]."-".$ex[0]."-".$ex[1];
+                }
+                else{
+                    
+                        $conv_date=  "";
+                }
+                
+                 $type_record=1;  //ของจริง
+                 //  $type_record=2; //simulate
+                //echo br();
+                
+                   $type_document=trim($this->input->get_post("type_document_foundation")); 
+                // echo br();
+                 
+                   
+             
+                $tb=$this->tb;
+               
+                 $q=$this->db->get_where($tb,array("date"=> $conv_date, "type_record"=>$type_record, "type_document"=>$type_document  ));  // ของจริง
+               //  $q=$this->db->get($tb,10);
+                 $num=$q->num_rows();
+                
+                
+                if( $num > 0 ) //พบการค้นหา
+               { 
+                                foreach($q->result() as $row)
+                                {
+                                    $rows[]=$row;
+                                }
+                                  echo  json_encode($rows);
+                }
+                
+     
+                
+
+         }
+        
         
         public function  search_foundation2()
         {
@@ -5225,18 +5388,26 @@ $data=array(
 
 
                                 $tb=$this->tb_vacation;
-                                $ck_insert=$this->db->insert($tb,$data); //ตรวจสอบการ insert
-                                //$ck_insert=1;
+                               $ck_insert=$this->db->insert($tb,$data); //ตรวจสอบการ insert
+                            // echo br();
+                             //   $ck_insert=1;
+                                
                               //  $ck_insert=0;
+                                
+                       
+                                 
+                                 
                                 if(  $ck_insert    )
                                    {
-                                                   echo 1;
+                                                     $id_vacation =  $this->db->insert_id();
+                                                     echo json_encode(array("success"=>1,"id_vacation"=>$id_vacation));
+                              
                                    }
                                    else
                                    {
-                                                  echo 0;
+                                                     echo json_encode(array("success"=>0));
                                    }
-
+                                
 
 
 

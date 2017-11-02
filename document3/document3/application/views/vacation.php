@@ -381,39 +381,54 @@
                    
                           //fr_vacation
                           $.ajax({
-                        
-                          
+
                               url:'<?=base_url()?>index.php/welcome/insert_vacation',
-                              
-                             // url:'<?=base_url()?>index.php/welcome/test',
-                              
-                              
+
                               
                               method:'post',
                               data:$('#fr_vacation').serialize(),
+                             // dataType:'text',
+                              dataType:'json',
                           
                           }).done(function(data)
                           {
                           
                                
-                               // alert(data);
+                                //alert(data);
+                                var  success=data.success;
+                                var  id_vacation=data.id_vacation;
+                                  //http://10.87.196.170/document2/report_pdf/docdb/report_vacation.php?id_vacation=96
+                               var  url='http://10.87.196.170/document2/report_pdf/docdb/report_vacation.php?id_vacation=' +  id_vacation   ;
                              
-                               
-                               
-                               
+                               /*
                                if(data=='1')
                                {
                                     $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลสำเร็จ','info');
                                     $('#datagrid_vacation').datagrid('reload');
                                      $('#dia_main_vacation').dialog('open');
-                                     $('#datagrid_vacation').datagrid('reload');
+                                     $('#datagrid_vacation').datagrid('reload');    
                                }
                                else if( data=='0' )
                                {
                                      $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','บันทึกข้อมูลผิดพลาด','error');
-                                     $('#datagrid_vacation').datagrid('reload');
+                                     $('#datagrid_vacation').datagrid('reload');   
                                }
+                               */
                                
+                                        if(success=='1')
+                                            {
+                                                  window.open(url);
+                                                  $.messager.alert('สถานะการบันทึกข้อมูล','บันทึกข้อมูลสำเร็จ','info');
+                                                 $('#datagrid_vacation').datagrid('reload');
+                                                  $('#dia_main_vacation').dialog('open');
+                                                  $('#datagrid_vacation').datagrid('reload');    
+                                            }
+                               else if( success=='0' )
+                               {
+                                     $.messager.alert('สถานะการบันทึกข้อมูลผิดพลาด','บันทึกข้อมูลผิดพลาด','error');
+                                     $('#datagrid_vacation').datagrid('reload');  
+                                     
+                               }
                                
                                
                                
