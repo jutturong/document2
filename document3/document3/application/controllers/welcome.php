@@ -534,7 +534,133 @@ class Welcome extends CI_Controller {
 		 $this->load->view("home",$data);
 	}
 
+        
+    //http://10.87.196.170/document3/index.php/welcome/search_special_calendar 
+    public function search_special_calendar() //ค้นหา วัน-เดือน-ปี แบบพิเศษ
+    {
+          $this->user_model->login();  //for checklogin
+           $sr2_id_academic=  $this->input->get_post("sr2_id_academic");  //ชื่อ อาจารย์
+         // echo br();
+            $sr_date_calendar =   $this->input->get_post("sr_date_calendar");  //วัน
+          //echo br();
+        
+         // echo br();
+         $sr_monht_calendar =  $this->input->get_post("sr_monht_calendar");  //เดือน
+      //  echo br();
+        
+           $sr_year_calendar=$this->input->get_post("sr_year_calendar");   //ปี
+        // echo br();
+         
+         $conv_year_calendar = $sr_year_calendar - 543;
+           $conv_year_calendar;
+        // echo br();
+          
+          
+          $tb="tb_calendar";
+          
+          
+           $begin_date=  $conv_year_calendar."-1-1";
+         // echo br();
+          $end_date= $conv_year_calendar."-11-31";
+         // echo br();
+          
+          
+          //ระบุแค่อาจารย์
+          if(  $sr2_id_academic   >  0  &&    $sr_date_calendar  == 0  &&   $sr_monht_calendar  == 0   )
+          { //if
+         // $q=$this->db->get_where($tb,array("id_academic"=>$sr2_id_academic));
+              //begin_date
+              //end_date
+                 $this->db->where("begin_date >= ",$begin_date);  
+                 $this->db->where("end_date <= ",$end_date);  
+                 $this->db->where("id_academic = ",$sr2_id_academic);  
+            
+                    $q=$this->db->get($tb);
+                    $num=$q->num_rows();
+                             if(  $num > 0  )
+                             {
+                                       foreach($q->result() as $row)
+                                       {
 
+                                             $rows[]=$row;
+                                       }
+                                         echo  json_encode($rows);
+                             }
+          } //end if
+          elseif(  $sr2_id_academic   >  0  &&    $sr_date_calendar  == 0  &&   $sr_monht_calendar  > 0    )  //ไม่ระบุวัน ระบุแค่เดือน
+          {
+               //  $this->db->where("begin_date  = ",$begin_date);  
+                $begin_date=$conv_year_calendar."-". $sr_monht_calendar."-1";
+                //echo br();
+                  $end_date=$conv_year_calendar."-". $sr_monht_calendar."-31";
+               // echo br();
+                
+                 $this->db->where("begin_date >= ",$begin_date);  
+                 $this->db->where("end_date <= ",$end_date);  
+                // $this->db->where("end_date <= ",$end_date);  
+                 $this->db->where("id_academic = ",$sr2_id_academic);  
+                 
+                    $q=$this->db->get($tb);
+  $num=$q->num_rows();
+                   if(  $num > 0  )
+                             {
+                                       foreach($q->result() as $row)
+                                       {
+
+                                             $rows[]=$row;
+                                       }
+                                         echo  json_encode($rows);
+                             }  
+          }
+          elseif(  $sr2_id_academic   >  0  &&    $sr_date_calendar  >  0  &&   $sr_monht_calendar  > 0   ) //ระบุทุกอย่าง
+          {
+               $begin_date= $conv_year_calendar."-".$sr_monht_calendar."-".$sr_date_calendar;
+                 $this->db->where("begin_date = ", $begin_date ); 
+                     $this->db->where("id_academic = ",$sr2_id_academic);  
+                     $q=$this->db->get($tb);
+                    $num=$q->num_rows();
+                       if(  $num > 0  )
+                             {
+                                       foreach($q->result() as $row)
+                                       {
+
+                                             $rows[]=$row;
+                                       }
+                                         echo  json_encode($rows);
+                             } 
+
+          }
+          elseif(  $sr2_id_academic   >  0   &&    $sr_date_calendar  >  0    &&   $sr_monht_calendar  == 0   )  //ถ้ามีการระบุแค่วัน
+          {
+              //  $this->db->where("begin_date = ", $begin_date ); 
+              // $begin_date= $conv_year_calendar."-".$sr_monht_calendar."-".$sr_date_calendar;
+               for($i=1;$i<=12;$i++)
+               {
+                   //  $this->db->where("begin_date = ", $begin_date );  
+                    $conv_begin_date=  $conv_year_calendar."-".$i."-".$sr_date_calendar;
+                  //  echo  br();
+                    $this->db->where("begin_date = ", $conv_begin_date ); 
+                    $this->db->where("id_academic = ",$sr2_id_academic);  
+                    $q=$this->db->get($tb);
+                       $num=$q->num_rows(); 
+                      if(  $num > 0  )
+                             {
+                                       foreach($q->result() as $row)
+                                       {
+
+                                             $rows[]=$row;
+                                       }
+                                         echo  json_encode($rows);
+                             } 
+               } //end for
+                
+          }
+          
+          
+          
+              
+          
+    }
 
 
 	//http://10.87.196.170/document2/index.php/welcome/json_academic
@@ -573,7 +699,7 @@ class Welcome extends CI_Controller {
               }     
         }
         
-         //http://10.87.196.170/document3/index.php/welcome/call_date_calendar
+  //http://10.87.196.170/document3/index.php/welcome/call_date_calendar
 public  function call_date_calendar()
 {
       $this->user_model->login();  //for checklogin

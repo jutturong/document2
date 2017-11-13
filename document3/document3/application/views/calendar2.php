@@ -38,10 +38,7 @@ $( document ).ready( function() {
                  
     }
     
-    
- 
-     
-    
+
     </script>
     
 
@@ -686,7 +683,7 @@ $( document ).ready( function() {
        iconCls:'icon-search',
        size:'large',
        buttons:[
-       
+           
           { text:'ค้นหา',iconCls:'icon-search',size:'large', 
               handler:function()
                  {  
@@ -730,7 +727,15 @@ $( document ).ready( function() {
                 }
            },
           { text:'ปิด',iconCls:'icon-cancel',size:'large',
-               handler:function(){   $('#dia_search_calendar').dialog('close');   }  }
+               handler:function(){   $('#dia_search_calendar').dialog('close');   }  
+          },
+          
+          /*
+          {
+              text:'เพิ่มการค้นหา', size:'large',iconCls:'icon-search',
+              
+          }
+          */
           
        ]
        
@@ -764,6 +769,7 @@ $( document ).ready( function() {
                           </div>
                     </div>
         
+        <!--
         <div  style="padding: 5px;">
             <input class="easyui-combobox"   data-options="
                    valueField:'id',
@@ -787,6 +793,8 @@ $( document ).ready( function() {
                    id="sr_activities"   name="sr_activities"
                    style="width:250px;height: 40px;"  />
         </div>
+        -->
+        
         
                 <div style="padding: 5px">
                         <input class="easyui-datebox"  
@@ -794,6 +802,49 @@ $( document ).ready( function() {
                                style="width:230px;height: 40px;" id="sr_begin_date"  name="sr_begin_date"  >
                </div>
         
+        <div style="padding: 5px" >
+            <a href="javascript:void(0)" class="easyui-linkbutton"  
+               onclick="
+                  javascript:
+                          
+                          
+                        
+                      // alert(  $('#sr_id_academic').combogrid('getValue')   );
+                
+                
+                        
+                        
+                       if(  $('#sr_id_academic').combogrid('getValue') == ''   )
+                       {
+                              $.messager.alert('พบข้อผิดพลาด ระบุข้อมูลของอาจารย์ก่อน','ระบุชื่ออาจารย์ที่ต้องการค้นหา','error');
+                           
+                       }
+                       else{
+                           
+                             $('#dia_search_list1').dialog('open');     
+                             $('#sr2_id_academic').combogrid('setValue',   $('#sr_id_academic').combogrid('getValue') ) ;
+                           
+                       }
+                       
+              
+                       
+                        /*  
+                     $('#dia_search_list1').dialog('open');     
+                       */
+                          
+               "               
+               
+               style="width: 130px;height: 40px;"  data-options=" iconCls:'icon-search',size:'large',  " > เพิ่มการค้นหา </a>
+        </div>
+        
+        <!--
+        <div style="padding: 5px">
+            
+            <a href="javascript:void(0)" class="easyui-linkbutton"   >  
+               แยกการค้นหา วัน/เดือน/ปี เพิ่มเติม
+            </a>
+        </div>
+        -->
         
 
           </form>
@@ -802,3 +853,208 @@ $( document ).ready( function() {
 </div>
 <!-- dialog การค้นหากิจกรรม -->
 
+
+<!-- dialog เพิ่มการค้นหา -->
+<div class="easyui-dialog"
+     data-options="
+        closed:true,
+        iconCls:'icon-search',
+        title:'ค้นหาตารางงานแบบพิเศษ',
+        buttons:[
+           { text:'ค้นหา',iconCls:'icon-search',size:'large',handler:function()
+                { 
+                      // alert('t');
+                      var  url='<?=base_url()?>index.php/welcome/search_special_calendar ';
+                      //fr_sr_special
+                
+                      $.ajax({
+                         url:url,
+                         data: $('#fr_sr_special').serialize(),
+                       //  dataType:'text',
+                       dataType:'json',
+                         method:'post',
+                         
+                         
+                      }).done(function(data){
+                        // alert(data);
+                         
+                         // $('#datagrid_detail_main').datagrid('reload'); 
+                         
+                         $('#dia_detail_main').dialog('open');
+                         $('#datagrid_detail_main').datagrid('loadData',data); 
+                         
+                      }); //end function
+                      
+                }
+                
+                 },
+                 {
+                    text:'ล้่าง',
+                    iconCls:'icon-ok',
+                    size:'large',
+                    handler:function()
+                      {
+                             $('#sr_date_calendar').combobox('setValue','');
+                             $('#sr_monht_calendar').combobox('setValue','');
+                          //   $('#sr_year_calendar').textbox('setValue','');
+                      }
+                 },
+           {  text:'ปิด',iconCls:'icon-cancel', size:'large'  , handler:function()
+                { 
+                    $('#dia_search_list1').dialog('close'); 
+                }
+                
+            }
+        ]
+        
+     "
+     style="width:500px;height: 200px;padding: 5px;"
+     id="dia_search_list1"
+     >
+     
+    <!-- http://jeasyui.com/documentation/index.php# -->
+    
+<form id="fr_sr_special">
+    
+      <div style="padding: 5px">
+          <div class="easyui-combogrid" data-options="
+                   url:'<?=base_url()?>index.php/welcome/json_academic',
+                   method:'post',
+                   label:'อาจารย์ : ',
+                   
+                   labelAlign:'right',
+                   textField:'firstname_academic',
+                   idField:'id_academic',
+                   labelWidth:'70px',
+                  columns:[[
+                     { field:'firstname_academic',title:'ชื่อ', },
+                     { field:'lastname_academic',title:'นามสกุล',  }
+                    
+                  ]]
+                   
+                  "  id="sr2_id_academic"  name="sr2_id_academic"  style="width:300px;height: 40px;"  >
+                  
+              </div>
+          
+      </div>
+    
+       <div style="padding: 5px">
+    <select class="easyui-combobox" 
+            data-options="
+            labelPosition:'left',
+            label:'ตั้งแต่ วันที่ : ',
+            labelWidth:'50px',
+            labelAlign:'right',
+            textField:'text',
+            valueField:'id',
+            data:[
+             { 'id':0,'text':'ไม่ระบุ'  },
+             { 'id':1,'text':1  },
+             { 'id':2,'text':2  },
+             { 'id':3,'text':3  },
+             { 'id':4,'text':4  },    
+             { 'id':5,'text':5  },  
+             { 'id':6,'text':6  }, 
+             { 'id':7,'text':7  }, 
+             { 'id':8,'text':8  }, 
+             { 'id':9,'text':9  }, 
+             { 'id':10,'text':10  }, 
+             { 'id':11,'text':11  }, 
+             { 'id':12,'text':12  }, 
+                { 'id':13,'text':13  }, 
+                  { 'id':14,'text':14  }, 
+                    { 'id':15,'text':15  }, 
+                      { 'id':16,'text':16  }, 
+                        { 'id':17,'text':17  }, 
+                          { 'id':18,'text':18  }, 
+                          { 'id':19,'text':19  }, 
+                           { 'id':20,'text':20  }, 
+                            { 'id':21,'text':21  }, 
+                             { 'id':22,'text':22  }, 
+                              { 'id':23,'text':23  }, 
+                      { 'id':24,'text':24  }, 
+          { 'id':25,'text':25  }, 
+                { 'id':26,'text':26  }, 
+                   { 'id':27,'text':27  }, 
+                   { 'id':28,'text':28  }, 
+                       { 'id':29,'text':29  }, 
+                           { 'id':30,'text':30  }, 
+                       { 'id':31,'text':31  }, 
+            ]
+            
+           
+            
+            "
+            style="width: 140px;height: 40px;"
+            id="sr_date_calendar"
+            name="sr_date_calendar"
+            >
+        
+    </select>
+    
+    <select   class="easyui-combobox"
+             data-options="
+             labelPosition:'left',
+               label:'เดือน : ',
+               labelAlign:'right',
+               labelWidth:'60px',
+               textField:'text',
+               valueField:'id',
+               data:[
+                   { id:0,text:'ทั้งหมด'  },
+                   { id:'1',text:'มกราคม'  },
+                   { id:'2',text:'กุมภาพันธ์'  },
+                   { id:'3',text:'มีนาคม'  },
+                   { id:'4',text:'เมษายน'  },
+                   { id:'5',text:'พฤษภาคม'  },
+                   { id:'6',text:'มิถุนายน'  },
+                   { id:'7',text:'กรกฎาคม'  },
+                   { id:'8',text:'สิงหาคม'  },
+                   { id:'9',text:'กันยายน'  },
+                   { id:'10',text:'ตุลาคม'  },
+                   { id:'11',text:'พฤศจิกายน'  },
+                   { id:'12',text:'ธันวาคม'  },
+                   
+               ]
+             " 
+              id="sr_monht_calendar"
+              name="sr_monht_calendar"
+             style="width:160px;height: 40px;"
+              >
+        
+    </select>
+    
+    
+    <input class="easyui-textbox" 
+           data-options="
+           label:'ปี : ',
+           labelAlign:'right',
+           labelWidth:'80px',
+           
+           "
+           id="sr_year_calendar"
+           name="sr_year_calendar"
+           style="width: 140px;height: 40px;"  >
+    
+       </div>
+    
+    
+    </form>
+    
+</div>
+<!-- dialog เพิ่มการค้นหา -->
+
+<script type="text/javascript" >
+    
+    $(function(){
+        //alert( getUTCFullYear()  );
+        //alert(  getFullYear()  );
+        var  d=new Date();
+        var  y=d.getFullYear('Y');
+        var  y_thai=y+543;
+        //alert( y_thai );
+        $('#sr_year_calendar').textbox('setValue',y_thai);
+    
+        
+    });   
+ </script>
