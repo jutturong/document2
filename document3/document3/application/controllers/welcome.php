@@ -557,7 +557,10 @@ class Welcome extends CI_Controller {
           
           
           $tb="tb_calendar";
+          //tb_calendar     id_academic
           
+          //`tb_academic`   id_academic
+          $tbj1="tb_academic";
           
            $begin_date=  $conv_year_calendar."-1-1";
          // echo br();
@@ -571,11 +574,21 @@ class Welcome extends CI_Controller {
          // $q=$this->db->get_where($tb,array("id_academic"=>$sr2_id_academic));
               //begin_date
               //end_date
-                 $this->db->where("begin_date >= ",$begin_date);  
-                 $this->db->where("end_date <= ",$end_date);  
-                 $this->db->where("id_academic = ",$sr2_id_academic);  
-            
-                    $q=$this->db->get($tb);
+              
+             
+                
+                
+                 $this->db->where($tb.".begin_date >= ", $begin_date);  
+                 $this->db->where($tb.".end_date <= ", $end_date);  
+                 $this->db->where($tb.".id_academic = ", $sr2_id_academic);  
+                 
+                 $this->db->join($tbj1,$tb.".id_academic=". $tbj1.".id_academic","left");
+               
+                 
+                 
+                      $q=$this->db->get($tb);
+                     
+                      
                     $num=$q->num_rows();
                              if(  $num > 0  )
                              {
@@ -594,11 +607,16 @@ class Welcome extends CI_Controller {
                 //echo br();
                   $end_date=$conv_year_calendar."-". $sr_monht_calendar."-31";
                // echo br();
+                  
+                  //
                 
-                 $this->db->where("begin_date >= ",$begin_date);  
-                 $this->db->where("end_date <= ",$end_date);  
+                 $this->db->where($tb.".begin_date >= ",  $begin_date);  
+                 $this->db->where($tb.".end_date <= ",  $end_date);  
                 // $this->db->where("end_date <= ",$end_date);  
-                 $this->db->where("id_academic = ",$sr2_id_academic);  
+                 $this->db->where($tb.".id_academic = ",  $sr2_id_academic);  
+                  $this->db->join($tbj1,$tb.".id_academic=".$tbj1.".id_academic","left");
+               
+                 
                  
                     $q=$this->db->get($tb);
   $num=$q->num_rows();
@@ -615,8 +633,15 @@ class Welcome extends CI_Controller {
           elseif(  $sr2_id_academic   >  0  &&    $sr_date_calendar  >  0  &&   $sr_monht_calendar  > 0   ) //ระบุทุกอย่าง
           {
                $begin_date= $conv_year_calendar."-".$sr_monht_calendar."-".$sr_date_calendar;
-                 $this->db->where("begin_date = ", $begin_date ); 
-                     $this->db->where("id_academic = ",$sr2_id_academic);  
+               
+                  
+                     
+                     
+                 $this->db->where($tb.".begin_date = ", $begin_date ); 
+                     $this->db->where($tb.".id_academic = ", $sr2_id_academic);  
+                     $this->db->join($tbj1,$tb.".id_academic=".$tbj1.".id_academic","left");   
+                 
+                       
                      $q=$this->db->get($tb);
                     $num=$q->num_rows();
                        if(  $num > 0  )
@@ -639,8 +664,15 @@ class Welcome extends CI_Controller {
                    //  $this->db->where("begin_date = ", $begin_date );  
                     $conv_begin_date=  $conv_year_calendar."-".$i."-".$sr_date_calendar;
                   //  echo  br();
-                    $this->db->where("begin_date = ", $conv_begin_date ); 
-                    $this->db->where("id_academic = ",$sr2_id_academic);  
+                    
+                   
+                       
+                       
+                    $this->db->where($tb.".begin_date = ", $conv_begin_date ); 
+                    $this->db->where($tb.".id_academic = ",$sr2_id_academic);  
+                     $this->db->join($tbj1,$tb.".id_academic=".$tbj1.".id_academic","left"); 
+                   
+                      
                     $q=$this->db->get($tb);
                        $num=$q->num_rows(); 
                       if(  $num > 0  )
