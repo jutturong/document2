@@ -2304,7 +2304,10 @@
                  { field:'end_date1', title:'ลาถึงวันที่',  },
                  
                
-                  { field:'total_sick', title:'วันลาป่วย', },
+                // { field:'total_sick', title:'วันลาป่วย', },
+                  
+            { field:'count_date', title:'วันลาป่วย', },
+                   
                   {  field:'total_sick_person', title:'วันลากิจ' },
                   {  field:'total_confined', title:'วันลาคลอด' },
                

@@ -49,13 +49,25 @@ table, td, th {
                      $str2=" SELECT    *    FROM    $tb_sick   WHERE  `first_name`='$name'     ";
                    // echo br();
                      $query2=$this->db->query( $str2);
+                     
+                     $total_count_date = 0;
+                     
                      $num=$query2->num_rows();
                      if( $num > 0)
                      {
                      foreach($query2->result() as $row)
                        {
                               $total_sick=$row->total_sick;
+                              
+                                            $count_date=$row->count_date;  //วันลาป่วยทั้้งหมด
+                              $total_count_date +=  $count_date;
+                              
+                              
+                              
                               $total_sick_person=$row->total_sick_person;
+                             
+                
+                                      
                               $total_confined=$row->total_confined;
                        }
                      }
@@ -74,7 +86,13 @@ table, td, th {
 
           <tr>
               <td style="width:200px; " align="left" ><?=nbs(3)?><?=$name?><?=nbs(5)?><?= $lastname?></td>
+              
+              <!--
               <td  style="width:100px;"    align="center"  ><?=$total_sick?></td>
+               -->
+              
+                 <td  style="width:100px;"    align="center"  ><?=$total_count_date?></td>
+              
               <td  style="width:100px;"    align="center"  ><?=$total_sick_person?></td>
               <td  style="width:100px;"    align="center"  ><?=$total_confined?></td>
           </tr>
