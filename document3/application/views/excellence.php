@@ -72,9 +72,63 @@ style="width:400px;height:380px;padding:10px">
 
             <div style="margin-bottom:10px">
 
-                    <input class="easyui-datebox" label="วันที่/เดือน/ปี (ที่ลงรับ/ส่งเอกสาร)"  name="date"  id="date" labelPosition="top" style="width:80%;height:60px">
-            </div>
+                    <input class="easyui-datebox" label="วันที่/เดือน/ปี (ที่ลงรับ/ส่งเอกสาร)"  name="date"  id="date" labelPosition="top" style="width:60%;height:60px">
+                    
 
+                                  <a ้ href="javascript:void(0)"   class="easyui-linkbutton"  
+                        data-options="  
+                        plain:false,
+                        size:'large',
+                        iconCls:'icon-search',
+                        "  
+                        onclick="
+                            javascript:
+                                 
+                             if( $('#date').datebox('getValue')  == ''  )
+                             {
+                                   $.messager.alert('ระบุ วัน/เดือน/ปี ก่อน','ระบุ วัน/เดือน/ปี ก่อน','err');
+                                 
+                             }
+                             else
+                             {
+                                   $('#dia_select1_dmy').dialog('open');
+                                   $('#date_book').datebox('setValue', $('#date').datebox('getValue') );
+                             }
+                             
+                            
+                        "
+                        style="width:120px;height: 40px;"
+                        >เพิ่มการค้นหา</a>
+                
+                    
+            </div>
+  
+  <!--
+  <div style="margin-bottom:10px">
+        
+                        <input class="easyui-switchbutton"  
+                                         data-options="
+                                           checked:false,
+
+                                           offText:'ปิด',
+                                           onText:'เปิด',
+                                           onChange:function(checked)
+                                           {
+                                               // console.log(checked);
+                                               //alert('t');
+                                                $('#dia_select1_dmy').dialog('open');
+                                                //date
+                                                //date_book
+
+                                                $('#date_book').datebox('setValue', $('#date').datebox('getValue') );
+
+                                           }
+                                         "
+                                         style="width:80px;height: 35px;"
+                                         > ค้นหาจากวัน/เดือน/ปี ของหนังสือ
+                 
+  </div>
+-->
 
 
 
@@ -1000,3 +1054,50 @@ style="width:400px;height:380px;padding:10px">
 <!-- หนังสือส่งออก   Dialog      ศูนย์การดูแล ฯ  And Excellence  -->
 
 <!--    ----------------------------------END  Excellence -------------------------------------------------------------->
+
+
+<!--  เพิ่มการค้นหา จากวันเดือนปี ที่ลงหนังสือ -->
+<div class="easyui-dialog"
+     data-options="
+       closed:true,
+       iconCls:'icon-man',
+       size:'large',
+       title:'ค้นหาจาก วัน/เดือน/ปี ที่ลง  รับ/ส่ง ',
+       buttons:[
+         {  text:'ค้นหา', iconCls:'icon-search',plain:true,
+                    handler:function()
+                     {   
+                            var  url='<?=base_url()?>index.php/welcome/search_excellence_date_in';
+                           // alert(url);
+                          //   $.post(url , $('#sr_excellence_in_book').serialize() ,function(data)
+                          
+                          
+                          
+                            $.post(url , $('#f_search_excellence').serialize() ,function(data)
+                            {
+                                     //alert(data);
+                                     //datagrid_excellence
+                                     $('#dia_datagrid_excellence').dialog('open');
+                                     $('#datagrid_excellence').datagrid('loadData',data);    
+                            },'json'); //end post  function
+                            
+                            
+                            
+                     }    
+         },
+         {  text:'ปิด',  iconCls:'icon-cancel' , plain:true  ,size:'large',handler:function(){  $('#dia_select1_dmy').dialog('close'); }  },
+       ]
+     "
+     id="dia_select1_dmy"
+     style="width:300px;height:170px;"
+     >
+    
+    <form id="sr_excellence_in_book"  >
+    
+     <div style="margin-bottom:5px ;margin-left: 15px;">
+         <input class="easyui-datebox" label="วันที่/เดือน/ปี (ที่ลงรับ/ส่งเอกสาร)"  readonly="true"    name="date_book"  id="date_book" labelPosition="top" style="width:60%;height:60px">
+    </div>
+      
+     </form>
+</div>
+<!--  เพิ่มการค้นหา จากวันเดือนปี ที่ลงหนังสือ -->

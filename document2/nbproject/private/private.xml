@@ -5,7 +5,6 @@
         <group>
             <file>file:/var/www/html/document3/application/views/foundation.php</file>
             <file>file:/var/www/html/document3/application/controllers/welcome.php</file>
-            <file>file:/var/www/html/document3/application/views/excellence.php</file>
             <file>file:/var/www/html/document3/application/views/research.php</file>
         </group>
     </open-files>

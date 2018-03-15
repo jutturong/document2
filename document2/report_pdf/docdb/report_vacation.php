@@ -407,7 +407,7 @@ $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' , " [ / ] เจ้าหน้�
 
         //-------------begin------ในปีนี้ลามาแล้ว------------------------------------------------
                $pdf->setXY( $x1+50 , $y1 + 85 );
-            $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' , "ในปีนี้ลามาแล้ว"   ),'C',false);
+            $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' , "ในปีนี้ลามาแล้ว "  ),'C',false);
               $pdf->Cell(  10  ,  8 , iconv( 'UTF-8','cp874' ,  $current   ),1,0,'C',false);
                $pdf->setXY( $x1+120 , $y1 + 85 );
              $pdf->Cell(  10  ,  10 , iconv( 'UTF-8','cp874' , "วันทำการ"   ),0,'C',false);
@@ -461,7 +461,8 @@ $pdf->Cell(  40  ,  10 , iconv( 'UTF-8','cp874' , " [ / ] เจ้าหน้�
 
                   $pdf->setXY( $x1+10 , $y1 + 175 );
                   $pdf->SetFont('angsana','',14);
-                  $pdf->Cell(  30  ,  10 , iconv( 'UTF-8','cp874' , $leave   ),BLR,0,'C',false);
+                  //$pdf->Cell(  30  ,  10 , iconv( 'UTF-8','cp874' , $leave   ),BLR,0,'C',false);
+                  $pdf->Cell(  30  ,  10 , iconv( 'UTF-8','cp874' , $current  ),BLR,0,'C',false);
 
 
                   $pdf->setXY( $x1+40 , $y1 + 155 );

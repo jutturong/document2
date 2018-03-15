@@ -48,6 +48,9 @@ table, td, th {
 
                     $registration=$row->registration;
                     $date=$row->date;
+                    
+                  // $date=$row->date_record;
+                    
                     $from=$row->from;
                     $to=$row->to;
                     $subject=$row->subject;

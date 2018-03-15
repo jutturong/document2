@@ -68,7 +68,37 @@ style="width:400px;height:380px;padding:10px">
 
             <div style="margin-bottom:10px">
 
-                <input class="easyui-datebox"    label="วันที่/เดือน/ปี (วันที่รับส่งเอกสาร)"  name="date_foundation"  id="date_foundation" labelPosition="top" style="width:80%;height:60px">
+                <input class="easyui-datebox"    label="วันที่/เดือน/ปี (วันที่รับส่งเอกสาร)"  name="date_foundation"  id="date_foundation" labelPosition="top" style="width:60%;height:60px">
+                
+                  <a ้ href="javascript:void(0)"   class="easyui-linkbutton"  
+                        data-options="  
+                        plain:false,
+                        size:'large',
+                        iconCls:'icon-search',
+                        "  
+                        onclick="
+                            javascript:
+                                 
+                             if( $('#date_foundation').datebox('getValue')  == ''  )
+                             {
+                                   $.messager.alert('ระบุ วัน/เดือน/ปี ก่อน','ระบุ วัน/เดือน/ปี ก่อน','err');
+                                 
+                             }
+                             else
+                             {
+                                  
+                                   $('#dia_select1_dmy_foundation').dialog('open');
+                                   $('#date_book_foundation').datebox('setValue', $('#date_foundation').datebox('getValue') );
+                                  
+                             }
+                             
+                            
+                        "
+                        style="width:120px;height: 40px;"
+                        >เพิ่มการค้นหา</a>
+                
+                
+                
             </div>
 
 
@@ -205,6 +235,9 @@ style="width:400px;height:380px;padding:10px">
                                    { field:'ck',checkbox:true, },
                                    { field:'registration',title:'เลขส่ง',align:'left'  },
                                    { field:'at',title:'เลขที่เอกสาร',align:'left' },
+                                   
+                                      { field:'date_record',title:'วันทีลง รับ/ส่ง',align:'left' },
+                                   
                                    { field:'date',title:'วันที่',align:'left' },
                                    {  field:'from',title:'จาก',align:'left' },
                                     {  field:'to',title:'ของ', align:'left' },
@@ -1023,3 +1056,58 @@ style="width:400px;height:380px;padding:10px">
 </div>
 
 <!-- หนังสือส่งออก   Dialog      ศูนย์การดูแล ฯ  And Excellence  -->
+
+
+
+
+<!--  เพิ่มการค้นหา จากวันเดือนปี ที่ลงหนังสือ -->
+<div class="easyui-dialog"
+     data-options="
+       closed:true,
+       iconCls:'icon-man',
+       size:'large',
+       title:'ค้นหาจาก วัน/เดือน/ปี ที่ลง  รับ/ส่ง ',
+       buttons:[
+         {  text:'ค้นหา', iconCls:'icon-search',plain:true,
+                    handler:function()
+                     {   
+                            var  url='<?=base_url()?>index.php/welcome/search_foundation_date_in';
+                           // alert(url);
+                          //   $.post(url , $('#sr_excellence_in_book').serialize() ,function(data)
+                          
+                          
+                          
+                            $.post(url , $('#f_search_foundation').serialize() ,function(data)
+                            {
+                                   // alert(data);
+                                     
+                                
+                                       
+                                       $('#dia_datagrid_foundation').dialog('open');
+                                       $('#datagrid_foundation').datagrid('loadData',data);
+                                       
+                                     
+                                       
+                                       
+                            },'json'); //end post  function
+                            
+                            
+                            
+                     }    
+         },
+         {  text:'ปิด',  iconCls:'icon-cancel' , plain:true  ,size:'large',handler:function(){  $('#dia_select1_dmy_foundation').dialog('close'); }  },
+       ]
+     "
+     id="dia_select1_dmy_foundation"
+     style="width:300px;height:170px;"
+     >
+    
+   
+    
+     <div style="margin-bottom:5px ;margin-left: 15px;">
+         <input class="easyui-datebox" label="วันที่/เดือน/ปี (ที่ลงรับ/ส่งเอกสาร)"  readonly="true"    name="date_book_foundation"  id="date_book_foundation" labelPosition="top" style="width:60%;height:60px">
+    </div>
+      
+    
+</div>
+<!--  เพิ่มการค้นหา จากวันเดือนปี ที่ลงหนังสือ -->

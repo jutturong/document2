@@ -8,10 +8,10 @@
 
 */
 
- $host="10.87.196.210";
+ $host="localhost";
 	  $us="root";
-	  $ps="his_trial";
-	  $DB="financial_donation";
+	  $ps="1234";
+	  $DB="docdb";
          
 
       //$DB="kkhp";

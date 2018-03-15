@@ -96,10 +96,18 @@
                                               <!--
                                               <div data-options="iconCls:'icon-foundation'"    onclick="javascript:   $('#panel_foundation').panel('open'); $('#panel_excellence').panel('close'); $('#panel_research').panel('close');   " >มูลนิธิตะวันฉาย ฯ</div>
                                               -->
-                                              
+                                             
+                                             <!--  search  3 function หนังสือ รับ/ส่ง จากไฟล์ search3fucntion -->
+                                             
+                                          <div data-options="iconCls:'icon-man'"    onclick="  javascript: $('#dia_sr3fc').dialog('open');   " >ค้นหาเอกสาร รับ/ส่ง ทั้งหมด</div>
+                                         
                                        
                                        
                                        </div>
+                                       
+                                       
+                                       
+                                       
                              </div>
 
 
@@ -123,7 +131,10 @@
                             </div>
                            -->
                            
-                           <div data-options="  iconCls:'icon-man'  "  onclick=" javascript: $('#dia_main_calendar2').dialog('open');  "  >
+                           <div data-options="  iconCls:'icon-man'  "  onclick=" javascript: 
+                                       $('#dia_main_calendar2').dialog('open'); 
+                                       $('#load_calendar').load('<?=base_url()?>index.php/welcome/load_calendar');
+                                "  >
                                   ตารางงาน
                             </div>
                            
@@ -276,11 +287,12 @@
           <!--  ใบลาป่วย -->
           
           <!--  กิจกรรมทางวิชาการ -->
-            <?php  //   $this->load->view("calendar"); ?>
+            
             <?php   $this->load->view("calendar2"); ?>
             <!--  กิจกรรมทางวิชาการ -->
             
           
+            <?php   $this->load->view("search3function");  ?>
 
 </body>
 

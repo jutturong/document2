@@ -52,6 +52,8 @@ class Welcome extends CI_Controller {
 		  //$this->load->view("home",$data);
 		 $this->load->view("login",$data);
 	}
+        
+        
 
                  public   function  checklogin()
                  {
@@ -107,6 +109,15 @@ class Welcome extends CI_Controller {
                       }
 
                  }
+                 
+                  #http://10.87.196.170/document3/index.php/welcome/load_calendar
+                 public function load_calendar()
+                 {
+                        $this->user_model->login();  //for checklogin
+                        $this->load->view("load_calendar"); 
+                     
+                 }
+                 
 
                 #http://10.87.196.170/document3/index.php/welcome/call_name_user
                  public  function call_name_user()
@@ -198,16 +209,28 @@ class Welcome extends CI_Controller {
 
                                      if( $num_rows_ck  < 10  )
                                      {
+                                         
                                           $number_add="ศธ0514.7.1.2.3.4/00".$sum_regis ;
+                                        // $number_add="ศธ 0514.1.61.8.12/00".$sum_regis ;
+                                          
                                      }
                                      else if($num_rows_ck  < 100 )
                                      {
-                                         $number_add="ศธ0514.7.1.2.3.4/0".$sum_regis ;
+                                         
+                                         
+                                              $number_add="ศธ0514.7.1.2.3.4/0".$sum_regis ;
+                                         //  $number_add="ศธ 0514.1.61.8.12/0".$sum_regis ;
+                                         
                                      }
                                     
                                      else
                                      {
+                                         
+                                         
                                         $number_add="ศธ0514.7.1.2.3.4/".$sum_regis ;
+                                       //   $number_add="ศธ 0514.1.61.8.12/".$sum_regis ;
+                                        
+                                        
                                      }
 
                                }
@@ -266,21 +289,28 @@ class Welcome extends CI_Controller {
                                    
                                    if(  $num_rows_ck  <  10  )
                                    {
-                                        $number_add="ศธ0514.7.1.2.3.4.1/00". $sum_regis_int ;
+                                       //$number_add="ศธ0514.7.1.2.3.4.1/00". $sum_regis_int ;
+                                        
+                                        $number_add="ศธ 0514.1.61.8.12/00".$sum_regis_int ;
+                                        
                                    }
                                    elseif( $num_rows_ck  <  100 )
                                    {
-                                         $number_add="ศธ0514.7.1.2.3.4.1/0". $sum_regis_int ;
+                                       //  $number_add="ศธ0514.7.1.2.3.4.1/0". $sum_regis_int ;
+                                         $number_add="ศธ 0514.1.61.8.12/0".$sum_regis_int ;
                                    }
                                   
                                    else
                                    {
-                                      $number_add="ศธ0514.7.1.2.3.4.1/". $sum_regis_int ;
+                                     // $number_add="ศธ0514.7.1.2.3.4.1/". $sum_regis_int ;
+                                        $number_add="ศธ 0514.1.61.8.12/".$sum_regis_int ;
                                    }
                                }
                                else
                                {
-                                  $number_add="ศธ0514.7.1.2.3.4.1/"."001";
+                                   // $number_add="ศธ0514.7.1.2.3.4.1/"."001";
+                                  
+                                    $number_add="ศธ 0514.1.61.8.12/"."001";
                                }
                                  echo   json_encode(array("number_add"=>$number_add));
                 }
@@ -523,7 +553,165 @@ class Welcome extends CI_Controller {
 		 $this->load->view("home",$data);
 	}
 
+        
+    //http://10.87.196.170/document3/index.php/welcome/search_special_calendar 
+    public function search_special_calendar() //ค้นหา วัน-เดือน-ปี แบบพิเศษ
+    {
+          $this->user_model->login();  //for checklogin
+           $sr2_id_academic=  $this->input->get_post("sr2_id_academic");  //ชื่อ อาจารย์
+         // echo br();
+            $sr_date_calendar =   $this->input->get_post("sr_date_calendar");  //วัน
+          //echo br();
+        
+         // echo br();
+         $sr_monht_calendar =  $this->input->get_post("sr_monht_calendar");  //เดือน
+      //  echo br();
+        
+           $sr_year_calendar=$this->input->get_post("sr_year_calendar");   //ปี
+        // echo br();
+         
+         $conv_year_calendar = $sr_year_calendar - 543;
+           $conv_year_calendar;
+        // echo br();
+          
+          
+          $tb="tb_calendar";
+          //tb_calendar     id_academic
+          
+          //`tb_academic`   id_academic
+          $tbj1="tb_academic";
+          
+           $begin_date=  $conv_year_calendar."-1-1";
+         // echo br();
+          $end_date= $conv_year_calendar."-11-31";
+         // echo br();
+          
+          
+          //ระบุแค่อาจารย์
+          if(  $sr2_id_academic   >  0  &&    $sr_date_calendar  == 0  &&   $sr_monht_calendar  == 0   )
+          { //if
+         // $q=$this->db->get_where($tb,array("id_academic"=>$sr2_id_academic));
+              //begin_date
+              //end_date
+              
+             
+                
+                
+                 $this->db->where($tb.".begin_date >= ", $begin_date);  
+                 $this->db->where($tb.".end_date <= ", $end_date);  
+                 $this->db->where($tb.".id_academic = ", $sr2_id_academic);  
+                 
+                 $this->db->join($tbj1,$tb.".id_academic=". $tbj1.".id_academic","left");
+               
+                 
+                 
+                      $q=$this->db->get($tb);
+                     
+                      
+                    $num=$q->num_rows();
+                             if(  $num > 0  )
+                             {
+                                       foreach($q->result() as $row)
+                                       {
 
+                                             $rows[]=$row;
+                                       }
+                                         echo  json_encode($rows);
+                             }
+          } //end if
+          elseif(  $sr2_id_academic   >  0  &&    $sr_date_calendar  == 0  &&   $sr_monht_calendar  > 0    )  //ไม่ระบุวัน ระบุแค่เดือน
+          {
+               //  $this->db->where("begin_date  = ",$begin_date);  
+                $begin_date=$conv_year_calendar."-". $sr_monht_calendar."-1";
+                //echo br();
+                  $end_date=$conv_year_calendar."-". $sr_monht_calendar."-31";
+               // echo br();
+                  
+                  //
+                
+                 $this->db->where($tb.".begin_date >= ",  $begin_date);  
+                 $this->db->where($tb.".end_date <= ",  $end_date);  
+                // $this->db->where("end_date <= ",$end_date);  
+                 $this->db->where($tb.".id_academic = ",  $sr2_id_academic);  
+                  $this->db->join($tbj1,$tb.".id_academic=".$tbj1.".id_academic","left");
+               
+                 
+                 
+                    $q=$this->db->get($tb);
+  $num=$q->num_rows();
+                   if(  $num > 0  )
+                             {
+                                       foreach($q->result() as $row)
+                                       {
+
+                                             $rows[]=$row;
+                                       }
+                                         echo  json_encode($rows);
+                             }  
+          }
+          elseif(  $sr2_id_academic   >  0  &&    $sr_date_calendar  >  0  &&   $sr_monht_calendar  > 0   ) //ระบุทุกอย่าง
+          {
+               $begin_date= $conv_year_calendar."-".$sr_monht_calendar."-".$sr_date_calendar;
+               
+                  
+                     
+                     
+                 $this->db->where($tb.".begin_date = ", $begin_date ); 
+                     $this->db->where($tb.".id_academic = ", $sr2_id_academic);  
+                     $this->db->join($tbj1,$tb.".id_academic=".$tbj1.".id_academic","left");   
+                 
+                       
+                     $q=$this->db->get($tb);
+                    $num=$q->num_rows();
+                       if(  $num > 0  )
+                             {
+                                       foreach($q->result() as $row)
+                                       {
+
+                                             $rows[]=$row;
+                                       }
+                                         echo  json_encode($rows);
+                             } 
+
+          }
+          elseif(  $sr2_id_academic   >  0   &&    $sr_date_calendar  >  0    &&   $sr_monht_calendar  == 0   )  //ถ้ามีการระบุแค่วัน
+          {
+              //  $this->db->where("begin_date = ", $begin_date ); 
+              // $begin_date= $conv_year_calendar."-".$sr_monht_calendar."-".$sr_date_calendar;
+               for($i=1;$i<=12;$i++)
+               {
+                   //  $this->db->where("begin_date = ", $begin_date );  
+                    $conv_begin_date=  $conv_year_calendar."-".$i."-".$sr_date_calendar;
+                  //  echo  br();
+                    
+                   
+                       
+                       
+                    $this->db->where($tb.".begin_date = ", $conv_begin_date ); 
+                    $this->db->where($tb.".id_academic = ",$sr2_id_academic);  
+                     $this->db->join($tbj1,$tb.".id_academic=".$tbj1.".id_academic","left"); 
+                   
+                      
+                    $q=$this->db->get($tb);
+                       $num=$q->num_rows(); 
+                      if(  $num > 0  )
+                             {
+                                       foreach($q->result() as $row)
+                                       {
+
+                                             $rows[]=$row;
+                                       }
+                                         echo  json_encode($rows);
+                             } 
+               } //end for
+                
+          }
+          
+          
+          
+              
+          
+    }
 
 
 	//http://10.87.196.170/document2/index.php/welcome/json_academic
@@ -562,14 +750,17 @@ class Welcome extends CI_Controller {
               }     
         }
         
-         //http://10.87.196.170/document3/index.php/welcome/call_date_calendar
+  //http://10.87.196.170/document3/index.php/welcome/call_date_calendar
 public  function call_date_calendar()
 {
       $this->user_model->login();  //for checklogin
       $tb1="tb_calendar";
       $tb2="tb_academic";
+      $tb3="tb_activities";
 
       $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+      $this->db->join($tb3,$tb1.".activities=".$tb3.".id_activities","left");
+       
       $query=$this->db->get($tb1);
       foreach($query->result() as $row)
       {
@@ -579,6 +770,167 @@ public  function call_date_calendar()
 
 }
 
+    //http://10.87.196.170/document3/index.php/welcome/search_calendar
+     public function search_calendar() //ค้นหา จากตัวบุคคล
+     {
+          $this->user_model->login();  //for checklogin
+             $sr_id_academic=trim($this->input->get_post("sr_id_academic"));
+            //echo br();
+             $sr_activities=trim($this->input->get_post("sr_activities"));
+             // echo br();
+              $sr_begin_date=trim($this->input->get_post("sr_begin_date"));
+             // echo br();
+              
+             // $tb="tb_calendar";
+                    $tb1="tb_calendar";
+                    $tb2="tb_academic";
+                    $tb3="tb_activities";
+                    
+              if(   $sr_id_academic  >  0  &&  $sr_activities == ""  &&   $sr_begin_date == ""  )
+              {
+                    $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                    $this->db->join($tb3,$tb1.".activities=".$tb3.".id_activities","left");
+                    $q=$this->db->get_where($tb1,array($tb1.".id_academic"=>$sr_id_academic));   
+                    $num=$q->num_rows();
+                    if( $num > 0 )
+                    {
+                          //echo json_encode(array("success"=>1));
+                        //  $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                       //   $query=$this->db->get($tb1);
+                          foreach($q->result() as $row)
+                          {
+                              $rows[]=$row;
+                          }
+                            echo json_encode($rows);
+                    } 
+              }
+              
+              
+              else if( $sr_activities != ""  &&    $sr_id_academic == ""  &&   $sr_begin_date == ""   )
+              {
+                  
+                       $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                       $this->db->join($tb3,$tb1.".activities=".$tb3.".id_activities","left");
+                       $q=$this->db->get_where($tb1,array($tb1.".activities"=>$sr_activities));
+                       $num=$q->num_rows();
+                       if( $num > 0 )
+                       {
+                          //echo json_encode(array("success"=>1));
+                        //  $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                       //   $query=$this->db->get($tb1);
+                          foreach($q->result() as $row)
+                          {
+                              $rows[]=$row;
+                          }
+                            echo json_encode($rows);
+                         } 
+                   
+                   
+              }
+              else if( $sr_activities == ""  &&    $sr_id_academic == ""  &&   $sr_begin_date  != ""   )
+              {
+                  
+                      //echo   $sr_begin_date;  // 10/28/2017
+                       $ex = explode("/",$sr_begin_date);
+                       $conv_begin_date =$ex[2]."-".$ex[0]."-".$ex[1];
+                       
+                       
+                       $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                       $this->db->join($tb3,$tb1.".activities=".$tb3.".id_activities","left");
+                       $q=$this->db->get_where($tb1,array($tb1.".begin_date"=>$conv_begin_date));
+                       $num=$q->num_rows();
+                        if( $num > 0 )
+                       {
+                          //echo json_encode(array("success"=>1));
+                        //  $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                       //   $query=$this->db->get($tb1);
+                          foreach($q->result() as $row)
+                          {
+                              $rows[]=$row;
+                          }
+                            echo json_encode($rows);
+                         } 
+                   
+                   
+              }
+              
+             else  if(   $sr_id_academic  >  0  &&  $sr_activities != ""  &&   $sr_begin_date == ""  )
+              {
+                   $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                    $this->db->join($tb3,$tb1.".activities=".$tb3.".id_activities","left");
+                    $q=$this->db->get_where($tb1,array($tb1.".id_academic"=>$sr_id_academic,$tb1.".activities"=>$sr_activities));   
+                    $num=$q->num_rows();
+                    if( $num > 0 )
+                    {
+                          //echo json_encode(array("success"=>1));
+                        //  $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                       //   $query=$this->db->get($tb1);
+                          foreach($q->result() as $row)
+                          {
+                              $rows[]=$row;
+                          }
+                            echo json_encode($rows);
+                    } 
+                   
+               }
+              else  if(   $sr_id_academic  >  0  &&  $sr_activities == ""  &&   $sr_begin_date != ""  )
+              {
+                  
+                      //echo   $sr_begin_date;  // 10/28/2017
+                       $ex = explode("/",$sr_begin_date);
+                       $conv_begin_date =$ex[2]."-".$ex[0]."-".$ex[1];
+                       
+                       
+                       
+                    $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                    $this->db->join($tb3,$tb1.".activities=".$tb3.".id_activities","left");
+                    $q=$this->db->get_where($tb1,array($tb1.".id_academic"=>$sr_id_academic,$tb1.".begin_date"=>$conv_begin_date));   
+                    $num=$q->num_rows();
+                    if( $num > 0 )
+                    {
+                          //echo json_encode(array("success"=>1));
+                        //  $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                       //   $query=$this->db->get($tb1);
+                          foreach($q->result() as $row)
+                          {
+                              $rows[]=$row;
+                          }
+                            echo json_encode($rows);
+                    } 
+                     
+              }
+              else  if(   $sr_id_academic  >  0  &&  $sr_activities != ""  &&   $sr_begin_date != ""  )
+              {
+                  
+                      //echo   $sr_begin_date;  // 10/28/2017
+                       $ex = explode("/",$sr_begin_date);
+                       $conv_begin_date =$ex[2]."-".$ex[0]."-".$ex[1];
+                       
+                       
+                       
+                    $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                    $this->db->join($tb3,$tb1.".activities=".$tb3.".id_activities","left");
+                    $q=$this->db->get_where($tb1,array($tb1.".id_academic"=>$sr_id_academic,$tb1.".begin_date"=>$conv_begin_date,$tb1.".activities"=>$sr_activities));   
+                    $num=$q->num_rows();
+                    if( $num > 0 )
+                    {
+                          //echo json_encode(array("success"=>1));
+                        //  $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                       //   $query=$this->db->get($tb1);
+                          foreach($q->result() as $row)
+                          {
+                              $rows[]=$row;
+                          }
+                            echo json_encode($rows);
+                    } 
+                     
+              }
+               
+             
+               
+              
+         
+     }
 
 
         //http://10.87.196.170/document2/index.php/welcome/call_by_date_calendar
@@ -603,7 +955,11 @@ public  function call_date_calendar()
                    {
                          $tb1="tb_calendar";
                          $tb2="tb_academic";
+                         $tb3="tb_activities";
+                         
                          $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                         $this->db->join($tb3,$tb1.".activities=".$tb3.".id_activities","left");
+                         
                          $query=$this->db->get_where($tb1,array($tb1.".begin_date"=>$conv_begin_date));
                          //echo   $query->num_rows();
                            foreach($query->result() as $row)
@@ -624,7 +980,11 @@ public  function call_date_calendar()
                  
                                         $tb1="tb_calendar";
                                           $tb2="tb_academic";
+                                            $tb3="tb_activities";
+                                            
                                           $this->db->join($tb2,$tb1.".id_academic=".$tb2.".id_academic","left");
+                                           $this->db->join($tb3,$tb1.".activities=".$tb3.".id_activities","left");
+                                           
                                           $query=$this->db->get();
                                           //echo   $query->num_rows();
                                             foreach($query->result() as $row)
@@ -894,6 +1254,28 @@ public  function call_update_calendar()
     
 }
 
+//http://10.87.196.170/document3/index.php/welcome/call_id_update_calendar
+public function call_id_update_calendar()
+{
+     $this->user_model->login();  //for checklogin
+     
+    //id_calendar
+     
+    $id_calendar =trim($this->input->get_post("id_calendar"));
+    $tb1="tb_calendar";
+    
+    $query=$this->db->get_where($tb1,array("id_calendar"=>$id_calendar));
+    foreach($query->result() as $row)
+    {
+        $rows[]=$row;
+    }
+    echo json_encode($rows);
+    
+ 
+}
+
+
+
 
 //http://10.87.196.170/document3/index.php/welcome/json_excellence
 public function json_excellence()  //ศูนย์การดูแล AND excellence
@@ -912,6 +1294,55 @@ public function json_excellence()  //ศูนย์การดูแล AND ex
 			 //echo  json_encode($rows);
 			 echo json_encode($rows);
 }
+
+//http://10.87.196.170/document3/index.php/welcome/search_excellence_date_in  ค้นหาจากวันที่หนังสือเข้าและออก     ศูนย์การดูแลฯ
+ public function search_excellence_date_in()  //ค้นหาจากวันที่หนังสือเข้าและออก     ศูนย์การดูแลฯ
+         {
+                 $this->user_model->login();  //for checklogin
+               //  $date_book=trim($this->input->get_post("date_book")); //11/08/2017<br />
+                 
+                 
+                 
+                  $date_book=trim($this->input->get_post("date")); //11/08/2017<br />
+                if(   strlen(   $date_book  )  >  0 )
+                {
+                       $ex=explode("/",$date_book);
+                       $conv_date=   $ex[2]."-".$ex[0]."-".$ex[1];
+                }
+                else{
+                    
+                        $conv_date=  "";
+                }
+                
+                   $type_record=3;  //ของจริง
+                 //  $type_record=2; //simulate
+                //echo br();
+                
+                   $type_document=trim($this->input->get_post("type_document")); 
+                // echo br();
+                 
+                   
+             
+                $tb=$this->tb;
+               
+                 $q=$this->db->get_where($tb,array("date"=> $conv_date, "type_record"=>$type_record, "type_document"=>$type_document  ));  // ของจริง
+               //  $q=$this->db->get($tb,10);
+                 $num=$q->num_rows();
+                
+                
+                if( $num > 0 ) //พบการค้นหา
+               { 
+                                foreach($q->result() as $row)
+                                {
+                                    $rows[]=$row;
+                                }
+                                  echo  json_encode($rows);
+                }
+                
+     
+                
+
+         }
 
  public function search_excellence2()
         { //begin function
@@ -967,8 +1398,14 @@ public function json_excellence()  //ศูนย์การดูแล AND ex
                       {
                               // $str="  SELECT   *  FROM  $tb  WHERE   `date`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";  //ของเดิม
                                //date_record
-                              $str="  SELECT   *  FROM  $tb  WHERE   `date_record`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";  //ของใหม่วันที่ลงรับเอกสาร
-                               
+                          
+                          
+                          //    $str="  SELECT   *  FROM  $tb  WHERE   `date_record`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";  //ของใหม่วันที่ลงรับเอกสาร  //ของเดิม
+                           
+                     
+                                         $str="  SELECT   *  FROM  $tb  WHERE   `date`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";  //ของใหม่วันที่ลงรับเอกสาร
+                   
+                              
                                $query=$this->db->query( $str);
                                $num=$query->num_rows();
                                  if( $num > 0 )
@@ -1399,15 +1836,17 @@ public function search_excellence()
                             $this->load->view("export",$data);
                     }
 
-
+                     //  http://10.87.196.170/document3/index.php/welcome/export_data2/2/2/11/01/2017
                        public function export_data2()// //ระบุแค่วันที่
                         {
                              $this->user_model->login();  //for checklogin
                              $this->db->order_by("id_main1","DESC");
 
                                 header('Content-Type: text/html; charset=utf-8');
-                                $type_record=trim($this->uri->segment(3));
-
+                           
+                               $type_record=trim($this->uri->segment(3));
+                               // echo br();
+                                
                                 $type_document=trim($this->uri->segment(4));
 
 
@@ -1422,14 +1861,33 @@ public function search_excellence()
                                    $y=trim($this->uri->segment(7));
                                    $conv_date=$y."-".$m."-".$d;
 
+                                  //echo   $conv_date;
+                                //   echo br();
+                                   
+                                   
 
-                               if(  strlen($conv_date) >  2  )
+                              if(  strlen($conv_date) >  2  )
                                {
+                                   
+                                   
                              $tb= $this->tb;
-                             $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"date"=>$conv_date));
+                             
+                            // $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"date_record"=>$conv_date)); //ของเดิม
+                             
+                             
+                             $data["q"]=$this->db->get_where($tb,array("type_record"=>$type_record,"type_document"=>$type_document,"date"=>$conv_date)); //ปรับใหม่เอาวันที่ลงในระบบ
+                             
+                             //date
+                             
+                             
+                             
                    $data["title"]=$this->title;
                    $this->load->view("export",$data);
+                   
+                   
                                }
+                   
+                   
 
                         }
 
@@ -1487,6 +1945,47 @@ public function search_excellence()
                                     
 
                         }
+                        
+                    //http://10.87.196.170/document3/index.php/welcome/export_dataALL/01/10/2018    
+                    public function export_dataALL()// //ระบุการค้นหาข้อมูลทั้งหมด
+                    {
+                        
+                             $this->user_model->login();  //for checklogin
+                             $this->db->order_by("id_main1","DESC");
+
+                             header('Content-Type: text/html; charset=utf-8');
+                             $tb= $this->tb;
+
+
+                             /*
+                                   $m=trim($this->uri->segment(3));
+                                   $d=trim($this->uri->segment(4));
+                                   $y=trim($this->uri->segment(5));
+                                   $conv_date=$y."-".$m."-".$d;
+                              if(  strlen($conv_date) >  2  )
+                               {
+                                         $tb= $this->tb;
+                                         $data["q"]=$this->db->get_where($tb,array("date"=>$conv_date)); //ปรับใหม่เอาวันที่ลงในระบบ
+                                         $data["title"]=$this->title;
+                                         $this->load->view("export",$data);
+                   
+                               }
+                              */
+                             
+                             
+                             $id_main1=$this->uri->segment(3);
+                             if( $id_main1 > 0 )
+                             {
+                                         $data["q"]=$this->db->get_where($tb,array("id_main1"=> $id_main1)); //ปรับใหม่เอาวันที่ลงในระบบ
+                                         $data["title"]=$this->title;
+                                         $this->load->view("export",$data);
+                             }
+                               
+                               
+                               
+                               
+                    }
+                        
 
                 //http://10.87.196.170/document2/index.php/welcome/update_tb_main1_3
                 public function delete_tb_main1_3()
@@ -2149,8 +2648,13 @@ $data=array(
                       {
                              //  $str="  SELECT   *  FROM  $tb  WHERE   `date`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";
                               //date_record
-                                 $str="  SELECT   *  FROM  $tb  WHERE   `date_record`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";
-                               $query=$this->db->query( $str);
+                          
+                          
+                                // $str="  SELECT   *  FROM  $tb  WHERE   `date_record`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    "; //ของเดิม
+                             
+                                   $str="  SELECT   *  FROM  $tb  WHERE   `date`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    "; //ปรับใหม่ตามยุ้ย 7-3-2561
+                                 
+                                 $query=$this->db->query( $str);
                                $num=$query->num_rows();
                                  if( $num > 0 )
                                     {
@@ -2249,6 +2753,60 @@ $data=array(
                        
                  
                }
+               
+        //------------------- ค้นหาจาก วันที่ลงรับหนังสือ       
+                public function search_research_date_in()  //ค้นหาจากวันที่หนังสือเข้าและออก     ศูนย์การดูแลฯ
+         {
+                 $this->user_model->login();  //for checklogin
+               //  $date_book=trim($this->input->get_post("date_book")); //11/08/2017<br />
+                 
+                 
+                 
+                  $date_book=trim($this->input->get_post("date_research")); //11/08/2017<br />
+                if(   strlen(   $date_book  )  >  0 )
+                {
+                       $ex=explode("/",$date_book);
+                       $conv_date=   $ex[2]."-".$ex[0]."-".$ex[1];
+                }
+                else{
+                    
+                        $conv_date=  "";
+                }
+                
+               // echo    $conv_date;
+               // echo br();
+                
+                  $type_record=2;  //ของจริง
+             
+         
+                
+                   $type_document=trim($this->input->get_post("type_document_research")); 
+                // echo br();
+                 
+                   
+             
+                $tb=$this->tb;
+               
+                $q=$this->db->get_where($tb,array("date"=> $conv_date, "type_record"=>$type_record, "type_document"=>$type_document  ));  // ของจริง
+               // $q=$this->db->get($tb,10);
+                 $num=$q->num_rows();
+                
+                
+                if( $num > 0 ) //พบการค้นหา
+               { 
+                                foreach($q->result() as $row)
+                                {
+                                    $rows[]=$row;
+                                }
+                                  echo  json_encode($rows);
+                }
+                
+     
+                
+
+         }
+               
+               
 
 
         //http://10.87.196.170/document2/index.php/welcome/home/search_research
@@ -3004,6 +3562,56 @@ $data=array(
         }
 
         
+        
+        public function search_foundation_date_in()  //ค้นหาจากวันที่หนังสือเข้าและออก     ศูนย์การดูแลฯ
+         {
+                 $this->user_model->login();  //for checklogin
+               //  $date_book=trim($this->input->get_post("date_book")); //11/08/2017<br />
+                 
+                 
+                 
+                  $date_book=trim($this->input->get_post("date_foundation")); //11/08/2017<br />
+                if(   strlen(   $date_book  )  >  0 )
+                {
+                       $ex=explode("/",$date_book);
+                       $conv_date=   $ex[2]."-".$ex[0]."-".$ex[1];
+                }
+                else{
+                    
+                        $conv_date=  "";
+                }
+                
+                 $type_record=1;  //ของจริง
+                 //  $type_record=2; //simulate
+                //echo br();
+                
+                   $type_document=trim($this->input->get_post("type_document_foundation")); 
+                // echo br();
+                 
+                   
+             
+                $tb=$this->tb;
+               
+                 $q=$this->db->get_where($tb,array("date"=> $conv_date, "type_record"=>$type_record, "type_document"=>$type_document  ));  // ของจริง
+               //  $q=$this->db->get($tb,10);
+                 $num=$q->num_rows();
+                
+                
+                if( $num > 0 ) //พบการค้นหา
+               { 
+                                foreach($q->result() as $row)
+                                {
+                                    $rows[]=$row;
+                                }
+                                  echo  json_encode($rows);
+                }
+                
+     
+                
+
+         }
+        
+        
         public function  search_foundation2()
         {
               $this->user_model->login();  //for checklogin
@@ -3055,8 +3663,13 @@ $data=array(
                       {
                              //  $str="  SELECT   *  FROM  $tb  WHERE   `date`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";
                                //date_record
-                                  $str="  SELECT   *  FROM  $tb  WHERE   `date_record`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";
+                          
+                          
+                                //  $str="  SELECT   *  FROM  $tb  WHERE   `date_record`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";
                                
+                                    $str="  SELECT   *  FROM  $tb  WHERE   `date`='$conv_date'   AND   `type_record`=$type_record   AND   `type_document`=$type_document    ";   
+                                  
+                                  
                                $query=$this->db->query( $str);
                                $num=$query->num_rows();
                                  if( $num > 0 )
@@ -5020,18 +5633,26 @@ $data=array(
 
 
                                 $tb=$this->tb_vacation;
-                                $ck_insert=$this->db->insert($tb,$data); //ตรวจสอบการ insert
-                                //$ck_insert=1;
+                               $ck_insert=$this->db->insert($tb,$data); //ตรวจสอบการ insert
+                            // echo br();
+                             //   $ck_insert=1;
+                                
                               //  $ck_insert=0;
+                                
+                       
+                                 
+                                 
                                 if(  $ck_insert    )
                                    {
-                                                   echo 1;
+                                                     $id_vacation =  $this->db->insert_id();
+                                                     echo json_encode(array("success"=>1,"id_vacation"=>$id_vacation));
+                              
                                    }
                                    else
                                    {
-                                                  echo 0;
+                                                     echo json_encode(array("success"=>0));
                                    }
-
+                                
 
 
 
@@ -6192,6 +6813,30 @@ $data=array(
 
 
      }
+     
+     //-- รายการค้นหาทั้งหมดทั้ง 3 function
+     function searchall3function()
+     {
+         
+         $to=trim($this->input->get_post("txt_sr_to"));
+         $tb=$this->tb;
+        // echo br();
+       //  echo $tb;
+         
+         $this->db->like('to',$to);
+         $query=$this->db->get( $tb,20);
+         $num = $query->num_rows();
+         if( $num > 0 )
+         {
+              foreach($query->result() as $row)
+              {
+                  $rows[]=$row;
+              }
+              echo json_encode($rows);
+         }
+         
+     }
+     
 
 
 
